@@ -54,7 +54,15 @@ Cypress.Commands.add('login', (provider?: string, username?: string, password?: 
     cy.clearCookie('openshift-session-token');
 
     const idp = provider || KUBEADMIN_IDP;
-    cy.contains(idp, { timeout: TIMEOUT_VISIT_PAGE }).should('be.visible').click();
+
+    cy.get('.pf-c-login__main-body', { timeout: TIMEOUT_VISIT_PAGE }).should('be.visible');
+
+    cy.get('body').then(($body) => {
+      if ($body.text().includes(idp)) {
+        cy.contains(idp).should('be.visible').click();
+      }
+    });
+
     cy.get('#inputUsername').type(username || KUBEADMIN_USERNAME);
     cy.get('#inputPassword').type(password || Cypress.env('KUBEADMIN_PASSWORD'));
     cy.get(submitButton).click();
