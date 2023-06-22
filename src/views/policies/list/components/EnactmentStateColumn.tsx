@@ -1,6 +1,6 @@
-import React from 'react';
-import { EnactmentStatuses } from 'src/policies/constants';
+import React, { FC } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
+import { EnactmentStatuses } from 'src/views/policies/constants';
 
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import { Button, ButtonVariant, Stack, StackItem } from '@patternfly/react-core';
@@ -16,7 +16,7 @@ type NNCPStateColumnProps = {
   onStateClick: (state: EnactmentStatuses) => void;
 };
 
-const NNCPStateColumn: React.FC<NNCPStateColumnProps> = ({ enactments, onStateClick }) => {
+const NNCPStateColumn: FC<NNCPStateColumnProps> = ({ enactments, onStateClick }) => {
   const { t } = useNMStateTranslation();
 
   const { available, pending, failing, progressing, aborted } = categorizeEnactments(enactments);

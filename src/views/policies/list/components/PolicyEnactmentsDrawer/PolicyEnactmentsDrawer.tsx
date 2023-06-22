@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { EnactmentStatuses } from 'src/policies/constants';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
+import { EnactmentStatuses } from 'src/views/policies/constants';
 
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
@@ -27,7 +27,7 @@ type PolicyEnactmentsDrawerProps = {
   enactments: V1beta1NodeNetworkConfigurationEnactment[];
 };
 
-const PolicyEnactmentsDrawer: React.FC<PolicyEnactmentsDrawerProps> = ({
+const PolicyEnactmentsDrawer: FC<PolicyEnactmentsDrawerProps> = ({
   selectedPolicy,
   selectedState,
   onClose,
@@ -82,7 +82,7 @@ const PolicyEnactmentsDrawer: React.FC<PolicyEnactmentsDrawerProps> = ({
 
   return (
     <Modal
-      aria-label="Template drawer"
+      aria-label="Policy enactments drawer"
       className="ocs-modal co-catalog-page__overlay co-catalog-page__overlay--right policy-enactments-drawer"
       isOpen={!!selectedPolicy}
       onClose={onClose}
