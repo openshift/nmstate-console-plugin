@@ -3,28 +3,31 @@ import React, { FC, memo, useState } from 'react';
 import {
   Button,
   ButtonVariant,
+  Checkbox,
   ExpandableSectionToggle,
   List,
   ListItem,
   Tooltip,
 } from '@patternfly/react-core';
+import { LongArrowAltDownIcon, LongArrowAltUpIcon } from '@patternfly/react-icons';
 import { Td, Tr } from '@patternfly/react-table';
-import { NodeNetworkConfigurationInterface } from '@types';
+import { NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
 
-import { useDrawerContext } from '../contexts/DrawerContext';
+import useDrawerInterface from '../hooks/useDrawerInterface';
 
 import './interfaces-table.scss';
 
 interface InterfacesTypeSectionProps {
   interfaces: NodeNetworkConfigurationInterface[];
   interfaceType: string;
+  nodeNetworkState: V1beta1NodeNetworkState;
 }
 
 const InterfacesTypeSection: FC<InterfacesTypeSectionProps> = memo(
-  ({ interfaceType, interfaces }) => {
+  ({ interfaceType, interfaces, nodeNetworkState }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const { setSelectedInterface } = useDrawerContext();
+    const { setSelectedInterfaceName } = useDrawerInterface();
 
     return (
       <>
@@ -34,6 +37,7 @@ const InterfacesTypeSection: FC<InterfacesTypeSectionProps> = memo(
               isExpanded={isExpanded}
               onToggle={setIsExpanded}
               className="expandable-section-interface-type"
+              data-test={`${interfaceType}-expandable-section-toggle`}
             >
               {interfaceType}
             </ExpandableSectionToggle>
@@ -42,16 +46,27 @@ const InterfacesTypeSection: FC<InterfacesTypeSectionProps> = memo(
 
         {interfaces.map((iface) => {
           const address = iface.ipv4?.address || iface.ipv6?.address;
+          const Icon =
+            iface.state.toLowerCase() === 'up' ? LongArrowAltUpIcon : LongArrowAltDownIcon;
 
           return (
-            <Tr key={iface.name} isExpanded={isExpanded}>
-              <Td className="pf-m-width-20">
-                <Button variant={ButtonVariant.link} onClick={() => setSelectedInterface(iface)}>
+            <Tr
+              key={iface.name}
+              isExpanded={isExpanded}
+              className="interfaces-table__interfaces-expandable-row"
+            >
+              <Td className="pf-m-width-30">
+                <Button
+                  variant={ButtonVariant.link}
+                  onClick={() => setSelectedInterfaceName(nodeNetworkState, iface)}
+                  data-test={`${interfaceType}-${iface.name}-open-drawer`}
+                >
                   {iface.name}
+                  <Icon color="black" className="pf-u-mr-sm" />
                 </Button>
               </Td>
               <Td>
-                {address ? (
+                {address?.[0] ? (
                   <>
                     {address?.[0]?.ip}/{address?.[0]?.['prefix-length']}
                   </>
@@ -77,7 +92,13 @@ const InterfacesTypeSection: FC<InterfacesTypeSectionProps> = memo(
                 )}
               </Td>
               <Td>{iface?.['mac-address'] || '-'}</Td>
-              <Td>-</Td>
+              <Td>
+                <Checkbox
+                  id={`lldp-enabled-${interfaceType}-${iface.name}`}
+                  isDisabled
+                  isChecked={iface.lldp?.enabled}
+                />
+              </Td>
               <Td>{iface?.mtu || '-'}</Td>
             </Tr>
           );

@@ -38,7 +38,7 @@ type HandleSelectChange = SelectProps['onSelect'];
 
 type PolicyInterfaceProps = {
   id: number;
-  editForm?: boolean;
+  createdInterface?: boolean;
   policyInterface?: NodeNetworkConfigurationInterface;
   onInterfaceChange?: (updateInterface: onInterfaceChangeType) => void;
 };
@@ -47,7 +47,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
   id,
   policyInterface,
   onInterfaceChange,
-  editForm = true,
+  createdInterface = true,
 }) => {
   const { t } = useNMStateTranslation();
   const [isStateOpen, setStateOpen] = useState(false);
@@ -67,13 +67,23 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
     onInterfaceChange((draftInterface) => {
       draftInterface.type = newType as InterfaceType;
 
-      if (newType === InterfaceType.LINUX_BRIDGE) draftInterface.bridge = { port: [], options: {} };
+      if (newType === InterfaceType.LINUX_BRIDGE) {
+        delete draftInterface['link-aggregation'];
+        draftInterface.bridge = { port: [], options: {} };
+      }
 
-      if (newType === InterfaceType.BOND)
+      if (newType === InterfaceType.BOND) {
+        delete draftInterface.bridge;
         draftInterface['link-aggregation'] = {
           mode: NodeNetworkConfigurationInterfaceBondMode.BALANCE_RR,
           port: [],
         };
+      }
+
+      if (newType === InterfaceType.ETHERNET) {
+        delete draftInterface.bridge;
+        delete draftInterface['link-aggregation'];
+      }
     });
     setTypeOpen(false);
   };
@@ -134,6 +144,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
       draftInterface['link-aggregation'].mode =
         aggregationMode as NodeNetworkConfigurationInterfaceBondMode;
     });
+    setAggregationOpen(false);
   };
 
   const onPortChange = (value: string) => {
@@ -167,7 +178,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
           name={`policy-interface-name-${id}`}
           value={policyInterface?.name}
           onChange={handleNameChange}
-          isDisabled={editForm}
+          isDisabled={createdInterface}
         />
       </FormGroup>
       <FormGroup
@@ -201,7 +212,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
           onSelect={handleTypechange}
           variant={SelectVariant.single}
           selections={policyInterface?.type}
-          isDisabled={editForm}
+          isDisabled={createdInterface}
         >
           {Object.entries(INTERFACE_TYPE_OPTIONS).map(([key, value]) => (
             <SelectOption key={key} value={key}>
@@ -223,8 +234,8 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
               <FlexItem>
                 <Radio
                   label={t('IP address')}
-                  name="ip-or-dhcp"
-                  id="ip"
+                  name={`ip-or-dhcp-${id}`}
+                  id={`ip-${id}`}
                   isChecked={!policyInterface?.ipv4?.dhcp}
                   onChange={() => onAddressChange('')}
                 />
@@ -233,8 +244,8 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
               <FlexItem>
                 <Radio
                   label={t('DHCP')}
-                  name="ip-or-dhcp"
-                  id="dhcp"
+                  name={`ip-or-dhcp-${id}`}
+                  id={`dhcp-${id}`}
                   isChecked={policyInterface?.ipv4?.dhcp}
                   onChange={onDHCPChange}
                 />
@@ -268,7 +279,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
                     onPrefixChange(policyInterface.ipv4.address[0]['prefix-length'] + 1)
                   }
                   min={0}
-                  max={64}
+                  max={32}
                 />
               </FormGroup>
             </>
@@ -279,7 +290,10 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
               <Checkbox
                 label={t('Auto-DNS')}
                 id={`policy-interface-dns-${id}`}
-                isChecked={policyInterface?.ipv4[AUTO_DNS]}
+                isChecked={
+                  policyInterface?.ipv4[AUTO_DNS] === true ||
+                  policyInterface?.ipv4[AUTO_DNS] === undefined
+                }
                 onChange={(checked) =>
                   onInterfaceChange((draftInterface) => (draftInterface.ipv4[AUTO_DNS] = checked))
                 }
@@ -287,7 +301,10 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
               <Checkbox
                 label={t('Auto-routes')}
                 id={`policy-interface-routes-${id}`}
-                isChecked={policyInterface?.ipv4[AUTO_ROUTES]}
+                isChecked={
+                  policyInterface?.ipv4[AUTO_ROUTES] === true ||
+                  policyInterface?.ipv4[AUTO_ROUTES] === undefined
+                }
                 onChange={(checked) =>
                   onInterfaceChange(
                     (draftInterface) => (draftInterface.ipv4[AUTO_ROUTES] = checked),
@@ -297,7 +314,10 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
               <Checkbox
                 label={t('Auto-gateway')}
                 id={`policy-interface-gateway-${id}`}
-                isChecked={policyInterface?.ipv4[AUTO_GATEWAY]}
+                isChecked={
+                  policyInterface?.ipv4[AUTO_GATEWAY] === true ||
+                  policyInterface?.ipv4[AUTO_GATEWAY] === undefined
+                }
                 onChange={(checked) =>
                   onInterfaceChange(
                     (draftInterface) => (draftInterface.ipv4[AUTO_GATEWAY] = checked),
@@ -308,31 +328,33 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
           )}
         </div>
       </FormGroup>
-      <FormGroup
-        label={t('Port')}
-        fieldId={`policy-interface-port-${id}`}
-        helperText={
-          policyInterface.type === InterfaceType.BOND && t('Use commas to separate between ports')
-        }
-      >
-        <TextInput
-          value={
-            policyInterface?.bridge?.port?.[0]?.name ||
-            policyInterface?.['link-aggregation']?.port.join(',')
-          }
-          type="text"
-          id={`policy-interface-port-${id}`}
-          onChange={onPortChange}
-        />
-      </FormGroup>
 
+      {policyInterface.type !== InterfaceType.ETHERNET && (
+        <FormGroup
+          label={t('Port')}
+          fieldId={`policy-interface-port-${id}`}
+          helperText={
+            policyInterface.type === InterfaceType.BOND && t('Use commas to separate ports')
+          }
+        >
+          <TextInput
+            value={
+              policyInterface?.bridge?.port?.[0]?.name ||
+              policyInterface?.['link-aggregation']?.port.join(',')
+            }
+            type="text"
+            id={`policy-interface-port-${id}`}
+            onChange={onPortChange}
+          />
+        </FormGroup>
+      )}
       {policyInterface.type === InterfaceType.LINUX_BRIDGE && (
         <FormGroup fieldId={`policy-interface-stp-${id}`}>
           <Checkbox
             label={
               <Text>
                 {t('Enable STP')}{' '}
-                {editForm && (
+                {createdInterface && (
                   <Popover
                     aria-label={'Help'}
                     bodyContent={() => <div>{t('Edit the STP in the YAML file')}</div>}
@@ -345,7 +367,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
             id={`policy-interface-stp-${id}`}
             isChecked={policyInterface?.bridge?.options?.stp?.enabled}
             onChange={onSTPChange}
-            isDisabled={editForm}
+            isDisabled={createdInterface}
           />
         </FormGroup>
       )}
@@ -372,7 +394,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
               selections={policyInterface?.['link-aggregation']?.mode}
             >
               {Object.entries(NodeNetworkConfigurationInterfaceBondMode).map(([key, value]) => (
-                <SelectOption key={key} value={key}>
+                <SelectOption key={key} value={value}>
                   {value}
                 </SelectOption>
               ))}
