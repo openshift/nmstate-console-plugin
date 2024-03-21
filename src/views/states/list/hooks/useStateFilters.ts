@@ -3,7 +3,7 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { RowFilter } from '@openshift-console/dynamic-plugin-sdk';
 import { InterfaceType, NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
 
-import { FILTER_TYPES } from '../constants';
+import { FILTER_TYPES, LLDP_DISABLED, LLDP_ENABLED } from '../constants';
 import { searchInterfaceByIP } from '../utilts';
 
 const useStateFilters = (): RowFilter<V1beta1NodeNetworkState>[] => {
@@ -24,6 +24,32 @@ const useStateFilters = (): RowFilter<V1beta1NodeNetworkState>[] => {
       isMatch: () => true,
       filterGroupName: t('Search IP address'),
       items: [],
+    },
+    {
+      filterGroupName: t('LLDP'),
+      type: FILTER_TYPES.LLDP,
+      filter: (selectedIpTypes, obj) => {
+        if (!selectedIpTypes.selected.length) return true;
+        return selectedIpTypes.selected.some((status) =>
+          obj?.status?.currentState?.interfaces.some((iface) =>
+            status === LLDP_ENABLED ? Boolean(iface?.lldp?.enabled) : !iface?.lldp?.enabled,
+          ),
+        );
+      },
+      isMatch: (obj, status) =>
+        obj?.status?.currentState?.interfaces.some((iface) =>
+          status === LLDP_ENABLED ? Boolean(iface?.lldp?.enabled) : !iface?.lldp?.enabled,
+        ),
+      items: [
+        {
+          id: LLDP_ENABLED,
+          title: t('Enabled'),
+        },
+        {
+          id: LLDP_DISABLED,
+          title: t('Disabled'),
+        },
+      ],
     },
     {
       filterGroupName: t('Interface state'),

@@ -1,6 +1,6 @@
 import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 
-import { FILTER_TYPES } from '../constants';
+import { FILTER_TYPES, LLDP_ENABLED } from '../constants';
 import { searchInterfaceByIP } from '../utilts';
 
 export const interfaceFilters: Record<
@@ -23,6 +23,12 @@ export const interfaceFilters: Record<
     const searchIPAddress = selectedInput?.[0];
 
     return searchInterfaceByIP(searchIPAddress, obj);
+  },
+  [FILTER_TYPES.LLDP]: (selectedInput, obj) => {
+    if (!selectedInput.length) return true;
+    return selectedInput.some((status) =>
+      status === LLDP_ENABLED ? Boolean(obj?.lldp?.enabled) : !obj?.lldp?.enabled,
+    );
   },
 } as const;
 
