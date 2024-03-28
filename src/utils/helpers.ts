@@ -1,6 +1,14 @@
-import { K8sModel, K8sResourceCommon } from '@openshift-console/dynamic-plugin-sdk';
+import {
+  AccessReviewResourceAttributes,
+  K8sModel,
+  K8sResourceCommon,
+  K8sVerb,
+} from '@openshift-console/dynamic-plugin-sdk';
 
 import { ALL_NAMESPACES_SESSION_KEY } from './constants';
+
+export const isEmpty = (obj) =>
+  [Array, Object].includes((obj || {}).constructor) && !Object.entries(obj || {}).length;
 
 export const ensurePath = <T extends object>(data: T, paths: string | string[]) => {
   let current = data;
@@ -42,3 +50,30 @@ export const getResourceUrl = (urlProps: ResourceUrlProps): string => {
 
 export const getContentScrollableElement = (): HTMLElement =>
   document.getElementById('content-scrollable');
+
+/**
+ * function to build AccessReviewResourceAttributes from a resource
+ * @param model - k8s model
+ * @param obj - resource
+ * @param verb - verb
+ * @param subresource - subresource
+ * @returns AccessReviewResourceAttributes
+ */
+export const asAccessReview = (
+  model: K8sModel,
+  obj: K8sResourceCommon,
+  verb: K8sVerb,
+  subresource?: string,
+): AccessReviewResourceAttributes => {
+  if (!obj) {
+    return null;
+  }
+  return {
+    group: model.apiGroup,
+    name: obj?.metadata?.name,
+    namespace: obj?.metadata?.namespace,
+    resource: model.plural,
+    subresource,
+    verb,
+  };
+};

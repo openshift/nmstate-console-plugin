@@ -1,14 +1,20 @@
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { RowFilter } from '@openshift-console/dynamic-plugin-sdk';
+import { RowFilter, RowSearchFilter } from '@openshift-console/dynamic-plugin-sdk';
 import { InterfaceType, NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
+import { isEmpty } from '@utils/helpers';
+import { getInterfaces } from '@utils/nns/getters';
 
-import { FILTER_TYPES } from '../constants';
-import { searchInterfaceByIP } from '../utilts';
+import { FILTER_TYPES, LLDP_DISABLED, LLDP_ENABLED } from '../constants';
+import {
+  searchInterfaceByIP,
+  searchInterfaceByLLDPName,
+  searchInterfaceByLLDPSystemName,
+  searchInterfaceByMAC,
+} from '../utilts';
 
-const useStateFilters = (): RowFilter<V1beta1NodeNetworkState>[] => {
+export const useStateSearchFilters = (): RowSearchFilter<V1beta1NodeNetworkState>[] => {
   const { t } = useNMStateTranslation();
-
   return [
     {
       type: FILTER_TYPES.IP_ADDRESS,
@@ -16,28 +22,98 @@ const useStateFilters = (): RowFilter<V1beta1NodeNetworkState>[] => {
         const searchIPAddress = searchText?.selected?.[0];
         if (!searchIPAddress) return true;
 
-        const interfaces = obj?.status?.currentState
-          ?.interfaces as NodeNetworkConfigurationInterface[];
+        const interfaces = getInterfaces(obj);
 
         return interfaces?.some((iface) => searchInterfaceByIP(searchIPAddress, iface));
       },
-      isMatch: () => true,
-      filterGroupName: t('Search IP address'),
-      items: [],
+      filterGroupName: t('IP address'),
+      placeholder: t('Search by IP address...'),
     },
     {
-      filterGroupName: t('Interface state'),
-      type: FILTER_TYPES.INTERFACE_STATE,
-      filter: (selectedIpTypes, obj) => {
-        if (!selectedIpTypes.selected.length) return true;
-        return selectedIpTypes.selected.some((status) =>
-          obj?.status?.currentState?.interfaces.some(
-            (iface) => iface.state.toLowerCase() === status,
+      type: FILTER_TYPES.MAC_ADDRESS,
+      filter: (searchText, obj) => {
+        const searchMACAddress = searchText?.selected?.[0];
+        if (!searchMACAddress) return true;
+
+        const interfaces = getInterfaces(obj);
+
+        return interfaces?.some((iface) => searchInterfaceByMAC(searchMACAddress, iface));
+      },
+      filterGroupName: t('MAC address'),
+      placeholder: t('Search by MAC address...'),
+    },
+    {
+      type: FILTER_TYPES.LLDP_NAME,
+      filter: (searchText, obj) => {
+        const searchLLDPName = searchText?.selected?.[0];
+        if (isEmpty(searchLLDPName)) return true;
+
+        const interfaces = getInterfaces(obj);
+
+        return interfaces?.some((iface) => searchInterfaceByLLDPName(searchLLDPName, iface));
+      },
+      filterGroupName: t('LLDP VLAN name'),
+      placeholder: t('Search by VLAN name...'),
+    },
+    {
+      type: FILTER_TYPES.LLDP_SYSTEM_NAME,
+      filter: (searchText, obj) => {
+        const searchSystemName = searchText?.selected?.[0];
+        if (isEmpty(searchSystemName)) return true;
+
+        const interfaces = getInterfaces(obj);
+
+        return interfaces?.some((iface) =>
+          searchInterfaceByLLDPSystemName(searchSystemName, iface),
+        );
+      },
+      filterGroupName: t('LLDP system name'),
+      placeholder: t('Search by LLDP system name...'),
+    },
+  ];
+};
+
+export const useStateFilters = (): RowFilter<V1beta1NodeNetworkState>[] => {
+  const { t } = useNMStateTranslation();
+
+  return [
+    {
+      filterGroupName: t('LLDP'),
+      type: FILTER_TYPES.LLDP,
+      filter: (selectedLLDPStatus, obj) => {
+        if (isEmpty(selectedLLDPStatus.selected)) return true;
+        return selectedLLDPStatus.selected.some((status) =>
+          getInterfaces(obj).some((iface) =>
+            status === LLDP_ENABLED ? Boolean(iface?.lldp?.enabled) : !iface?.lldp?.enabled,
           ),
         );
       },
       isMatch: (obj, status) =>
-        obj?.status?.currentState?.interfaces.some((iface) => iface.state.toLowerCase() === status),
+        getInterfaces(obj).some((iface) =>
+          status === LLDP_ENABLED ? Boolean(iface?.lldp?.enabled) : !iface?.lldp?.enabled,
+        ),
+      items: [
+        {
+          id: LLDP_ENABLED,
+          title: t('Enabled'),
+        },
+        {
+          id: LLDP_DISABLED,
+          title: t('Disabled'),
+        },
+      ],
+    },
+    {
+      filterGroupName: t('Interface state'),
+      type: FILTER_TYPES.INTERFACE_STATE,
+      filter: (selectedInfaceState, obj) => {
+        if (isEmpty(selectedInfaceState.selected)) return true;
+        return selectedInfaceState.selected.some((status) =>
+          getInterfaces(obj).some((iface) => iface.state.toLowerCase() === status),
+        );
+      },
+      isMatch: (obj, status) =>
+        getInterfaces(obj).some((iface) => iface.state.toLowerCase() === status),
       items: [
         {
           id: 'up',
@@ -53,15 +129,15 @@ const useStateFilters = (): RowFilter<V1beta1NodeNetworkState>[] => {
       filterGroupName: t('Interface type'),
       type: FILTER_TYPES.INTERFACE_TYPE,
       filter: (selectedInterfaceTypes, obj) => {
-        if (!selectedInterfaceTypes.selected.length) return true;
+        if (isEmpty(selectedInterfaceTypes.selected)) return true;
         return selectedInterfaceTypes.selected.some((interfaceType) =>
-          obj?.status?.currentState?.interfaces.some(
+          getInterfaces(obj).some(
             (iface: NodeNetworkConfigurationInterface) => iface.type === interfaceType,
           ),
         );
       },
       isMatch: (obj, interfaceType) =>
-        obj?.status?.currentState?.interfaces.some(
+        getInterfaces(obj).some(
           (iface: NodeNetworkConfigurationInterface) => iface.type === interfaceType,
         ),
       items: [
@@ -79,12 +155,12 @@ const useStateFilters = (): RowFilter<V1beta1NodeNetworkState>[] => {
       filterGroupName: t('IP'),
       type: FILTER_TYPES.IP_FILTER,
       filter: (selectedIpTypes, obj) => {
-        if (!selectedIpTypes.selected.length) return true;
+        if (isEmpty(selectedIpTypes.selected)) return true;
         return selectedIpTypes.selected.some((ipType) =>
-          obj?.status?.currentState?.interfaces.some((i) => !!i[ipType]),
+          getInterfaces(obj).some((i) => !!i[ipType]),
         );
       },
-      isMatch: (obj, ipType) => obj?.status?.currentState?.interfaces.some((i) => !!i[ipType]),
+      isMatch: (obj, ipType) => getInterfaces(obj).some((i) => !!i[ipType]),
       items: [
         {
           id: 'ipv4',
@@ -98,5 +174,3 @@ const useStateFilters = (): RowFilter<V1beta1NodeNetworkState>[] => {
     },
   ];
 };
-
-export default useStateFilters;

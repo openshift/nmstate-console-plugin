@@ -1,4 +1,10 @@
+import {
+  IEE_802_1_VLANS,
+  SYSTEM_NAME,
+} from 'src/nmstate-types/custom-models/NodeNetworkConfigurationInterfaceLLDP';
+
 import { NodeNetworkConfigurationInterface } from '@types';
+import { isEmpty } from '@utils/helpers';
 import { getIPV4Address, getIPV6Address } from '@utils/interfaces/getters';
 
 const decimalToBinary = (decimalNumber: number) => (decimalNumber >>> 0).toString(2);
@@ -37,7 +43,7 @@ export const searchInterfaceByIP = (
   searchIPAddress: string,
   iface: NodeNetworkConfigurationInterface,
 ) => {
-  if (!searchIPAddress) return true;
+  if (isEmpty(searchIPAddress)) return true;
 
   const isSearchByIpv4 = searchIPAddress.includes('.');
 
@@ -56,4 +62,39 @@ export const searchInterfaceByIP = (
   const addresses = [getIPV4Address(iface), getIPV6Address(iface)].filter(Boolean);
 
   return addresses?.some((address) => address?.toLowerCase().includes(searchIPAddress));
+};
+
+export const searchInterfaceByMAC = (
+  searchMACAddress: string,
+  iface: NodeNetworkConfigurationInterface,
+) => {
+  if (isEmpty(searchMACAddress)) return true;
+
+  return iface?.['mac-address']?.includes(searchMACAddress) || false;
+};
+
+export const searchInterfaceByLLDPName = (
+  searchLLDPName: string,
+  iface: NodeNetworkConfigurationInterface,
+) => {
+  if (isEmpty(searchLLDPName)) return true;
+
+  return iface?.lldp?.neighbors?.some((neighbor) => {
+    const vlans = neighbor.find((infoItem) => infoItem[IEE_802_1_VLANS])?.[IEE_802_1_VLANS];
+
+    return vlans.find((v) => v.name.includes(searchLLDPName));
+  });
+};
+
+export const searchInterfaceByLLDPSystemName = (
+  searchLLDPSystemName: string,
+  iface: NodeNetworkConfigurationInterface,
+) => {
+  if (isEmpty(searchLLDPSystemName)) return true;
+
+  return iface?.lldp?.neighbors?.some((neighbor) => {
+    const systemName = neighbor.find((infoItem) => infoItem?.[SYSTEM_NAME])?.[SYSTEM_NAME];
+
+    return systemName.includes(searchLLDPSystemName);
+  });
 };
