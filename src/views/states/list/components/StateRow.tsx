@@ -9,12 +9,12 @@ import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import InterfacesTable from './InterfacesTable';
 
-const StateRow: FC<RowProps<V1beta1NodeNetworkState, { rowIndex: number }>> = ({
+const StateRow: FC<RowProps<V1beta1NodeNetworkState, { rowIndex: number; expandAll: boolean }>> = ({
   obj,
   activeColumnIDs,
-  rowData: { rowIndex },
+  rowData: { rowIndex, expandAll },
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [expand, setExpand] = useState(false);
   const { t } = useNMStateTranslation();
   const interfaces = obj?.status?.currentState?.interfaces;
 
@@ -24,6 +24,7 @@ const StateRow: FC<RowProps<V1beta1NodeNetworkState, { rowIndex: number }>> = ({
     return acc;
   }, {} as { [key: string]: number });
 
+  const isExpanded = expandAll || expand;
   return (
     <Tbody key={obj.metadata.name} isExpanded={isExpanded} role="rowgroup">
       <Tr>
@@ -31,7 +32,7 @@ const StateRow: FC<RowProps<V1beta1NodeNetworkState, { rowIndex: number }>> = ({
           expand={{
             rowIndex,
             isExpanded,
-            onToggle: (event, rowIndex, isOpen) => setIsExpanded(isOpen),
+            onToggle: (event, rowIndex, isOpen) => setExpand(isOpen),
             expandId: 'expand-interfaces-list',
           }}
         />
@@ -63,7 +64,7 @@ const StateRow: FC<RowProps<V1beta1NodeNetworkState, { rowIndex: number }>> = ({
               {interfaces.length} {t('Interfaces')}
             </Title>
 
-            <InterfacesTable interfacesByType={interfacesByType} />
+            <InterfacesTable interfacesByType={interfacesByType} expandAll={expandAll} />
           </ExpandableRowContent>
         </Td>
       </Tr>

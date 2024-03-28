@@ -18,21 +18,23 @@ import './interfaces-table.scss';
 interface InterfacesTypeSectionProps {
   interfaces: NodeNetworkConfigurationInterface[];
   interfaceType: string;
+  expandAll: boolean;
 }
 
 const InterfacesTypeSection: FC<InterfacesTypeSectionProps> = memo(
-  ({ interfaceType, interfaces }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+  ({ interfaceType, interfaces, expandAll }) => {
+    const [expand, setExpand] = useState(false);
 
     const { setSelectedInterface } = useDrawerContext();
 
+    const isExpanded = expandAll || expand;
     return (
       <>
         <Tr className="interfaces-table__interface-type-row">
           <Td colSpan={6}>
             <ExpandableSectionToggle
               isExpanded={isExpanded}
-              onToggle={setIsExpanded}
+              onToggle={setExpand}
               className="expandable-section-interface-type"
             >
               {interfaceType}

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 import {
   NodeNetworkStateModelGroupVersionKind,
@@ -14,6 +14,7 @@ import {
   useK8sWatchResource,
   useListPageFilter,
 } from '@openshift-console/dynamic-plugin-sdk';
+import { Button, Flex } from '@patternfly/react-core';
 import { Table, TableGridBreakpoint, TableHeader } from '@patternfly/react-table';
 import { AutoSizer, VirtualTableBody } from '@patternfly/react-virtualized-extension';
 import { V1beta1NodeNetworkState } from '@types';
@@ -27,6 +28,7 @@ import useStateFilters from './hooks/useStateFilters';
 
 const StatesList: FC = () => {
   const { t } = useNMStateTranslation();
+  const [expandAll, setExpandAll] = useState(false);
   const measurementCacheRef = useRef(null);
 
   const [states, statesLoaded, statesError] = useK8sWatchResource<V1beta1NodeNetworkState[]>({
@@ -59,7 +61,7 @@ const StatesList: FC = () => {
         <StateRow
           obj={filteredData[index]}
           activeColumnIDs={new Set(activeColumns.map(({ id }) => id))}
-          rowData={{ rowIndex: index }}
+          rowData={{ rowIndex: index, expandAll }}
         />
       </CellMeasurer>
     );
@@ -70,22 +72,27 @@ const StatesList: FC = () => {
       <ListPageHeader title={t(NodeNetworkStateModel.label)}></ListPageHeader>
       <ListPageBody>
         <StatusBox loaded={statesLoaded} error={statesError} data={states}>
-          <ListPageFilter
-            data={data}
-            loaded={statesLoaded}
-            rowFilters={filters}
-            onFilterChange={onFilterChange}
-            columnLayout={{
-              columns: columns?.map(({ id, title, additional }) => ({
-                id,
-                title,
-                additional,
-              })),
-              id: NodeNetworkStateModelRef,
-              selectedColumns: new Set(activeColumns?.map((col) => col?.id)),
-              type: t('NodeNetworkState'),
-            }}
-          />
+          <Flex>
+            <ListPageFilter
+              data={data}
+              loaded={statesLoaded}
+              rowFilters={filters}
+              onFilterChange={onFilterChange}
+              columnLayout={{
+                columns: columns?.map(({ id, title, additional }) => ({
+                  id,
+                  title,
+                  additional,
+                })),
+                id: NodeNetworkStateModelRef,
+                selectedColumns: new Set(activeColumns?.map((col) => col?.id)),
+                type: t('NodeNetworkState'),
+              }}
+            />{' '}
+            <Button onClick={() => setExpandAll(!expandAll)}>
+              {expandAll ? t('Collapse all') : t('Expand all')}
+            </Button>
+          </Flex>
 
           <Table
             cells={activeColumns}
