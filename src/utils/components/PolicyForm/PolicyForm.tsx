@@ -14,7 +14,9 @@ import {
 import NodeSelectorModal from '../NodeSelectorModal/NodeSelectorModal';
 
 import ApplySelectorCheckbox from './ApplySelectorCheckbox';
+import PolicyFormOVSBridgeMapping from './PolicyFormOVSBridgeMapping';
 import PolicyInterfacesExpandable from './PolicyInterfaceExpandable';
+import { isOVSBridgeExisting } from './utils';
 
 import './policy-form.scss';
 
@@ -28,6 +30,7 @@ type PolicyFormProps = {
 const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false, formId }) => {
   const { t } = useNMStateTranslation();
   const [modalOpen, setModalOpen] = useState(false);
+  const isOVSBridge = isOVSBridgeExisting(policy);
 
   const onDescriptionChange = (newDescription: string) => {
     setPolicy(({ metadata }) => {
@@ -76,7 +79,7 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
           <FormGroup fieldId="text">
             <Text>
               <Trans t={t} ns="plugin__nmstate-console-plugin">
-                Node network is configured and managed by NM state. Create a node netowrk
+                Node network is configured and managed by NM state. Create a node network
                 configuration policy to describe the requested network configuration on your nodes
                 in the cluster. The node network configuration enactment reports the netwrok
                 policies enacted upon each node.
@@ -144,9 +147,9 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
             <span className="pf-u-ml-sm">{t('Add another interface to the policy')}</span>
           </Button>
         </Text>
-
         <PolicyInterfacesExpandable policy={policy} setPolicy={setPolicy} createForm={createForm} />
       </div>
+      {isOVSBridge && <PolicyFormOVSBridgeMapping policy={policy} setPolicy={setPolicy} />}
     </Form>
   );
 };
