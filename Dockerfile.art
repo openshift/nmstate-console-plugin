@@ -13,8 +13,7 @@ RUN CACHED_YARN=./artifacts/yarn-${YARN_VERSION}.tar.gz; \
     if [ -f ${CACHED_YARN} ]; then \
       npm install -g ${CACHED_YARN}; \
     else \
-      echo "need yarn at ${CACHED_YARN}"; \
-      exit 1; \
+      npm install https://github.com/yarnpkg/yarn/releases/download/${YARN_VERSION}/yarn-${YARN_VERSION}.tar.gz; \
     fi
 
 # use dependencies provided by Cachito
