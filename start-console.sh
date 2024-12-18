@@ -2,7 +2,36 @@
 
 set -euo pipefail
 
-npm_package_consolePlugin_name="nmstate-console-plugin"
+declare -A plugins=(["monitoring-plugin"]="https://github.com/openshift/monitoring-plugin.git", ["kubevirt-plugin"]="https://github.com/kubevirt-ui/kubevirt-plugin.git", ["networking-console-plugin"]="https://github.com/openshift/networking-console-plugin.git")
+declare -A runningPlugins=(["podman-linux"]="nmstate-console-plugin=http://localhost:9001", ["podman"]="nmstate-console-plugin=http://host.containers.internal:9001", ["docker"]="nmstate-console-plugin=http://host.docker.internal:9001")
+
+INITIAL_PORT=9002
+for arg in $@; do
+
+    if [ ! -d "../$arg" ]; then
+        echo "Creating a folder $arg ..."
+        cd ../
+        echo "Cloning "${plugins[$arg]}" ..."
+        git clone ${plugins[$arg]}
+        cd $arg
+    else
+        cd ../$arg
+    fi
+
+    git pull
+    yarn
+
+    if [ "$(lsof -t -i:$INITIAL_PORT)" != "" ]; then
+        kill -9 $(lsof -t -i:$INITIAL_PORT)
+    fi
+
+    PORT=$INITIAL_PORT yarn start --port=$INITIAL_PORT &
+
+    runningPlugins["podman-linux"]+=",${arg}=http://localhost:${INITIAL_PORT}"
+    runningPlugins["podman"]+=",${arg}=http://host.containers.internal:${INITIAL_PORT}"
+    runningPlugins["docker"]+=",${arg}=http://host.docker.internal:${INITIAL_PORT}"
+    INITIAL_PORT=$(($INITIAL_PORT + 1))
+done
 
 CONSOLE_IMAGE=${CONSOLE_IMAGE:="quay.io/openshift/origin-console:latest"}
 CONSOLE_PORT=${CONSOLE_PORT:=9000}
@@ -30,14 +59,14 @@ echo "Console URL: http://localhost:${CONSOLE_PORT}"
 if [ -x "$(command -v podman)" ]; then
     if [ "$(uname -s)" = "Linux" ]; then
         # Use host networking on Linux since host.containers.internal is unreachable in some environments.
-        BRIDGE_PLUGINS="${npm_package_consolePlugin_name}=http://localhost:9001"
+        BRIDGE_PLUGINS="${runningPlugins["podman-linux"]}"
         podman run --pull=always --rm --network=host --env-file <(set | grep BRIDGE) $CONSOLE_IMAGE
     else
-        BRIDGE_PLUGINS="${npm_package_consolePlugin_name}=http://host.containers.internal:9001"
-        podman run --pull=always --rm -p "$CONSOLE_PORT":9000 --env-file <(set | grep BRIDGE) $CONSOLE_IMAGE
+        BRIDGE_PLUGINS="${runningPlugins["podman"]}"
+        podman run --platform=linux/x86_64 --pull=always --rm -p "$CONSOLE_PORT":9000 --env-file <(set | grep BRIDGE) $CONSOLE_IMAGE
     fi
 else
-    BRIDGE_PLUGINS="${npm_package_consolePlugin_name}=http://host.docker.internal:9001"
+    BRIDGE_PLUGINS="${runningPlugins["docker"]}"
      if [ "$(uname)" == "Darwin" ]; then
         docker run --platform=linux/x86_64 --pull=always --rm -p "$CONSOLE_PORT":9000 --env-file <(set | grep BRIDGE) $CONSOLE_IMAGE
     else
