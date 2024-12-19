@@ -13,12 +13,26 @@ import { isEmpty } from '@utils/helpers';
 import BridgeIcon from '../components/BridgeIcon';
 
 import { GROUP, NODE_DIAMETER } from './constants';
+import { NetworkNode } from './factory';
 
 const statusMap: { [key: string]: NodeStatus } = {
   up: NodeStatus.success,
   down: NodeStatus.danger,
   absent: NodeStatus.warning,
 };
+
+const networkTypeLevelMap = {
+  [InterfaceType.ETHERNET]: 1,
+  [InterfaceType.BOND]: 2,
+  [InterfaceType.VLAN]: 3,
+  [InterfaceType.LINUX_BRIDGE]: 4,
+};
+
+export const networkNodeLevel = new Proxy(networkTypeLevelMap, {
+  get(target, prop: string) {
+    return target[prop] ?? 5;
+  },
+});
 
 const getStatus = (iface: NodeNetworkConfigurationInterface): NodeStatus => {
   return statusMap[iface.state.toLowerCase()] || NodeStatus.default;
@@ -39,7 +53,7 @@ const getIcon = (iface: NodeNetworkConfigurationInterface) => {
 const createNodes = (
   nnsName: string,
   interfaces: NodeNetworkConfigurationInterface[],
-): NodeModel[] =>
+): NetworkNode[] =>
   interfaces.map((iface) => ({
     id: `${nnsName}~${iface.name}~${iface.type}`,
     type: ModelKind.node,
@@ -55,6 +69,7 @@ const createNodes = (
       bridgePorts: iface.bridge?.port,
       bondPorts: iface['link-aggregation']?.port,
       vlanBaseInterface: iface.vlan?.['base-iface'],
+      level: networkNodeLevel[iface.type],
     },
     parent: nnsName,
   }));
@@ -142,7 +157,7 @@ export const transformDataToTopologyModel = (
   data: V1beta1NodeNetworkState[],
   filteredData?: V1beta1NodeNetworkState[],
 ): Model => {
-  const nodes: NodeModel[] = [];
+  const nodes: NetworkNode[] = [];
   const edges: EdgeModel[] = [];
 
   data?.forEach((nodeState) => {
@@ -172,7 +187,7 @@ export const transformDataToTopologyModel = (
     graph: {
       id: 'nns-topology',
       type: ModelKind.graph,
-      layout: 'Cola',
+      layout: 'Levels',
     },
   };
 };
