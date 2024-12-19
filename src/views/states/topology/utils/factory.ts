@@ -1,11 +1,7 @@
 import {
-  ColaLayout,
   ComponentFactory,
   DefaultEdge,
-  Graph,
   GraphComponent,
-  Layout,
-  LayoutFactory,
   ModelKind,
   nodeDragSourceSpec,
   withDragNode,
@@ -17,9 +13,11 @@ import CustomGroup from '../components/CustomGroup/CustomGroup';
 import CustomNode from '../components/CustomNode/CustomNode';
 
 import { GROUP } from './constants';
+import { LevelsLayout } from './LevelsLayout';
 
-export const layoutFactory: LayoutFactory = (type: string, graph: Graph): Layout | undefined =>
-  new ColaLayout(graph, { layoutOnDrag: false });
+export const layoutFactory = (type, graph) => {
+  return new LevelsLayout(graph, { layoutOnDrag: true });
+};
 
 export const componentFactory: ComponentFactory = (kind: ModelKind, type: string) => {
   switch (type) {
