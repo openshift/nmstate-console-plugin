@@ -31,6 +31,7 @@ import {
   NodeNetworkConfigurationInterface,
   V1NodeNetworkConfigurationPolicy,
 } from '@types';
+import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
 
 import BondOptions from './BondOptions';
 import { DEFAULT_PREFIX_LENGTH, INTERFACE_TYPE_OPTIONS, NETWORK_STATES } from './constants';
@@ -82,10 +83,10 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
         draftInterface.bridge = { port: [], options: {} };
         if (!draftPolicy?.spec?.desiredState?.ovn) {
           draftPolicy.spec.desiredState.ovn = {
-            'bridge-mapping': [],
+            [OVN_BRIDGE_MAPPINGS]: [],
           };
         }
-        draftPolicy.spec.desiredState.ovn['bridge-mapping'].push({
+        draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS].push({
           bridge: '',
           localnet: '',
           state: 'present',
