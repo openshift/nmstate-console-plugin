@@ -5,6 +5,7 @@ import { Button, ButtonVariant, Popover, Text } from '@patternfly/react-core';
 import { HelpIcon, PlusCircleIcon } from '@patternfly/react-icons';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
 
 import PolicyFormOVSBridgeMappingExpandable from './PolicyFormOVSBridgeMappingExpandable';
 
@@ -34,7 +35,7 @@ const PolicyFormOVSBridgeMapping: FC<PolicyFormOVSBridgeMappingProps> = ({ polic
           className="pf-m-link--align-left pf-u-ml-md"
           onClick={() =>
             setPolicy((draftPolicy) => {
-              draftPolicy.spec.desiredState.ovn['bridge-mapping'].unshift({
+              draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS].unshift({
                 bridge: '',
                 localnet: '',
                 state: 'present',
