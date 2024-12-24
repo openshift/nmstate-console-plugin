@@ -98,10 +98,12 @@ const Topology: FC = () => {
             controlButtons={createTopologyControlButtons({
               ...defaultControlButtonsOptions,
               zoomInCallback: action(() => {
-                visualization.getGraph().scaleBy(4 / 3);
+                const scale = visualization.getGraph().getScale();
+                visualization.getGraph().setScale(scale * 1.1);
               }),
               zoomOutCallback: action(() => {
-                visualization.getGraph().scaleBy(0.75);
+                const scale = visualization.getGraph().getScale();
+                visualization.getGraph().setScale(scale * 0.9);
               }),
               fitToScreenCallback: action(() => {
                 visualization.getGraph().fit(40);

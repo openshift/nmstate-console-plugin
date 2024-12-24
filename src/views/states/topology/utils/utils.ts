@@ -20,6 +20,19 @@ const statusMap: { [key: string]: NodeStatus } = {
   absent: NodeStatus.warning,
 };
 
+const networkTypeLevelMap = {
+  [InterfaceType.ETHERNET]: 1,
+  [InterfaceType.BOND]: 2,
+  [InterfaceType.VLAN]: 3,
+  [InterfaceType.LINUX_BRIDGE]: 4,
+};
+
+export const networkNodeLevel = new Proxy(networkTypeLevelMap, {
+  get(target, prop: string) {
+    return target[prop] ?? 5;
+  },
+});
+
 const getStatus = (iface: NodeNetworkConfigurationInterface): NodeStatus => {
   return statusMap[iface.state.toLowerCase()] || NodeStatus.default;
 };
@@ -55,6 +68,7 @@ const createNodes = (
       bridgePorts: iface.bridge?.port,
       bondPorts: iface['link-aggregation']?.port,
       vlanBaseInterface: iface.vlan?.['base-iface'],
+      level: networkNodeLevel[iface.type],
     },
     parent: nnsName,
   }));
@@ -172,7 +186,7 @@ export const transformDataToTopologyModel = (
     graph: {
       id: 'nns-topology',
       type: ModelKind.graph,
-      layout: 'Cola',
+      layout: 'Levels',
     },
   };
 };
