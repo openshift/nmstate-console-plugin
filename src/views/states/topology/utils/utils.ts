@@ -7,7 +7,12 @@ import {
   NodeShape,
   NodeStatus,
 } from '@patternfly/react-topology';
-import { InterfaceType, NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
+import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1beta1NodeNetworkState,
+} from '@types';
 import { isEmpty } from '@utils/helpers';
 
 import BridgeIcon from '../components/BridgeIcon';
@@ -21,10 +26,10 @@ const statusMap: { [key: string]: NodeStatus } = {
 };
 
 const networkTypeLevelMap = {
-  [InterfaceType.ETHERNET]: 1,
-  [InterfaceType.BOND]: 2,
-  [InterfaceType.VLAN]: 3,
-  [InterfaceType.LINUX_BRIDGE]: 4,
+  [InterfaceType.LINUX_BRIDGE]: 1,
+  [InterfaceType.VLAN]: 2,
+  [InterfaceType.BOND]: 3,
+  [InterfaceType.ETHERNET]: 4,
 };
 
 export const networkNodeLevel = new Proxy(networkTypeLevelMap, {
@@ -52,26 +57,31 @@ const getIcon = (iface: NodeNetworkConfigurationInterface) => {
 const createNodes = (
   nnsName: string,
   interfaces: NodeNetworkConfigurationInterface[],
+  nnceConfigredInterfaces: NodeNetworkConfigurationInterface[],
 ): NodeModel[] =>
-  interfaces.map((iface) => ({
-    id: `${nnsName}~${iface.name}~${iface.type}`,
-    type: ModelKind.node,
-    label: iface.name,
-    width: NODE_DIAMETER,
-    height: NODE_DIAMETER,
-    visible: !iface.patch && iface.type !== InterfaceType.LOOPBACK,
-    shape: NodeShape.circle,
-    status: getStatus(iface),
-    data: {
-      icon: getIcon(iface),
-      type: iface.type,
-      bridgePorts: iface.bridge?.port,
-      bondPorts: iface['link-aggregation']?.port,
-      vlanBaseInterface: iface.vlan?.['base-iface'],
-      level: networkNodeLevel[iface.type],
-    },
-    parent: nnsName,
-  }));
+  interfaces.map((iface) => {
+    const isDerivedFromPolicy = findInterfaceByName(nnceConfigredInterfaces, iface.name);
+    return {
+      id: `${nnsName}~${iface.name}~${iface.type}`,
+      type: ModelKind.node,
+      label: iface.name,
+      width: NODE_DIAMETER,
+      height: NODE_DIAMETER,
+      visible: !iface.patch && iface.type !== InterfaceType.LOOPBACK,
+      shape: isDerivedFromPolicy ? NodeShape.circle : NodeShape.rect,
+      status: getStatus(iface),
+      data: {
+        icon: getIcon(iface),
+        type: iface.type,
+        bridgePorts: iface.bridge?.port,
+        bondPorts: iface['link-aggregation']?.port,
+        vlanBaseInterface: iface.vlan?.['base-iface'],
+        level: networkNodeLevel[iface.type],
+        isDerivedFromPolicy,
+      },
+      parent: nnsName,
+    };
+  });
 
 const createEdges = (childNodes: NodeModel[]): EdgeModel[] => {
   const edges: EdgeModel[] = [];
@@ -96,7 +106,7 @@ const createEdges = (childNodes: NodeModel[]): EdgeModel[] => {
     }
 
     // Find bond connections
-    if (!isEmpty(sourceNode.data?.vlanBaseInterface)) {
+    if (!isEmpty(sourceNode.data?.bondPorts)) {
       sourceNode.data?.bondPorts?.forEach((port) => {
         const targetNode = childNodes.find(
           (target) => target.label === port && target.id !== sourceNode.id,
@@ -114,7 +124,7 @@ const createEdges = (childNodes: NodeModel[]): EdgeModel[] => {
     }
 
     // Find vlan connections
-    if (!isEmpty(sourceNode.data?.bondPorts)) {
+    if (!isEmpty(sourceNode.data?.vlanBaseInterface)) {
       const baseInterface = sourceNode.data?.vlanBaseInterface;
 
       const targetNode = childNodes.find(
@@ -154,7 +164,8 @@ const createGroupNode = (nnsName: string, childNodeIds: string[], visible: boole
 
 export const transformDataToTopologyModel = (
   data: V1beta1NodeNetworkState[],
-  filteredData?: V1beta1NodeNetworkState[],
+  filteredData: V1beta1NodeNetworkState[],
+  availableEnhancments: V1beta1NodeNetworkConfigurationEnactment[],
 ): Model => {
   const nodes: NodeModel[] = [];
   const edges: EdgeModel[] = [];
@@ -162,7 +173,15 @@ export const transformDataToTopologyModel = (
   data?.forEach((nodeState) => {
     const nnsName = nodeState.metadata.name;
 
-    const childNodes = createNodes(nnsName, nodeState.status.currentState.interfaces);
+    const enhancment = getCorrelatedEnactment(availableEnhancments, nnsName);
+
+    const nnceConfigredInterfaces = getNNCEConfiguredInterfaces(enhancment, nodeState);
+
+    const childNodes = createNodes(
+      nnsName,
+      nodeState.status.currentState.interfaces,
+      nnceConfigredInterfaces,
+    );
 
     const isVisible = filteredData
       ? filteredData.some((filteredState) => filteredState.metadata.name === nnsName)
@@ -189,4 +208,42 @@ export const transformDataToTopologyModel = (
       layout: 'Levels',
     },
   };
+};
+
+const getCorrelatedEnactment = (
+  availableEnhancments: V1beta1NodeNetworkConfigurationEnactment[],
+  nnsName: string,
+): V1beta1NodeNetworkConfigurationEnactment => {
+  return availableEnhancments.find((nnce) =>
+    nnce.metadata.ownerReferences.some((ref) => ref.name === nnsName),
+  );
+};
+
+const findInterfaceByName = (
+  interfaces: NodeNetworkConfigurationInterface[],
+  interfaceName: string,
+): boolean => {
+  return interfaces.some((iface) => iface.name === interfaceName);
+};
+
+const getNNCEConfiguredInterfaces = (
+  enhancement: V1beta1NodeNetworkConfigurationEnactment,
+  state: V1beta1NodeNetworkState,
+): NodeNetworkConfigurationInterface[] => {
+  if (isEmpty(enhancement)) {
+    return [];
+  }
+
+  const configured: NodeNetworkConfigurationInterface[] = [];
+
+  const desiredInterfaces = enhancement.status.desiredState.interfaces;
+  const currentInterfaces = state.status.currentState.interfaces;
+
+  desiredInterfaces.forEach((desiredIface) => {
+    if (findInterfaceByName(currentInterfaces, desiredIface.name)) {
+      configured.push(desiredIface);
+    }
+  });
+
+  return configured;
 };
