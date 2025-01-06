@@ -1,6 +1,9 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 
-import { NodeNetworkStateModelGroupVersionKind } from '@models';
+import {
+  NodeNetworkConfigurationEnactmentModelGroupVersionKind,
+  NodeNetworkStateModelGroupVersionKind,
+} from '@models';
 import { ListPageBody, useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import {
   action,
@@ -13,9 +16,11 @@ import {
   VisualizationProvider,
   VisualizationSurface,
 } from '@patternfly/react-topology';
-import { V1beta1NodeNetworkState } from '@types';
+import { V1beta1NodeNetworkConfigurationEnactment, V1beta1NodeNetworkState } from '@types';
 import AccessDenied from '@utils/components/AccessDenied/AccessDenied';
 import { isEmpty } from '@utils/helpers';
+
+import { categorizeEnactments } from '../../policies/list/components/utils';
 
 import TopologySidebar from './components/TopologySidebar/TopologySidebar';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
@@ -29,11 +34,19 @@ const Topology: FC = () => {
   const [visualization, setVisualization] = useState<Visualization>(null);
   const [selectedNodeFilters, setSelectedNodeFilters] = useState<string[]>([]);
 
-  const [states, loaded, error] = useK8sWatchResource<V1beta1NodeNetworkState[]>({
+  const [states, statesLoaded, statesError] = useK8sWatchResource<V1beta1NodeNetworkState[]>({
     groupVersionKind: NodeNetworkStateModelGroupVersionKind,
     isList: true,
     namespaced: false,
   });
+
+  const [enhancments] = useK8sWatchResource<V1beta1NodeNetworkConfigurationEnactment[]>({
+    groupVersionKind: NodeNetworkConfigurationEnactmentModelGroupVersionKind,
+    isList: true,
+    namespaced: false,
+  });
+
+  const { available } = categorizeEnactments(enhancments);
 
   const nodeNames: string[] = useMemo(
     () => states?.map((state) => state.metadata.name) || [],
@@ -41,13 +54,13 @@ const Topology: FC = () => {
   );
 
   useEffect(() => {
-    if (!loaded || error || isEmpty(states)) return;
+    if (!statesLoaded || statesError || isEmpty(states)) return;
 
     const filteredStates = !isEmpty(selectedNodeFilters)
       ? states.filter((state) => selectedNodeFilters.includes(state.metadata.name))
       : undefined;
 
-    const topologyModel = transformDataToTopologyModel(states, filteredStates);
+    const topologyModel = transformDataToTopologyModel(states, filteredStates, available);
 
     if (!visualization) {
       const newVisualization = new Visualization();
@@ -64,15 +77,16 @@ const Topology: FC = () => {
       newVisualization.fromModel(topologyModel, false);
       restoreNodePositions(newVisualization);
       setVisualization(newVisualization);
-    } else {
-      visualization.fromModel(topologyModel);
+      return;
     }
-  }, [states, loaded, error, selectedNodeFilters]);
 
-  if (error && error?.response?.status === 403)
+    visualization.fromModel(topologyModel);
+  }, [states, statesLoaded, statesError, selectedNodeFilters]);
+
+  if (statesError && statesError?.response?.status === 403)
     return (
       <ListPageBody>
-        <AccessDenied message={error.message} />
+        <AccessDenied message={statesError.message} />
       </ListPageBody>
     );
 
