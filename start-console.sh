@@ -49,7 +49,7 @@ BRIDGE_K8S_AUTH_BEARER_TOKEN=$(oc whoami --show-token 2>/dev/null)
 BRIDGE_USER_SETTINGS_LOCATION="localstorage"
 BRIDGE_I18N_NAMESPACES="plugin__nmstate-console-plugin"
 
-BRIDGE_PLUGINS="${npm_package_consolePlugin_name}=http://host.docker.internal:9001"
+BRIDGE_PLUGINS="${npm_package_consolePlugin_name:="nmstate-console-plugin"}=http://host.docker.internal:9001"
 
 echo "API Server: $BRIDGE_K8S_MODE_OFF_CLUSTER_ENDPOINT"
 echo "Console Image: $CONSOLE_IMAGE"
