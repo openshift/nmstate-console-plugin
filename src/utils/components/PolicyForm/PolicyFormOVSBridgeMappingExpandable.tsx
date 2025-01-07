@@ -14,6 +14,7 @@ import {
 import { MinusCircleIcon } from '@patternfly/react-icons';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
 
 type PolicyFormOVSBridgeMappingExpandableProps = {
   policy: V1NodeNetworkConfigurationPolicy;
@@ -29,8 +30,8 @@ const PolicyFormOVSBridgeMappingExpandable: FC<PolicyFormOVSBridgeMappingExpanda
   const onChange =
     (index: number, field: string) => (_: FormEvent<HTMLInputElement>, value: string) => {
       setPolicy((draftPolicy) => {
-        draftPolicy.spec.desiredState.ovn['bridge-mapping'][index] = {
-          ...draftPolicy.spec.desiredState.ovn['bridge-mapping'][index],
+        draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS][index] = {
+          ...draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS][index],
           [field]: value,
         };
       });
@@ -38,11 +39,11 @@ const PolicyFormOVSBridgeMappingExpandable: FC<PolicyFormOVSBridgeMappingExpanda
 
   const onRemove = (index: number) => {
     setPolicy((draftPolicy) => {
-      draftPolicy.spec.desiredState.ovn['bridge-mapping'].splice(index, 1);
+      draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS].splice(index, 1);
     });
   };
 
-  return policy?.spec?.desiredState?.ovn?.['bridge-mapping']?.map((bridgeMapping, index) => {
+  return policy?.spec?.desiredState?.ovn?.[OVN_BRIDGE_MAPPINGS]?.map((bridgeMapping, index) => {
     return (
       <PageSection variant={PageSectionVariants.light} key={index}>
         <Flex alignItems={{ default: 'alignItemsFlexEnd' }} marginWidth={20}>
