@@ -26,15 +26,15 @@ const statusMap: { [key: string]: NodeStatus } = {
 };
 
 const networkTypeLevelMap = {
-  [InterfaceType.LINUX_BRIDGE]: 1,
-  [InterfaceType.VLAN]: 2,
-  [InterfaceType.BOND]: 3,
-  [InterfaceType.ETHERNET]: 4,
+  [InterfaceType.LINUX_BRIDGE]: 2,
+  [InterfaceType.VLAN]: 3,
+  [InterfaceType.BOND]: 4,
+  [InterfaceType.ETHERNET]: 5,
 };
 
 export const networkNodeLevel = new Proxy(networkTypeLevelMap, {
   get(target, prop: string) {
-    return target[prop] ?? 5;
+    return target[prop] ?? 1;
   },
 });
 
