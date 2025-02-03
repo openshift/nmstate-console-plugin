@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Modal, Title } from '@patternfly/react-core';
+import { Modal, PageSection, PageSectionVariants, Title } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
@@ -70,9 +70,9 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface, onClose 
           ))}
         </ul>
       </div>
-      <div className="pf-u-p-xl">
+      <PageSection variant={PageSectionVariants.light}>
         <SelectedTabComponent selectedInterface={selectedInterface} />
-      </div>
+      </PageSection>
     </Modal>
   );
 };
