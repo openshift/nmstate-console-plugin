@@ -1,11 +1,10 @@
 import React, { Dispatch, FC, SetStateAction, useMemo } from 'react';
 
-import { Divider, Title } from '@patternfly/react-core';
 import { TopologySideBar } from '@patternfly/react-topology';
 import { V1beta1NodeNetworkState } from '@types';
 
 import StateDetailsPage from '../../../details/StateDetailsPage';
-import InterfaceDrawerDetailsTab from '../../../list/components/InterfaceDrawer/InterfaceDrawerDetailsTab';
+import InterfaceDrawer from '../../../list/components/InterfaceDrawer/InterfaceDrawer';
 
 import './TopologySidebar.scss';
 
@@ -34,9 +33,10 @@ const TopologySidebar: FC<TopologySidebarProps> = ({ states, selectedIds, setSel
           <StateDetailsPage nns={selectedState} />
         ) : (
           <>
-            <Title headingLevel="h2">{selectedInterface?.name}</Title>
-            <Divider style={{ padding: '1rem 0' }} />
-            <InterfaceDrawerDetailsTab selectedInterface={selectedInterface} />
+            <InterfaceDrawer
+              selectedInterface={selectedInterface}
+              onClose={() => setSelectedIds([])}
+            />
           </>
         )}
       </div>

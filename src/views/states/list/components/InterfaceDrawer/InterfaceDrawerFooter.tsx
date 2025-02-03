@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 
-import { Button, ButtonVariant, debounce, Tooltip } from '@patternfly/react-core';
+import { Button, ButtonVariant, debounce, Split, Tooltip } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
@@ -29,20 +29,16 @@ const InterfaceDrawerYAMLFooter: FC<InterfaceDrawerFooterProps> = ({ selectedInt
   }, []);
 
   return (
-    <>
+    <Split hasGutter>
       <Tooltip content={copied ? t('Copied') : t('Copy YAML to clipboard')}>
         <Button variant={ButtonVariant.primary} onClick={onCopy}>
           {t('Copy')}
         </Button>
       </Tooltip>
-      <Button
-        variant={ButtonVariant.secondary}
-        onClick={() => downloadYAML(selectedInterface)}
-        className="pf-u-ml-md"
-      >
+      <Button variant={ButtonVariant.secondary} onClick={() => downloadYAML(selectedInterface)}>
         {t('Download YAML')}
       </Button>
-    </>
+    </Split>
   );
 };
 
