@@ -12,6 +12,7 @@ import {
   EmptyState,
   EmptyStateActions,
   EmptyStateBody,
+  EmptyStateFooter,
   EmptyStateIcon,
   EmptyStateVariant,
   Title,
@@ -31,38 +32,44 @@ const PolicyListEmptyState: FC = () => {
         icon={() => <img src={EmptyPolicyStateImage} className="policy-empty-state-icon" />}
       />
       <Title headingLevel="h4" size="lg">
-        {t('No node network configuration policies defined yet')}
+        {t('No NodeNetworkConfigurationPolicy defined yet')}
       </Title>
       <EmptyStateBody>
         <Trans t={t} ns="plugin__nmstate-console-plugin">
           Click <strong>Create NodeNetworkConfigurationPolicy</strong> to create your first policy
         </Trans>
       </EmptyStateBody>
-      <EmptyStateActions>
-        <Button
-          variant={ButtonVariant.primary}
-          onClick={() =>
-            history.push(
-              `${getResourceUrl({
-                model: NodeNetworkConfigurationPolicyModel,
-              })}~new/form`,
-            )
-          }
-        >
-          {t('Create NodeNetworkConfigurationPolicy')}
-        </Button>
-      </EmptyStateActions>
-      <EmptyStateActions>
-        <Button
-          variant={ButtonVariant.link}
-          icon={<ExternalLinkSquareAltIcon />}
-          iconPosition="right"
-        >
-          <a href={NODE_NETWORK_POLICY_DOCUMENTATION_URL} target="_blank" rel="noopener noreferrer">
-            {t('View documentation')}
-          </a>
-        </Button>
-      </EmptyStateActions>
+      <EmptyStateFooter>
+        <EmptyStateActions>
+          <Button
+            variant={ButtonVariant.primary}
+            onClick={() =>
+              history.push(
+                `${getResourceUrl({
+                  model: NodeNetworkConfigurationPolicyModel,
+                })}~new/form`,
+              )
+            }
+          >
+            {t('Create NodeNetworkConfigurationPolicy')}
+          </Button>
+        </EmptyStateActions>
+        <EmptyStateActions>
+          <Button
+            variant={ButtonVariant.link}
+            icon={<ExternalLinkSquareAltIcon />}
+            iconPosition="right"
+          >
+            <a
+              href={NODE_NETWORK_POLICY_DOCUMENTATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('View documentation')}
+            </a>
+          </Button>
+        </EmptyStateActions>
+      </EmptyStateFooter>
     </EmptyState>
   );
 };
