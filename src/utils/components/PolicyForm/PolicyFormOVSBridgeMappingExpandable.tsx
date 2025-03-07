@@ -7,7 +7,6 @@ import {
   Flex,
   FlexItem,
   PageSection,
-  PageSectionVariants,
   TextInput,
   Title,
 } from '@patternfly/react-core';
@@ -45,7 +44,7 @@ const PolicyFormOVSBridgeMappingExpandable: FC<PolicyFormOVSBridgeMappingExpanda
 
   return policy?.spec?.desiredState?.ovn?.[OVN_BRIDGE_MAPPINGS]?.map((bridgeMapping, index) => {
     return (
-      <PageSection variant={PageSectionVariants.light} key={index}>
+      <PageSection key={index}>
         <Flex alignItems={{ default: 'alignItemsFlexEnd' }} marginWidth={20}>
           <FlexItem grow={{ default: 'grow' }} spacer={{ default: 'spacer4xl' }}>
             <Title headingLevel="h6" size="md">
@@ -61,12 +60,11 @@ const PolicyFormOVSBridgeMappingExpandable: FC<PolicyFormOVSBridgeMappingExpanda
           </FlexItem>
           <FlexItem>
             <Button
+              icon={<MinusCircleIcon />}
               variant={ButtonVariant.plain}
               aria-label={t('Remove')}
               onClick={() => onRemove(index)}
-            >
-              <MinusCircleIcon />
-            </Button>
+            />
           </FlexItem>
         </Flex>
       </PageSection>

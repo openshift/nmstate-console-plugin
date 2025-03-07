@@ -47,9 +47,7 @@ const LabelRow: FC<LabelRowProps> = ({ label, onChange, onDelete }) => {
       <GridItem span={1}>
         <FormGroup label=" " fieldId={`label-${id}-delete-btn`}>
           <Tooltip content={t('Remove label selector')}>
-            <Button variant="plain" onClick={() => onDelete(id)}>
-              <MinusCircleIcon />
-            </Button>
+            <Button icon={<MinusCircleIcon />} variant="plain" onClick={() => onDelete(id)} />
           </Tooltip>
         </FormGroup>
       </GridItem>

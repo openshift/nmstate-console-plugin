@@ -93,7 +93,7 @@ const StateRow: FC<
           <ExpandableRowContent>
             <Title headingLevel="h2">
               {t('Network details')}
-              <small className="pf-u-ml-md">
+              <small className="pf-v6-u-ml-md">
                 {filteredInterfaces.length} {t('Interfaces')}
               </small>
             </Title>

@@ -18,7 +18,7 @@ import {
   NumberInput,
   Popover,
   Radio,
-  Text,
+  Content,
   TextInput,
   ValidatedOptions,
 } from '@patternfly/react-core';
@@ -246,9 +246,9 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
           isChecked={policyInterface?.ipv4?.enabled}
           onChange={(_, newValue) => onIP4Change(newValue)}
         />
-        <div className="pf-u-ml-md pf-u-mt-sm">
+        <div className="pf-v6-u-ml-md pf-v6-u-mt-sm">
           {policyInterface?.ipv4 && (
-            <Flex className="pf-u-mb-md">
+            <Flex className="pf-v6-u-mb-md">
               <FlexItem>
                 <Radio
                   label={t('IP address')}
@@ -276,7 +276,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
                 label={t('IPV4 address')}
                 isRequired
                 fieldId={`ipv4-address-${id}`}
-                className="pf-u-mb-md"
+                className="pf-v6-u-mb-md"
               >
                 <TextInput
                   value={policyInterface?.ipv4?.address?.[0]?.ip}
@@ -375,7 +375,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
         <FormGroup fieldId={`policy-interface-stp-${id}`}>
           <Checkbox
             label={
-              <Text>
+              <Content component="p">
                 {t('Enable STP')}{' '}
                 {isInterfaceCreated && (
                   <Popover
@@ -385,7 +385,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
                     <HelpIcon />
                   </Popover>
                 )}
-              </Text>
+              </Content>
             }
             id={`policy-interface-stp-${id}`}
             isChecked={policyInterface?.bridge?.options?.stp?.enabled !== false}

@@ -39,11 +39,11 @@ const TopologyToolbarFilter: FC<TopologyToolbarFilterProps> = ({
   };
   return (
     <ToolbarFilter
-      chips={selectedNodeFilters}
-      deleteChip={(_, chip) =>
-        setSelectedNodeFilters(selectedNodeFilters.filter((filter) => filter !== chip))
+      labels={selectedNodeFilters}
+      deleteLabel={(_, label) =>
+        setSelectedNodeFilters(selectedNodeFilters.filter((filter) => filter !== label))
       }
-      deleteChipGroup={onClearAllFilters}
+      deleteLabelGroup={onClearAllFilters}
       categoryName="nodes"
     >
       <Select

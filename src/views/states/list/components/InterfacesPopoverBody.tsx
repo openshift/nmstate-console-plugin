@@ -64,7 +64,7 @@ const InterfacesPopoverBody: FC<InterfacesPopoverBodyProps> = ({
                   onClick={() => onInterfaceNameClick(iface)}
                   className="interface-button-name"
                 >
-                  {iface.name} <Icon color="black" className="pf-u-mr-sm" />
+                  {iface.name} <Icon color="black" className="pf-v6-u-mr-sm" />
                 </Button>
               </SecondColumn>
             </Row>

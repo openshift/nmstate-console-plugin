@@ -3,7 +3,15 @@ import { Trans } from 'react-i18next';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
-import { Button, Form, FormGroup, Popover, Text, TextInput } from '@patternfly/react-core';
+import {
+  Button,
+  Form,
+  FormGroup,
+  Popover,
+  Content,
+  TextInput,
+  Title,
+} from '@patternfly/react-core';
 import { HelpIcon, PlusCircleIcon } from '@patternfly/react-icons';
 import {
   InterfaceType,
@@ -77,14 +85,14 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
             }}
           />
           <FormGroup fieldId="text">
-            <Text>
+            <Content component="p">
               <Trans t={t} ns="plugin__nmstate-console-plugin">
                 Node network is configured and managed by NM state. Create a node network
                 configuration policy to describe the requested network configuration on your nodes
                 in the cluster. The node network configuration enactment reports the netwrok
                 policies enacted upon each node.
               </Trans>
-            </Text>
+            </Content>
           </FormGroup>
           <FormGroup fieldId="apply-selector">
             <ApplySelectorCheckbox
@@ -125,7 +133,7 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
         />
       </FormGroup>
       <div>
-        <Text className="pf-u-primary-color-100 pf-u-font-weight-bold pf-u-font-size-lg">
+        <Title headingLevel="h3">
           {t('Policy Interface(s)')}{' '}
           <Popover
             aria-label={'Help'}
@@ -133,20 +141,20 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
               'List of network interfaces that should be created, modified, or removed, as a part of this policy.',
             )}
           >
-            <HelpIcon />
+            <Button variant="plain" hasNoPadding icon={<HelpIcon />} />
           </Popover>
-        </Text>
-        <Text className="policy-form-content__add-new-interface pf-u-mt-md">
+        </Title>
+        <Content component="p" className="policy-form-content__add-new-interface pf-v6-u-mt-md">
           <Button
-            className="pf-m-link--align-left pf-u-ml-md"
+            icon={<PlusCircleIcon />}
+            className="pf-m-link--align-left pf-v6-u-ml-md"
             onClick={addNewInterface}
             type="button"
             variant="link"
           >
-            <PlusCircleIcon />{' '}
-            <span className="pf-u-ml-sm">{t('Add another interface to the policy')}</span>
+            <span>{t('Add another interface to the policy')}</span>
           </Button>
-        </Text>
+        </Content>
         <PolicyInterfacesExpandable policy={policy} setPolicy={setPolicy} createForm={createForm} />
       </div>
       {isOVSBridge && <PolicyFormOVSBridgeMapping policy={policy} setPolicy={setPolicy} />}

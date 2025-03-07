@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Updater } from 'use-immer';
 
-import { Button, ButtonVariant, Popover, Text } from '@patternfly/react-core';
+import { Button, ButtonVariant, Popover, Content, Title } from '@patternfly/react-core';
 import { HelpIcon, PlusCircleIcon } from '@patternfly/react-icons';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
@@ -19,7 +19,7 @@ const PolicyFormOVSBridgeMapping: FC<PolicyFormOVSBridgeMappingProps> = ({ polic
 
   return (
     <div>
-      <Text className="pf-u-primary-color-100 pf-u-font-weight-bold pf-u-font-size-lg">
+      <Title headingLevel="h3">
         {t('Open vSwitch bridge mapping')}{' '}
         <Popover
           aria-label={'Help'}
@@ -27,12 +27,13 @@ const PolicyFormOVSBridgeMapping: FC<PolicyFormOVSBridgeMappingProps> = ({ polic
             'The Open vSwitch bridge mapping is a list of Open vSwitch bridges and the physical interfaces that are connected to them.',
           )}
         >
-          <HelpIcon />
+          <Button variant="plain" hasNoPadding icon={<HelpIcon />} />
         </Popover>
-      </Text>
-      <Text className="policy-form-content__add-new-interface pf-u-mt-md">
+      </Title>
+      <Content component="p" className="policy-form-content__add-new-interface pf-v6-u-mt-md">
         <Button
-          className="pf-m-link--align-left pf-u-ml-md"
+          icon={<PlusCircleIcon />}
+          className="pf-m-link--align-left pf-v6-u-ml-md"
           onClick={() =>
             setPolicy((draftPolicy) => {
               draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS].unshift({
@@ -44,9 +45,9 @@ const PolicyFormOVSBridgeMapping: FC<PolicyFormOVSBridgeMappingProps> = ({ polic
           }
           variant={ButtonVariant.link}
         >
-          <PlusCircleIcon /> <span className="pf-u-ml-sm">{t('Add mapping')}</span>
+          <span>{t('Add mapping')}</span>
         </Button>
-      </Text>
+      </Content>
       <PolicyFormOVSBridgeMappingExpandable policy={policy} setPolicy={setPolicy} />
     </div>
   );

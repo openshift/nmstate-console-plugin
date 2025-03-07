@@ -12,10 +12,10 @@ import {
   Button,
   ButtonType,
   ButtonVariant,
-  Modal,
   Stack,
   StackItem,
 } from '@patternfly/react-core';
+import { Modal } from '@patternfly/react-core/deprecated';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import PolicyForm from '@utils/components/PolicyForm/PolicyForm';
 
@@ -57,7 +57,7 @@ const EditModal: FC<EditModalProps> = ({ closeModal, isOpen, policy }) => {
       position="top"
       title={t('Edit NodeNetworkConfigurationPolicy')}
       footer={
-        <Stack className="edit-modal-footer pf-u-flex-fill" hasGutter>
+        <Stack className="edit-modal-footer pf-v6-u-flex-fill" hasGutter>
           {error && (
             <StackItem>
               <Alert isInline variant={AlertVariant.danger} title={t('An error occurred')}>

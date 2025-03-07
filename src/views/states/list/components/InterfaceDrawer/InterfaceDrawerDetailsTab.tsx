@@ -48,7 +48,7 @@ const InterfaceDrawerDetailsTab: FC<InterfaceDrawerDetailsTabProps> = ({ selecte
 
       <StackItem data-test="lldp-section">
         <Title headingLevel="h4">{t('LLDP')}</Title>
-        <p className="pf-u-mb-md">
+        <p className="pf-v6-u-mb-md">
           {selectedInterface.lldp?.enabled ? t('Enabled') : t('Disabled')}
         </p>
         {selectedInterface.lldp?.neighbors?.length > 0 && (

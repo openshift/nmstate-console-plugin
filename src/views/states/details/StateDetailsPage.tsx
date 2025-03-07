@@ -7,13 +7,7 @@ import {
   useAnnotationsModal,
   useLabelsModal,
 } from '@openshift-console/dynamic-plugin-sdk';
-import {
-  DescriptionList,
-  Divider,
-  PageSection,
-  PageSectionVariants,
-  Title,
-} from '@patternfly/react-core';
+import { DescriptionList, Divider, PageSection, Title } from '@patternfly/react-core';
 import { V1beta1NodeNetworkState } from '@types';
 import DetailItem from '@utils/components/DetailItem/DetailItem';
 import OwnerDetailsItem from '@utils/components/DetailItem/OwnerDetailItem';
@@ -45,7 +39,7 @@ const StateDetailsPage: FC<StateDetailsPageProps> = ({ nns }) => {
         </span>
       </Title>
       <Divider />
-      <PageSection variant={PageSectionVariants.light}>
+      <PageSection>
         <DescriptionList className="pf-c-description-list">
           <DetailItem header={t('Name')} description={nns?.metadata?.name} />
           <DetailItem

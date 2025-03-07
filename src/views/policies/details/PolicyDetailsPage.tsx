@@ -8,7 +8,6 @@ import {
   DescriptionListGroup,
   DescriptionListTerm,
   PageSection,
-  PageSectionVariants,
   Title,
 } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface, V1NodeNetworkConfigurationPolicy } from '@types';
@@ -32,7 +31,7 @@ const PolicyDetailsPage: FC<PolicyDetailsPageProps> = ({ obj: policy }) => {
 
   return (
     <div>
-      <PageSection variant={PageSectionVariants.light}>
+      <PageSection>
         <Title headingLevel="h2" className="co-section-heading">
           {t('Policy details')}
         </Title>

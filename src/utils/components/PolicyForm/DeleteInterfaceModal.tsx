@@ -7,10 +7,10 @@ import {
   ActionListItem,
   Button,
   ButtonVariant,
-  Modal,
   Stack,
   StackItem,
 } from '@patternfly/react-core';
+import { Modal } from '@patternfly/react-core/deprecated';
 import { NodeNetworkConfigurationInterface } from '@types';
 
 import { capitalizeFirstLetter } from './utils';
@@ -45,7 +45,7 @@ const DeleteInterfaceModal: FC<DeleteInterfaceModalProps> = ({
       title={t('Delete NodeNetworkConfigurationPolicyInterface?')}
       titleIconVariant="warning"
       footer={
-        <Stack className="pf-u-flex-fill" hasGutter>
+        <Stack className="pf-v6-u-flex-fill" hasGutter>
           <StackItem>
             <ActionList>
               <ActionListItem>
@@ -70,7 +70,7 @@ const DeleteInterfaceModal: FC<DeleteInterfaceModalProps> = ({
       id="delete-modal"
     >
       <form id="delete-interface-form">
-        <p className="pf-u-mb-md pf-u-mt-sm">
+        <p className="pf-v6-u-mb-md pf-v6-u-mt-sm">
           <Trans t={t} ns="plugin__nmstate-console-plugin">
             Are you sure you want to remove{' '}
             {{ interfaceType: capitalizeFirstLetter(policyInterface?.type) }} interface{' '}

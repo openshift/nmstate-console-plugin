@@ -1,11 +1,11 @@
-.pf-v5-c-table {
+.pf-v6-c-table {
   .state-row {
     tr:has(~ tr.state-row__expanded-true) {
       border-bottom: none;
     }
 
     &__flex-interfaces button {
-      color: var(--pf-global--Color--100);
+      color: var(--pf-t--global--text--color--regular);
 
       text-decoration: underline;
       text-decoration-style: dashed;

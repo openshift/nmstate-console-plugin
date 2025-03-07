@@ -8,8 +8,6 @@ import {
   WithSelectionProps,
 } from '@patternfly/react-topology';
 
-import './CustomGroup.scss';
-
 type CustomGroupProps = {
   element: Node;
 } & WithSelectionProps &
