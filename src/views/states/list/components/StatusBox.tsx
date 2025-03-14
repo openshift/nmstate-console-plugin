@@ -21,8 +21,8 @@ const StatusBox: FC<StatusBoxProps> = ({ loaded, error, children }) => {
   if (error)
     return (
       <div className="cos-status-box loading-box loading-box__errored">
-        <div className="pf-u-text-align-center cos-error-title">{error?.message}</div>
-        <div className="pf-u-text-align-center">
+        <div className="pf-v6-u-text-align-center cos-error-title">{error?.message}</div>
+        <div className="pf-v6-u-text-align-center">
           <Trans t={t} ns="plugin__nmstate-console-plugin">
             Please{' '}
             <Button isInline variant={ButtonVariant.link} onClick={() => location.reload()}>

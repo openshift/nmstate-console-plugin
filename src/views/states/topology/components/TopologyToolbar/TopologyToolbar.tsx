@@ -28,12 +28,11 @@ const TopologyButton: FC<TopologyToolbarProps> = (props) => {
         <ToolbarGroup>
           <ToolbarItem className="list-view-btn">
             <Button
+              icon={<ListIcon />}
               isInline
               variant="plain"
               onClick={() => navigate(`/k8s/cluster/${NodeNetworkStateModelRef}`)}
-            >
-              <ListIcon />
-            </Button>
+            />
           </ToolbarItem>
         </ToolbarGroup>
       </ToolbarContent>

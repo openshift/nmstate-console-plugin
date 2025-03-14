@@ -4,7 +4,7 @@ import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkC
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
 import { useAccessReview } from '@openshift-console/dynamic-plugin-sdk';
-import { Alert, AlertVariant, Breadcrumb, BreadcrumbItem } from '@patternfly/react-core';
+import { Alert, AlertVariant, Breadcrumb, BreadcrumbItem, Title } from '@patternfly/react-core';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import { getResourceUrl } from '@utils/helpers';
 
@@ -29,8 +29,8 @@ const PolicyPageTitle: FC<PolicyPageTitleProps> = ({ policy, name }) => {
 
   return (
     <>
-      <div className="pf-v5-c-page__main-breadcrumb">
-        <Breadcrumb className="pf-v5-c-breadcrumb co-breadcrumb">
+      <div className="pf-v6-c-page__main-breadcrumb">
+        <Breadcrumb className="pf-v6-c-breadcrumb co-breadcrumb">
           <BreadcrumbItem>
             <Link to={getResourceUrl({ model: NodeNetworkConfigurationPolicyModel })}>
               {t(NodeNetworkConfigurationPolicyModel.label)}
@@ -43,14 +43,14 @@ const PolicyPageTitle: FC<PolicyPageTitleProps> = ({ policy, name }) => {
       </div>
       <div className="co-m-nav-title co-m-nav-title--detail co-m-nav-title--breadcrumbs">
         <span className="co-m-pane__heading">
-          <h1 className="co-m-pane__name co-resource-item">
+          <Title className="co-m-pane__name co-resource-item" headingLevel="h1">
             <span className="co-m-resource-icon co-m-resource-icon--lg">
               {NodeNetworkConfigurationPolicyModel.abbr}
             </span>
             <span data-test-id="resource-title" className="co-resource-item__resource-name">
               {name ?? policy?.metadata?.name}{' '}
             </span>
-          </h1>
+          </Title>
           <div className="co-actions">
             <PolicyActions policy={policy} />
           </div>
@@ -58,7 +58,7 @@ const PolicyPageTitle: FC<PolicyPageTitleProps> = ({ policy, name }) => {
 
         {policy && canUpdatePolicy === false && (
           <Alert
-            className="pf-u-mb-md"
+            className="pf-v6-u-mb-md"
             isInline
             variant={AlertVariant.info}
             title={t("You're in view-only mode")}
@@ -71,7 +71,7 @@ const PolicyPageTitle: FC<PolicyPageTitleProps> = ({ policy, name }) => {
             variant={AlertVariant.info}
             isInline
             title={t('This policy must be edited via YAML')}
-            className="pf-u-mb-md"
+            className="pf-v6-u-mb-md"
           />
         )}
       </div>

@@ -1,6 +1,13 @@
 import React, { FC } from 'react';
 
-import { Modal, PageSection, PageSectionVariants, Title } from '@patternfly/react-core';
+import {
+  PageSection,
+  Title,
+  Tabs as TabsComponent,
+  Tab,
+  TabTitleText,
+} from '@patternfly/react-core';
+import { Modal } from '@patternfly/react-core/deprecated';
 import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
@@ -30,10 +37,10 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface, onClose 
     },
   ];
 
-  const selectedTab = (location.hash.replace('#', '') as InterfaceDrawerTabId) || Tabs?.[0]?.id;
+  const selectedTabId = (location.hash.replace('#', '') as InterfaceDrawerTabId) || Tabs?.[0]?.id;
 
   const SelectedTabComponent =
-    Tabs.find((tab) => tab.id === selectedTab)?.component ?? Tabs?.[0]?.component;
+    Tabs.find((tab) => tab.id === selectedTabId)?.component ?? Tabs?.[0]?.component;
 
   return (
     <Modal
@@ -45,32 +52,25 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface, onClose 
       header={<Title headingLevel="h2">{selectedInterface?.name}</Title>}
       data-test="interface-drawer"
       footer={
-        selectedTab === 'drawer-yaml' && (
+        selectedTabId === 'drawer-yaml' && (
           <InterfaceDrawerYAMLFooter selectedInterface={selectedInterface} />
         )
       }
     >
-      <div className="co-m-horizontal-nav pf-u-px-md">
-        <ul className="co-m-horizontal-nav__menu">
+      <div className="co-m-horizontal-nav">
+        <TabsComponent activeKey={selectedTabId}>
           {Tabs.map((tab) => (
-            <li
+            <Tab
               key={tab.id}
-              className={`co-m-horizontal-nav__menu-item ${
-                selectedTab === tab.id ? 'co-m-horizontal-nav-item--active' : ''
-              }`}
-              data-test={`horizontal-tab-${tab.id}`}
-            >
-              <a
-                data-test-id="horizontal-link-Details"
-                href={`${location.pathname}${location.search}#${tab.id}`}
-              >
-                {tab.title}
-              </a>
-            </li>
+              title={<TabTitleText>{tab.title}</TabTitleText>}
+              eventKey={tab.id}
+              data-test-id="horizontal-link-Details"
+              href={`${location.pathname}${location.search}#${tab.id}`}
+            />
           ))}
-        </ul>
+        </TabsComponent>
       </div>
-      <PageSection variant={PageSectionVariants.light}>
+      <PageSection className="pf-v6-u-mt-md">
         <SelectedTabComponent selectedInterface={selectedInterface} />
       </PageSection>
     </Modal>

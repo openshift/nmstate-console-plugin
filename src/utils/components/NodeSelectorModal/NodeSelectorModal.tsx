@@ -16,9 +16,8 @@ import {
   ButtonType,
   ButtonVariant,
   Form,
-  Modal,
-  ModalVariant,
 } from '@patternfly/react-core';
+import { Modal, ModalVariant } from '@patternfly/react-core/deprecated';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 
 import LabelsList from './components/LabelList';
@@ -140,7 +139,7 @@ const NodeSelectorModal: FC<NodeSelectorModalProps> = ({ policy, isOpen, onClose
           </Alert>
         )}
 
-        <ActionGroup className="pf-v5-c-form">
+        <ActionGroup className="pf-v6-c-form">
           <Button type={ButtonType.submit} variant={ButtonVariant.primary} onClick={onSave}>
             {t('Save')}
           </Button>

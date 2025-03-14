@@ -1,7 +1,7 @@
 import React, { FC, FormEvent } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { ExpandableSection, FormGroup, Text, TextInput } from '@patternfly/react-core';
+import { ExpandableSection, FormGroup, Content, TextInput } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 
 type CopyMACProps = {
@@ -23,12 +23,16 @@ const CopyMAC: FC<CopyMACProps> = ({ id, policyInterface, onInterfaceChange }) =
 
   return (
     <ExpandableSection toggleText={t('Copy MAC address')} data-test-id={`copy-mac-${id}`}>
-      <div className="pf-u-ml-md">
-        <Text className="pf-u-color-200 pf-u-mb-lg">
+      <div className="pf-v6-u-ml-md">
+        <Content
+          component="p"
+          className="pf-v6-u-mb-lg"
+          style={{ color: 'var(--pf-t--global--text--color--subtle)' }}
+        >
           {t(
             'This is the list of ports to copy MAC address from. Select one of the matched ports this policy will apply to',
           )}
-        </Text>
+        </Content>
 
         <FormGroup label={t('Port name')} fieldId={`copy-mac-port-${id}`}>
           <TextInput

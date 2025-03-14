@@ -5,15 +5,14 @@ import { EnactmentStatuses } from 'src/views/policies/constants';
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   ExpandableSection,
-  Modal,
+  Icon,
   Tab,
   Tabs,
   TabTitleIcon,
   TabTitleText,
 } from '@patternfly/react-core';
+import { Modal } from '@patternfly/react-core/deprecated';
 import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
-import { global_danger_color_200 as dangerColor } from '@patternfly/react-tokens/dist/js/global_danger_color_200';
-import { global_success_color_200 as successColor } from '@patternfly/react-tokens/dist/js/global_success_color_200';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 
 import { categorizeEnactments, findConditionType } from '../utils';
@@ -52,12 +51,20 @@ const PolicyEnactmentsDrawer: FC<PolicyEnactmentsDrawerProps> = ({
       },
       {
         title: EnactmentStatuses.Aborted,
-        icon: <CloseIcon color={dangerColor.value} />,
+        icon: (
+          <Icon status="danger">
+            <CloseIcon />
+          </Icon>
+        ),
         enactments: abortedEnactments,
       },
       {
         title: EnactmentStatuses.Available,
-        icon: <CheckIcon color={successColor.value} />,
+        icon: (
+          <Icon status="success">
+            <CheckIcon />
+          </Icon>
+        ),
         enactments: availableEnactments,
       },
       {

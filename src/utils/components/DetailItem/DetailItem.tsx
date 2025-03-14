@@ -79,6 +79,8 @@ const DetailItem: FC<DetailItemProps> = ({
           {isEdit && showEditOnTitle && (
             <FlexItem>
               <Button
+                icon={<PencilAltIcon />}
+                iconPosition="end"
                 data-test-id={`${testId}-edit`}
                 isDisabled={isDisabled}
                 isInline
@@ -86,7 +88,6 @@ const DetailItem: FC<DetailItemProps> = ({
                 variant={ButtonVariant.link}
               >
                 {t('Edit')}
-                <PencilAltIcon className="co-icon-space-l pf-v5-c-button-icon--plain" />
               </Button>
             </FlexItem>
           )}

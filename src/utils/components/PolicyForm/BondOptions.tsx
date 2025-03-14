@@ -90,9 +90,7 @@ const BondOptions: FC<BondOptionsProps> = ({ id, onInterfaceChange, policyInterf
 
           <GridItem span={1}>
             <FormGroup label=" " fieldId={`label-${id}-delete-btn`}>
-              <Button variant="plain" onClick={() => onDelete(key)}>
-                <MinusCircleIcon />
-              </Button>
+              <Button icon={<MinusCircleIcon />} variant="plain" onClick={() => onDelete(key)} />
             </FormGroup>
           </GridItem>
         </Grid>

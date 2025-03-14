@@ -13,9 +13,7 @@ import {
   EmptyStateActions,
   EmptyStateBody,
   EmptyStateFooter,
-  EmptyStateIcon,
   EmptyStateVariant,
-  Title,
 } from '@patternfly/react-core';
 import ExternalLinkSquareAltIcon from '@patternfly/react-icons/dist/esm/icons/external-link-square-alt-icon';
 
@@ -27,13 +25,12 @@ const PolicyListEmptyState: FC = () => {
   const { t } = useNMStateTranslation();
   const history = useHistory();
   return (
-    <EmptyState variant={EmptyStateVariant.lg}>
-      <EmptyStateIcon
-        icon={() => <img src={EmptyPolicyStateImage} className="policy-empty-state-icon" />}
-      />
-      <Title headingLevel="h4" size="lg">
-        {t('No NodeNetworkConfigurationPolicy defined yet')}
-      </Title>
+    <EmptyState
+      titleText={t('No NodeNetworkConfigurationPolicy defined yet')}
+      headingLevel="h4"
+      icon={() => <img src={EmptyPolicyStateImage} className="policy-empty-state-icon" />}
+      variant={EmptyStateVariant.lg}
+    >
       <EmptyStateBody>
         <Trans t={t} ns="plugin__nmstate-console-plugin">
           Click <strong>Create NodeNetworkConfigurationPolicy</strong> to create your first policy

@@ -79,11 +79,16 @@ const StatesList: FC = () => {
     <>
       <ListPageHeader title={t(NodeNetworkStateModel.label)}>
         {!isEmpty(states) && (
-          <Button isInline variant="plain" onClick={() => navigate('/nmstate-topology')}>
-            <Icon>
-              <TopologyIcon />
-            </Icon>
-          </Button>
+          <Button
+            icon={
+              <Icon>
+                <TopologyIcon />
+              </Icon>
+            }
+            isInline
+            variant="plain"
+            onClick={() => navigate('/nmstate-topology')}
+          />
         )}
       </ListPageHeader>
       <ListPageBody>

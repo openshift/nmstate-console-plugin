@@ -1,6 +1,6 @@
-.pf-v5-c-toolbar__group.pf-topology-view__view-toolbar {
+.pf-v6-c-toolbar__group.pf-topology-view__view-toolbar {
   width: 100%;
-  .pf-v5-c-toolbar {
+  .pf-v6-c-toolbar {
     width: 100%;
   }
 }
@@ -10,15 +10,14 @@ div[id^='pf-topology-view-'] {
 }
 
 .topology-toolbar {
-  padding: var(--pf-global--spacer--sm) 0;
+  padding: var(--pf-t--global--spacer--md) 0;
   &__content {
-    padding: 0 var(--pf-global--spacer--sm);
+    padding: 0 var(--pf-t--global--spacer--md);
   }
-}
 
-.list-view-btn {
-  position: absolute;
-  right: 0;
+  .pf-v6-c-toolbar__content-section {
+    justify-content: space-between;
+  }
 }
 
 .topology-filter {
@@ -26,6 +25,6 @@ div[id^='pf-topology-view-'] {
     width: 200px;
   }
   &__icon {
-    margin-right: var(--pf-global--spacer--sm);
+    margin-right: var(--pf-t--global--spacer--sm);
   }
 }

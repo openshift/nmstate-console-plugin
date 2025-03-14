@@ -1,10 +1,10 @@
 .policy-form-content {
   .policy-interface__expandable {
-    margin-top: var(--pf-global--spacer--md);
-    --pf-v5-c-form__field-group--field-group--MarginTop: 0;
+    margin-top: var(--pf-t--global--spacer--md);
+    --pf-v6-c-form__field-group--field-group--MarginBlockStart: 0;
 
-    .pf-v5-c-form__group:first-child {
-      margin-top: calc(0px - var(--pf-global--spacer--md));
+    .pf-v6-c-form__group:first-child {
+      margin-top: calc(0px - var(--pf-t--global--spacer--md));
     }
   }
 }

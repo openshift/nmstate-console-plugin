@@ -3,10 +3,8 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { EnactmentStatuses } from 'src/views/policies/constants';
 
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
-import { Button, ButtonVariant, Stack, StackItem } from '@patternfly/react-core';
+import { Button, ButtonVariant, Icon, Stack, StackItem } from '@patternfly/react-core';
 import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
-import { global_danger_color_200 as dangerColor } from '@patternfly/react-tokens/dist/js/global_danger_color_200';
-import { global_success_color_200 as successColor } from '@patternfly/react-tokens/dist/js/global_success_color_200';
 import { V1beta1NodeNetworkConfigurationEnactment } from '@types';
 
 import { categorizeEnactments } from './utils';
@@ -28,12 +26,20 @@ const NNCPStateColumn: FC<NNCPStateColumnProps> = ({ enactments, onStateClick })
       label: EnactmentStatuses.Failing,
     },
     {
-      icon: <CloseIcon color={dangerColor.value} />,
+      icon: (
+        <Icon status="danger">
+          <CloseIcon />
+        </Icon>
+      ),
       number: aborted.length,
       label: EnactmentStatuses.Aborted,
     },
     {
-      icon: <CheckIcon color={successColor.value} />,
+      icon: (
+        <Icon status="success">
+          <CheckIcon />
+        </Icon>
+      ),
       number: available.length,
       label: EnactmentStatuses.Available,
     },
@@ -54,8 +60,13 @@ const NNCPStateColumn: FC<NNCPStateColumnProps> = ({ enactments, onStateClick })
       {states.length === 0 && <StackItem>-</StackItem>}
       {states.map((state) => (
         <StackItem key={state.label}>
-          <Button variant={ButtonVariant.link} isInline onClick={() => onStateClick(state.label)}>
-            {state.icon} {state.number} {t(state.label)}
+          <Button
+            variant={ButtonVariant.link}
+            isInline
+            onClick={() => onStateClick(state.label)}
+            icon={state.icon}
+          >
+            {state.number} {t(state.label)}
           </Button>
         </StackItem>
       ))}

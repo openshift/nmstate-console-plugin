@@ -6,11 +6,11 @@ import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 const NNStateEmptyState: FC = () => {
   const { t } = useNMStateTranslation();
   return (
-    <EmptyState variant={EmptyStateVariant.full}>
-      <Title headingLevel="h5" size="lg">
-        {t('No NodeNetworkStates found')}
-      </Title>
-    </EmptyState>
+    <EmptyState
+      headingLevel="h5"
+      titleText={t('No NodeNetworkStates found')}
+      variant={EmptyStateVariant.full}
+    />
   );
 };
 

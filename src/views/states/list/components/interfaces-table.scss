@@ -1,9 +1,9 @@
 .interfaces-table {
-  .pf-v5-c-table__expandable-row {
+  .pf-v6-c-table__expandable-row {
     border: none;
 
     & > td {
-      padding: var(--pf-global--spacer--md);
+      padding: var(--pf-t--global--spacer--md);
     }
   }
 
@@ -13,33 +13,34 @@
 
   tbody .interfaces-table__interface-type-row {
     border-bottom: none;
+    --pf-v6-c-table--cell--first-last-child--PaddingInline: 1rem;
 
     &:not(:first-child) td {
-      padding-top: var(--pf-global--spacer--sm);
+      padding-top: var(--pf-t--global--spacer--sm);
     }
 
     &:not(:last-child) td {
-      padding-bottom: var(--pf-global--spacer--sm);
+      padding-bottom: var(--pf-t--global--spacer--sm);
     }
 
-    .expandable-section-interface-type .pf-v5-c-expandable-section__toggle-text {
+    .expandable-section-interface-type .pf-v6-c-button__text {
       font-weight: bold;
-      color: var(--pf-global--Color--200);
+      color: var(--pf-t--global--text--color--subtle);
     }
   }
 
   tbody .interfaces-table__interfaces-expandable-row {
     &:not(:first-child) td {
-      padding-top: var(--pf-global--spacer--sm);
+      padding-top: var(--pf-t--global--spacer--sm);
     }
 
     &:not(:last-child) td {
-      padding-bottom: var(--pf-global--spacer--sm);
+      padding-bottom: var(--pf-t--global--spacer--sm);
     }
 
     &__status-icon {
-      color: var(--pf-global--Color--200);
-      margin-right: var(--pf-global--spacer--sm);
+      color: var(--pf-t--global--icon--color--subtle);
+      margin-right: var(--pf-t--global--spacer--sm);
     }
 
     &__column-name {

@@ -13,14 +13,14 @@ const AccessDenied: FC<AccessDeniedProps> = ({ message }) => {
   const { t } = useNMStateTranslation();
   return (
     <div>
-      <div className="cos-status-box pf-v5-u-text-align-center">
+      <div className="cos-status-box pf-v6-u-text-align-center">
         <img className="cos-status-box__access-denied-icon" src={restrictedSignImg} />
         <div className="cos-status-box">
           <div className="cos-status-box__title" data-test="msg-box-title">
             {t('Restricted Access')}
           </div>
           <div
-            className="pf-v5-u-text-align-center cos-status-box__detail"
+            className="pf-v6-u-text-align-center cos-status-box__detail"
             data-test="msg-box-detail"
           >
             {t("You don't have access to this section due to cluster policy.")}

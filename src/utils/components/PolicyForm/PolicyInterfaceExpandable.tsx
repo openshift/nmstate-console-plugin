@@ -77,13 +77,12 @@ const PolicyInterfacesExpandable: FC<PolicyInterfacesExpandableProps> = ({
                   >
                     <span>
                       <Button
+                        icon={<MinusCircleIcon />}
                         variant="plain"
                         aria-label={t('Remove')}
                         isDisabled={Boolean(interfaceCreated)}
                         onClick={() => removeInterface(index)}
-                      >
-                        <MinusCircleIcon />
-                      </Button>
+                      />
                     </span>
                   </Tooltip>
                 }
