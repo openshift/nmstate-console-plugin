@@ -55,12 +55,6 @@ Cypress.Commands.add('login', (provider, username, password) => {
     cy.get('#inputUsername').type(username || KUBEADMIN_USERNAME);
     cy.get('#inputPassword').type(password || Cypress.env('KUBEADMIN_PASSWORD'));
     cy.get(submitButton).click();
-    // wait for virtualization page
-
-    cy.contains('li[data-test="nav"]', 'Networking').click();
-    cy.contains('*[data-test-id="policy-nav-list"]', 'NodeNetworkConfigurationPolicy').should(
-      'be.visible',
-    );
   });
 });
 
