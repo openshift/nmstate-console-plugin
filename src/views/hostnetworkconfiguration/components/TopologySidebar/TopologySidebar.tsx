@@ -3,8 +3,8 @@ import React, { Dispatch, FC, SetStateAction, useMemo } from 'react';
 import { TopologySideBar } from '@patternfly/react-topology';
 import { V1beta1NodeNetworkState } from '@types';
 
-import StateDetailsPage from '../../../details/StateDetailsPage';
-import InterfaceDrawer from '../../../list/components/InterfaceDrawer/InterfaceDrawer';
+import StateDetailsPage from '../../../states/details/StateDetailsPage';
+import InterfaceDrawer from '../../../states/list/components/InterfaceDrawer/InterfaceDrawer';
 
 import './TopologySidebar.scss';
 

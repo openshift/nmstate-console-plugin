@@ -20,7 +20,7 @@ import { V1beta1NodeNetworkConfigurationEnactment, V1beta1NodeNetworkState } fro
 import AccessDenied from '@utils/components/AccessDenied/AccessDenied';
 import { isEmpty } from '@utils/helpers';
 
-import { categorizeEnactments } from '../../policies/list/components/utils';
+import { categorizeEnactments } from '../policies/list/components/utils';
 
 import TopologySidebar from './components/TopologySidebar/TopologySidebar';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
