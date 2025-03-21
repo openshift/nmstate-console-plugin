@@ -2,14 +2,11 @@ import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom-v5-compat';
 
 import {
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
   PageSection,
   Tab,
   Tabs as TabsComponent,
   TabTitleText,
+  Title,
 } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
@@ -21,10 +18,9 @@ import InterfaceDrawerYAMLTab from './InterfaceDrawerYAMLTab';
 
 type InterfaceDrawerProps = {
   selectedInterface: NodeNetworkConfigurationInterface;
-  onClose: () => void;
 };
 
-const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface, onClose }) => {
+const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface }) => {
   const { t } = useNMStateTranslation();
 
   const location = useLocation();
@@ -48,37 +44,29 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface, onClose 
     Tabs.find((tab) => tab.id === selectedTabId)?.component ?? Tabs?.[0]?.component;
 
   return (
-    <Modal
-      isOpen={!!selectedInterface}
-      onClose={onClose}
-      disableFocusTrap
-      data-test="interface-drawer"
-    >
-      <ModalHeader title={selectedInterface?.name} />
-      <ModalBody>
-        <div>
-          <TabsComponent activeKey={selectedTabId}>
-            {Tabs.map((tab) => (
-              <Tab
-                key={tab.id}
-                title={<TabTitleText>{tab.title}</TabTitleText>}
-                eventKey={tab.id}
-                data-test-id="horizontal-link-Details"
-                href={`${location.pathname}${location.search}#${tab.id}`}
-              />
-            ))}
-          </TabsComponent>
-        </div>
-        <PageSection className="pf-v6-u-mt-md">
-          <SelectedTabComponent selectedInterface={selectedInterface} />
-        </PageSection>
-      </ModalBody>
+    <>
+      <Title headingLevel="h1">{selectedInterface?.name}</Title>
+      <div className="co-m-horizontal-nav">
+        <TabsComponent activeKey={selectedTabId}>
+          {Tabs.map((tab) => (
+            <Tab
+              key={tab.id}
+              title={<TabTitleText>{tab.title}</TabTitleText>}
+              eventKey={tab.id}
+              data-test-id="horizontal-link-Details"
+              href={`${location.pathname}${location.search}#${tab.id}`}
+            />
+          ))}
+        </TabsComponent>
+      </div>
+      <PageSection className="pf-v6-u-mt-md">
+        <SelectedTabComponent selectedInterface={selectedInterface} />
+      </PageSection>
+
       {selectedTabId === 'drawer-yaml' && (
-        <ModalFooter>
-          <InterfaceDrawerYAMLFooter selectedInterface={selectedInterface} />
-        </ModalFooter>
+        <InterfaceDrawerYAMLFooter selectedInterface={selectedInterface} />
       )}
-    </Modal>
+    </>
   );
 };
 

@@ -4,7 +4,8 @@ import { TopologySideBar } from '@patternfly/react-topology';
 import { V1beta1NodeNetworkState } from '@types';
 
 import StateDetailsPage from '../../../states/details/StateDetailsPage';
-import InterfaceDrawer from '../../../states/list/components/InterfaceDrawer/InterfaceDrawer';
+
+import InterfaceDrawer from './InterfaceDrawer/InterfaceDrawer';
 
 import './TopologySidebar.scss';
 
@@ -32,12 +33,7 @@ const TopologySidebar: FC<TopologySidebarProps> = ({ states, selectedIds, setSel
         {!selectedInterface ? (
           <StateDetailsPage nns={selectedState} />
         ) : (
-          <>
-            <InterfaceDrawer
-              selectedInterface={selectedInterface}
-              onClose={() => setSelectedIds([])}
-            />
-          </>
+          <InterfaceDrawer selectedInterface={selectedInterface} />
         )}
       </div>
     </TopologySideBar>
