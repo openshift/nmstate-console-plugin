@@ -6,13 +6,15 @@ import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk'
 import {
   ExpandableSection,
   Icon,
+  Modal,
+  ModalBody,
+  ModalHeader,
   Tab,
   Tabs,
   TabTitleIcon,
   TabTitleText,
   Title,
 } from '@patternfly/react-core';
-import { Modal } from '@patternfly/react-core/deprecated';
 import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 
@@ -95,43 +97,45 @@ const PolicyEnactmentsDrawer: FC<PolicyEnactmentsDrawerProps> = ({
       isOpen={!!selectedPolicy}
       onClose={onClose}
       disableFocusTrap
-      header={<Title headingLevel="h2">{t('Matched nodes summary')}</Title>}
     >
-      <div className="modal-body modal-body-border modal-body-content">
-        <Tabs
-          activeKey={selectedTab}
-          onSelect={(event, key) => setSelectedTab(key)}
-          isBox
-          aria-label={t('Enactments categorized by status')}
-          role="region"
-        >
-          {tabsData.map((tabData, index) => (
-            <Tab
-              eventKey={index}
-              key={tabData.title}
-              isDisabled={tabData.enactments.length === 0}
-              aria-label={t('Display all {{status}} enactments', { status: tabData.title })}
-              title={
-                <>
-                  <TabTitleIcon>{tabData.icon}</TabTitleIcon>
-                  <TabTitleText> {t(tabData.title)} </TabTitleText>
-                </>
-              }
-            >
-              {tabData?.enactments?.map((enhactment) => (
-                <ExpandableSection
-                  toggleText={enhactment?.metadata?.name}
-                  key={enhactment?.metadata?.name}
-                >
-                  <pre className="policy-enactments-drawer__tabs__expandable-content">
-                    {findConditionType(enhactment?.status?.conditions, tabData.title)?.message}
-                  </pre>
-                </ExpandableSection>
-              ))}
-            </Tab>
-          ))}
-        </Tabs>
-      </div>
+      <ModalHeader title={<Title headingLevel="h2">{t('Matched nodes summary')}</Title>} />
+      <ModalBody>
+        <div>
+          <Tabs
+            activeKey={selectedTab}
+            onSelect={(event, key) => setSelectedTab(key)}
+            isBox
+            aria-label={t('Enactments categorized by status')}
+            role="region"
+          >
+            {tabsData.map((tabData, index) => (
+              <Tab
+                eventKey={index}
+                key={tabData.title}
+                isDisabled={tabData.enactments.length === 0}
+                aria-label={t('Display all {{status}} enactments', { status: tabData.title })}
+                title={
+                  <>
+                    <TabTitleIcon>{tabData.icon}</TabTitleIcon>
+                    <TabTitleText> {t(tabData.title)} </TabTitleText>
+                  </>
+                }
+              >
+                {tabData?.enactments?.map((enhactment) => (
+                  <ExpandableSection
+                    toggleText={enhactment?.metadata?.name}
+                    key={enhactment?.metadata?.name}
+                  >
+                    <pre className="policy-enactments-drawer__tabs__expandable-content">
+                      {findConditionType(enhactment?.status?.conditions, tabData.title)?.message}
+                    </pre>
+                  </ExpandableSection>
+                ))}
+              </Tab>
+            ))}
+          </Tabs>
+        </div>
+      </ModalBody>
     </Modal>
   );
 };

@@ -15,7 +15,7 @@ const LabelsList: FC<LabelsListProps> = ({ onLabelAdd, model, children }) => {
   const { t } = useNMStateTranslation();
   return (
     <>
-      <Grid hasGutter>{children}</Grid>
+      {children && <Grid hasGutter>{children}</Grid>}
       <Split>
         <SplitItem>
           <Button

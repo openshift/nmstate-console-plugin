@@ -2,15 +2,8 @@ import React, { FC } from 'react';
 import { Trans } from 'react-i18next';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import {
-  ActionList,
-  ActionListItem,
-  Button,
-  ButtonVariant,
-  Stack,
-  StackItem,
-} from '@patternfly/react-core';
-import { Modal } from '@patternfly/react-core/deprecated';
+import { Button, ButtonVariant } from '@patternfly/react-core';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 
 import { capitalizeFirstLetter } from './utils';
@@ -37,47 +30,30 @@ const DeleteInterfaceModal: FC<DeleteInterfaceModalProps> = ({
   };
 
   return (
-    <Modal
-      className="ocs-modal"
-      onClose={closeModal}
-      variant="medium"
-      position="top"
-      title={t('Delete NodeNetworkConfigurationPolicyInterface?')}
-      titleIconVariant="warning"
-      footer={
-        <Stack className="pf-v6-u-flex-fill" hasGutter>
-          <StackItem>
-            <ActionList>
-              <ActionListItem>
-                <Button
-                  onClick={handleSubmit}
-                  variant={ButtonVariant.danger}
-                  form="delete-interface-form"
-                >
-                  {t('Delete')}
-                </Button>
-              </ActionListItem>
-              <ActionListItem>
-                <Button onClick={closeModal} variant={ButtonVariant.secondary}>
-                  {t('Cancel')}
-                </Button>
-              </ActionListItem>
-            </ActionList>
-          </StackItem>
-        </Stack>
-      }
-      isOpen={isOpen}
-      id="delete-modal"
-    >
-      <form id="delete-interface-form">
-        <p className="pf-v6-u-mb-md pf-v6-u-mt-sm">
-          <Trans t={t} ns="plugin__nmstate-console-plugin">
-            Are you sure you want to remove{' '}
-            {{ interfaceType: capitalizeFirstLetter(policyInterface?.type) }} interface{' '}
-            <strong>{{ name: policyInterface.name }}</strong>?
-          </Trans>
-        </p>
-      </form>
+    <Modal onClose={closeModal} variant="medium" position="top" isOpen={isOpen} id="delete-modal">
+      <ModalHeader
+        title={t('Delete NodeNetworkConfigurationPolicyInterface?')}
+        titleIconVariant="warning"
+      />
+      <ModalBody>
+        <form id="delete-interface-form">
+          <p className="pf-v6-u-mb-md pf-v6-u-mt-sm">
+            <Trans t={t} ns="plugin__nmstate-console-plugin">
+              Are you sure you want to remove{' '}
+              {{ interfaceType: capitalizeFirstLetter(policyInterface?.type) }} interface{' '}
+              <strong>{{ name: policyInterface.name }}</strong>?
+            </Trans>
+          </p>
+        </form>
+      </ModalBody>
+      <ModalFooter>
+        <Button onClick={handleSubmit} variant={ButtonVariant.danger} form="delete-interface-form">
+          {t('Delete')}
+        </Button>
+        <Button onClick={closeModal} variant={ButtonVariant.secondary}>
+          {t('Cancel')}
+        </Button>
+      </ModalFooter>
     </Modal>
   );
 };

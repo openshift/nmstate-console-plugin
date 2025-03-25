@@ -9,15 +9,17 @@ import { useImmer } from 'use-immer';
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import {
-  ActionGroup,
   Alert,
   AlertVariant,
   Button,
   ButtonType,
   ButtonVariant,
   Form,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
 } from '@patternfly/react-core';
-import { Modal, ModalVariant } from '@patternfly/react-core/deprecated';
+import { Modal, ModalVariant } from '@patternfly/react-core';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 
 import LabelsList from './components/LabelList';
@@ -100,54 +102,50 @@ const NodeSelectorModal: FC<NodeSelectorModalProps> = ({ policy, isOpen, onClose
   );
 
   return (
-    <Modal
-      onClose={onClose}
-      isOpen={isOpen}
-      variant={ModalVariant.small}
-      className="ocs-modal"
-      title={t('Node Selector')}
-    >
-      <Form>
-        <LabelsList model={nodes?.length !== 0 && NodeModel} onLabelAdd={onSelectorLabelAdd}>
-          {selectorLabels.length > 0 && (
-            <>
-              {selectorLabels.map((label) => (
-                <LabelRow
-                  key={label.id}
-                  label={label}
-                  onChange={onLabelChange}
-                  onDelete={onLabelDelete}
-                />
-              ))}
-            </>
+    <Modal onClose={onClose} isOpen={isOpen} variant={ModalVariant.small}>
+      <ModalHeader title={t('Node Selector')} />
+      <ModalBody>
+        <Form>
+          <LabelsList model={nodes?.length !== 0 && NodeModel} onLabelAdd={onSelectorLabelAdd}>
+            {selectorLabels.length > 0 && (
+              <>
+                {selectorLabels.map((label) => (
+                  <LabelRow
+                    key={label.id}
+                    label={label}
+                    onChange={onLabelChange}
+                    onDelete={onLabelDelete}
+                  />
+                ))}
+              </>
+            )}
+          </LabelsList>
+          {nodes.length !== 0 && (
+            <NodeCheckerAlert
+              qualifiedNodes={selectorLabels?.length === 0 ? nodes : qualifiedNodes}
+              nodesLoaded={nodesLoaded && enactmentsLoaded}
+            />
           )}
-        </LabelsList>
-        {nodes.length !== 0 && (
-          <NodeCheckerAlert
-            qualifiedNodes={selectorLabels?.length === 0 ? nodes : qualifiedNodes}
-            nodesLoaded={nodesLoaded && enactmentsLoaded}
-          />
-        )}
 
-        {nodeAlreadyCovered && (
-          <Alert
-            variant={AlertVariant.warning}
-            isInline
-            title={t('This node already has a policy matching it')}
-          >
-            {t('Remove all dependencies between the new and existing polices')}
-          </Alert>
-        )}
-
-        <ActionGroup className="pf-v6-c-form">
-          <Button type={ButtonType.submit} variant={ButtonVariant.primary} onClick={onSave}>
-            {t('Save')}
-          </Button>
-          <Button type={ButtonType.button} variant={ButtonVariant.secondary} onClick={onClose}>
-            {t('Cancel')}
-          </Button>
-        </ActionGroup>
-      </Form>
+          {nodeAlreadyCovered && (
+            <Alert
+              variant={AlertVariant.warning}
+              isInline
+              title={t('This node already has a policy matching it')}
+            >
+              {t('Remove all dependencies between the new and existing polices')}
+            </Alert>
+          )}
+        </Form>
+      </ModalBody>
+      <ModalFooter>
+        <Button type={ButtonType.submit} variant={ButtonVariant.primary} onClick={onSave}>
+          {t('Save')}
+        </Button>
+        <Button type={ButtonType.button} variant={ButtonVariant.secondary} onClick={onClose}>
+          {t('Cancel')}
+        </Button>
+      </ModalFooter>
     </Modal>
   );
 };
