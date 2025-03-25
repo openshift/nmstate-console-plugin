@@ -12,6 +12,8 @@ import PolicyActions from '../actions/PolicyActions';
 import { isPolicySupported } from '../utils';
 
 import './policy-page-title.scss';
+import DetailsPageTitle from '@utils/components/DetailsPageTitle/DetailsPageTitle';
+import PaneHeading from '@utils/components/PaneHeading/PaneHeading';
 
 type PolicyPageTitleProps = {
   policy: V1NodeNetworkConfigurationPolicy;
@@ -28,9 +30,9 @@ const PolicyPageTitle: FC<PolicyPageTitleProps> = ({ policy, name }) => {
   });
 
   return (
-    <>
-      <div className="pf-v6-c-page__main-breadcrumb">
-        <Breadcrumb className="pf-v6-c-breadcrumb co-breadcrumb">
+    <DetailsPageTitle
+      breadcrumb={
+        <Breadcrumb>
           <BreadcrumbItem>
             <Link to={getResourceUrl({ model: NodeNetworkConfigurationPolicyModel })}>
               {t(NodeNetworkConfigurationPolicyModel.label)}
@@ -40,42 +42,33 @@ const PolicyPageTitle: FC<PolicyPageTitleProps> = ({ policy, name }) => {
             {t('{{modelName}} details', { modelName: NodeNetworkConfigurationPolicyModel.label })}
           </BreadcrumbItem>
         </Breadcrumb>
-      </div>
-      <div className="co-m-nav-title co-m-nav-title--detail co-m-nav-title--breadcrumbs">
-        <span className="co-m-pane__heading">
-          <Title className="co-m-pane__name co-resource-item" headingLevel="h1">
-            <span className="co-m-resource-icon co-m-resource-icon--lg">
-              {NodeNetworkConfigurationPolicyModel.abbr}
-            </span>
-            <span data-test-id="resource-title" className="co-resource-item__resource-name">
-              {name ?? policy?.metadata?.name}{' '}
-            </span>
-          </Title>
-          <div className="co-actions">
-            <PolicyActions policy={policy} />
-          </div>
-        </span>
+      }
+    >
+      <PaneHeading>
+        <Title className="co-m-pane__name co-resource-item" headingLevel="h1">
+          <span className="co-m-resource-icon co-m-resource-icon--lg">
+            {NodeNetworkConfigurationPolicyModel.abbr}
+          </span>
+          <span data-test-id="resource-title" className="co-resource-item__resource-name">
+            {name ?? policy?.metadata?.name}{' '}
+          </span>
+        </Title>
+        <PolicyActions policy={policy} />
+      </PaneHeading>
 
-        {policy && canUpdatePolicy === false && (
-          <Alert
-            className="pf-v6-u-mb-md"
-            isInline
-            variant={AlertVariant.info}
-            title={t("You're in view-only mode")}
-          >
-            {t('To edit this policy, contact your administrator.')}
-          </Alert>
-        )}
-        {policy && canUpdatePolicy && !formSupported && (
-          <Alert
-            variant={AlertVariant.info}
-            isInline
-            title={t('This policy must be edited via YAML')}
-            className="pf-v6-u-mb-md"
-          />
-        )}
-      </div>
-    </>
+      {policy && canUpdatePolicy === false && (
+        <Alert isInline variant={AlertVariant.info} title={t("You're in view-only mode")}>
+          {t('To edit this policy, contact your administrator.')}
+        </Alert>
+      )}
+      {policy && canUpdatePolicy && !formSupported && (
+        <Alert
+          variant={AlertVariant.info}
+          isInline
+          title={t('This policy must be edited via YAML')}
+        />
+      )}
+    </DetailsPageTitle>
   );
 };
 

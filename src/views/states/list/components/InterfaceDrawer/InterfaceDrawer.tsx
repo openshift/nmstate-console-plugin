@@ -57,7 +57,7 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface, onClose 
         )
       }
     >
-      <div className="co-m-horizontal-nav">
+      <div>
         <TabsComponent activeKey={selectedTabId}>
           {Tabs.map((tab) => (
             <Tab

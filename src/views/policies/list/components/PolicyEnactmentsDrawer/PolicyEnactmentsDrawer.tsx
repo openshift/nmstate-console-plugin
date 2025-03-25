@@ -10,6 +10,7 @@ import {
   Tabs,
   TabTitleIcon,
   TabTitleText,
+  Title,
 } from '@patternfly/react-core';
 import { Modal } from '@patternfly/react-core/deprecated';
 import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
@@ -94,7 +95,7 @@ const PolicyEnactmentsDrawer: FC<PolicyEnactmentsDrawerProps> = ({
       isOpen={!!selectedPolicy}
       onClose={onClose}
       disableFocusTrap
-      header={<h2>{t('Matched nodes summary')}</h2>}
+      header={<Title headingLevel="h2">{t('Matched nodes summary')}</Title>}
     >
       <div className="modal-body modal-body-border modal-body-content">
         <Tabs
