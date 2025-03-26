@@ -6,8 +6,11 @@ import {
   Tabs as TabsComponent,
   Tab,
   TabTitleText,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
 } from '@patternfly/react-core';
-import { Modal } from '@patternfly/react-core/deprecated';
 import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
@@ -49,30 +52,32 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface, onClose 
       isOpen={!!selectedInterface}
       onClose={onClose}
       disableFocusTrap
-      header={<Title headingLevel="h2">{selectedInterface?.name}</Title>}
       data-test="interface-drawer"
-      footer={
-        selectedTabId === 'drawer-yaml' && (
-          <InterfaceDrawerYAMLFooter selectedInterface={selectedInterface} />
-        )
-      }
     >
-      <div>
-        <TabsComponent activeKey={selectedTabId}>
-          {Tabs.map((tab) => (
-            <Tab
-              key={tab.id}
-              title={<TabTitleText>{tab.title}</TabTitleText>}
-              eventKey={tab.id}
-              data-test-id="horizontal-link-Details"
-              href={`${location.pathname}${location.search}#${tab.id}`}
-            />
-          ))}
-        </TabsComponent>
-      </div>
-      <PageSection className="pf-v6-u-mt-md">
-        <SelectedTabComponent selectedInterface={selectedInterface} />
-      </PageSection>
+      <ModalHeader title={<Title headingLevel="h2">{selectedInterface?.name}</Title>} />
+      <ModalBody>
+        <div>
+          <TabsComponent activeKey={selectedTabId}>
+            {Tabs.map((tab) => (
+              <Tab
+                key={tab.id}
+                title={<TabTitleText>{tab.title}</TabTitleText>}
+                eventKey={tab.id}
+                data-test-id="horizontal-link-Details"
+                href={`${location.pathname}${location.search}#${tab.id}`}
+              />
+            ))}
+          </TabsComponent>
+        </div>
+        <PageSection className="pf-v6-u-mt-md">
+          <SelectedTabComponent selectedInterface={selectedInterface} />
+        </PageSection>
+      </ModalBody>
+      {selectedTabId === 'drawer-yaml' && (
+        <ModalFooter>
+          <InterfaceDrawerYAMLFooter selectedInterface={selectedInterface} />
+        </ModalFooter>
+      )}
     </Modal>
   );
 };

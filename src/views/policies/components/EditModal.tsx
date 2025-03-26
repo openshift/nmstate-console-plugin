@@ -5,17 +5,19 @@ import { useImmer } from 'use-immer';
 
 import { k8sUpdate } from '@openshift-console/dynamic-plugin-sdk';
 import {
-  ActionList,
-  ActionListItem,
   Alert,
   AlertVariant,
   Button,
   ButtonType,
   ButtonVariant,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  ModalVariant,
   Stack,
   StackItem,
 } from '@patternfly/react-core';
-import { Modal } from '@patternfly/react-core/deprecated';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import PolicyForm from '@utils/components/PolicyForm/PolicyForm';
 
@@ -51,56 +53,49 @@ const EditModal: FC<EditModalProps> = ({ closeModal, isOpen, policy }) => {
 
   return (
     <Modal
-      className="ocs-modal"
       onClose={closeModal}
-      variant={'small'}
+      variant={ModalVariant.small}
       position="top"
-      title={t('Edit NodeNetworkConfigurationPolicy')}
-      footer={
-        <Stack className="edit-modal-footer pf-v6-u-flex-fill" hasGutter>
-          {error && (
-            <StackItem>
-              <Alert isInline variant={AlertVariant.danger} title={t('An error occurred')}>
-                <Stack hasGutter>
-                  <StackItem>{error.message}</StackItem>
-                  {error?.href && (
-                    <StackItem>
-                      <a href={error.href} target="_blank" rel="noreferrer">
-                        {error.href}
-                      </a>
-                    </StackItem>
-                  )}
-                </Stack>
-              </Alert>
-            </StackItem>
-          )}
-          <StackItem>
-            <ActionList>
-              <ActionListItem>
-                <Button
-                  onClick={handleSubmit}
-                  isDisabled={loading}
-                  isLoading={loading}
-                  variant={ButtonVariant.primary}
-                  type={ButtonType.submit}
-                  form="edit-policy-form"
-                >
-                  {t('Save')}
-                </Button>
-              </ActionListItem>
-              <ActionListItem>
-                <Button onClick={closeModal} variant={ButtonVariant.secondary}>
-                  {t('Cancel')}
-                </Button>
-              </ActionListItem>
-            </ActionList>
-          </StackItem>
-        </Stack>
-      }
       isOpen={isOpen}
       id="edit-modal"
     >
-      <PolicyForm policy={editablePolicy} setPolicy={setEditablePolicy} formId="edit-policy-form" />
+      <ModalHeader title={t('Edit NodeNetworkConfigurationPolicy')} />
+      <ModalBody>
+        <PolicyForm
+          policy={editablePolicy}
+          setPolicy={setEditablePolicy}
+          formId="edit-policy-form"
+        />
+        {error && (
+          <Alert isInline variant={AlertVariant.danger} title={t('An error occurred')}>
+            <Stack hasGutter>
+              <StackItem>{error.message}</StackItem>
+              {error?.href && (
+                <StackItem>
+                  <a href={error.href} target="_blank" rel="noreferrer">
+                    {error.href}
+                  </a>
+                </StackItem>
+              )}
+            </Stack>
+          </Alert>
+        )}
+      </ModalBody>
+      <ModalFooter>
+        <Button
+          onClick={handleSubmit}
+          isDisabled={loading}
+          isLoading={loading}
+          variant={ButtonVariant.primary}
+          type={ButtonType.submit}
+          form="edit-policy-form"
+        >
+          {t('Save')}
+        </Button>
+        <Button onClick={closeModal} variant={ButtonVariant.secondary}>
+          {t('Cancel')}
+        </Button>
+      </ModalFooter>
     </Modal>
   );
 };
