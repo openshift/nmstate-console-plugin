@@ -25,7 +25,7 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface }) => {
 
   const location = useLocation();
 
-  const Tabs: InterfaceDrawerTabProps[] = [
+  const tabs: InterfaceDrawerTabProps[] = [
     {
       title: t('Details'),
       id: 'drawer-details',
@@ -38,17 +38,17 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface }) => {
     },
   ];
 
-  const selectedTabId = (location.hash.replace('#', '') as InterfaceDrawerTabId) || Tabs?.[0]?.id;
+  const selectedTabId = (location.hash.replace('#', '') as InterfaceDrawerTabId) || tabs?.[0]?.id;
 
   const SelectedTabComponent =
-    Tabs.find((tab) => tab.id === selectedTabId)?.component ?? Tabs?.[0]?.component;
+    tabs.find((tab) => tab.id === selectedTabId)?.component ?? tabs?.[0]?.component;
 
   return (
     <>
       <Title headingLevel="h1">{selectedInterface?.name}</Title>
       <div className="co-m-horizontal-nav">
         <TabsComponent activeKey={selectedTabId}>
-          {Tabs.map((tab) => (
+          {tabs.map((tab) => (
             <Tab
               key={tab.id}
               title={<TabTitleText>{tab.title}</TabTitleText>}

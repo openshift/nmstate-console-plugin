@@ -15,12 +15,12 @@ import {
   getSystemName,
 } from '@utils/neighbors/getters';
 
-const NeighborInformations: FC<{ neighbor: NodeNetworkConfigurationInterfaceLLDPNeighbor }> = ({
+const NeighborInformation: FC<{ neighbor: NodeNetworkConfigurationInterfaceLLDPNeighbor }> = ({
   neighbor,
 }) => {
   const { t } = useNMStateTranslation();
 
-  const chassisIdDescription = getDescription(neighbor, CHASSIS_ID);
+  const chassisIDDescription = getDescription(neighbor, CHASSIS_ID);
   const portId = getPortId(neighbor);
   const chassisId = getChassisId(neighbor);
   const systemName = getSystemName(neighbor);
@@ -31,7 +31,7 @@ const NeighborInformations: FC<{ neighbor: NodeNetworkConfigurationInterfaceLLDP
     <Stack>
       {chassisId && (
         <StackItem>
-          <strong>{chassisIdDescription}</strong>: {chassisId}
+          <strong>{chassisIDDescription}</strong>: {chassisId}
         </StackItem>
       )}
 
@@ -42,12 +42,12 @@ const NeighborInformations: FC<{ neighbor: NodeNetworkConfigurationInterfaceLLDP
       )}
       {systemName && (
         <StackItem>
-          <strong>{t('System Name')}</strong>: {systemName}
+          <strong>{t('System name')}</strong>: {systemName}
         </StackItem>
       )}
       {systemDescription && (
         <StackItem>
-          <strong>{t('System Description')}</strong>: {systemDescription}
+          <strong>{t('System description')}</strong>: {systemDescription}
         </StackItem>
       )}
       {iee8021Vlans && (
@@ -67,4 +67,4 @@ const NeighborInformations: FC<{ neighbor: NodeNetworkConfigurationInterfaceLLDP
   );
 };
 
-export default NeighborInformations;
+export default NeighborInformation;

@@ -18,9 +18,8 @@ import {
 } from '@patternfly/react-topology';
 import { V1beta1NodeNetworkConfigurationEnactment, V1beta1NodeNetworkState } from '@types';
 import AccessDenied from '@utils/components/AccessDenied/AccessDenied';
+import { categorizeEnactments } from '@utils/enactments/utils';
 import { isEmpty } from '@utils/helpers';
-
-import { categorizeEnactments } from '../policies/list/components/utils';
 
 import TopologySidebar from './components/TopologySidebar/TopologySidebar';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';

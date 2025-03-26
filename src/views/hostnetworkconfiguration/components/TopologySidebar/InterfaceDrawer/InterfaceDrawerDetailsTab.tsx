@@ -15,7 +15,7 @@ import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getPorts } from '@utils/interfaces/getters';
 import { getSystemName } from '@utils/neighbors/getters';
 
-import NeighborInformations from './NeighborInformations';
+import NeighborInformation from './NeighborInformation';
 
 type InterfaceDrawerDetailsTabProps = {
   selectedInterface: NodeNetworkConfigurationInterface;
@@ -35,13 +35,13 @@ const InterfaceDrawerDetailsTab: FC<InterfaceDrawerDetailsTabProps> = ({ selecte
             <FlexItem>
               <strong>{t('Id')}:</strong>
             </FlexItem>
-            <FlexItem>{selectedInterface.vlan.id}</FlexItem>
+            <FlexItem>{selectedInterface.vlan?.id}</FlexItem>
           </Flex>
           <Flex>
             <FlexItem>
               <strong>{t('Base interface')}:</strong>
             </FlexItem>
-            <FlexItem>{selectedInterface.vlan['base-iface']}</FlexItem>
+            <FlexItem>{selectedInterface.vlan?.['base-iface']}</FlexItem>
           </Flex>
         </StackItem>
       )}
@@ -57,7 +57,7 @@ const InterfaceDrawerDetailsTab: FC<InterfaceDrawerDetailsTabProps> = ({ selecte
             <List isPlain isBordered>
               {selectedInterface.lldp?.neighbors?.map((neighbor) => (
                 <ListItem key={getSystemName(neighbor)}>
-                  <NeighborInformations neighbor={neighbor} />
+                  <NeighborInformation neighbor={neighbor} />
                 </ListItem>
               ))}
             </List>
@@ -76,10 +76,10 @@ const InterfaceDrawerDetailsTab: FC<InterfaceDrawerDetailsTabProps> = ({ selecte
         </StackItem>
       )}
 
-      {selectedInterface['mac-address'] && (
+      {selectedInterface?.['mac-address'] && (
         <StackItem>
-          <Title headingLevel="h4">{t('MAC Address')}</Title>
-          <p>{selectedInterface['mac-address']}</p>
+          <Title headingLevel="h4">{t('MAC address')}</Title>
+          <p>{selectedInterface?.['mac-address']}</p>
         </StackItem>
       )}
 

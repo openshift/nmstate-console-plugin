@@ -16,8 +16,9 @@ import {
 } from '@patternfly/react-core';
 import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
+import { categorizeEnactments } from '@utils/enactments/utils';
 
-import { categorizeEnactments, findConditionType } from '../utils';
+import { findConditionType } from '../utils';
 
 import './policy-enactments-drawer.scss';
 

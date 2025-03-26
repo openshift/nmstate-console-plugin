@@ -29,7 +29,7 @@ const InterfaceDrawerYAMLFooter: FC<InterfaceDrawerFooterProps> = ({ selectedInt
   }, []);
 
   return (
-    <Split hasGutter className="networking-plugin-interface-drawer-yaml-footer">
+    <Split hasGutter className="nmstate-plugin-interface-drawer-yaml-footer">
       <Tooltip content={copied ? t('Copied') : t('Copy YAML to clipboard')}>
         <Button variant={ButtonVariant.primary} onClick={onCopy}>
           {t('Copy')}

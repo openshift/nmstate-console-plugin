@@ -3,8 +3,7 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
 import { RowFilter } from '@openshift-console/dynamic-plugin-sdk';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
-
-import { getEnactmentStatus } from '../components/utils';
+import { getEnactmentStatus } from '@utils/enactments/utils';
 
 const usePolicyFilters = (
   enactments: V1beta1NodeNetworkConfigurationEnactment[],

@@ -1,15 +1,13 @@
 import React, { FC, Suspense } from 'react';
-import { RouteComponentProps } from 'react-router';
 
 import { ResourceYAMLEditor } from '@openshift-console/dynamic-plugin-sdk';
 import { Bullseye } from '@patternfly/react-core';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import Loading from '@utils/components/Loading/Loading';
 
-type PolicyYAMLPageProps = RouteComponentProps<{
-  ns: string;
-  name: string;
-}> & {
+import './policy-yaml-page.scss';
+
+type PolicyYAMLPageProps = {
   obj?: V1NodeNetworkConfigurationPolicy;
 };
 
@@ -22,15 +20,17 @@ const PolicyYAMLPage: FC<PolicyYAMLPageProps> = ({ obj: policy }) => {
     );
 
   return (
-    <Suspense
-      fallback={
-        <Bullseye>
-          <Loading />
-        </Bullseye>
-      }
-    >
-      <ResourceYAMLEditor initialResource={policy} />
-    </Suspense>
+    <div className="nmstate-console-yaml-section">
+      <Suspense
+        fallback={
+          <Bullseye>
+            <Loading />
+          </Bullseye>
+        }
+      >
+        <ResourceYAMLEditor initialResource={policy} />
+      </Suspense>
+    </div>
   );
 };
 
