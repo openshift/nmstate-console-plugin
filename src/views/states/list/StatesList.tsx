@@ -87,7 +87,7 @@ const StatesList: FC = () => {
             }
             isInline
             variant="plain"
-            onClick={() => navigate('/nmstate-topology')}
+            onClick={() => navigate('/host-network-configuration')}
           />
         )}
       </ListPageHeader>

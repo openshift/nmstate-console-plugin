@@ -6,7 +6,6 @@ import {
   NodeNetworkConfigurationPolicyModelRef,
 } from 'src/console-models';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
-import { ENACTMENT_LABEL_POLICY } from 'src/utils/constants';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
 import {
@@ -20,6 +19,7 @@ import {
 } from '@openshift-console/dynamic-plugin-sdk';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 import { getResourceUrl } from '@utils/helpers';
+import { getPolicyEnactments } from '@utils/policies/utils';
 
 import { EnactmentStatuses } from '../constants';
 
@@ -67,13 +67,7 @@ const PoliciesList: FC = () => {
   const filters = usePolicyFilters(enactments);
   const [data, filteredData, onFilterChange] = useListPageFilter(policies, filters);
 
-  const selectedPolicyEnactments = selectedPolicy
-    ? enactments.filter(
-        (enactment) =>
-          enactment?.metadata?.labels?.[ENACTMENT_LABEL_POLICY] === selectedPolicy?.metadata?.name,
-      )
-    : [];
-
+  const selectedPolicyEnactments = getPolicyEnactments(selectedPolicy, enactments);
   const onSelectPolicy = useCallback(
     (policy: V1NodeNetworkConfigurationPolicy, state: EnactmentStatuses) => {
       setSelectedPolicy(policy);

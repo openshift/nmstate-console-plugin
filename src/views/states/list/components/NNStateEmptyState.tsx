@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { EmptyState, EmptyStateVariant, Title } from '@patternfly/react-core';
+import { EmptyState, EmptyStateVariant } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 const NNStateEmptyState: FC = () => {

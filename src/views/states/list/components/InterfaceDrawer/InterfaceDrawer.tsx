@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
+import { useLocation } from 'react-router-dom-v5-compat';
 
 import {
-  PageSection,
-  Title,
-  Tabs as TabsComponent,
-  Tab,
-  TabTitleText,
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
+  PageSection,
+  Tab,
+  Tabs as TabsComponent,
+  TabTitleText,
 } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
@@ -26,6 +26,8 @@ type InterfaceDrawerProps = {
 
 const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface, onClose }) => {
   const { t } = useNMStateTranslation();
+
+  const location = useLocation();
 
   const Tabs: InterfaceDrawerTabProps[] = [
     {
@@ -47,14 +49,12 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface, onClose 
 
   return (
     <Modal
-      aria-label="Interface drawer"
-      className="ocs-modal co-catalog-page__overlay co-catalog-page__overlay--right interface-drawer"
       isOpen={!!selectedInterface}
       onClose={onClose}
       disableFocusTrap
       data-test="interface-drawer"
     >
-      <ModalHeader title={<Title headingLevel="h2">{selectedInterface?.name}</Title>} />
+      <ModalHeader title={selectedInterface?.name} />
       <ModalBody>
         <div>
           <TabsComponent activeKey={selectedTabId}>

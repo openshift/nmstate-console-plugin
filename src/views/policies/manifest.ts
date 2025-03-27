@@ -1,7 +1,6 @@
 import type { EncodedExtension } from '@openshift/dynamic-plugin-sdk';
 import type {
   ExtensionK8sModel,
-  ResourceClusterNavItem,
   ResourceDetailsPage,
   ResourceListPage,
   RoutePage,
@@ -24,20 +23,6 @@ export const PolicyExposedModules = {
 };
 
 export const PolicyExtensions: EncodedExtension[] = [
-  {
-    type: 'console.navigation/resource-cluster',
-    properties: {
-      id: 'policy',
-      perspective: 'admin',
-      name: '%plugin__nmstate-console-plugin~NodeNetworkConfigurationPolicy%',
-      section: 'networking',
-      model: PolicyExtensionModel,
-      dataAttributes: {
-        'data-quickstart-id': 'qs-nav-policy-list',
-        'data-test-id': 'policy-nav-list',
-      },
-    },
-  } as EncodedExtension<ResourceClusterNavItem>,
   {
     type: 'console.page/resource/list',
     properties: {

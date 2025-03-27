@@ -2,12 +2,10 @@ import React, { FC } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { EnactmentStatuses } from 'src/views/policies/constants';
 
-import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
-import { Button, ButtonVariant, Icon, Stack, StackItem } from '@patternfly/react-core';
-import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
+import { Button, ButtonVariant, Stack, StackItem } from '@patternfly/react-core';
 import { V1beta1NodeNetworkConfigurationEnactment } from '@types';
-
-import { categorizeEnactments } from './utils';
+import { IconsByStatus } from '@utils/enactments/icons';
+import { categorizeEnactments } from '@utils/enactments/utils';
 
 type NNCPStateColumnProps = {
   enactments: V1beta1NodeNetworkConfigurationEnactment[];
@@ -21,35 +19,22 @@ const NNCPStateColumn: FC<NNCPStateColumnProps> = ({ enactments, onStateClick })
 
   const states = [
     {
-      icon: <RedExclamationCircleIcon />,
       number: failing.length,
       label: EnactmentStatuses.Failing,
     },
     {
-      icon: (
-        <Icon status="danger">
-          <CloseIcon />
-        </Icon>
-      ),
       number: aborted.length,
       label: EnactmentStatuses.Aborted,
     },
     {
-      icon: (
-        <Icon status="success">
-          <CheckIcon />
-        </Icon>
-      ),
       number: available.length,
       label: EnactmentStatuses.Available,
     },
     {
-      icon: <InProgressIcon />,
       number: progressing.length,
       label: EnactmentStatuses.Progressing,
     },
     {
-      icon: <HourglassHalfIcon />,
       number: pending.length,
       label: EnactmentStatuses.Pending,
     },
@@ -64,7 +49,7 @@ const NNCPStateColumn: FC<NNCPStateColumnProps> = ({ enactments, onStateClick })
             variant={ButtonVariant.link}
             isInline
             onClick={() => onStateClick(state.label)}
-            icon={state.icon}
+            icon={IconsByStatus[state.label]}
           >
             {state.number} {t(state.label)}
           </Button>

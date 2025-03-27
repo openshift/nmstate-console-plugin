@@ -13,12 +13,12 @@ import {
   Tabs,
   TabTitleIcon,
   TabTitleText,
-  Title,
 } from '@patternfly/react-core';
 import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
+import { categorizeEnactments } from '@utils/enactments/utils';
 
-import { categorizeEnactments, findConditionType } from '../utils';
+import { findConditionType } from '../utils';
 
 import './policy-enactments-drawer.scss';
 
@@ -98,7 +98,7 @@ const PolicyEnactmentsDrawer: FC<PolicyEnactmentsDrawerProps> = ({
       onClose={onClose}
       disableFocusTrap
     >
-      <ModalHeader title={<Title headingLevel="h2">{t('Matched nodes summary')}</Title>} />
+      <ModalHeader title={t('Matched nodes summary')} />
       <ModalBody>
         <div>
           <Tabs

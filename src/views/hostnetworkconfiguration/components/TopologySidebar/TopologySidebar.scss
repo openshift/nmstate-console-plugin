@@ -1,0 +1,14 @@
+.topology-sidebar {
+  &__content {
+    margin-top: 24px;
+    margin-left: 20px;
+    height: 100%;
+  }
+}
+
+.nmstate-plugin-interface-drawer-yaml-footer {
+  position: sticky;
+  bottom: 0;
+  padding: var(--pf-t--global--spacer--md) 0;
+  background-color: var(--pf-v6-c-page__main-section--BackgroundColor);
+}

@@ -1,0 +1,10 @@
+.nmstate-console-policy-drawer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .policy-resource-label {
+    vertical-align: middle;
+    padding: 0 var(--pf-t--global--spacer--sm);
+  }
+}
