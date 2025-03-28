@@ -1,7 +1,10 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
+import { useHistory } from 'react-router';
 import { useNavigate } from 'react-router-dom-v5-compat';
+import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 
-import { NodeNetworkStateModelRef } from '@models';
+import { NodeNetworkConfigurationPolicyModelRef, NodeNetworkStateModelRef } from '@models';
+import { ListPageCreateDropdown } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Button,
   Title,
@@ -11,7 +14,10 @@ import {
   ToolbarItem,
 } from '@patternfly/react-core';
 import { ListIcon } from '@patternfly/react-icons';
+import { getResourceUrl } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+
+import { CREATE_POLICY_QUERY_PARAM } from '../TopologySidebar/constants';
 
 import TopologyToolbarFilter from './TopologyToolbarFilter';
 
@@ -27,6 +33,24 @@ const TopologyButton: FC<TopologyToolbarProps> = (props) => {
   const { t } = useNMStateTranslation();
   const navigate = useNavigate();
   const setSelectedNodeFilters = props.setSelectedNodeFilters;
+  const history = useHistory();
+
+  const createItems = {
+    form: t('From Form'),
+    yaml: t('With YAML'),
+  };
+
+  const onCreate = (type: string) => {
+    const baseURL = getResourceUrl({
+      model: NodeNetworkConfigurationPolicyModel,
+    });
+
+    const newParams = new URLSearchParams({ [CREATE_POLICY_QUERY_PARAM]: 'true' });
+
+    return type === 'form'
+      ? history.push({ search: newParams.toString() })
+      : history.push(`${baseURL}~new`);
+  };
 
   return (
     <Toolbar className="topology-toolbar" clearAllFilters={() => setSelectedNodeFilters([])}>
@@ -34,9 +58,15 @@ const TopologyButton: FC<TopologyToolbarProps> = (props) => {
         <ToolbarGroup>
           <Title headingLevel="h2">{t('Host network configuration')}</Title>
 
-          <Button isInline onClick={() => navigate(`/k8s/cluster/${NodeNetworkStateModelRef}`)}>
+          <ListPageCreateDropdown
+            items={createItems}
+            onClick={onCreate}
+            createAccessReview={{
+              groupVersionKind: NodeNetworkConfigurationPolicyModelRef,
+            }}
+          >
             {t('Create')}
-          </Button>
+          </ListPageCreateDropdown>
           <TopologyToolbarFilter {...props} />
         </ToolbarGroup>
         <ToolbarGroup>
