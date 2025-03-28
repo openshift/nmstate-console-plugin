@@ -2,6 +2,10 @@ import type { EncodedExtension } from '@openshift/dynamic-plugin-sdk';
 import { FeatureFlag } from '@openshift-console/dynamic-plugin-sdk';
 import type { ConsolePluginBuildMetadata } from '@openshift-console/dynamic-plugin-sdk-webpack';
 
+import {
+  HostNetworkConfigurationExtensions,
+  HostNetworkConfigurationModules,
+} from './src/views/hostnetworkconfiguration/manifest';
 import { PolicyExposedModules, PolicyExtensions } from './src/views/policies/manifest';
 import { StateExposedModules, StateExtensions } from './src/views/states/manifest';
 
@@ -14,6 +18,7 @@ export const pluginMetadata: ConsolePluginBuildMetadata = {
   exposedModules: {
     ...PolicyExposedModules,
     ...StateExposedModules,
+    ...HostNetworkConfigurationModules,
     nmstateFlags: './utils/flags',
   },
   dependencies: {
@@ -30,4 +35,5 @@ export const extensions: EncodedExtension[] = [
   } as EncodedExtension<FeatureFlag>,
   ...PolicyExtensions,
   ...StateExtensions,
+  ...HostNetworkConfigurationExtensions,
 ];

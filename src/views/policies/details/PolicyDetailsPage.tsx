@@ -33,7 +33,7 @@ const PolicyDetailsPage: FC<PolicyDetailsPageProps> = ({ obj: policy, iface }) =
   });
 
   const policyMatchedNodes = getMatchedPolicyNodes(policy, nodes);
-  const interfaceToShow = getInterfaceToShow(policy, iface.name);
+  const interfaceToShow = getInterfaceToShow(policy, iface?.name);
 
   const dnsResolver = policy?.spec?.desiredState?.['dns-resolver'];
 

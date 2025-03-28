@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
@@ -20,7 +21,9 @@ import { V1beta1NodeNetworkConfigurationEnactment, V1beta1NodeNetworkState } fro
 import AccessDenied from '@utils/components/AccessDenied/AccessDenied';
 import { categorizeEnactments } from '@utils/enactments/utils';
 import { isEmpty } from '@utils/helpers';
+import useQueryParams from '@utils/hooks/useQueryParams';
 
+import { SELECTED_ID_QUERY_PARAM } from './components/TopologySidebar/constants';
 import TopologySidebar from './components/TopologySidebar/TopologySidebar';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
 import { GRAPH_POSITIONING_EVENT, NODE_POSITIONING_EVENT } from './utils/constants';
@@ -29,9 +32,11 @@ import { restoreNodePositions, saveNodePositions } from './utils/position';
 import { transformDataToTopologyModel } from './utils/utils';
 
 const Topology: FC = () => {
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [visualization, setVisualization] = useState<Visualization>(null);
   const [selectedNodeFilters, setSelectedNodeFilters] = useState<string[]>([]);
+  const history = useHistory();
+
+  const queryParams = useQueryParams();
 
   const [states, statesLoaded, statesError] = useK8sWatchResource<V1beta1NodeNetworkState[]>({
     groupVersionKind: NodeNetworkStateModelGroupVersionKind,
@@ -65,7 +70,12 @@ const Topology: FC = () => {
       const newVisualization = new Visualization();
       newVisualization.registerLayoutFactory(layoutFactory);
       newVisualization.registerComponentFactory(componentFactory);
-      newVisualization.addEventListener(SELECTION_EVENT, setSelectedIds);
+
+      newVisualization.addEventListener(SELECTION_EVENT, (id) => {
+        const newParams = new URLSearchParams({ [SELECTED_ID_QUERY_PARAM]: id });
+        history.push({ search: newParams.toString() });
+      });
+
       newVisualization.addEventListener(NODE_POSITIONING_EVENT, () =>
         saveNodePositions(newVisualization),
       );
@@ -92,13 +102,8 @@ const Topology: FC = () => {
   return (
     <VisualizationProvider controller={visualization}>
       <TopologyView
-        sideBar={
-          <TopologySidebar
-            states={states}
-            selectedIds={selectedIds}
-            setSelectedIds={setSelectedIds}
-          />
-        }
+        className="nmstate-topology"
+        sideBar={<TopologySidebar states={states} />}
         viewToolbar={
           <TopologyToolbar
             nodeNames={nodeNames}
@@ -130,7 +135,7 @@ const Topology: FC = () => {
           />
         }
       >
-        <VisualizationSurface state={{ selectedIds }} />
+        <VisualizationSurface state={queryParams} />
       </TopologyView>
     </VisualizationProvider>
   );
