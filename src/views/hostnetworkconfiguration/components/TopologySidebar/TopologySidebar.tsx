@@ -1,37 +1,42 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { FC } from 'react';
+import { useHistory } from 'react-router';
+import classNames from 'classnames';
 
 import { TopologySideBar } from '@patternfly/react-topology';
 import { V1beta1NodeNetworkState } from '@types';
+import { isEmpty } from '@utils/helpers';
+import useQueryParams from '@utils/hooks/useQueryParams';
 
-import StateDetailsPage from '../../../states/details/StateDetailsPage';
-
-import useSelectedResources from './hooks/useSelectedResources';
-import InterfaceDrawer from './InterfaceDrawer/InterfaceDrawer';
-import PolicyDrawer from './PolicyDrawer';
+import { CREATE_POLICY_QUERY_PARAM, SELECTED_ID_QUERY_PARAM } from './constants';
+import Drawer from './Drawer';
 
 import './TopologySidebar.scss';
 
 type TopologySidebarProps = {
   states: V1beta1NodeNetworkState[];
-  selectedIds: string[];
-  setSelectedIds: Dispatch<SetStateAction<string[]>>;
 };
-const TopologySidebar: FC<TopologySidebarProps> = ({ states, selectedIds, setSelectedIds }) => {
-  const { selectedInterface, selectedPolicy, selectedState } = useSelectedResources(
-    selectedIds,
-    states,
-  );
-  return (
-    <TopologySideBar show={selectedIds.length > 0} onClose={() => setSelectedIds([])}>
-      <div className="topology-sidebar__content">
-        {selectedInterface && !selectedPolicy && (
-          <InterfaceDrawer selectedInterface={selectedInterface} />
-        )}
-        {selectedState && !selectedInterface && <StateDetailsPage nns={selectedState} />}
+const TopologySidebar: FC<TopologySidebarProps> = ({ states }) => {
+  const history = useHistory();
 
-        {selectedInterface && selectedPolicy && (
-          <PolicyDrawer selectedPolicy={selectedPolicy} selectedInterface={selectedInterface} />
-        )}
+  const queryParams = useQueryParams();
+
+  const selectedIDExist = !isEmpty(queryParams?.[SELECTED_ID_QUERY_PARAM]);
+  const createPolicyDrawer = !isEmpty(queryParams?.[CREATE_POLICY_QUERY_PARAM]);
+
+  const showSidebar = selectedIDExist || createPolicyDrawer;
+
+  const closeDrawer = () => {
+    history.push({ search: new URLSearchParams({}).toString() });
+  };
+
+  return (
+    <TopologySideBar
+      show={showSidebar}
+      onClose={selectedIDExist ? closeDrawer : null}
+      className={classNames('nmstate-topology__sidebar', { 'big-sidebar': createPolicyDrawer })}
+    >
+      <div className="nmstate-topology__sidebar__content">
+        <Drawer states={states} onClose={closeDrawer} />
       </div>
     </TopologySideBar>
   );

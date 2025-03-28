@@ -1,8 +1,30 @@
-.topology-sidebar {
-  &__content {
-    margin-top: 24px;
-    margin-left: 20px;
-    height: 100%;
+.nmstate-topology {
+  &__sidebar {
+    left: 0;
+    right: auto;
+
+    .nmstate-interface-drawer {
+      margin-top: 24px;
+      margin-left: 20px;
+    }
+
+    .nmstate-console-policy-drawer {
+      margin-left: 20px;
+    }
+
+    &__content {
+      height: 100%;
+    }
+  }
+
+  .pf-v6-c-wizard__nav {
+    width: 200px;
+  }
+}
+
+.pf-topology-side-bar.nmstate-topology__sidebar.big-sidebar {
+  @media (min-width: 768px) {
+    max-width: 700px;
   }
 }
 

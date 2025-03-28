@@ -44,7 +44,7 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface }) => {
     tabs.find((tab) => tab.id === selectedTabId)?.component ?? tabs?.[0]?.component;
 
   return (
-    <>
+    <div className="nmstate-interface-drawer">
       <Title headingLevel="h1">{selectedInterface?.name}</Title>
       <div className="co-m-horizontal-nav">
         <TabsComponent activeKey={selectedTabId}>
@@ -66,7 +66,7 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface }) => {
       {selectedTabId === 'drawer-yaml' && (
         <InterfaceDrawerYAMLFooter selectedInterface={selectedInterface} />
       )}
-    </>
+    </div>
   );
 };
 

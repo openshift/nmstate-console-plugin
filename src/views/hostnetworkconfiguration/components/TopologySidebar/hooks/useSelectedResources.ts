@@ -9,11 +9,12 @@ import {
   V1beta1NodeNetworkConfigurationPolicy,
   V1beta1NodeNetworkState,
 } from '@types';
+import { isEmpty } from '@utils/helpers';
 
 import { isPolicyAppliedInNode } from '../utils';
 
 const useSelectedResources = (
-  selectedIds: string[],
+  selectedId: string,
   states: V1beta1NodeNetworkState[],
 ): {
   selectedState?: V1beta1NodeNetworkState;
@@ -33,9 +34,9 @@ const useSelectedResources = (
   });
 
   return useMemo(() => {
-    if (selectedIds.length === 0) return { selectedState: null, selectedPolicy: null };
+    if (isEmpty(selectedId)) return { selectedState: null, selectedPolicy: null };
 
-    const [selectedNNSName, selectedInterfaceName] = selectedIds[0].split('~');
+    const [selectedNNSName, selectedInterfaceName] = selectedId.split('~');
     const selectedNode = nodes?.find((node) => node.metadata.name === selectedNNSName);
 
     const selectedPolicy = policies?.find(
@@ -53,7 +54,7 @@ const useSelectedResources = (
     );
 
     return { selectedState, selectedPolicy, selectedInterface };
-  }, [selectedIds, states, policies, nodes]);
+  }, [selectedId, states, policies, nodes]);
 };
 
 export default useSelectedResources;
