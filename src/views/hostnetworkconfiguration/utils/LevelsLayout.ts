@@ -20,7 +20,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
 
   // Method to sort nodes by their level
   private sortNodesByLevel(nodes: LayoutNode[]): LayoutNode[] {
-    return nodes.sort((a, b) => {
+    return (nodes || []).sort((a, b) => {
       const aLevel = a?.element?.getData()?.level;
       const bLevel = b?.element?.getData()?.level;
       return aLevel - bLevel;
@@ -30,7 +30,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
   // Method to count nodes per level
   private countNodesPerLevel(nodes: LayoutNode[]): { [level: number]: number } {
     const levelCounts: { [level: number]: number } = {};
-    nodes.forEach((node) => {
+    (nodes || []).forEach((node) => {
       const level = node?.element?.getData()?.level;
       if (!levelCounts[level]) {
         levelCounts[level] = 0;
@@ -65,7 +65,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
     let padX = 0;
     let padY = 0;
 
-    groupNodes.forEach((node) => {
+    (groupNodes || []).forEach((node) => {
       if (padX < node.width) {
         padX = node.width;
       }
@@ -94,7 +94,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
     let maxX = x;
     let maxY = y;
 
-    sortedNodes.forEach((node) => {
+    (sortedNodes || []).forEach((node) => {
       if (node?.element?.getData()?.level !== currentLevel) {
         // Move to the next level when the level changes
         currentLevel = node?.element?.getData()?.level;
@@ -143,7 +143,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
   // Method to group nodes by their parent group
   private groupNodesByParent(): { [groupId: string]: LayoutNode[] } {
     const groups: { [groupId: string]: LayoutNode[] } = {};
-    this.nodes.forEach((node) => {
+    (this.nodes || []).forEach((node) => {
       const parentGroupId = node.element.getParent()?.getId();
       if (parentGroupId) {
         if (!groups[parentGroupId]) {
@@ -160,7 +160,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
     maxGroupWidth: number;
     maxGroupHeight: number;
   } {
-    const groupDimensions = Object.keys(groups).map((key) =>
+    const groupDimensions = Object.keys(groups || {}).map((key) =>
       this.positionGroupNodes(groups[key], 0, 0),
     );
     const maxGroupWidth = Math.max(...groupDimensions.map((dim) => dim.width));

@@ -236,8 +236,8 @@ const getNNCEConfiguredInterfaces = (
 
   const configured: NodeNetworkConfigurationInterface[] = [];
 
-  const desiredInterfaces = enhancement.status.desiredState.interfaces;
-  const currentInterfaces = state.status.currentState.interfaces;
+  const desiredInterfaces = enhancement.status.desiredState.interfaces || [];
+  const currentInterfaces = state.status.currentState.interfaces || [];
 
   desiredInterfaces.forEach((desiredIface) => {
     if (findInterfaceByName(currentInterfaces, desiredIface.name)) {
