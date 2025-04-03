@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Updater } from 'use-immer';
 
-import { Button, ButtonVariant, Popover, Content, Title } from '@patternfly/react-core';
+import { Button, ButtonVariant, Content, Popover, Title } from '@patternfly/react-core';
 import { HelpIcon, PlusCircleIcon } from '@patternfly/react-icons';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';

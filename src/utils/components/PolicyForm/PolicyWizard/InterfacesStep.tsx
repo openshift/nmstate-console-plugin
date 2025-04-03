@@ -1,17 +1,9 @@
 import React, { FC } from 'react';
+import { NodeNetworkConfigurationInterfaceBondMode } from 'src/nmstate-types/custom-models/NodeNetworkConfigurationInterfaceBondMode';
 import { Updater } from 'use-immer';
 
-import {
-  Alert,
-  AlertVariant,
-  Button,
-  ButtonVariant,
-  Content,
-  Form,
-  Popover,
-  Title,
-} from '@patternfly/react-core';
-import { HelpIcon, PlusCircleIcon } from '@patternfly/react-icons';
+import { Button, ButtonVariant, Content, Form, Title } from '@patternfly/react-core';
+import { PlusCircleIcon } from '@patternfly/react-icons';
 import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
@@ -19,18 +11,22 @@ import {
 } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
-import PolicyFormOVSBridgeMapping from '../PolicyFormOVSBridgeMapping';
-import PolicyInterfacesExpandable from '../PolicyInterfaceExpandable';
+import PolicyFormOVSBridgeMapping from '../components/PolicyFormOVSBridgeMapping';
 import { isOVSBridgeExisting } from '../utils';
+
+import InterfaceDetailsExpandable from './components/InterfaceDetailsExpandable';
 
 type InterfacesStepProps = {
   policy: V1NodeNetworkConfigurationPolicy;
   setPolicy: Updater<V1NodeNetworkConfigurationPolicy>;
-  error?: Error;
+  interfaceTypes: InterfaceType[];
+  label: string;
 };
 
-const InterfacesStep: FC<InterfacesStepProps> = ({ policy, setPolicy, error }) => {
+const InterfacesStep: FC<InterfacesStepProps> = ({ policy, setPolicy, interfaceTypes, label }) => {
   const { t } = useNMStateTranslation();
+
+  const bindingStep = interfaceTypes?.find((type) => type === InterfaceType.LINUX_BRIDGE);
 
   const addNewInterface = () => {
     setPolicy((draftPolicy) => {
@@ -40,37 +36,43 @@ const InterfacesStep: FC<InterfacesStepProps> = ({ policy, setPolicy, error }) =
         };
       }
 
-      draftPolicy.spec.desiredState.interfaces.unshift({
-        type: InterfaceType.LINUX_BRIDGE,
-        name: `interface-${draftPolicy.spec.desiredState.interfaces.length}`,
+      const newInterface: NodeNetworkConfigurationInterface = {
+        type: interfaceTypes?.[0],
+        name: `${interfaceTypes?.[0]}-${draftPolicy.spec.desiredState.interfaces.length}`,
         state: 'up',
-        bridge: {
+      };
+
+      if (bindingStep)
+        newInterface.bridge = {
           options: {
             stp: {
               enabled: false,
             },
           },
-        },
-      } as NodeNetworkConfigurationInterface);
+        };
+
+      if (interfaceTypes?.[0] === InterfaceType.BOND) {
+        newInterface['link-aggregation'] = {
+          mode: NodeNetworkConfigurationInterfaceBondMode.BALANCE_RR,
+          port: [],
+        };
+      }
+
+      draftPolicy.spec.desiredState.interfaces.push(newInterface);
     });
   };
 
-  const isOVSBridge = isOVSBridgeExisting(policy);
+  const isOVSBridge = bindingStep && isOVSBridgeExisting(policy);
 
   return (
     <Form>
       <div>
-        <Title headingLevel="h3">
-          {t('Policy Interface(s)')}{' '}
-          <Popover
-            aria-label={'Help'}
-            bodyContent={t(
-              'List of network interfaces that should be created, modified, or removed, as a part of this policy.',
-            )}
-          >
-            <Button variant="plain" hasNoPadding icon={<HelpIcon />} />
-          </Popover>
-        </Title>
+        <Title headingLevel="h3">{label}</Title>
+        <InterfaceDetailsExpandable
+          policy={policy}
+          setPolicy={setPolicy}
+          interfaceTypes={interfaceTypes}
+        />
         <Content component="p" className="policy-form-content__add-new-interface pf-v6-u-mt-md">
           <Button
             icon={<PlusCircleIcon />}
@@ -78,23 +80,11 @@ const InterfacesStep: FC<InterfacesStepProps> = ({ policy, setPolicy, error }) =
             onClick={addNewInterface}
             variant={ButtonVariant.link}
           >
-            <span>{t('Add another interface to the policy')}</span>
+            <span>{t('Add another {{label}} interface', { label: label.toLowerCase() })}</span>
           </Button>
         </Content>
-        <PolicyInterfacesExpandable policy={policy} setPolicy={setPolicy} createForm />
       </div>
       {isOVSBridge && <PolicyFormOVSBridgeMapping policy={policy} setPolicy={setPolicy} />}
-
-      {error && (
-        <Alert
-          isInline
-          variant={AlertVariant.danger}
-          title={t('An error occurred')}
-          className="pf-v6-u-mt-md"
-        >
-          {error.message}
-        </Alert>
-      )}
     </Form>
   );
 };

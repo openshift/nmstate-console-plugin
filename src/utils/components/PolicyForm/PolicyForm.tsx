@@ -5,10 +5,10 @@ import { Updater } from 'use-immer';
 
 import {
   Button,
+  Content,
   Form,
   FormGroup,
   Popover,
-  Content,
   TextInput,
   Title,
 } from '@patternfly/react-core';
@@ -21,8 +21,8 @@ import {
 
 import NodeSelectorModal from '../NodeSelectorModal/NodeSelectorModal';
 
-import ApplySelectorCheckbox from './ApplySelectorCheckbox';
-import PolicyFormOVSBridgeMapping from './PolicyFormOVSBridgeMapping';
+import ApplySelectorCheckbox from './components/ApplySelectorCheckbox';
+import PolicyFormOVSBridgeMapping from './components/PolicyFormOVSBridgeMapping';
 import PolicyInterfacesExpandable from './PolicyInterfaceExpandable';
 import { isOVSBridgeExisting } from './utils';
 
