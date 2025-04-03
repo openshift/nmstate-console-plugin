@@ -1,4 +1,8 @@
-import { InterfaceType } from '@types';
+import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+  V1NodeNetworkConfigurationPolicy,
+} from '@types';
 
 export enum NETWORK_STATES {
   Up = 'up',
@@ -6,7 +10,7 @@ export enum NETWORK_STATES {
   Absent = 'absent',
 }
 
-export const INTERFACE_TYPE_OPTIONS = {
+export const INTERFACE_TYPE_LABEL = {
   [InterfaceType.LINUX_BRIDGE]: 'Linux bridge',
   [InterfaceType.OVS_BRIDGE]: 'Open vSwitch bridge',
   [InterfaceType.BOND]: 'Bonding',
@@ -30,3 +34,8 @@ export const BOND_OPTIONS_KEYS = [
 ];
 
 export const DEFAULT_PREFIX_LENGTH = 24;
+
+export type onInterfaceChangeType = (
+  policyInterface: NodeNetworkConfigurationInterface,
+  policy: V1NodeNetworkConfigurationPolicy,
+) => void;

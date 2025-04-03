@@ -1,4 +1,8 @@
 .policy-form-content {
+  &__content-description {
+    margin-bottom: var(--pf-t--global--spacer--md);
+  }
+
   .policy-interface__expandable {
     margin-top: var(--pf-t--global--spacer--md);
     --pf-v6-c-form__field-group--field-group--MarginBlockStart: 0;

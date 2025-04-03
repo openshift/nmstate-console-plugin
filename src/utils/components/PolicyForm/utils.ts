@@ -7,21 +7,21 @@ import {
 } from '@types';
 import { t } from '@utils/hooks/useNMStateTranslation';
 
-import { INTERFACE_TYPE_OPTIONS } from './constants';
+import { INTERFACE_TYPE_LABEL } from './constants';
 
 export const getExpandableTitle = (
   nncpInterface: NodeNetworkConfigurationInterface,
   t: TFunction,
 ): string => {
   if (nncpInterface && nncpInterface.type && nncpInterface.name)
-    return `${INTERFACE_TYPE_OPTIONS[nncpInterface.type] || nncpInterface.type} ${
+    return `${INTERFACE_TYPE_LABEL[nncpInterface.type] || nncpInterface.type} ${
       nncpInterface.name
     }`;
 
   return t('Policy interface');
 };
 
-export const isOVSBridgeExisting = (policy: V1NodeNetworkConfigurationPolicy): boolean =>
+export const doesOVSBridgeExist = (policy: V1NodeNetworkConfigurationPolicy): boolean =>
   policy?.spec?.desiredState?.interfaces?.some(
     (iface: NodeNetworkConfigurationInterface) => iface?.type === InterfaceType.OVS_BRIDGE,
   );

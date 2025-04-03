@@ -10,8 +10,7 @@ import {
   V1beta1NodeNetworkState,
 } from '@types';
 import { isEmpty } from '@utils/helpers';
-
-import { isPolicyAppliedInNode } from '../utils';
+import { isPolicyAppliedInNode } from '@utils/policies/utils';
 
 const useSelectedResources = (
   selectedId: string,

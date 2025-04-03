@@ -6,8 +6,7 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Checkbox,
-  Flex,
-  FlexItem,
+  Content,
   FormGroup,
   FormHelperText,
   FormSelect,
@@ -15,33 +14,19 @@ import {
   FormSelectProps,
   HelperText,
   HelperTextItem,
-  NumberInput,
   Popover,
-  Radio,
-  Content,
   TextInput,
   ValidatedOptions,
 } from '@patternfly/react-core';
 import { HelpIcon } from '@patternfly/react-icons';
-import {
-  AUTO_DNS,
-  AUTO_GATEWAY,
-  AUTO_ROUTES,
-  InterfaceType,
-  NodeNetworkConfigurationInterface,
-  V1NodeNetworkConfigurationPolicy,
-} from '@types';
+import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
 
-import BondOptions from './BondOptions';
-import { DEFAULT_PREFIX_LENGTH, INTERFACE_TYPE_OPTIONS, NETWORK_STATES } from './constants';
-import CopyMAC from './CopyMAC';
-import { isOVSBridgeExisting, validateInterfaceName } from './utils';
-
-export type onInterfaceChangeType = (
-  policyInterface: NodeNetworkConfigurationInterface,
-  policy: V1NodeNetworkConfigurationPolicy,
-) => void;
+import BondConfiguration from './components/BondConfiguration';
+import IPConfiguration from './components/IPConfiguration';
+import PortConfiguration from './components/PortConfiguration';
+import { INTERFACE_TYPE_LABEL, NETWORK_STATES, onInterfaceChangeType } from './constants';
+import { doesOVSBridgeExist, validateInterfaceName } from './utils';
 
 type HandleSelectChange = FormSelectProps['onChange'];
 
@@ -50,6 +35,7 @@ type PolicyInterfaceProps = {
   isInterfaceCreated?: boolean;
   policyInterface?: NodeNetworkConfigurationInterface;
   onInterfaceChange?: (updateInterface: onInterfaceChangeType) => void;
+  label?: string;
 };
 
 const PolicyInterface: FC<PolicyInterfaceProps> = ({
@@ -57,6 +43,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
   policyInterface,
   onInterfaceChange,
   isInterfaceCreated = true,
+  label,
 }) => {
   const { t } = useNMStateTranslation();
 
@@ -71,7 +58,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
   const handleTypechange: HandleSelectChange = (event, newType: string) => {
     onInterfaceChange((draftInterface, draftPolicy) => {
       draftInterface.type = newType as InterfaceType;
-      !isOVSBridgeExisting(draftPolicy) && delete draftPolicy.spec.desiredState.ovn;
+      !doesOVSBridgeExist(draftPolicy) && delete draftPolicy.spec.desiredState.ovn;
 
       if (newType === InterfaceType.LINUX_BRIDGE) {
         delete draftInterface['link-aggregation'];
@@ -108,44 +95,6 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
     });
   };
 
-  const onIP4Change = (checked: boolean) => {
-    if (checked)
-      onInterfaceChange(
-        (draftInterface) =>
-          (draftInterface.ipv4 = {
-            enabled: true,
-            address: [{ ip: '', 'prefix-length': DEFAULT_PREFIX_LENGTH }],
-          }),
-      );
-    else {
-      onInterfaceChange((draftInterface) => {
-        delete draftInterface.ipv4;
-      });
-    }
-  };
-
-  const onDHCPChange = (checked: boolean) => {
-    onInterfaceChange((draftInterface) => {
-      draftInterface.ipv4 = { enabled: true, dhcp: checked };
-    });
-  };
-
-  const onAddressChange = (value: string) => {
-    onInterfaceChange((draftInterface) => {
-      draftInterface.ipv4 = {
-        enabled: true,
-        address: [{ ip: value, 'prefix-length': DEFAULT_PREFIX_LENGTH }],
-      };
-    });
-  };
-
-  const onPrefixChange = (value: number) => {
-    onInterfaceChange((draftInterface) => {
-      if (draftInterface.ipv4.address.length > 0)
-        draftInterface.ipv4.address[0]['prefix-length'] = value;
-    });
-  };
-
   const onSTPChange = (checked: boolean) => {
     onInterfaceChange((draftInterface) => {
       ensurePath(draftInterface, 'bridge.options');
@@ -158,41 +107,15 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
     });
   };
 
-  const handleAggregationChange: HandleSelectChange = (event, aggregationMode: string) => {
-    onInterfaceChange((draftInterface) => {
-      ensurePath(draftInterface, 'link-aggregation');
-      draftInterface['link-aggregation'].mode =
-        aggregationMode as NodeNetworkConfigurationInterfaceBondMode;
-    });
-  };
-
-  const onPortChange = (value: string) => {
-    onInterfaceChange((draftInterface) => {
-      if (draftInterface.type === InterfaceType.BOND) {
-        ensurePath(draftInterface, 'link-aggregation.port');
-
-        value
-          ? (draftInterface['link-aggregation'].port = value.split(','))
-          : delete draftInterface['link-aggregation'].port;
-      }
-
-      if (
-        draftInterface.type === InterfaceType.LINUX_BRIDGE ||
-        draftInterface.type === InterfaceType.OVS_BRIDGE
-      ) {
-        ensurePath(draftInterface, 'bridge.port');
-        value
-          ? (draftInterface.bridge.port = [{ name: value }])
-          : delete draftInterface.bridge.port;
-      }
-    });
-  };
-
   const nameError = validateInterfaceName(policyInterface?.name);
 
   return (
     <>
-      <FormGroup label={t('Interface name')} isRequired fieldId={`policy-interface-name-${id}`}>
+      <FormGroup
+        label={label || t('Interface name')}
+        isRequired
+        fieldId={`policy-interface-name-${id}`}
+      >
         <TextInput
           isRequired
           id={`policy-interface-name-${id}`}
@@ -234,141 +157,24 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
           value={policyInterface?.type}
           isDisabled={isInterfaceCreated}
         >
-          {Object.entries(INTERFACE_TYPE_OPTIONS).map(([key, value]) => (
+          {Object.entries(INTERFACE_TYPE_LABEL).map(([key, value]) => (
             <FormSelectOption key={key} value={key} label={value} />
           ))}
         </FormSelect>
       </FormGroup>
-      <FormGroup label={t('IP configuration')} fieldId={`policy-interface-ip-${id}`}>
-        <Checkbox
-          label={t('IPv4')}
-          id={`policy-interface-ip-${id}`}
-          isChecked={policyInterface?.ipv4?.enabled}
-          onChange={(_, newValue) => onIP4Change(newValue)}
-        />
-        <div className="pf-v6-u-ml-md pf-v6-u-mt-sm">
-          {policyInterface?.ipv4 && (
-            <Flex className="pf-v6-u-mb-md">
-              <FlexItem>
-                <Radio
-                  label={t('IP address')}
-                  name={`ip-or-dhcp-${id}`}
-                  id={`ip-${id}`}
-                  isChecked={!policyInterface?.ipv4?.dhcp}
-                  onChange={() => onAddressChange('')}
-                />
-              </FlexItem>
 
-              <FlexItem>
-                <Radio
-                  label={t('DHCP')}
-                  name={`ip-or-dhcp-${id}`}
-                  id={`dhcp-${id}`}
-                  isChecked={policyInterface?.ipv4?.dhcp}
-                  onChange={(_, newValue) => onDHCPChange(newValue)}
-                />
-              </FlexItem>
-            </Flex>
-          )}
-          {policyInterface?.ipv4 && !policyInterface?.ipv4?.dhcp && (
-            <>
-              <FormGroup
-                label={t('IPV4 address')}
-                isRequired
-                fieldId={`ipv4-address-${id}`}
-                className="pf-v6-u-mb-md"
-              >
-                <TextInput
-                  value={policyInterface?.ipv4?.address?.[0]?.ip}
-                  type="text"
-                  id={`ipv4-address-${id}`}
-                  onChange={(_, newValue) => onAddressChange(newValue)}
-                />
-              </FormGroup>
-              <FormGroup label={t('Prefix length')} isRequired fieldId={`prefix-length-${id}`}>
-                <NumberInput
-                  value={policyInterface?.ipv4?.address?.[0]?.['prefix-length']}
-                  id={`prefix-length-${id}`}
-                  onChange={(event) => onPrefixChange(event.currentTarget.valueAsNumber)}
-                  onMinus={() =>
-                    onPrefixChange(policyInterface.ipv4.address[0]['prefix-length'] - 1)
-                  }
-                  onPlus={() =>
-                    onPrefixChange(policyInterface.ipv4.address[0]['prefix-length'] + 1)
-                  }
-                  min={0}
-                  max={32}
-                />
-              </FormGroup>
-            </>
-          )}
-
-          {!!policyInterface?.ipv4?.dhcp && (
-            <>
-              <Checkbox
-                label={t('Auto-DNS')}
-                id={`policy-interface-dns-${id}`}
-                isChecked={
-                  policyInterface?.ipv4[AUTO_DNS] === true ||
-                  policyInterface?.ipv4[AUTO_DNS] === undefined
-                }
-                onChange={(_, checked) =>
-                  onInterfaceChange((draftInterface) => (draftInterface.ipv4[AUTO_DNS] = checked))
-                }
-              />
-              <Checkbox
-                label={t('Auto-routes')}
-                id={`policy-interface-routes-${id}`}
-                isChecked={
-                  policyInterface?.ipv4[AUTO_ROUTES] === true ||
-                  policyInterface?.ipv4[AUTO_ROUTES] === undefined
-                }
-                onChange={(_, checked) =>
-                  onInterfaceChange(
-                    (draftInterface) => (draftInterface.ipv4[AUTO_ROUTES] = checked),
-                  )
-                }
-              />
-              <Checkbox
-                label={t('Auto-gateway')}
-                id={`policy-interface-gateway-${id}`}
-                isChecked={
-                  policyInterface?.ipv4[AUTO_GATEWAY] === true ||
-                  policyInterface?.ipv4[AUTO_GATEWAY] === undefined
-                }
-                onChange={(_, checked) =>
-                  onInterfaceChange(
-                    (draftInterface) => (draftInterface.ipv4[AUTO_GATEWAY] = checked),
-                  )
-                }
-              />
-            </>
-          )}
-        </div>
-      </FormGroup>
+      <IPConfiguration
+        id={id}
+        policyInterface={policyInterface}
+        onInterfaceChange={onInterfaceChange}
+      />
 
       {policyInterface.type !== InterfaceType.ETHERNET && (
-        <FormGroup label={t('Port')} fieldId={`policy-interface-port-${id}`}>
-          <TextInput
-            value={
-              policyInterface?.bridge?.port?.[0]?.name ||
-              policyInterface?.['link-aggregation']?.port?.join(',')
-            }
-            type="text"
-            id={`policy-interface-port-${id}`}
-            onChange={(_, newValue) => onPortChange(newValue)}
-          />
-
-          {policyInterface.type === InterfaceType.BOND && (
-            <FormHelperText>
-              <HelperText>
-                <HelperTextItem variant="default">
-                  {t('Use commas to separate ports')}
-                </HelperTextItem>
-              </HelperText>
-            </FormHelperText>
-          )}
-        </FormGroup>
+        <PortConfiguration
+          id={id}
+          policyInterface={policyInterface}
+          onInterfaceChange={onInterfaceChange}
+        />
       )}
       {(policyInterface.type === InterfaceType.LINUX_BRIDGE ||
         policyInterface.type === InterfaceType.OVS_BRIDGE) && (
@@ -396,33 +202,11 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
       )}
 
       {policyInterface.type === InterfaceType.BOND && (
-        <>
-          <CopyMAC
-            id={id}
-            onInterfaceChange={onInterfaceChange}
-            policyInterface={policyInterface}
-          />
-          <FormGroup
-            label={t('Aggregation mode')}
-            isRequired
-            fieldId={`policy-interface-aggregation-${id}`}
-          >
-            <FormSelect
-              id={`policy-interface-aggregation-${id}`}
-              onChange={handleAggregationChange}
-              value={policyInterface?.['link-aggregation']?.mode}
-            >
-              {Object.entries(NodeNetworkConfigurationInterfaceBondMode).map(([key, value]) => (
-                <FormSelectOption key={key} value={value} label={value} />
-              ))}
-            </FormSelect>
-          </FormGroup>
-          <BondOptions
-            onInterfaceChange={onInterfaceChange}
-            policyInterface={policyInterface}
-            id={id}
-          />
-        </>
+        <BondConfiguration
+          id={id}
+          policyInterface={policyInterface}
+          onInterfaceChange={onInterfaceChange}
+        />
       )}
     </>
   );
