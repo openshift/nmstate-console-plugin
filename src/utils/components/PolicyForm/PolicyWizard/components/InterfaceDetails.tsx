@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { NodeNetworkConfigurationInterfaceBondMode } from 'src/nmstate-types/custom-models/NodeNetworkConfigurationInterfaceBondMode';
 import { ensurePath } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
@@ -9,9 +8,6 @@ import {
   Content,
   FormGroup,
   FormHelperText,
-  FormSelect,
-  FormSelectOption,
-  FormSelectProps,
   HelperText,
   HelperTextItem,
   Popover,
@@ -20,17 +16,17 @@ import {
 } from '@patternfly/react-core';
 import { HelpIcon } from '@patternfly/react-icons';
 import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
-import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
 
-import BondConfiguration from './components/BondConfiguration';
-import IpConfiguration from './components/IpConfiguration';
-import PortConfiguration from './components/PortConfiguration';
-import { INTERFACE_TYPE_LABEL, NETWORK_STATES, onInterfaceChangeType } from './constants';
-import { isOVSBridgeExisting, validateInterfaceName } from './utils';
+import BondConfiguration from '../../components/BondConfiguration';
+import IpConfiguration from '../../components/IpConfiguration';
+import NetworkState from '../../components/NetworkState';
+import PortConfiguration from '../../components/PortConfiguration';
+import { onInterfaceChangeType } from '../../constants';
+import { validateInterfaceName } from '../../utils';
 
-type HandleSelectChange = FormSelectProps['onChange'];
+import BridgeType from './BridgeType';
 
-type PolicyInterfaceProps = {
+type InterfaceDetailsProps = {
   id: number;
   isInterfaceCreated?: boolean;
   policyInterface?: NodeNetworkConfigurationInterface;
@@ -38,61 +34,21 @@ type PolicyInterfaceProps = {
   label?: string;
 };
 
-const PolicyInterface: FC<PolicyInterfaceProps> = ({
+const InterfaceDetails: FC<InterfaceDetailsProps> = ({
   id,
   policyInterface,
   onInterfaceChange,
   isInterfaceCreated = true,
   label,
 }) => {
-  const { t } = useNMStateTranslation();
+  const isBridgeType = [InterfaceType.LINUX_BRIDGE, InterfaceType.OVS_BRIDGE].includes(
+    policyInterface?.type,
+  );
 
-  const handleStateChange: HandleSelectChange = (event, newState: NETWORK_STATES) => {
-    onInterfaceChange((draftInterface) => (draftInterface.state = newState));
-  };
+  const { t } = useNMStateTranslation();
 
   const handleNameChange = (newName: string) => {
     onInterfaceChange((draftInterface) => (draftInterface.name = newName));
-  };
-
-  const handleTypechange: HandleSelectChange = (event, newType: string) => {
-    onInterfaceChange((draftInterface, draftPolicy) => {
-      draftInterface.type = newType as InterfaceType;
-      !isOVSBridgeExisting(draftPolicy) && delete draftPolicy.spec.desiredState.ovn;
-
-      if (newType === InterfaceType.LINUX_BRIDGE) {
-        delete draftInterface['link-aggregation'];
-        draftInterface.bridge = { port: [], options: { stp: { enabled: false } } };
-      }
-
-      if (newType === InterfaceType.OVS_BRIDGE) {
-        delete draftInterface['link-aggregation'];
-        draftInterface.bridge = { port: [], options: {} };
-        if (!draftPolicy?.spec?.desiredState?.ovn) {
-          draftPolicy.spec.desiredState.ovn = {
-            [OVN_BRIDGE_MAPPINGS]: [],
-          };
-        }
-        draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS].push({
-          bridge: '',
-          localnet: '',
-          state: 'present',
-        });
-      }
-
-      if (newType === InterfaceType.BOND) {
-        delete draftInterface.bridge;
-        draftInterface['link-aggregation'] = {
-          mode: NodeNetworkConfigurationInterfaceBondMode.BALANCE_RR,
-          port: [],
-        };
-      }
-
-      if (newType === InterfaceType.ETHERNET) {
-        delete draftInterface.bridge;
-        delete draftInterface['link-aggregation'];
-      }
-    });
   };
 
   const onSTPChange = (checked: boolean) => {
@@ -111,6 +67,13 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
 
   return (
     <>
+      {isBridgeType && (
+        <BridgeType
+          id={id}
+          policyInterface={policyInterface}
+          onInterfaceChange={onInterfaceChange}
+        />
+      )}
       <FormGroup
         label={label || t('Interface name')}
         isRequired
@@ -134,34 +97,11 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
           </FormHelperText>
         )}
       </FormGroup>
-      <FormGroup
-        label={t('Network state')}
-        isRequired
-        fieldId={`policy-interface-network-state-${id}`}
-      >
-        <FormSelect
-          id={`policy-interface-network-state-${id}`}
-          onChange={handleStateChange}
-          value={policyInterface?.state}
-        >
-          {Object.entries(NETWORK_STATES).map(([key, value]) => (
-            <FormSelectOption key={key} value={value} label={key} />
-          ))}
-        </FormSelect>
-      </FormGroup>
-
-      <FormGroup label={t('Type')} isRequired fieldId={`policy-interface-type-${id}`}>
-        <FormSelect
-          id={`policy-interface-type-${id}`}
-          onChange={handleTypechange}
-          value={policyInterface?.type}
-          isDisabled={isInterfaceCreated}
-        >
-          {Object.entries(INTERFACE_TYPE_LABEL).map(([key, value]) => (
-            <FormSelectOption key={key} value={key} label={value} />
-          ))}
-        </FormSelect>
-      </FormGroup>
+      <NetworkState
+        id={id}
+        policyInterface={policyInterface}
+        onInterfaceChange={onInterfaceChange}
+      />
 
       <IpConfiguration
         id={id}
@@ -176,6 +116,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
           onInterfaceChange={onInterfaceChange}
         />
       )}
+
       {(policyInterface.type === InterfaceType.LINUX_BRIDGE ||
         policyInterface.type === InterfaceType.OVS_BRIDGE) && (
         <FormGroup fieldId={`policy-interface-stp-${id}`}>
@@ -212,4 +153,4 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
   );
 };
 
-export default PolicyInterface;
+export default InterfaceDetails;

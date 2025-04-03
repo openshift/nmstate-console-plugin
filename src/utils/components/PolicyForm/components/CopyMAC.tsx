@@ -1,11 +1,11 @@
 import React, { FC, FormEvent } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { ExpandableSection, FormGroup, Content, TextInput } from '@patternfly/react-core';
+import { Content, ExpandableSection, FormGroup, TextInput } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 
 type CopyMACProps = {
-  id: number;
+  id: number | string;
   policyInterface?: NodeNetworkConfigurationInterface;
   onInterfaceChange?: (
     updateInterface: (policyInterface: NodeNetworkConfigurationInterface) => void,

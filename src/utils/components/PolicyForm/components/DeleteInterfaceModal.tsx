@@ -6,7 +6,7 @@ import { Button, ButtonVariant } from '@patternfly/react-core';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 
-import { capitalizeFirstLetter } from './utils';
+import { capitalizeFirstLetter } from '../utils';
 
 type DeleteInterfaceModalProps = {
   closeModal: () => void;
