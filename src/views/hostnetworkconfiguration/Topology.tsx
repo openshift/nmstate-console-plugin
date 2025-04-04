@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
+import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 
+import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
 import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkStateModelGroupVersionKind,
@@ -17,13 +19,16 @@ import {
   VisualizationProvider,
   VisualizationSurface,
 } from '@patternfly/react-topology';
+import { useSignalEffect, useSignals } from '@preact/signals-react/runtime';
 import { V1beta1NodeNetworkConfigurationEnactment, V1beta1NodeNetworkState } from '@types';
 import AccessDenied from '@utils/components/AccessDenied/AccessDenied';
 import { categorizeEnactments } from '@utils/enactments/utils';
 import { isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
+import { filterPolicyAppliedNodes } from '@utils/policies/utils';
 
 import { SELECTED_ID_QUERY_PARAM } from './components/TopologySidebar/constants';
+import { creatingPolicySignal } from './components/TopologySidebar/CreatePolicyDrawer';
 import TopologySidebar from './components/TopologySidebar/TopologySidebar';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
 import { GRAPH_POSITIONING_EVENT, NODE_POSITIONING_EVENT } from './utils/constants';
@@ -32,11 +37,22 @@ import { restoreNodePositions, saveNodePositions } from './utils/position';
 import { transformDataToTopologyModel } from './utils/utils';
 
 const Topology: FC = () => {
+  useSignals();
+
   const [visualization, setVisualization] = useState<Visualization>(null);
   const [selectedNodeFilters, setSelectedNodeFilters] = useState<string[]>([]);
   const history = useHistory();
 
   const queryParams = useQueryParams();
+
+  const [nodes] = useK8sWatchResource<IoK8sApiCoreV1Node[]>({
+    groupVersionKind: NodeModelGroupVersionKind,
+    isList: true,
+  });
+
+  const creatingPolicyNodesNames = filterPolicyAppliedNodes(nodes, creatingPolicySignal.value).map(
+    (node) => node.metadata.name,
+  );
 
   const [states, statesLoaded, statesError] = useK8sWatchResource<V1beta1NodeNetworkState[]>({
     groupVersionKind: NodeNetworkStateModelGroupVersionKind,
@@ -57,6 +73,8 @@ const Topology: FC = () => {
     [states],
   );
 
+  useSignalEffect(() => (creatingPolicySignal.value = null));
+
   useEffect(() => {
     if (!statesLoaded || statesError || isEmpty(states)) return;
 
@@ -64,7 +82,13 @@ const Topology: FC = () => {
       ? states.filter((state) => selectedNodeFilters.includes(state.metadata.name))
       : undefined;
 
-    const topologyModel = transformDataToTopologyModel(states, filteredStates, available);
+    const topologyModel = transformDataToTopologyModel(
+      states,
+      filteredStates,
+      available,
+      creatingPolicySignal.value,
+      creatingPolicyNodesNames,
+    );
 
     if (!visualization) {
       const newVisualization = new Visualization();
@@ -89,8 +113,18 @@ const Topology: FC = () => {
       return;
     }
 
+    const recenterScreenLayout = !isEmpty(creatingPolicySignal.value);
+
+    visualization.setFitToScreenOnLayout(!recenterScreenLayout);
     visualization.fromModel(topologyModel);
-  }, [states, statesLoaded, statesError, selectedNodeFilters]);
+  }, [
+    states,
+    statesLoaded,
+    statesError,
+    selectedNodeFilters,
+    creatingPolicySignal.value,
+    creatingPolicyNodesNames,
+  ]);
 
   if (statesError && statesError?.response?.status === 403)
     return (

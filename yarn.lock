@@ -877,6 +877,19 @@
     tslib "^2.0.0"
     webcola "3.4.0"
 
+"@preact/signals-core@^1.7.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@preact/signals-core/-/signals-core-1.8.0.tgz#45ffadb81b48a298a4accd26b3f6c0140cd6dacc"
+  integrity sha512-OBvUsRZqNmjzCZXWLxkZfhcgT+Fk8DDcT/8vD6a1xhDemodyy87UJRJfASMuSD8FaAIeGgGm85ydXhm7lr4fyA==
+
+"@preact/signals-react@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@preact/signals-react/-/signals-react-3.0.1.tgz#d4dd81bdf535b9c335dd2dd9cb0449902e1874ee"
+  integrity sha512-HkM5Q2IsETO1M0bUzy4JB0EPQCf99SMbWP9K6GYlYVHfOX1HLKJ6Dl9L1/1rQnmrQpUsTw0R+IJQDh6tYWar2g==
+  dependencies:
+    "@preact/signals-core" "^1.7.0"
+    use-sync-external-store "^1.2.0"
+
 "@remix-run/router@1.15.3":
   version "1.15.3"
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.15.3.tgz#d2509048d69dbb72d5389a14945339f1430b2d3c"
@@ -8783,6 +8796,11 @@ use-immer@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/use-immer/-/use-immer-0.8.1.tgz#db7442bdd64ecf826ce274a91aa8cf821945cf0f"
   integrity sha512-OfTFf1pL+ICjjcLPn9+ZnaJO/Yg4MBzYZtACEe2mZ/W2A5col28PNUnwowOAaBuOogACOK/37TU17KgsIhUpOw==
+
+use-sync-external-store@^1.2.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.5.0.tgz#55122e2a3edd2a6c106174c27485e0fd59bcfca0"
+  integrity sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
