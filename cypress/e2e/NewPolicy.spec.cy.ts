@@ -1,3 +1,5 @@
+import { SKIP_WELCOME_BANNER_TEST_ID } from '../support/selectors';
+
 const deletePolicyFromDetailsPage = (policyName: string) => {
   cy.contains('button', 'Actions', { matchCase: false }).click();
   cy.contains('button', 'Delete').click();
@@ -19,6 +21,7 @@ describe('Create new policy with form', () => {
   it('with bridge interface', () => {
     const testPolicyName = 'test-bridge-policy-name';
     cy.visit('/k8s/cluster/nmstate.io~v1~NodeNetworkConfigurationPolicy');
+    cy.byTestID(SKIP_WELCOME_BANNER_TEST_ID).click();
     cy.byTestID('item-create').click();
 
     cy.contains('button', 'From Form').click();
