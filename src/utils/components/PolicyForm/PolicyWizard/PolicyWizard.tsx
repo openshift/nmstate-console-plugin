@@ -3,11 +3,12 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
 import { Wizard, WizardStep } from '@patternfly/react-core';
-import { V1NodeNetworkConfigurationPolicy } from '@types';
+import { InterfaceType, V1NodeNetworkConfigurationPolicy } from '@types';
 import { isEmpty } from '@utils/helpers';
 
 import BasicInfoStep from './BasicInfoStep';
 import InterfacesStep from './InterfacesStep';
+import ReviewStep from './ReviewStep';
 
 import '../policy-form.scss';
 import './policy-wizard.scss';
@@ -37,7 +38,11 @@ const PolicyWizard: FC<PolicyWizardProps> = ({ policy, setPolicy, onSubmit, onCl
   }, [onSubmit]);
 
   return (
-    <Wizard onSave={onFormSubmit} onClose={onClose} className="nmstate-policy-wizard">
+    <Wizard
+      onSave={onFormSubmit}
+      onClose={onClose}
+      className="nmstate-policy-wizard policy-form-content"
+    >
       <WizardStep
         footer={{ isNextDisabled: isEmpty(policy.metadata.name) }}
         id="policy-wizard-basicinfo"
@@ -51,10 +56,58 @@ const PolicyWizard: FC<PolicyWizardProps> = ({ policy, setPolicy, onSubmit, onCl
         footer={{
           nextButtonProps: { isLoading: loading },
           isNextDisabled: loading,
-          nextButtonText: 'Save',
+          nextButtonText: t('Save'),
         }}
+        steps={[
+          <WizardStep
+            name={t('Basic interfaces')}
+            id="policy-wizard-basic-interfaces"
+            key="policy-wizard-basic-interfaces"
+          >
+            <InterfacesStep
+              policy={policy}
+              setPolicy={setPolicy}
+              interfaceTypes={[InterfaceType.ETHERNET]}
+              label={t('Ethernet')}
+            />
+          </WizardStep>,
+          <WizardStep
+            name={t('Bonding')}
+            id="policy-wizard-bonding-interfaces"
+            key="policy-wizard-bonding-interfaces"
+          >
+            <InterfacesStep
+              policy={policy}
+              setPolicy={setPolicy}
+              interfaceTypes={[InterfaceType.BOND]}
+              label={t('Bonding')}
+            />
+          </WizardStep>,
+          <WizardStep
+            name={t('Bridging')}
+            id="policy-wizard-bridge-interfaces"
+            key="policy-wizard-bridge-interfaces"
+          >
+            <InterfacesStep
+              policy={policy}
+              setPolicy={setPolicy}
+              interfaceTypes={[InterfaceType.LINUX_BRIDGE, InterfaceType.OVS_BRIDGE]}
+              label={t('Bridging')}
+            />
+          </WizardStep>,
+        ]}
+      ></WizardStep>
+
+      <WizardStep
+        footer={{
+          isNextDisabled: isEmpty(policy.metadata.name),
+          nextButtonProps: { isLoading: loading },
+          nextButtonText: t('Create policy'),
+        }}
+        id="policy-wizard-review"
+        name={t('Review and create')}
       >
-        <InterfacesStep policy={policy} setPolicy={setPolicy} error={error} />
+        <ReviewStep policy={policy} error={error} />
       </WizardStep>
     </Wizard>
   );

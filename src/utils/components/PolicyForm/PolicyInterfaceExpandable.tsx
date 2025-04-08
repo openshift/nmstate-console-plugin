@@ -11,9 +11,10 @@ import { MinusCircleIcon } from '@patternfly/react-icons';
 import { NodeNetworkConfigurationInterface, V1NodeNetworkConfigurationPolicy } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
-import DeleteInterfaceModal from './DeleteInterfaceModal';
-import PolicyInterface, { onInterfaceChangeType } from './PolicyInterface';
-import { getExpandableTitle, isOVSBridgeExisting } from './utils';
+import DeleteInterfaceModal from './components/DeleteInterfaceModal';
+import { onInterfaceChangeType } from './constants';
+import PolicyInterface from './PolicyInterface';
+import { doesOVSBridgeExist, getExpandableTitle } from './utils';
 
 type PolicyInterfacesExpandableProps = {
   policy: V1NodeNetworkConfigurationPolicy;
@@ -47,7 +48,7 @@ const PolicyInterfacesExpandable: FC<PolicyInterfacesExpandableProps> = ({
         interfaceIndex,
         1,
       );
-      !isOVSBridgeExisting(draftPolicy) && delete draftPolicy.spec.desiredState.ovn;
+      !doesOVSBridgeExist(draftPolicy) && delete draftPolicy.spec.desiredState.ovn;
     });
   };
 

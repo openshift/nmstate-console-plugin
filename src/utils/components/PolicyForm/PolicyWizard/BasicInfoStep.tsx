@@ -7,7 +7,7 @@ import { Content, Form, FormGroup, TextInput, Title } from '@patternfly/react-co
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import NodeSelectorModal from '@utils/components/NodeSelectorModal/NodeSelectorModal';
 
-import ApplySelectorCheckbox from '../ApplySelectorCheckbox';
+import ApplySelectorCheckbox from '../components/ApplySelectorCheckbox';
 
 type InfoStepProps = {
   policy: V1NodeNetworkConfigurationPolicy;
