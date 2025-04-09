@@ -12,6 +12,7 @@ import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkConfigurationEnactment,
   V1beta1NodeNetworkState,
+  V1NodeNetworkConfigurationPolicy,
 } from '@types';
 import { isEmpty } from '@utils/helpers';
 
@@ -166,6 +167,8 @@ export const transformDataToTopologyModel = (
   data: V1beta1NodeNetworkState[],
   filteredData: V1beta1NodeNetworkState[],
   availableEnhancments: V1beta1NodeNetworkConfigurationEnactment[],
+  creatingPolicy: V1NodeNetworkConfigurationPolicy,
+  creatingPolicyNodes: string[],
 ): Model => {
   const nodes: NodeModel[] = [];
   const edges: EdgeModel[] = [];
@@ -177,9 +180,13 @@ export const transformDataToTopologyModel = (
 
     const nnceConfigredInterfaces = getNNCEConfiguredInterfaces(enhancment, nodeState);
 
+    const creatingPolicyToAdd = creatingPolicyNodes.includes(nnsName)
+      ? creatingPolicy?.spec?.desiredState?.interfaces || []
+      : [];
+
     const childNodes = createNodes(
       nnsName,
-      nodeState.status.currentState.interfaces,
+      [...nodeState.status.currentState.interfaces, ...creatingPolicyToAdd],
       nnceConfigredInterfaces,
     );
 
