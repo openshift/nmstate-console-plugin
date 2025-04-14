@@ -44,11 +44,7 @@ const PolicyRow: FC<
           onStateClick={(state) => selectPolicy(obj, state)}
         />
       </TableData>
-      <TableData
-        id=""
-        activeColumnIDs={activeColumnIDs}
-        className="dropdown-kebab-pf pf-v6-c-table__action"
-      >
+      <TableData id="" activeColumnIDs={activeColumnIDs} className="pf-v6-c-table__action">
         <PolicyActions policy={obj} isKebabToggle={true} />
       </TableData>
     </>

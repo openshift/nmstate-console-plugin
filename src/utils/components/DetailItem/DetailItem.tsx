@@ -54,7 +54,7 @@ const DetailItem: FC<DetailItemProps> = ({
   showEditOnTitle,
 }) => {
   const { t } = useNMStateTranslation();
-  const NotAvailable = <span className="text-muted">{t('Not available')}</span>;
+  const NotAvailable = <span className="pf-v6-u-text-color-subtle">{t('Not available')}</span>;
 
   return (
     <DescriptionListGroup className={classnames('pf-c-description-list__group', className)}>

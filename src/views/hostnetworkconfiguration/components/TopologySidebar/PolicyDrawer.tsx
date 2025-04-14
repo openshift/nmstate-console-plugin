@@ -47,10 +47,9 @@ const PolicyDrawer: FC<PolicyDrawerProps> = ({ selectedPolicy, selectedInterface
   }> = tabs.find((tab) => tab.id === selectedTabId)?.component ?? tabs?.[0]?.component;
 
   return (
-    <div className="nmstate-console-policy-drawer">
+    <div>
       <PolicyPageTitle policy={selectedPolicy} name={selectedPolicy?.metadata?.name} />
-
-      <div className="co-m-horizontal-nav">
+      <div className="pf-v6-u-ml-md">
         <TabsComponent activeKey={selectedTabId}>
           {tabs.map((tab) => (
             <Tab

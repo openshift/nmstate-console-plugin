@@ -44,9 +44,11 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface }) => {
     tabs.find((tab) => tab.id === selectedTabId)?.component ?? tabs?.[0]?.component;
 
   return (
-    <div className="nmstate-interface-drawer">
-      <Title headingLevel="h1">{selectedInterface?.name}</Title>
-      <div className="co-m-horizontal-nav">
+    <div>
+      <PageSection>
+        <Title headingLevel="h1">{selectedInterface?.name}</Title>
+      </PageSection>
+      <div className="pf-v6-u-ml-md">
         <TabsComponent activeKey={selectedTabId}>
           {tabs.map((tab) => (
             <Tab
@@ -59,7 +61,7 @@ const InterfaceDrawer: FC<InterfaceDrawerProps> = ({ selectedInterface }) => {
           ))}
         </TabsComponent>
       </div>
-      <PageSection className="pf-v6-u-mt-md">
+      <PageSection>
         <SelectedTabComponent selectedInterface={selectedInterface} />
       </PageSection>
 

@@ -28,7 +28,7 @@ const AccessDenied: FC<AccessDeniedProps> = ({ message }) => {
         </div>
       </div>
       {!isEmpty(message) && (
-        <Alert isInline className="co-alert" variant="danger" title={t('Error details')}>
+        <Alert isInline variant="danger" title={t('Error details')}>
           {message}
         </Alert>
       )}

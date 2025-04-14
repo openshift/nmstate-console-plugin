@@ -43,13 +43,11 @@ const PolicyPageTitle: FC<PolicyPageTitleProps> = ({ policy, name }) => {
       }
     >
       <PaneHeading>
-        <Title className="co-m-pane__name co-resource-item" headingLevel="h1">
+        <Title className="co-resource-item" headingLevel="h1">
           <span className="co-m-resource-icon co-m-resource-icon--lg">
             {NodeNetworkConfigurationPolicyModel.abbr}
           </span>
-          <span data-test-id="resource-title" className="co-resource-item__resource-name">
-            {name ?? policy?.metadata?.name}{' '}
-          </span>
+          <span data-test-id="resource-title">{name ?? policy?.metadata?.name} </span>
         </Title>
         <PolicyActions policy={policy} />
       </PaneHeading>

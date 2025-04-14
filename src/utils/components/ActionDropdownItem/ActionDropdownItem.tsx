@@ -29,7 +29,7 @@ const ActionDropdownItem: FC<ActionDropdownItemProps> = ({ action, setIsOpen }) 
       onClick={handleClick}
     >
       {action?.label}
-      {action?.icon && <span className="text-muted">{action.icon}</span>}
+      {action?.icon && <span className="pf-v6-u-text-color-subtle">{action.icon}</span>}
     </DropdownItem>
   );
 };
