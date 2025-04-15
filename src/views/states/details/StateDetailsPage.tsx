@@ -32,12 +32,12 @@ const StateDetailsPage: FC<StateDetailsPageProps> = ({ nns }) => {
 
   return (
     <>
-      <Title className="co-m-pane__heading" headingLevel="h1">
-        <span className="co-resource-item__resource-name">
+      <PageSection>
+        <Title className="co-resource-item" headingLevel="h1">
           <ResourceIcon groupVersionKind={NodeNetworkStateModelGroupVersionKind} />
-          <span className="co-resource-item__resource-name">{nns?.metadata?.name} </span>
-        </span>
-      </Title>
+          <span>{nns?.metadata?.name} </span>
+        </Title>
+      </PageSection>
       <Divider />
       <PageSection>
         <DescriptionList className="pf-c-description-list">
