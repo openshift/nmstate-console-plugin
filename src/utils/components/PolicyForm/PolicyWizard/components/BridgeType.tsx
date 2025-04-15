@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import { Content, FormGroup, Radio } from '@patternfly/react-core';
 import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
+import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
 import { getOVNConfiguration } from '@utils/policies/getters';
@@ -32,15 +33,13 @@ const BridgeType: FC<BridgeTypeProps> = ({ policyInterface, onInterfaceChange, i
         delete draftInterface['link-aggregation'];
         draftInterface.bridge = { port: [], options: {} };
 
-        const ovnConfiguration = getOVNConfiguration(draftPolicy);
-
-        if (!ovnConfiguration) {
+        if (isEmpty(getOVNConfiguration(draftPolicy))) {
           draftPolicy.spec.desiredState.ovn = {
             [OVN_BRIDGE_MAPPINGS]: [],
           };
         }
 
-        ovnConfiguration[OVN_BRIDGE_MAPPINGS].push({
+        draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS].push({
           bridge: '',
           localnet: '',
           state: 'present',
