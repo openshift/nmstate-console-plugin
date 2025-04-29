@@ -23,6 +23,7 @@ import {
 } from '@types';
 import { NETWORK_STATES } from '@utils/components/PolicyForm/constants';
 import PolicyForm from '@utils/components/PolicyForm/PolicyForm';
+import { ensureNoEmptyBridgeMapping } from '@utils/components/PolicyForm/utils';
 
 import './new-policy.scss';
 
@@ -61,6 +62,10 @@ const NewPolicy: FC = () => {
 
   const onFormSubmit: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
+    const error = ensureNoEmptyBridgeMapping(policy);
+
+    if (error) return setError(error);
+
     setLoading(true);
     return k8sCreate({
       model: NodeNetworkConfigurationPolicyModel,

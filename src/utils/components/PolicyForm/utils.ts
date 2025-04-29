@@ -5,7 +5,9 @@ import {
   NodeNetworkConfigurationInterface,
   V1NodeNetworkConfigurationPolicy,
 } from '@types';
+import { isEmpty } from '@utils/helpers';
 import { t } from '@utils/hooks/useNMStateTranslation';
+import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
 
 import { INTERFACE_TYPE_LABEL } from './constants';
 
@@ -48,3 +50,15 @@ export const validateInterfaceName = (name: string): string => {
 export function capitalizeFirstLetter(string: string) {
   return string ? string.charAt(0).toUpperCase() + string.slice(1) : '';
 }
+
+export const ensureNoEmptyBridgeMapping = (
+  policy: V1NodeNetworkConfigurationPolicy,
+): Error | undefined => {
+  const emptyBridgeMapping = policy?.spec?.desiredState?.ovn?.[OVN_BRIDGE_MAPPINGS]?.find(
+    (mapping) => isEmpty(mapping?.localnet) || isEmpty(mapping?.bridge),
+  );
+
+  if (!isEmpty(emptyBridgeMapping)) {
+    return new Error(t('Empty bridge mapping is not allowed'));
+  }
+};

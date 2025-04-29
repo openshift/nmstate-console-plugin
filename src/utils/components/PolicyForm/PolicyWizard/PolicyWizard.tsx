@@ -6,6 +6,8 @@ import { Wizard, WizardStep } from '@patternfly/react-core';
 import { InterfaceType, V1NodeNetworkConfigurationPolicy } from '@types';
 import { isEmpty } from '@utils/helpers';
 
+import { ensureNoEmptyBridgeMapping } from '../utils';
+
 import BasicInfoStep from './BasicInfoStep';
 import InterfacesStep from './InterfacesStep';
 import ReviewStep from './ReviewStep';
@@ -26,8 +28,11 @@ const PolicyWizard: FC<PolicyWizardProps> = ({ policy, setPolicy, onSubmit, onCl
   const [error, setError] = useState<Error>(null);
 
   const onFormSubmit: MouseEventHandler<HTMLButtonElement> = useCallback(async () => {
-    setLoading(true);
+    const error = ensureNoEmptyBridgeMapping(policy);
 
+    if (error) return setError(error);
+
+    setLoading(true);
     try {
       await onSubmit();
     } catch (error) {
@@ -35,7 +40,7 @@ const PolicyWizard: FC<PolicyWizardProps> = ({ policy, setPolicy, onSubmit, onCl
     } finally {
       setLoading(false);
     }
-  }, [onSubmit]);
+  }, [onSubmit, policy, t]);
 
   return (
     <Wizard

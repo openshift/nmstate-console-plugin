@@ -50,13 +50,21 @@ const PolicyFormOVSBridgeMappingExpandable: FC<PolicyFormOVSBridgeMappingExpanda
             <Title headingLevel="h6" size="md">
               {t('OVN localnet name')}
             </Title>
-            <TextInput value={bridgeMapping?.localnet} onChange={onChange(index, 'localnet')} />
+            <TextInput
+              value={bridgeMapping?.localnet}
+              onChange={onChange(index, 'localnet')}
+              isRequired
+            />
           </FlexItem>
           <FlexItem grow={{ default: 'grow' }}>
             <Title headingLevel="h6" size="md">
               {t('OVS bridge name')}
             </Title>
-            <TextInput value={bridgeMapping?.bridge} onChange={onChange(index, 'bridge')} />
+            <TextInput
+              value={bridgeMapping?.bridge}
+              onChange={onChange(index, 'bridge')}
+              isRequired
+            />
           </FlexItem>
           <FlexItem>
             <Button
