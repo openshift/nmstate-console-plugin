@@ -20,6 +20,7 @@ import {
 } from '@patternfly/react-core';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import PolicyForm from '@utils/components/PolicyForm/PolicyForm';
+import { ensureNoEmptyBridgeMapping } from '@utils/components/PolicyForm/utils';
 
 type EditModalProps = {
   closeModal?: () => void;
@@ -35,6 +36,10 @@ const EditModal: FC<EditModalProps> = ({ closeModal, isOpen, policy }) => {
 
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
+
+    const error = ensureNoEmptyBridgeMapping(policy);
+    if (error) return setError(error);
+
     setError(undefined);
     setLoading(true);
 
