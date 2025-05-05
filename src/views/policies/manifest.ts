@@ -1,6 +1,7 @@
 import type { EncodedExtension } from '@openshift/dynamic-plugin-sdk';
 import type {
   ExtensionK8sModel,
+  ResourceClusterNavItem,
   ResourceDetailsPage,
   ResourceListPage,
   RoutePage,
@@ -60,7 +61,6 @@ export const PolicyExtensions: EncodedExtension[] = [
       },
     },
   } as EncodedExtension<YAMLTemplate>,
-
   {
     type: 'console.page/resource/details',
     properties: {
@@ -68,4 +68,33 @@ export const PolicyExtensions: EncodedExtension[] = [
       component: { $codeRef: 'PolicyPage' },
     },
   } as EncodedExtension<ResourceDetailsPage>,
+  {
+    properties: {
+      dataAttributes: {
+        'data-quickstart-id': 'qs-nav-nodenetworkconfigurationpolicy',
+        'data-test-id': 'nodenetworkconfigurationpolicy-nav-item',
+      },
+      id: 'nodenetworkconfigurationpolicy',
+      model: PolicyExtensionModel,
+      name: '%plugin__nmstate-console-plugin~NodeNetworkConfigurationPolicy%',
+      section: 'networking',
+      insertAfter: ['node-network-configuration'],
+    },
+    type: 'console.navigation/resource-cluster',
+  } as EncodedExtension<ResourceClusterNavItem>,
+  {
+    properties: {
+      dataAttributes: {
+        'data-quickstart-id': 'qs-nav-policy-list',
+        'data-test-id': 'policy-nav-list',
+      },
+      id: 'nodenetworkconfigurationpolicy-virt-perspective',
+      model: PolicyExtensionModel,
+      name: '%plugin__nmstate-console-plugin~NodeNetworkConfigurationPolicy%',
+      perspective: 'virtualization-perspective',
+      section: 'networking-virt-perspective',
+      insertAfter: ['node-network-configuration-virt-perspective'],
+    },
+    type: 'console.navigation/resource-cluster',
+  } as EncodedExtension<ResourceClusterNavItem>,
 ];
