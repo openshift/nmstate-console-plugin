@@ -7,6 +7,7 @@
   "types": "./src/types/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
+    "start": "yarn dev",
     "build": "yarn clean && NODE_ENV=production yarn webpack",
     "serve-build": "yarn build && npx http-server -p 9001 dist",
     "dev": "yarn webpack serve",
