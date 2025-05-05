@@ -56,7 +56,7 @@ const TopologyButton: FC<TopologyToolbarProps> = (props) => {
     <Toolbar className="topology-toolbar" clearAllFilters={() => setSelectedNodeFilters([])}>
       <ToolbarContent className="topology-toolbar__content">
         <ToolbarGroup>
-          <Title headingLevel="h2">{t('Host network configuration')}</Title>
+          <Title headingLevel="h2">{t('Node network configuration')}</Title>
 
           <ListPageCreateDropdown
             items={createItems}
