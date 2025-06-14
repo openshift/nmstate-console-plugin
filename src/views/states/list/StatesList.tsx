@@ -87,7 +87,7 @@ const StatesList: FC = () => {
             }
             isInline
             variant="plain"
-            onClick={() => navigate('/host-network-configuration')}
+            onClick={() => navigate('/node-network-configuration')}
           />
         )}
       </ListPageHeader>
