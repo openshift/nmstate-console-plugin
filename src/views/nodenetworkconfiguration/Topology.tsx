@@ -8,6 +8,7 @@ import {
   NodeNetworkStateModelGroupVersionKind,
 } from '@models';
 import { ListPageBody, useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
+import { Popover } from '@patternfly/react-core';
 import {
   action,
   createTopologyControlButtons,
@@ -27,6 +28,7 @@ import { isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
 import { filterPolicyAppliedNodes } from '@utils/policies/utils';
 
+import TopologyLegend from './components/TopologyLegend/TopologyLegend';
 import { SELECTED_ID_QUERY_PARAM } from './components/TopologySidebar/constants';
 import { creatingPolicySignal } from './components/TopologySidebar/CreatePolicyDrawer';
 import TopologySidebar from './components/TopologySidebar/TopologySidebar';
@@ -164,12 +166,17 @@ const Topology: FC = () => {
                 visualization.getGraph().reset();
                 visualization.getGraph().layout();
               }),
-              legend: false,
             })}
           />
         }
       >
         <VisualizationSurface state={queryParams} />
+        <Popover
+          aria-label="Node network configuration graph legend"
+          bodyContent={<TopologyLegend />}
+          hasAutoWidth
+          triggerRef={() => document.getElementById('legend') as HTMLButtonElement}
+        />
       </TopologyView>
     </VisualizationProvider>
   );
