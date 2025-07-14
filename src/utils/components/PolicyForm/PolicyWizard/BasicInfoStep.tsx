@@ -43,7 +43,7 @@ const BasicInfoStep: FC<InfoStepProps> = ({ setPolicy, policy }) => {
             <Trans t={t} ns="plugin__nmstate-console-plugin">
               Node network is configured and managed by NM state. Create a node network
               configuration policy to describe the requested network configuration on your nodes in
-              the cluster. The node network configuration enactment reports the netwrok policies
+              the cluster. The node network configuration enactment reports the network policies
               enacted upon each node.
             </Trans>
           </Content>
