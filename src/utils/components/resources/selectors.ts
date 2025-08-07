@@ -30,6 +30,14 @@ export const getName = <A extends K8sResourceCommon = K8sResourceCommon>(resourc
   resource?.metadata?.name;
 
 /**
+ * A selector for a resource's description
+ * @param {K8sResourceCommon} entity
+ * @returns {string} the description for the resource
+ */
+export const getDescription = (entity: K8sResourceCommon): string =>
+  entity?.metadata?.annotations?.description;
+
+/**
  * A selector for the resource's annotations
  * @param entity {K8sResourceCommon} - entity to get annotations from
  * @param defaultValue {{ [key: string]: string }} - default value to return if no annotations are found
