@@ -15,7 +15,7 @@ import {
 import { ensurePath } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
-import { onInterfaceChangeType } from '../constants';
+import { onInterfaceChangeType } from '../utils/constants';
 
 type PortConfigurationProps = {
   policyInterface?: NodeNetworkConfigurationInterface;

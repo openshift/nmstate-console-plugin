@@ -43,7 +43,7 @@ export const validateInterfaceName = (
   if (interfaceName.length > MAX_INTERFACE_NAME_LENGTH) {
     // t('Interface name should follow the linux kernel naming convention. The name should be smaller than 16 characters.')
     return t(
-      'Interface name should follow the linux kernel naming convention. The name should be smaller than 16 characters.',
+      'Interface name should follow the linux kernel naming convention. The name should be 15 characters or less.',
     );
   }
 
@@ -53,6 +53,7 @@ export const validateInterfaceName = (
       'Interface name should follow the linux kernel naming convention. Whitespaces and slashes are not allowed.',
     );
   }
+
   return '';
 };
 

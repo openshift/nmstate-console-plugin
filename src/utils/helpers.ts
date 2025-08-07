@@ -7,6 +7,8 @@ import {
 
 import { ALL_NAMESPACES_SESSION_KEY } from './constants';
 
+export const nmStateConsole = console;
+
 export const isEmpty = (obj) =>
   [Array, Object].includes((obj || {}).constructor) && !Object.entries(obj || {}).length;
 
@@ -77,3 +79,15 @@ export const asAccessReview = (
     verb,
   };
 };
+
+export const getRandomChars = (len = 6): string => {
+  return Math.random()
+    .toString(36)
+    .replace(/[^a-z0-9]+/g, '')
+    .substr(1, len);
+};
+
+export const labelsToParams = (labels: Record<string, string>) =>
+  Object.entries(labels)
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+    .join('&');

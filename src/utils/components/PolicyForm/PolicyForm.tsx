@@ -18,13 +18,14 @@ import {
   Title,
 } from '@patternfly/react-core';
 import { HelpIcon, PlusCircleIcon } from '@patternfly/react-icons';
+import { getName } from '@utils/components/resources/selectors';
 
 import NodeSelectorModal from '../NodeSelectorModal/NodeSelectorModal';
 
 import ApplySelectorCheckbox from './components/ApplySelectorCheckbox';
 import PolicyFormOVSBridgeMapping from './components/PolicyFormOVSBridgeMapping';
+import { doesOVSBridgeExist } from './utils/utils';
 import PolicyInterfacesExpandable from './PolicyInterfaceExpandable';
-import { doesOVSBridgeExist } from './utils';
 
 import './policy-form.scss';
 
@@ -114,7 +115,7 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
           type="text"
           id="policy-name"
           name="policy-name"
-          value={policy?.metadata?.name}
+          value={getName(policy)}
           isDisabled={!createForm}
           onChange={(_, newName) =>
             setPolicy((draftPolicy) => {

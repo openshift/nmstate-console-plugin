@@ -10,8 +10,8 @@ import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 import { getOVNConfiguration } from '@utils/resources/policies/getters';
 
-import { INTERFACE_TYPE_LABEL, onInterfaceChangeType } from '../../constants';
-import { doesOVSBridgeExist } from '../../utils';
+import { INTERFACE_TYPE_LABEL, onInterfaceChangeType } from '../../utils/constants';
+import { doesOVSBridgeExist } from '../../utils/utils';
 
 type BridgeTypeProps = {
   policyInterface?: NodeNetworkConfigurationInterface;

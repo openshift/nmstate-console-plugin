@@ -15,9 +15,9 @@ import { MinusCircleIcon } from '@patternfly/react-icons';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import DeleteInterfaceModal from './components/DeleteInterfaceModal';
-import { onInterfaceChangeType } from './constants';
+import { onInterfaceChangeType } from './utils/constants';
+import { doesOVSBridgeExist, getExpandableTitle } from './utils/utils';
 import PolicyInterface from './PolicyInterface';
-import { doesOVSBridgeExist, getExpandableTitle } from './utils';
 
 type PolicyInterfacesExpandableProps = {
   policy: V1NodeNetworkConfigurationPolicy;

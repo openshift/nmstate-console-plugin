@@ -6,6 +6,7 @@ import { useImmer } from 'use-immer';
 import { k8sCreate } from '@openshift-console/dynamic-plugin-sdk';
 import { signal } from '@preact/signals-react';
 import PolicyWizard from '@utils/components/PolicyForm/PolicyWizard/PolicyWizard';
+import { initialPolicy } from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
 import { getResourceUrl } from '@utils/helpers';
 import {
   NNCP_ABANDONED,
@@ -13,8 +14,6 @@ import {
   NNCP_CREATION_STARTED,
 } from '@utils/telemetry/constants';
 import { logCreationFailed, logNMStateEvent, logNNCPCreated } from '@utils/telemetry/telemetry';
-
-import { initialPolicy } from './constants';
 
 type CreatePolicyDrawerProps = {
   onClose?: () => void;

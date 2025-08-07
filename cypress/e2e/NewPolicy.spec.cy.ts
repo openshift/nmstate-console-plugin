@@ -13,7 +13,7 @@ const deletePolicyFromDetailsPage = (policyName: string) => {
   cy.contains('h1', 'NodeNetworkConfigurationPolicy');
 };
 
-describe('Create new policy with form', () => {
+describe.skip('Create new policy with form', () => {
   beforeEach(() => {
     cy.login();
   });

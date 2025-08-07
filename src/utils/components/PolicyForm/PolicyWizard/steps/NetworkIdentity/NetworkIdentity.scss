@@ -1,0 +1,5 @@
+@use '../../../utils/variables' as vars;
+
+.network-identity-step {
+  width: vars.$nncp-wizard-step-width;
+}

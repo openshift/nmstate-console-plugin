@@ -66,3 +66,6 @@ export const getPolicyBridgingInterfaces = (policy): NodeNetworkConfigurationInt
   getPolicyInterfaces(policy)?.filter((iface) =>
     [InterfaceType.LINUX_BRIDGE, InterfaceType.OVS_BRIDGE].includes(iface.type),
   ) || [];
+
+export const getPolicyOVSInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
+  getPolicyInterfaces(policy)?.filter((iface) => iface.type === InterfaceType.OVS_INTERFACE) || [];
