@@ -3,8 +3,8 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 
-import { NETWORK_STATES } from '../constants';
 import PolicyInterface from '../PolicyInterface';
+import { NETWORK_STATES } from '../utils/constants';
 
 afterEach(cleanup);
 

@@ -3,17 +3,19 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
 import { Wizard, WizardStep } from '@patternfly/react-core';
-import { InterfaceType, V1NodeNetworkConfigurationPolicy } from '@types';
+import { V1NodeNetworkConfigurationPolicy } from '@types';
+import ConfigurationStep from '@utils/components/PolicyForm/PolicyWizard/steps/ConfigurationStep/ConfigurationStep';
+import { getName } from '@utils/components/resources/selectors';
 import { isEmpty } from '@utils/helpers';
 
-import { ensureNoEmptyBridgeMapping } from '../utils';
+import { ensureNoEmptyBridgeMapping } from '../utils/utils';
 
-import BasicInfoStep from './BasicInfoStep';
-import InterfacesStep from './InterfacesStep';
-import ReviewStep from './ReviewStep';
+import BasicInfoStep from './steps/BasicInfoStep/BasicInfoStep';
+import ReviewStep from './steps/ReviewStep/ReviewStep';
+import UplinkConnectionStep from './steps/UplinkConnectionStep/UplinkConnectionStep';
 
 import '../policy-form.scss';
-import './policy-wizard.scss';
+import './PolicyWizard.scss';
 
 type PolicyWizardProps = {
   policy: V1NodeNetworkConfigurationPolicy;
@@ -49,70 +51,28 @@ const PolicyWizard: FC<PolicyWizardProps> = ({ policy, setPolicy, onSubmit, onCl
       className="nmstate-policy-wizard policy-form-content"
     >
       <WizardStep
-        footer={{ isNextDisabled: isEmpty(policy.metadata.name) }}
-        id="policy-wizard-basicinfo"
-        name={t('Basic policy info')}
+        footer={{ isNextDisabled: isEmpty(getName(policy)) }}
+        id="policy-wizard-basic-info"
+        name={t('Basic information')}
       >
         <BasicInfoStep policy={policy} setPolicy={setPolicy} />
       </WizardStep>
-      <WizardStep
-        id="policy-wizard-interfaces"
-        name={t('Policy interfaces')}
-        footer={{
-          nextButtonProps: { isLoading: loading },
-          isNextDisabled: loading,
-          nextButtonText: t('Save'),
-        }}
-        steps={[
-          <WizardStep
-            name={t('Basic interfaces')}
-            id="policy-wizard-basic-interfaces"
-            key="policy-wizard-basic-interfaces"
-          >
-            <InterfacesStep
-              policy={policy}
-              setPolicy={setPolicy}
-              interfaceTypes={[InterfaceType.ETHERNET]}
-              label={t('Ethernet')}
-            />
-          </WizardStep>,
-          <WizardStep
-            name={t('Bonding')}
-            id="policy-wizard-bonding-interfaces"
-            key="policy-wizard-bonding-interfaces"
-          >
-            <InterfacesStep
-              policy={policy}
-              setPolicy={setPolicy}
-              interfaceTypes={[InterfaceType.BOND]}
-              label={t('Bonding')}
-            />
-          </WizardStep>,
-          <WizardStep
-            name={t('Bridging')}
-            id="policy-wizard-bridge-interfaces"
-            key="policy-wizard-bridge-interfaces"
-          >
-            <InterfacesStep
-              policy={policy}
-              setPolicy={setPolicy}
-              interfaceTypes={[InterfaceType.LINUX_BRIDGE, InterfaceType.OVS_BRIDGE]}
-              label={t('Bridging')}
-            />
-          </WizardStep>,
-        ]}
-      ></WizardStep>
-
+      <WizardStep id="policy-wizard-uplink-connection" name={t('Uplink connection')}>
+        <UplinkConnectionStep policy={policy} setPolicy={setPolicy} />
+      </WizardStep>
+      <WizardStep name={t('Configuration')} id="policy-wizard-configuration">
+        <ConfigurationStep policy={policy} setPolicy={setPolicy} />
+      </WizardStep>
       <WizardStep
         footer={{
-          isNextDisabled: isEmpty(policy.metadata.name),
+          isNextDisabled: isEmpty(getName(policy)),
           nextButtonProps: { isLoading: loading },
-          nextButtonText: t('Create policy'),
+          nextButtonText: t('Create network'),
         }}
         id="policy-wizard-review"
         name={t('Review and create')}
       >
-        <ReviewStep policy={policy} error={error} />
+        <ReviewStep policy={policy} creationError={error} setPolicy={setPolicy} />
       </WizardStep>
     </Wizard>
   );

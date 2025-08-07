@@ -6,7 +6,7 @@ import { Button, FormGroup, Grid, GridItem, TextInput } from '@patternfly/react-
 import { MinusCircleIcon, PlusCircleIcon } from '@patternfly/react-icons';
 import { NodeNetworkConfigurationInterface } from '@types';
 
-import { BOND_OPTIONS_KEYS } from '../constants';
+import { BOND_OPTIONS_KEYS } from '../utils/constants';
 
 type BondOptionsProps = {
   id: number | string;

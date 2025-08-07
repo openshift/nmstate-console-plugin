@@ -13,7 +13,7 @@ import {
 import { AUTO_DNS, AUTO_GATEWAY, AUTO_ROUTES, NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
-import { DEFAULT_PREFIX_LENGTH, onInterfaceChangeType } from '../constants';
+import { DEFAULT_PREFIX_LENGTH, onInterfaceChangeType } from '../utils/constants';
 
 type IPConfigurationProps = {
   policyInterface?: NodeNetworkConfigurationInterface;

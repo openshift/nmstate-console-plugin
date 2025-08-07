@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Dispatch, FC, MouseEvent, SetStateAction, useState } from 'react';
+import React, { ChangeEvent, Dispatch, FC, MouseEvent, Ref, SetStateAction, useState } from 'react';
 
 import {
   MenuToggle,
@@ -48,7 +48,7 @@ const TopologyToolbarFilter: FC<TopologyToolbarFilterProps> = ({
     >
       <Select
         role="menu"
-        toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
+        toggle={(toggleRef: Ref<MenuToggleElement>) => (
           <MenuToggle
             ref={toggleRef}
             onClick={() => setIsNodeFilterExpanded(!isNodeFilterExpanded)}
