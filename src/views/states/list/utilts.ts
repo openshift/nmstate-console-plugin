@@ -5,7 +5,7 @@ import {
 
 import { NodeNetworkConfigurationInterface } from '@types';
 import { isEmpty } from '@utils/helpers';
-import { getIPV4Address, getIPV6Address } from '@utils/interfaces/getters';
+import { getIPV4Address, getIPV6Address } from '@utils/resources/interfaces/getters';
 
 const decimalToBinary = (decimalNumber: number) => (decimalNumber >>> 0).toString(2);
 

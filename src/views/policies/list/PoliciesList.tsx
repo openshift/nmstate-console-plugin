@@ -19,7 +19,7 @@ import {
 } from '@openshift-console/dynamic-plugin-sdk';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 import { getResourceUrl } from '@utils/helpers';
-import { getPolicyEnactments } from '@utils/policies/utils';
+import { getPolicyEnactments } from '@utils/resources/policies/utils';
 
 import { EnactmentStatuses } from '../constants';
 

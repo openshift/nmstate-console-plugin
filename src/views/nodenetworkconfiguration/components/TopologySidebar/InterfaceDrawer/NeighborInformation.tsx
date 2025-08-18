@@ -13,7 +13,7 @@ import {
   getPortId,
   getSystemDescription,
   getSystemName,
-} from '@utils/neighbors/getters';
+} from '@utils/resources/neighbors/getters';
 
 const NeighborInformation: FC<{ neighbor: NodeNetworkConfigurationInterfaceLLDPNeighbor }> = ({
   neighbor,

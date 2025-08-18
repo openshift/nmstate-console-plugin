@@ -23,7 +23,7 @@ import {
   filterPolicyAppliedNodes,
   getPolicyBondingInterfaces,
   getPolicyEthernetInterfaces,
-} from '@utils/policies/utils';
+} from '@utils/resources/policies/utils';
 
 import InfoBox from './components/InfoBox';
 import InterfaceReview from './components/InterfaceReview';

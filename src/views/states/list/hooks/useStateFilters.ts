@@ -3,7 +3,7 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { RowFilter, RowSearchFilter } from '@openshift-console/dynamic-plugin-sdk';
 import { InterfaceType, NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
 import { isEmpty } from '@utils/helpers';
-import { getInterfaces } from '@utils/nns/getters';
+import { getInterfaces } from '@utils/resources/nns/getters';
 
 import { FILTER_TYPES, LLDP_DISABLED, LLDP_ENABLED } from '../constants';
 import {

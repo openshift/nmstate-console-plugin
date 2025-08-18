@@ -23,10 +23,10 @@ import {
 import { useSignalEffect, useSignals } from '@preact/signals-react/runtime';
 import { V1beta1NodeNetworkConfigurationEnactment, V1beta1NodeNetworkState } from '@types';
 import AccessDenied from '@utils/components/AccessDenied/AccessDenied';
-import { categorizeEnactments } from '@utils/enactments/utils';
 import { isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
-import { filterPolicyAppliedNodes } from '@utils/policies/utils';
+import { categorizeEnactments } from '@utils/resources/enactments/utils';
+import { filterPolicyAppliedNodes } from '@utils/resources/policies/utils';
 
 import TopologyLegend from './components/TopologyLegend/TopologyLegend';
 import { SELECTED_ID_QUERY_PARAM } from './components/TopologySidebar/constants';
