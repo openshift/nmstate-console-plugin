@@ -3,7 +3,8 @@ import {
   EXPAND_INTERFACES_LIST_TEST_ID,
   INTERFACE_DRAWER_TEST_ID,
   LLDP_DRAWER_DETAILS_SECTION_TEST_ID,
-  SEARCH_FILTER_DROPDOWN,
+  SEARCH_FILTER_DROPDOWN_TEST_ID,
+  TEXT_FILTER_BUTTON_SELECTOR,
 } from '../support/selectors';
 
 describe('NodeNetworkState list', () => {
@@ -144,9 +145,9 @@ describe('NodeNetworkState list', () => {
 
       cy.get('table').should('contain', nns.metadata.name);
 
-      cy.get(SEARCH_FILTER_DROPDOWN).click();
+      cy.byTestID(SEARCH_FILTER_DROPDOWN_TEST_ID).click();
 
-      cy.get('#filter-toolbar button').contains('LLDP VLAN name').click();
+      cy.get(TEXT_FILTER_BUTTON_SELECTOR).contains('LLDP VLAN name').click();
 
       cy.get('input[data-test-id="item-filter"]').type(VLAN_NAME);
 
@@ -182,9 +183,9 @@ describe('NodeNetworkState list', () => {
 
       cy.get('table').should('contain', nns.metadata.name);
 
-      cy.get(SEARCH_FILTER_DROPDOWN).click();
+      cy.byTestID(SEARCH_FILTER_DROPDOWN_TEST_ID).click();
 
-      cy.get('#filter-toolbar button').contains('LLDP system name').click();
+      cy.get(TEXT_FILTER_BUTTON_SELECTOR).contains('LLDP system name').click();
 
       cy.get('input[data-test-id="item-filter"]').type(SYSTEM_NAME);
 
