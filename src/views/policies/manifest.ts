@@ -18,7 +18,6 @@ const PolicyExtensionModel: ExtensionK8sModel = {
 
 export const PolicyExposedModules = {
   PoliciesList: './views/policies/list/PoliciesList',
-  NewPolicy: './views/policies/new/NewPolicy',
   PolicyTemplate: 'src/policy-template.ts',
   PolicyPage: './views/policies/details/PolicyPage',
 };
@@ -32,25 +31,6 @@ export const PolicyExtensions: EncodedExtension[] = [
       component: { $codeRef: 'PoliciesList' },
     },
   } as EncodedExtension<ResourceListPage>,
-
-  {
-    type: 'console.page/route',
-    properties: {
-      path: [
-        '/k8s/cluster/nmstate.io~v1~NodeNetworkConfigurationPolicy/~new/form',
-        '/k8s/cluster/nmstate.io~v1~NodeNetworkConfigurationPolicy/~new/yaml',
-      ],
-      id: 'networking',
-      name: '%plugin__nmstate-console-plugin~NodeNetworkConfigurationPolicy%',
-      dataAttributes: {
-        'data-quickstart-id': 'qs-nav-sec-policy',
-        'data-test-id': 'policy-nav-item',
-      },
-      component: {
-        $codeRef: 'NewPolicy',
-      },
-    },
-  } as EncodedExtension<RoutePage>,
   {
     type: 'console.yaml-template',
     properties: {
