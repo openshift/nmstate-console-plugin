@@ -4,11 +4,11 @@ import { NodeNetworkConfigurationEnactmentModelGroupVersionKind } from '@models'
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { Stack, StackItem } from '@patternfly/react-core';
 import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
-import { IconsByStatus } from '@utils/enactments/icons';
-import { categorizeEnactments } from '@utils/enactments/utils';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { getPolicyEnactments } from '@utils/policies/utils';
+import { IconsByStatus } from '@utils/resources/enactments/icons';
+import { categorizeEnactments } from '@utils/resources/enactments/utils';
+import { getPolicyEnactments } from '@utils/resources/policies/utils';
 
 import { EnactmentStatuses } from '../constants';
 

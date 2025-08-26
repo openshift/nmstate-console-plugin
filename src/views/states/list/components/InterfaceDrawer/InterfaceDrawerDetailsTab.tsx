@@ -12,8 +12,8 @@ import {
 } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { getPorts } from '@utils/interfaces/getters';
-import { getSystemName } from '@utils/neighbors/getters';
+import { getPorts } from '@utils/resources/interfaces/getters';
+import { getSystemName } from '@utils/resources/neighbors/getters';
 
 import NeighborInformations from './NeighborInformations';
 

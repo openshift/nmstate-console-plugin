@@ -13,7 +13,7 @@ import {
 import { MinusCircleIcon } from '@patternfly/react-icons';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
+import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 type PolicyFormOVSBridgeMappingExpandableProps = {
   policy: V1NodeNetworkConfigurationPolicy;

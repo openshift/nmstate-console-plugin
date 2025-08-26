@@ -12,7 +12,7 @@ import {
 import { LongArrowAltDownIcon, LongArrowAltUpIcon } from '@patternfly/react-icons';
 import { Td, Tr } from '@patternfly/react-table';
 import { NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
-import { getPorts } from '@utils/interfaces/getters';
+import { getPorts } from '@utils/resources/interfaces/getters';
 
 import useDrawerInterface from '../hooks/useDrawerInterface';
 

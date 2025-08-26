@@ -14,7 +14,7 @@ import {
   V1NodeNetworkConfigurationPolicy,
 } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { getPolicyInterfaces } from '@utils/policies/utils';
+import { getPolicyInterfaces } from '@utils/resources/policies/utils';
 
 import { INTERFACE_TYPE_LABEL, onInterfaceChangeType } from '../../constants';
 import { doesOVSBridgeExist, getExpandableTitle } from '../../utils';

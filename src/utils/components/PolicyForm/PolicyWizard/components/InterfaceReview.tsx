@@ -4,7 +4,7 @@ import { Level, LevelItem, Stack, StackItem } from '@patternfly/react-core';
 import { NodeNetworkConfigurationInterface } from '@types';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { isSTPEnabled } from '@utils/interfaces/helpers';
+import { isSTPEnabled } from '@utils/resources/interfaces/helpers';
 
 import { INTERFACE_TYPE_LABEL } from '../../constants';
 

@@ -4,8 +4,8 @@ import { EnactmentStatuses } from 'src/views/policies/constants';
 
 import { Button, ButtonVariant, Stack, StackItem } from '@patternfly/react-core';
 import { V1beta1NodeNetworkConfigurationEnactment } from '@types';
-import { IconsByStatus } from '@utils/enactments/icons';
-import { categorizeEnactments } from '@utils/enactments/utils';
+import { IconsByStatus } from '@utils/resources/enactments/icons';
+import { categorizeEnactments } from '@utils/resources/enactments/utils';
 
 type NNCPStateColumnProps = {
   enactments: V1beta1NodeNetworkConfigurationEnactment[];

@@ -7,7 +7,7 @@ import {
 } from '@types';
 import { isEmpty } from '@utils/helpers';
 import { t } from '@utils/hooks/useNMStateTranslation';
-import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
+import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 import { INTERFACE_TYPE_LABEL } from './constants';
 

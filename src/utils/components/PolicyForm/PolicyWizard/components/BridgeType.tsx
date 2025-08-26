@@ -4,8 +4,8 @@ import { Content, FormGroup, Radio } from '@patternfly/react-core';
 import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
-import { getOVNConfiguration } from '@utils/policies/getters';
+import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
+import { getOVNConfiguration } from '@utils/resources/policies/getters';
 
 import { INTERFACE_TYPE_LABEL, onInterfaceChangeType } from '../../constants';
 import { doesOVSBridgeExist } from '../../utils';

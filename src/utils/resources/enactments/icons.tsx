@@ -1,9 +1,10 @@
 import React from 'react';
-import { EnactmentStatuses } from 'src/views/policies/constants';
 
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import { Icon } from '@patternfly/react-core';
 import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
+
+import { EnactmentStatuses } from '../../../views/policies/constants';
 
 export const IconsByStatus = {
   [EnactmentStatuses.Failing]: <RedExclamationCircleIcon />,

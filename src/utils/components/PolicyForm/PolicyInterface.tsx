@@ -20,7 +20,7 @@ import {
 } from '@patternfly/react-core';
 import { HelpIcon } from '@patternfly/react-icons';
 import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
-import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
+import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 import BondConfiguration from './components/BondConfiguration';
 import IPConfiguration from './components/IPConfiguration';
