@@ -1,8 +1,5 @@
 import React, { FC } from 'react';
 import { Trans } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
-import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
-import { getResourceUrl } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
 import EmptyPolicyStateImage from '@images/empty-state-illustration.svg';
@@ -20,10 +17,11 @@ import ExternalLinkSquareAltIcon from '@patternfly/react-icons/dist/esm/icons/ex
 import { NODE_NETWORK_POLICY_DOCUMENTATION_URL } from './constants';
 
 import './policy-list-empty-state.scss';
+import CreatePolicyButtons from '../CreatePolicyButtons';
 
 const PolicyListEmptyState: FC = () => {
   const { t } = useNMStateTranslation();
-  const history = useHistory();
+
   return (
     <EmptyState
       titleText={t('No NodeNetworkConfigurationPolicy defined yet')}
@@ -38,18 +36,7 @@ const PolicyListEmptyState: FC = () => {
       </EmptyStateBody>
       <EmptyStateFooter>
         <EmptyStateActions>
-          <Button
-            variant={ButtonVariant.primary}
-            onClick={() =>
-              history.push(
-                `${getResourceUrl({
-                  model: NodeNetworkConfigurationPolicyModel,
-                })}~new/form`,
-              )
-            }
-          >
-            {t('Create NodeNetworkConfigurationPolicy')}
-          </Button>
+          <CreatePolicyButtons>{t('Create NodeNetworkConfigurationPolicy')}</CreatePolicyButtons>
         </EmptyStateActions>
         <EmptyStateActions>
           <Button
