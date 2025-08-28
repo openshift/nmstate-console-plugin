@@ -21,9 +21,9 @@ import {
   NodeNetworkConfigurationInterface,
   V1NodeNetworkConfigurationPolicy,
 } from '@types';
-import { NETWORK_STATES } from '@utils/components/PolicyForm/constants';
 import PolicyForm from '@utils/components/PolicyForm/PolicyForm';
-import { ensureNoEmptyBridgeMapping } from '@utils/components/PolicyForm/utils';
+import { NETWORK_STATES } from '@utils/components/PolicyForm/utils/constants';
+import { ensureNoEmptyBridgeMapping } from '@utils/components/PolicyForm/utils/utils';
 
 import './new-policy.scss';
 

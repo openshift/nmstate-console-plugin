@@ -32,9 +32,9 @@ export const validateInterfaceName = (name: string): string => {
   if (!name) return '';
 
   if (name.length > 15) {
-    // t('Interface name should follow the linux kernel naming convention. The name should be smaller than 16 characters.')
+    // t('Interface name should follow the linux kernel naming convention. The name should be 15 characters or less.')
     return t(
-      'Interface name should follow the linux kernel naming convention. The name should be smaller than 16 characters.',
+      'Interface name should follow the linux kernel naming convention. The name should be 15 characters or less.',
     );
   }
 
@@ -44,6 +44,7 @@ export const validateInterfaceName = (name: string): string => {
       'Interface name should follow the linux kernel naming convention. Whitespaces and slashes are not allowed.',
     );
   }
+
   return '';
 };
 

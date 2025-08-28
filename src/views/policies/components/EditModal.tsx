@@ -20,7 +20,7 @@ import {
 } from '@patternfly/react-core';
 import { V1NodeNetworkConfigurationPolicy } from '@types';
 import PolicyForm from '@utils/components/PolicyForm/PolicyForm';
-import { ensureNoEmptyBridgeMapping } from '@utils/components/PolicyForm/utils';
+import { ensureNoEmptyBridgeMapping } from '@utils/components/PolicyForm/utils/utils';
 
 type EditModalProps = {
   closeModal?: () => void;
