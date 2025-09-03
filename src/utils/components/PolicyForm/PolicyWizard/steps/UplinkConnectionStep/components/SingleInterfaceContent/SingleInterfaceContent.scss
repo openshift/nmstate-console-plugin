@@ -1,0 +1,8 @@
+.single-interface-content {
+  margin-left: var(--pf-t--global--spacer--lg);
+  margin-top: var(--pf-t--global--spacer--md);
+
+  &__ethernet-form-group {
+    margin-bottom: var(--pf-t--global--spacer--sm);
+  }
+}
