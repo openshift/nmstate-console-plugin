@@ -28,10 +28,10 @@ import PolicyListEmptyState from './components/PolicyListEmptyState/PolicyListEm
 import PolicyRow from './components/PolicyRow';
 import usePolicyColumns from './hooks/usePolicyColumns';
 import usePolicyFilters from './hooks/usePolicyFilters';
+import CreatePolicyButtons from './components/CreatePolicyButtons';
 
 const PoliciesList: FC = () => {
   const { t } = useNMStateTranslation();
-  const history = useHistory();
   const [selectedPolicy, setSelectedPolicy] = useState<V1NodeNetworkConfigurationPolicy>();
   const [selectedState, setSelectedState] = useState<EnactmentStatuses>();
 
@@ -50,19 +50,6 @@ const PoliciesList: FC = () => {
     isList: true,
   });
 
-  const createItems = {
-    form: t('From Form'),
-    yaml: t('With YAML'),
-  };
-
-  const onCreate = (type: string) => {
-    const baseURL = getResourceUrl({
-      model: NodeNetworkConfigurationPolicyModel,
-    });
-
-    return type === 'form' ? history.push(`${baseURL}~new/form`) : history.push(`${baseURL}~new`);
-  };
-
   const [columns, activeColumns] = usePolicyColumns();
   const filters = usePolicyFilters(enactments);
   const [data, filteredData, onFilterChange] = useListPageFilter(policies, filters);
@@ -79,15 +66,7 @@ const PoliciesList: FC = () => {
   return (
     <>
       <ListPageHeader title={t(NodeNetworkConfigurationPolicyModel.label)}>
-        <ListPageCreateDropdown
-          items={createItems}
-          onClick={onCreate}
-          createAccessReview={{
-            groupVersionKind: NodeNetworkConfigurationPolicyModelRef,
-          }}
-        >
-          {t('Create')}
-        </ListPageCreateDropdown>
+        <CreatePolicyButtons>{t('Create')}</CreatePolicyButtons>
       </ListPageHeader>
       <ListPageBody>
         <ListPageFilter
