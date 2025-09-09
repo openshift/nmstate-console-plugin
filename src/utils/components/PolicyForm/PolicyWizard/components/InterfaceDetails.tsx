@@ -32,6 +32,7 @@ type InterfaceDetailsProps = {
   policyInterface?: NodeNetworkConfigurationInterface;
   onInterfaceChange?: (updateInterface: onInterfaceChangeType) => void;
   label?: string;
+  interfaceNamesInUse?: string[];
 };
 
 const InterfaceDetails: FC<InterfaceDetailsProps> = ({
@@ -40,6 +41,7 @@ const InterfaceDetails: FC<InterfaceDetailsProps> = ({
   onInterfaceChange,
   isInterfaceCreated = true,
   label,
+  interfaceNamesInUse,
 }) => {
   const { t } = useNMStateTranslation();
 
@@ -65,7 +67,7 @@ const InterfaceDetails: FC<InterfaceDetailsProps> = ({
     });
   };
 
-  const nameError = validateInterfaceName(policyInterface?.name);
+  const nameError = validateInterfaceName(policyInterface?.name, interfaceNamesInUse);
 
   return (
     <>
