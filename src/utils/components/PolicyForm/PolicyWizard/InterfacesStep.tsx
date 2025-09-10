@@ -10,7 +10,7 @@ import {
   V1NodeNetworkConfigurationPolicy,
 } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { getPolicyInterfaces } from '@utils/resources/policies/utils';
+import { getPolicyInterfaces, getPolicyInterfacesByType } from '@utils/resources/policies/utils';
 
 import PolicyFormOVSBridgeMapping from '../components/PolicyFormOVSBridgeMapping';
 import { doesOVSBridgeExist } from '../utils';
@@ -31,7 +31,7 @@ const InterfacesStep: FC<InterfacesStepProps> = ({ policy, setPolicy, interfaceT
 
   const firstInterfaceType = interfaceTypes?.[0];
   const isOVSBridge = isBindingStep && doesOVSBridgeExist(policy);
-
+  const noCurrentStepInterfaces = getPolicyInterfacesByType(policy, interfaceTypes[0]).length === 0;
   const addNewInterface = () => {
     setPolicy((draftPolicy) => {
       if (!draftPolicy.spec?.desiredState?.interfaces) {
@@ -83,7 +83,11 @@ const InterfacesStep: FC<InterfacesStepProps> = ({ policy, setPolicy, interfaceT
             onClick={addNewInterface}
             variant={ButtonVariant.link}
           >
-            <span>{t('Add another {{label}} interface', { label: label.toLowerCase() })}</span>
+            <span>
+              {t(`Add ${noCurrentStepInterfaces ? '' : 'another '}{{label}} interface`, {
+                label: label.toLowerCase(),
+              })}
+            </span>
           </Button>
         </Content>
       </div>

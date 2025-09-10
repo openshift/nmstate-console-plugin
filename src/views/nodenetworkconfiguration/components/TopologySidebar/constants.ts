@@ -1,11 +1,6 @@
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 
-import {
-  InterfaceType,
-  NodeNetworkConfigurationInterface,
-  V1NodeNetworkConfigurationPolicy,
-} from '@types';
-import { NETWORK_STATES } from '@utils/components/PolicyForm/constants';
+import { V1NodeNetworkConfigurationPolicy } from '@types';
 
 export const initialPolicy: V1NodeNetworkConfigurationPolicy = {
   apiVersion: `${NodeNetworkConfigurationPolicyModel.apiGroup}/${NodeNetworkConfigurationPolicyModel.apiVersion}`,
@@ -15,20 +10,7 @@ export const initialPolicy: V1NodeNetworkConfigurationPolicy = {
   },
   spec: {
     desiredState: {
-      interfaces: [
-        {
-          name: 'br0',
-          type: InterfaceType.LINUX_BRIDGE,
-          state: NETWORK_STATES.Up,
-          bridge: {
-            options: {
-              stp: {
-                enabled: false,
-              },
-            },
-          },
-        } as NodeNetworkConfigurationInterface,
-      ],
+      interfaces: [],
     },
   },
 };

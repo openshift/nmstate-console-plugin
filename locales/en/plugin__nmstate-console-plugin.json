@@ -19,6 +19,7 @@
   "<0>List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.</0><1><0>{{kind}}</0><1>metadata</1><2>ownerReferences</2></1>": "<0>List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.</0><1><0>{{kind}}</0><1>metadata</1><2>ownerReferences</2></1>",
   "Aborted": "Aborted",
   "Actions": "Actions",
+  "Add {{label}} interface": "Add {{label}} interface",
   "Add another {{label}} interface": "Add another {{label}} interface",
   "Add another interface to the policy": "Add another interface to the policy",
   "Add Label": "Add Label",
