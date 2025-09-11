@@ -34,6 +34,10 @@ const InterfaceDetailsExpandableSection: FC<InterfaceDetailsExpandableSectionPro
 }) => {
   const { t } = useNMStateTranslation();
 
+  const interfaceNamesInUse: string[] = policy?.spec?.desiredState?.interfaces?.map(
+    (iface) => iface?.name as string,
+  );
+
   const stepInterfaces: NodeNetworkConfigurationInterface[] =
     getPolicyInterfaces(policy)?.filter((iface) => interfaceTypes.includes(iface.type)) || [];
 
@@ -89,11 +93,13 @@ const InterfaceDetailsExpandableSection: FC<InterfaceDetailsExpandableSectionPro
               onInterfaceChange={(updateInterface: onInterfaceChangeType) =>
                 setPolicy((draftPolicy) => {
                   const draftInterface = draftPolicy.spec.desiredState.interfaces.find(
-                    (iface) => policyInterface.name === iface.name,
+                    (iface) =>
+                      policyInterface.name === iface.name && policyInterface.type === iface.type,
                   );
                   updateInterface(draftInterface, draftPolicy);
                 })
               }
+              interfaceNamesInUse={interfaceNamesInUse}
             />
           </FormFieldGroupExpandable>
         );

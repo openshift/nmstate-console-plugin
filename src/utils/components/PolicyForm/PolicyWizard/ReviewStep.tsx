@@ -22,6 +22,7 @@ import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import {
   filterPolicyAppliedNodes,
   getPolicyBondingInterfaces,
+  getPolicyBridgingInterfaces,
   getPolicyEthernetInterfaces,
 } from '@utils/resources/policies/utils';
 
@@ -39,7 +40,7 @@ const ReviewStep: FC<ReviewStepProps> = ({ policy, error }) => {
   const ethernetInterfaces = getPolicyEthernetInterfaces(policy);
 
   const bondingInterfaces = getPolicyBondingInterfaces(policy);
-  const bridgeInterfaces = getPolicyBondingInterfaces(policy);
+  const bridgeInterfaces = getPolicyBridgingInterfaces(policy);
 
   const [nodes] = useK8sWatchResource<IoK8sApiCoreV1Node[]>({
     groupVersionKind: NodeModelGroupVersionKind,

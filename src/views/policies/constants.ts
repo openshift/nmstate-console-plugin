@@ -10,3 +10,5 @@ export enum EnactmentStatuses {
   // t('Pending')
   Pending = 'Pending',
 }
+
+export const MAX_INTERFACE_NAME_LENGTH = 15;

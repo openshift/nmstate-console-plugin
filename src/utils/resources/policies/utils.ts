@@ -45,7 +45,7 @@ export const getPolicyEthernetInterfaces = (policy): NodeNetworkConfigurationInt
 export const getPolicyBondingInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
   getPolicyInterfaces(policy)?.filter((iface) => iface.type === InterfaceType.BOND) || [];
 
-export const getPolicyBrdigingInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
+export const getPolicyBridgingInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
   getPolicyInterfaces(policy)?.filter((iface) =>
     [InterfaceType.LINUX_BRIDGE, InterfaceType.OVS_BRIDGE].includes(iface.type),
   ) || [];

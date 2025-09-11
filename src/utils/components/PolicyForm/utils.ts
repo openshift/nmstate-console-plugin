@@ -10,6 +10,7 @@ import { t } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 import { INTERFACE_TYPE_LABEL } from './constants';
+import { MAX_INTERFACE_NAME_LENGTH } from 'src/views/policies/constants';
 
 export const getExpandableTitle = (
   nncpInterface: NodeNetworkConfigurationInterface,
@@ -28,17 +29,25 @@ export const doesOVSBridgeExist = (policy: V1NodeNetworkConfigurationPolicy): bo
     (iface: NodeNetworkConfigurationInterface) => iface?.type === InterfaceType.OVS_BRIDGE,
   );
 
-export const validateInterfaceName = (name: string): string => {
-  if (!name) return '';
+export const validateInterfaceName = (
+  interfaceName: string,
+  interfaceNamesInUse?: string[],
+): string => {
+  if (!interfaceName) return '';
 
-  if (name.length > 15) {
+  if (interfaceNamesInUse?.filter((name) => name === interfaceName)?.length > 1) {
+    // t('Name already in use by another interface')
+    return t('Name already in use by another interface');
+  }
+
+  if (interfaceName.length > MAX_INTERFACE_NAME_LENGTH) {
     // t('Interface name should follow the linux kernel naming convention. The name should be smaller than 16 characters.')
     return t(
       'Interface name should follow the linux kernel naming convention. The name should be smaller than 16 characters.',
     );
   }
 
-  if (/[/ ]/.test(name)) {
+  if (/[/ ]/.test(interfaceName)) {
     // t('Interface name should follow the linux kernel naming convention. Whitespaces and slashes are not allowed.')
     return t(
       'Interface name should follow the linux kernel naming convention. Whitespaces and slashes are not allowed.',
