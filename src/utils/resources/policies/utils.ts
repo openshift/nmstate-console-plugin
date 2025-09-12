@@ -39,6 +39,23 @@ export const getPolicyInterfaces = (
   policy: V1NodeNetworkConfigurationPolicy,
 ): NodeNetworkConfigurationInterface[] => policy.spec?.desiredState?.interfaces || [];
 
+export const getPolicyInterfacesByType = (
+  policy: V1NodeNetworkConfigurationPolicy,
+  interfaceType: InterfaceType,
+): NodeNetworkConfigurationInterface[] => {
+  switch (interfaceType) {
+    case InterfaceType.ETHERNET:
+      return getPolicyEthernetInterfaces(policy);
+    case InterfaceType.BOND:
+      return getPolicyBondingInterfaces(policy);
+    case InterfaceType.LINUX_BRIDGE:
+    case InterfaceType.OVS_BRIDGE:
+      return getPolicyBridgingInterfaces(policy);
+    default:
+      return [];
+  }
+};
+
 export const getPolicyEthernetInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
   getPolicyInterfaces(policy)?.filter((iface) => iface.type === InterfaceType.ETHERNET) || [];
 
