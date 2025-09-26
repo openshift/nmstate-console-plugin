@@ -4,7 +4,7 @@ import { modelToGroupVersionKind, modelToRef } from './modelUtils';
 
 const NodeNetworkConfigurationPolicyModel: K8sModel = {
   // t('NodeNetworkConfigurationPolicy')
-  label: 'NodeNetworkConfigurationPolicy details',
+  label: 'NodeNetworkConfigurationPolicy',
   labelPlural: 'NodeNetworkConfigurationPolicies',
   apiVersion: 'v1',
   apiGroup: 'nmstate.io',
