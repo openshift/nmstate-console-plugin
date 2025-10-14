@@ -1,9 +1,9 @@
 import React, { FC, useMemo } from 'react';
 
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { NodeNetworkConfigurationPolicyModelGroupVersionKind } from '@models';
 import { HorizontalNav, useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { Bullseye } from '@patternfly/react-core';
-import { V1NodeNetworkConfigurationPolicy } from '@types';
 import Loading from '@utils/components/Loading/Loading';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { k8sDelete } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Alert,
@@ -20,7 +21,6 @@ import {
   StackItem,
   TextInput,
 } from '@patternfly/react-core';
-import { V1NodeNetworkConfigurationPolicy } from '@types';
 import ExternalLink from '@utils/components/ExternalLink/ExternalLink';
 import { getResourceUrl } from '@utils/helpers';
 

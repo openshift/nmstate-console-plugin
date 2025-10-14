@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 
 import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import {
   Content,
   FormGroup,
   FormHelperText,
@@ -8,7 +12,6 @@ import {
   HelperTextItem,
   TextInput,
 } from '@patternfly/react-core';
-import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 import { ensurePath } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 

@@ -1,10 +1,13 @@
 import React, { FC, useMemo, useState } from 'react';
 import { NodeNetworkStateModelGroupVersionKind } from 'src/console-models';
 
+import {
+  NodeNetworkConfigurationInterface,
+  V1beta1NodeNetworkState,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { ResourceLink, RowProps, TableData } from '@openshift-console/dynamic-plugin-sdk';
 import { Button, ButtonVariant, Flex, FlexItem, Popover, Title } from '@patternfly/react-core';
 import { ExpandableRowContent, Tbody, Td, Tr } from '@patternfly/react-table';
-import { NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { SelectedFilters } from '../hooks/useSelectedFilters';

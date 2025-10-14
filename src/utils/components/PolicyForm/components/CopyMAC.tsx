@@ -1,8 +1,8 @@
 import React, { FC, FormEvent } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { Content, ExpandableSection, FormGroup, TextInput } from '@patternfly/react-core';
-import { NodeNetworkConfigurationInterface } from '@types';
 
 type CopyMACProps = {
   id: number | string;

@@ -1,6 +1,9 @@
 import { useHistory, useLocation } from 'react-router';
 
-import { NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
+import {
+  NodeNetworkConfigurationInterface,
+  V1beta1NodeNetworkState,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 
 import { baseListUrl } from '../constants';
 

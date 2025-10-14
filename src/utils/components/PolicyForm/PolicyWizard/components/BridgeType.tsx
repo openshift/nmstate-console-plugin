@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 
+import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { Content, FormGroup, Radio } from '@patternfly/react-core';
-import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';

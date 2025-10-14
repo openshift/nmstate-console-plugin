@@ -14,10 +14,11 @@ import {
 } from '@patternfly/react-core';
 import ExternalLinkSquareAltIcon from '@patternfly/react-icons/dist/esm/icons/external-link-square-alt-icon';
 
+import CreatePolicyButtons from '../CreatePolicyButtons';
+
 import { NODE_NETWORK_POLICY_DOCUMENTATION_URL } from './constants';
 
 import './policy-list-empty-state.scss';
-import CreatePolicyButtons from '../CreatePolicyButtons';
 
 const PolicyListEmptyState: FC = () => {
   const { t } = useNMStateTranslation();

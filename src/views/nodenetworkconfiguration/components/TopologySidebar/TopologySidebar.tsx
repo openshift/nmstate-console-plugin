@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { useHistory } from 'react-router';
 import classNames from 'classnames';
 
+import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { TopologySideBar } from '@patternfly/react-topology';
-import { V1beta1NodeNetworkState } from '@types';
 import { isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
 

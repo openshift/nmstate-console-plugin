@@ -2,17 +2,17 @@ import React, { FC } from 'react';
 import { Updater } from 'use-immer';
 
 import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import {
   Button,
   FormFieldGroupExpandable,
   FormFieldGroupHeader,
   Tooltip,
 } from '@patternfly/react-core';
 import { MinusCircleIcon } from '@patternfly/react-icons';
-import {
-  InterfaceType,
-  NodeNetworkConfigurationInterface,
-  V1NodeNetworkConfigurationPolicy,
-} from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getPolicyInterfaces } from '@utils/resources/policies/utils';
 

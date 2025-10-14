@@ -4,6 +4,10 @@ import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
 import {
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1beta1NodeNetworkState,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkStateModelGroupVersionKind,
 } from '@models';
@@ -21,7 +25,6 @@ import {
   VisualizationSurface,
 } from '@patternfly/react-topology';
 import { useSignalEffect, useSignals } from '@preact/signals-react/runtime';
-import { V1beta1NodeNetworkConfigurationEnactment, V1beta1NodeNetworkState } from '@types';
 import AccessDenied from '@utils/components/AccessDenied/AccessDenied';
 import { isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';

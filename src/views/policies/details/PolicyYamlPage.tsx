@@ -1,8 +1,8 @@
 import React, { FC, Suspense } from 'react';
 
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { ResourceYAMLEditor } from '@openshift-console/dynamic-plugin-sdk';
 import { Bullseye } from '@patternfly/react-core';
-import { V1NodeNetworkConfigurationPolicy } from '@types';
 import Loading from '@utils/components/Loading/Loading';
 
 import './policy-yaml-page.scss';

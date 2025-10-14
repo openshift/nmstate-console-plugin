@@ -2,7 +2,7 @@ import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
   V1NodeNetworkConfigurationPolicy,
-} from '@types';
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 
 export enum NETWORK_STATES {
   Up = 'up',
