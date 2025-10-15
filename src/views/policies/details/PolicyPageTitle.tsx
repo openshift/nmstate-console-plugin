@@ -33,7 +33,7 @@ const PolicyPageTitle: FC<PolicyPageTitleProps> = ({ policy, name }) => {
         <Breadcrumb>
           <BreadcrumbItem>
             <Link to={getResourceUrl({ model: NodeNetworkConfigurationPolicyModel })}>
-              {t(NodeNetworkConfigurationPolicyModel.label)}
+              {t(NodeNetworkConfigurationPolicyModel.labelPlural)}
             </Link>
           </BreadcrumbItem>
           <BreadcrumbItem>

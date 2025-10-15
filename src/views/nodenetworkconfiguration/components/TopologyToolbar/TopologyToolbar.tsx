@@ -57,7 +57,6 @@ const TopologyButton: FC<TopologyToolbarProps> = (props) => {
       <ToolbarContent className="topology-toolbar__content">
         <ToolbarGroup>
           <Title headingLevel="h2">{t('Node network configuration')}</Title>
-
           <ListPageCreateDropdown
             items={createItems}
             onClick={onCreate}
