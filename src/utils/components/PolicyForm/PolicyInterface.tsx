@@ -1,8 +1,12 @@
 import React, { FC } from 'react';
-import { NodeNetworkConfigurationInterfaceBondMode } from 'src/nmstate-types/custom-models/NodeNetworkConfigurationInterfaceBondMode';
 import { ensurePath } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
+import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+  NodeNetworkConfigurationInterfaceBondMode,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Checkbox,
@@ -19,7 +23,6 @@ import {
   ValidatedOptions,
 } from '@patternfly/react-core';
 import { HelpIcon } from '@patternfly/react-icons';
-import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 import BondConfiguration from './components/BondConfiguration';

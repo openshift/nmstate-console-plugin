@@ -2,6 +2,10 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { EnactmentStatuses } from 'src/views/policies/constants';
 
+import {
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   ExpandableSection,
@@ -15,7 +19,6 @@ import {
   TabTitleText,
 } from '@patternfly/react-core';
 import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
-import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 import { categorizeEnactments } from '@utils/resources/enactments/utils';
 
 import { findConditionType } from '../utils';

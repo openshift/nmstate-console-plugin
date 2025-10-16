@@ -1,6 +1,10 @@
 import React, { FC, memo, useState } from 'react';
 
 import {
+  NodeNetworkConfigurationInterface,
+  V1beta1NodeNetworkState,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import {
   Button,
   ButtonVariant,
   Checkbox,
@@ -11,7 +15,6 @@ import {
 } from '@patternfly/react-core';
 import { LongArrowAltDownIcon, LongArrowAltUpIcon } from '@patternfly/react-icons';
 import { Td, Tr } from '@patternfly/react-table';
-import { NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
 import { getPorts } from '@utils/resources/interfaces/getters';
 
 import useDrawerInterface from '../hooks/useDrawerInterface';

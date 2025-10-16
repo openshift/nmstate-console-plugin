@@ -1,3 +1,10 @@
+import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1beta1NodeNetworkState,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { EthernetIcon, LinkIcon, NetworkIcon } from '@patternfly/react-icons';
 import {
   EdgeModel,
@@ -7,13 +14,6 @@ import {
   NodeShape,
   NodeStatus,
 } from '@patternfly/react-topology';
-import {
-  InterfaceType,
-  NodeNetworkConfigurationInterface,
-  V1beta1NodeNetworkConfigurationEnactment,
-  V1beta1NodeNetworkState,
-  V1NodeNetworkConfigurationPolicy,
-} from '@types';
 import { isEmpty } from '@utils/helpers';
 
 import BridgeIcon from '../components/BridgeIcon';
@@ -243,8 +243,8 @@ const getNNCEConfiguredInterfaces = (
 
   const configured: NodeNetworkConfigurationInterface[] = [];
 
-  const desiredInterfaces = enhancement.status.desiredState.interfaces || [];
-  const currentInterfaces = state.status.currentState.interfaces || [];
+  const desiredInterfaces = enhancement?.status?.desiredState?.interfaces || [];
+  const currentInterfaces = state?.status?.currentState?.interfaces || [];
 
   desiredInterfaces.forEach((desiredIface) => {
     if (findInterfaceByName(currentInterfaces, desiredIface.name)) {

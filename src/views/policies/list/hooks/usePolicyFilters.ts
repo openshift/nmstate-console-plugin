@@ -1,8 +1,11 @@
 import { ENACTMENT_LABEL_POLICY } from 'src/utils/constants';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
+import {
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { RowFilter } from '@openshift-console/dynamic-plugin-sdk';
-import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 import { getEnactmentStatus } from '@utils/resources/enactments/utils';
 
 const usePolicyFilters = (

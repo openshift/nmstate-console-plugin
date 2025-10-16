@@ -4,7 +4,7 @@ import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkConfigurationEnactment,
   V1NodeNetworkConfigurationPolicy,
-} from '@types';
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { ENACTMENT_LABEL_POLICY } from '@utils/constants';
 import { isEmpty } from '@utils/helpers';
 

@@ -1,16 +1,16 @@
 import { TFunction } from 'react-i18next';
+import { MAX_INTERFACE_NAME_LENGTH } from 'src/views/policies/constants';
 
 import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
   V1NodeNetworkConfigurationPolicy,
-} from '@types';
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { isEmpty } from '@utils/helpers';
 import { t } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 import { INTERFACE_TYPE_LABEL } from './constants';
-import { MAX_INTERFACE_NAME_LENGTH } from 'src/views/policies/constants';
 
 export const getExpandableTitle = (
   nncpInterface: NodeNetworkConfigurationInterface,

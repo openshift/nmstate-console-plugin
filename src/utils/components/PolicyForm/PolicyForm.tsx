@@ -4,6 +4,11 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
 import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import {
   Button,
   Content,
   Form,
@@ -13,11 +18,6 @@ import {
   Title,
 } from '@patternfly/react-core';
 import { HelpIcon, PlusCircleIcon } from '@patternfly/react-icons';
-import {
-  InterfaceType,
-  NodeNetworkConfigurationInterface,
-  V1NodeNetworkConfigurationPolicy,
-} from '@types';
 
 import NodeSelectorModal from '../NodeSelectorModal/NodeSelectorModal';
 

@@ -2,13 +2,16 @@ import React, { FC, useRef, useState } from 'react';
 import { Updater } from 'use-immer';
 
 import {
+  NodeNetworkConfigurationInterface,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import {
   Button,
   FormFieldGroupExpandable,
   FormFieldGroupHeader,
   Tooltip,
 } from '@patternfly/react-core';
 import { MinusCircleIcon } from '@patternfly/react-icons';
-import { NodeNetworkConfigurationInterface, V1NodeNetworkConfigurationPolicy } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import DeleteInterfaceModal from './components/DeleteInterfaceModal';

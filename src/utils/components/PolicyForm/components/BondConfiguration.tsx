@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
-import { NodeNetworkConfigurationInterfaceBondMode } from 'src/nmstate-types/custom-models/NodeNetworkConfigurationInterfaceBondMode';
 
+import {
+  NodeNetworkConfigurationInterface,
+  NodeNetworkConfigurationInterfaceBondMode,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { FormGroup, FormSelect, FormSelectOption, FormSelectProps } from '@patternfly/react-core';
-import { NodeNetworkConfigurationInterface } from '@types';
 import { ensurePath } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 

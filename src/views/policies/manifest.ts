@@ -4,7 +4,6 @@ import type {
   ResourceClusterNavItem,
   ResourceDetailsPage,
   ResourceListPage,
-  RoutePage,
   YAMLTemplate,
 } from '@openshift-console/dynamic-plugin-sdk';
 

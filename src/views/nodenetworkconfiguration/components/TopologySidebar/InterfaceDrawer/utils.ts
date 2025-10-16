@@ -1,6 +1,6 @@
 import { dump } from 'js-yaml';
 
-import { NodeNetworkConfigurationInterface } from '@types';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
 
 export const copyToClipboard = (selectedInterface: NodeNetworkConfigurationInterface) => {
   const el = document.createElement('textarea');

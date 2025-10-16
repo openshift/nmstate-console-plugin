@@ -1,6 +1,7 @@
 import React, { FC, FormEvent } from 'react';
 import { Updater } from 'use-immer';
 
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 import {
   Button,
   ButtonVariant,
@@ -11,7 +12,6 @@ import {
   Title,
 } from '@patternfly/react-core';
 import { MinusCircleIcon } from '@patternfly/react-icons';
-import { V1NodeNetworkConfigurationPolicy } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 

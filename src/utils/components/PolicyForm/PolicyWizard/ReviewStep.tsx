@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Alert,
@@ -14,7 +15,6 @@ import {
   StackItem,
   Title,
 } from '@patternfly/react-core';
-import { V1NodeNetworkConfigurationPolicy } from '@types';
 import { getAnnotation, getLabel, getName } from '@utils/components/resources/selectors';
 import { NODE_HOSTNAME_LABEL } from '@utils/constants';
 import { isEmpty } from '@utils/helpers';

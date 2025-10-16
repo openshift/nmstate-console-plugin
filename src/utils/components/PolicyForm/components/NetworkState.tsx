@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { Content, FormGroup, Radio } from '@patternfly/react-core';
-import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { NETWORK_STATES, onInterfaceChangeType } from '../constants';

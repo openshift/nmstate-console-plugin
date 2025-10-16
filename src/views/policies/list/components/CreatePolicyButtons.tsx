@@ -1,11 +1,12 @@
-import { ListPageCreateDropdown } from '@openshift-console/dynamic-plugin-sdk';
-import { getResourceUrl } from '@utils/helpers';
-import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import NodeNetworkConfigurationPolicyModel, {
   NodeNetworkConfigurationPolicyModelRef,
 } from 'src/console-models/NodeNetworkConfigurationPolicyModel';
+
+import { ListPageCreateDropdown } from '@openshift-console/dynamic-plugin-sdk';
+import { getResourceUrl } from '@utils/helpers';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 const CreatePolicyButtons: FC = ({ children }) => {
   const { t } = useNMStateTranslation();

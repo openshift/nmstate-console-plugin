@@ -1,7 +1,10 @@
 import React from 'react';
 
+import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { cleanup, render } from '@testing-library/react';
-import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 
 import { NETWORK_STATES } from '../constants';
 import PolicyInterface from '../PolicyInterface';

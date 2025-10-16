@@ -1,5 +1,4 @@
 import React, { FC, useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkConfigurationPolicyModelGroupVersionKind,
@@ -9,26 +8,27 @@ import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkC
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
 import {
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import {
   ListPageBody,
-  ListPageCreateDropdown,
   ListPageFilter,
   ListPageHeader,
   useK8sWatchResource,
   useListPageFilter,
   VirtualizedTable,
 } from '@openshift-console/dynamic-plugin-sdk';
-import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
-import { getResourceUrl } from '@utils/helpers';
 import { getPolicyEnactments } from '@utils/resources/policies/utils';
 
 import { EnactmentStatuses } from '../constants';
 
+import CreatePolicyButtons from './components/CreatePolicyButtons';
 import PolicyEnactmentsDrawer from './components/PolicyEnactmentsDrawer/PolicyEnactmentsDrawer';
 import PolicyListEmptyState from './components/PolicyListEmptyState/PolicyListEmptyState';
 import PolicyRow from './components/PolicyRow';
 import usePolicyColumns from './hooks/usePolicyColumns';
 import usePolicyFilters from './hooks/usePolicyFilters';
-import CreatePolicyButtons from './components/CreatePolicyButtons';
 
 const PoliciesList: FC = () => {
   const { t } = useNMStateTranslation();

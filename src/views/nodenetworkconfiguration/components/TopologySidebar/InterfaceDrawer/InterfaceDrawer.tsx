@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom-v5-compat';
 
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
 import {
   PageSection,
   Tab,
@@ -8,7 +9,6 @@ import {
   TabTitleText,
   Title,
 } from '@patternfly/react-core';
-import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { InterfaceDrawerTabId, InterfaceDrawerTabProps } from './constants';

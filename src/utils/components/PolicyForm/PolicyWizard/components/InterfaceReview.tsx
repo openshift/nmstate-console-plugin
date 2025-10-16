@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { Level, LevelItem, Stack, StackItem } from '@patternfly/react-core';
-import { NodeNetworkConfigurationInterface } from '@types';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { isSTPEnabled } from '@utils/resources/interfaces/helpers';

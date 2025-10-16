@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom-v5-compat';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { useAccessReview } from '@openshift-console/dynamic-plugin-sdk';
 import { Alert, AlertVariant, Breadcrumb, BreadcrumbItem, Title } from '@patternfly/react-core';
-import { V1NodeNetworkConfigurationPolicy } from '@types';
 import DetailsPageTitle from '@utils/components/DetailsPageTitle/DetailsPageTitle';
 import PaneHeading from '@utils/components/PaneHeading/PaneHeading';
 import { getResourceUrl } from '@utils/helpers';

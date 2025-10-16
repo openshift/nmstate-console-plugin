@@ -3,8 +3,8 @@ import { Trans } from 'react-i18next';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { Content, Form, FormGroup, TextInput, Title } from '@patternfly/react-core';
-import { V1NodeNetworkConfigurationPolicy } from '@types';
 import NodeSelectorModal from '@utils/components/NodeSelectorModal/NodeSelectorModal';
 
 import ApplySelectorCheckbox from '../components/ApplySelectorCheckbox';

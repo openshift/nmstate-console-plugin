@@ -710,10 +710,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@kubevirt-ui/kubevirt-api@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@kubevirt-ui/kubevirt-api/-/kubevirt-api-1.2.2.tgz#2a056159fb503d36bca94e62f9c2899aa2728202"
-  integrity sha512-8hcafV28OAnnNzQuCc5DOk/NCU8IR+h2/xCYW5gCZJFyziidWZwI3FAIcdalxQ9fgY9sgM2di65WeN5j/l4QNg==
+"@kubevirt-ui/kubevirt-api@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@kubevirt-ui/kubevirt-api/-/kubevirt-api-1.4.2.tgz#ee55fdeabd5ffee356337516b0971158b8b7d02d"
+  integrity sha512-7t15bvfqYTG+bVrVx8YhpRRVcnqXutRI9+OfUdTm/t9X9HDn9Mnm4ID26I+sVW6ML5SfF533mNugi8FuN2/L2g==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.5"

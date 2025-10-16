@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 
+import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { NodeNetworkStateModel, NodeNetworkStateModelGroupVersionKind } from '@models';
 import {
   ResourceIcon,
@@ -8,7 +9,6 @@ import {
   useLabelsModal,
 } from '@openshift-console/dynamic-plugin-sdk';
 import { DescriptionList, Divider, PageSection, Title } from '@patternfly/react-core';
-import { V1beta1NodeNetworkState } from '@types';
 import DetailItem from '@utils/components/DetailItem/DetailItem';
 import OwnerDetailsItem from '@utils/components/DetailItem/OwnerDetailItem';
 import MetadataLabels from '@utils/components/MetadataLabels/MetadataLabels';

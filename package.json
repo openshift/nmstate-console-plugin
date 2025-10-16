@@ -20,12 +20,12 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:updateSnapshot": "jest --updateSnapshot",
-    "generate-types": "cd ./src/nmstate-types && ./download-nmstate-crds.sh && cd ../..",
+    "download-crds": "cd ./src/nmstate-types && ./download-nmstate-crds.sh && cd ../..",
     "helm:lint": "helm lint deployment/nmstate-console-plugin/",
     "helm:build": "mkdir -p tmp && helm package -d tmp deployment/nmstate-console-plugin/"
   },
   "devDependencies": {
-    "@kubevirt-ui/kubevirt-api": "^1.2.2",
+    "@kubevirt-ui/kubevirt-api": "^1.4.2",
     "@openshift-console/dynamic-plugin-sdk": "1.4.0",
     "@openshift-console/dynamic-plugin-sdk-webpack": "1.1.1",
     "@openshift/dynamic-plugin-sdk": "~5.0.1",

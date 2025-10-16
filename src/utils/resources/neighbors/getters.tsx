@@ -5,7 +5,7 @@ import {
   PORT_ID,
   SYSTEM_DESCRIPTION,
   SYSTEM_NAME,
-} from '../../../nmstate-types/custom-models/NodeNetworkConfigurationInterfaceLLDP';
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 
 export const getNeighborInformation = (
   neighbor: NodeNetworkConfigurationInterfaceLLDPNeighbor,

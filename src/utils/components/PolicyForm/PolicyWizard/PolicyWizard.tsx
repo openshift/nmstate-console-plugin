@@ -2,8 +2,8 @@ import React, { FC, MouseEventHandler, useCallback, useState } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
+import { InterfaceType, V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { Wizard, WizardStep } from '@patternfly/react-core';
-import { InterfaceType, V1NodeNetworkConfigurationPolicy } from '@types';
 import { isEmpty } from '@utils/helpers';
 
 import { ensureNoEmptyBridgeMapping } from '../utils';

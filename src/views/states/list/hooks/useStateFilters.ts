@@ -1,7 +1,11 @@
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
+import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+  V1beta1NodeNetworkState,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { RowFilter, RowSearchFilter } from '@openshift-console/dynamic-plugin-sdk';
-import { InterfaceType, NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
 import { isEmpty } from '@utils/helpers';
 import { getInterfaces } from '@utils/resources/nns/getters';
 

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
+
 import {
   CHASSIS_ID,
   NodeNetworkConfigurationInterfaceLLDPNeighbor,
-} from 'src/nmstate-types/custom-models/NodeNetworkConfigurationInterfaceLLDP';
-
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { Stack, StackItem, Tooltip } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import {

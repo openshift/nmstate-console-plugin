@@ -16,7 +16,6 @@
     "lib": ["es2016", "es2019", "es2020.promise", "dom", "dom.iterable", "ES2021.String"],
     "paths": {
       "@images/*": ["images/*"],
-      "@types": ["src/nmstate-types/index.ts"],
       "@utils/*": ["src/utils/*"],
       "@models": ["src/console-models/index.ts"]
     }

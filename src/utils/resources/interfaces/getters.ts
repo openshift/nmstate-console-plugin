@@ -1,4 +1,4 @@
-import { NodeNetworkConfigurationInterface } from '@types';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
 
 export const getIPV4Address = (iface: NodeNetworkConfigurationInterface) =>
   iface?.ipv4?.address?.[0]?.ip;

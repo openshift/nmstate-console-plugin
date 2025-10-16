@@ -1,5 +1,8 @@
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
-import { NodeNetworkConfigurationInterface, V1NodeNetworkConfigurationPolicy } from '@types';
+import {
+  NodeNetworkConfigurationInterface,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { isEmpty } from '@utils/helpers';
 
 export const getMatchedPolicyNodes = (
