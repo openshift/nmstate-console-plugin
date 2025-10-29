@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
-import { NodeNetworkConfigurationInterfaceBondMode } from 'src/nmstate-types/custom-models/NodeNetworkConfigurationInterfaceBondMode';
 import { Updater } from 'use-immer';
 
-import { Button, ButtonVariant, Content, Form, Title } from '@patternfly/react-core';
-import { PlusCircleIcon } from '@patternfly/react-icons';
 import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
+  NodeNetworkConfigurationInterfaceBondMode,
   V1NodeNetworkConfigurationPolicy,
-} from '@types';
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import { Button, ButtonVariant, Content, Form, Title } from '@patternfly/react-core';
+import { PlusCircleIcon } from '@patternfly/react-icons';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getPolicyInterfaces, getPolicyInterfacesByType } from '@utils/resources/policies/utils';
 

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
 import {
   Checkbox,
   Flex,
@@ -10,7 +11,6 @@ import {
   StackItem,
   Title,
 } from '@patternfly/react-core';
-import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getPorts } from '@utils/resources/interfaces/getters';
 import { getSystemName } from '@utils/resources/neighbors/getters';

@@ -3,6 +3,7 @@ import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkC
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { useImmer } from 'use-immer';
 
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { k8sUpdate } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Alert,
@@ -18,7 +19,6 @@ import {
   Stack,
   StackItem,
 } from '@patternfly/react-core';
-import { V1NodeNetworkConfigurationPolicy } from '@types';
 import PolicyForm from '@utils/components/PolicyForm/PolicyForm';
 import { ensureNoEmptyBridgeMapping } from '@utils/components/PolicyForm/utils';
 

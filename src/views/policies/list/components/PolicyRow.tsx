@@ -5,8 +5,11 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import PolicyActions from 'src/views/policies/actions/PolicyActions';
 import { EnactmentStatuses } from 'src/views/policies/constants';
 
+import {
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { ResourceLink, RowProps, TableData } from '@openshift-console/dynamic-plugin-sdk';
-import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 
 import EnactmentStateColumn from './EnactmentStateColumn';
 

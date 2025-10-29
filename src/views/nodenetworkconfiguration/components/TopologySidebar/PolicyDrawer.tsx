@@ -4,12 +4,12 @@ import PolicyDetailsPage from 'src/views/policies/details/PolicyDetailsPage';
 import PolicyPageTitle from 'src/views/policies/details/PolicyPageTitle';
 import PolicyYAMLPage from 'src/views/policies/details/PolicyYamlPage';
 
-import { Tab, Tabs as TabsComponent, TabTitleText } from '@patternfly/react-core';
 import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkConfigurationPolicy,
   V1NodeNetworkConfigurationPolicy,
-} from '@types';
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import { Tab, Tabs as TabsComponent, TabTitleText } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import './policy-drawer.scss';

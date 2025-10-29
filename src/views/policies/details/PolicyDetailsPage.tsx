@@ -3,6 +3,10 @@ import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import {
+  NodeNetworkConfigurationInterface,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import {
   DescriptionList,
@@ -13,7 +17,6 @@ import {
   Skeleton,
   Title,
 } from '@patternfly/react-core';
-import { NodeNetworkConfigurationInterface, V1NodeNetworkConfigurationPolicy } from '@types';
 
 import PolicyEnactments from './PolicyEnactments';
 import { getInterfaceToShow, getMatchedPolicyNodes } from './utils';

@@ -1,4 +1,4 @@
-import { V1beta1NodeNetworkConfigurationEnactment } from '@types';
+import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui/kubevirt-api/nmstate';
 
 export const getEnactmentStatus = (enactment: V1beta1NodeNetworkConfigurationEnactment): string =>
   enactment?.status?.conditions?.find((condition) => condition.status === 'True').type;

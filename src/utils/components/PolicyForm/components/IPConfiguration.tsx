@@ -1,6 +1,12 @@
 import React, { FC } from 'react';
 
 import {
+  AUTO_DNS,
+  AUTO_GATEWAY,
+  AUTO_ROUTES,
+  NodeNetworkConfigurationInterface,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
+import {
   Checkbox,
   Content,
   Flex,
@@ -10,7 +16,6 @@ import {
   Radio,
   TextInput,
 } from '@patternfly/react-core';
-import { AUTO_DNS, AUTO_GATEWAY, AUTO_ROUTES, NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { DEFAULT_PREFIX_LENGTH, onInterfaceChangeType } from '../constants';

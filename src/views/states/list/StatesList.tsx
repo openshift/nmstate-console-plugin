@@ -2,6 +2,7 @@ import React, { FC, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom-v5-compat';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
+import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
 import {
   NodeNetworkStateModel,
   NodeNetworkStateModelGroupVersionKind,
@@ -17,7 +18,6 @@ import {
 import { Button, Flex, Icon, Pagination } from '@patternfly/react-core';
 import { TopologyIcon } from '@patternfly/react-icons';
 import { Table, TableGridBreakpoint, Th, Thead, Tr } from '@patternfly/react-table';
-import { V1beta1NodeNetworkState } from '@types';
 import { isEmpty } from '@utils/helpers';
 import usePagination from '@utils/hooks/usePagination/usePagination';
 import { paginationDefaultValues } from '@utils/hooks/usePagination/utils/constants';

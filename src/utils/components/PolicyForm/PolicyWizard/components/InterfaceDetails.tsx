@@ -2,6 +2,10 @@ import React, { FC } from 'react';
 import { ensurePath } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
+import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Checkbox,
@@ -15,7 +19,6 @@ import {
   ValidatedOptions,
 } from '@patternfly/react-core';
 import { HelpIcon } from '@patternfly/react-icons';
-import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 
 import BondConfiguration from '../../components/BondConfiguration';
 import IPConfiguration from '../../components/IPConfiguration';

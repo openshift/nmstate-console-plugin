@@ -1,9 +1,12 @@
 import React, { FC } from 'react';
 
+import {
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { NodeNetworkConfigurationEnactmentModelGroupVersionKind } from '@models';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { Stack, StackItem } from '@patternfly/react-core';
-import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { IconsByStatus } from '@utils/resources/enactments/icons';

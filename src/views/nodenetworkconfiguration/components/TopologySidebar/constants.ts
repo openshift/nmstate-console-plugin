@@ -1,6 +1,6 @@
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 
-import { V1NodeNetworkConfigurationPolicy } from '@types';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
 
 export const initialPolicy: V1NodeNetworkConfigurationPolicy = {
   apiVersion: `${NodeNetworkConfigurationPolicyModel.apiGroup}/${NodeNetworkConfigurationPolicyModel.apiVersion}`,

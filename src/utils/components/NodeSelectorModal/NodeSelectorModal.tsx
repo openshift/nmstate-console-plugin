@@ -7,6 +7,10 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { useImmer } from 'use-immer';
 
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import {
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui/kubevirt-api/nmstate';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Alert,
@@ -20,7 +24,6 @@ import {
   ModalHeader,
 } from '@patternfly/react-core';
 import { Modal, ModalVariant } from '@patternfly/react-core';
-import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 
 import LabelsList from './components/LabelList';
 import LabelRow from './components/LabelRow';
