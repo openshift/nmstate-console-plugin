@@ -62,10 +62,8 @@ const InterfaceDetails: FC<InterfaceDetailsProps> = ({
     onInterfaceChange((draftInterface) => {
       ensurePath(draftInterface, 'bridge.options');
 
-      draftInterface.bridge = {
-        options: {
-          stp: { enabled: checked },
-        },
+      draftInterface.bridge.options = {
+        stp: { enabled: checked },
       };
     });
   };
