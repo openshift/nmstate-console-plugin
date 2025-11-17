@@ -80,6 +80,7 @@ const InterfacesStep: FC<InterfacesStepProps> = ({ policy, setPolicy, interfaceT
           <Button
             icon={<PlusCircleIcon />}
             className="pf-m-link--align-left pf-v6-u-ml-md"
+            id={`add-${label.toLowerCase()}-interface-button`}
             onClick={addNewInterface}
             variant={ButtonVariant.link}
           >

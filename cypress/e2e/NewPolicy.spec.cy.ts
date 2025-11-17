@@ -30,10 +30,9 @@ describe('Create new policy with form', () => {
 
     cy.get('input[name="policy-description"]').clear().type('test-policy-description');
 
-    cy.contains('button', 'Review and create').click();
-
-    cy.get('button#policy-wizard-review').click();
-
+    cy.contains('button', 'Bridging').click();
+    cy.get(`button#add-bridging-interface-button`).click();
+    cy.contains('button', 'Next').click();
     cy.contains('button', 'Create policy').click();
 
     cy.contains('h1', testPolicyName);
