@@ -65,7 +65,7 @@ export const PolicyExtensions: EncodedExtension[] = [
     properties: {
       dataAttributes: {
         'data-quickstart-id': 'qs-nav-policy-list',
-        'data-test-id': 'policy-nav-list',
+        'data-test-id': 'nodenetworkconfigurationpolicy-nav-item',
       },
       id: 'nodenetworkconfigurationpolicy-virt-perspective',
       model: PolicyExtensionModel,

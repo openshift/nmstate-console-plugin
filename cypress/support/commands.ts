@@ -34,9 +34,10 @@ Cypress.Commands.add('login', (provider, username, password) => {
       cy.log('skipping login, console is running with auth disabled');
 
       cy.contains('li[data-test="nav"]', 'Networking').click();
-      cy.contains('*[data-test-id="policy-nav-list"]', 'NodeNetworkConfigurationPolicy').should(
-        'be.visible',
-      );
+      cy.contains(
+        '*[data-test-id="nodenetworkconfigurationpolicy-nav-item"]',
+        'NodeNetworkConfigurationPolicy',
+      ).should('be.visible');
       return;
     }
 
