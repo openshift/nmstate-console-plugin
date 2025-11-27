@@ -70,7 +70,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
 
       if (newType === InterfaceType.OVS_BRIDGE) {
         delete draftInterface['link-aggregation'];
-        draftInterface.bridge = { port: [], options: {} };
+        draftInterface.bridge = { port: [], options: {}, ['allow-extra-patch-ports']: true } as any;
         if (!draftPolicy?.spec?.desiredState?.ovn) {
           draftPolicy.spec.desiredState.ovn = {
             [OVN_BRIDGE_MAPPINGS]: [],
@@ -102,10 +102,8 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
     onInterfaceChange((draftInterface) => {
       ensurePath(draftInterface, 'bridge.options');
 
-      draftInterface.bridge = {
-        options: {
-          stp: { enabled: checked },
-        },
+      draftInterface.bridge.options = {
+        stp: { enabled: checked },
       };
     });
   };

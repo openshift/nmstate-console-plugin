@@ -63,6 +63,10 @@ const InterfacesStep: FC<InterfacesStepProps> = ({ policy, setPolicy, interfaceT
         };
       }
 
+      if (isOVSBridge) {
+        newInterface.bridge['allow-extra-patch-ports'] = true;
+      }
+
       policyInterfaces.push(newInterface);
     });
   };
