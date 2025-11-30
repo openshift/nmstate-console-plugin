@@ -7,6 +7,8 @@ import NodeNetworkConfigurationPolicyModel, {
 import { ListPageCreateDropdown } from '@openshift-console/dynamic-plugin-sdk';
 import { getResourceUrl } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import { NNCP_YAML_EDITOR_OPENED } from '@utils/telemetry/constants';
+import { logNMStateEvent } from '@utils/telemetry/telemetry';
 
 const CreatePolicyButtons: FC = ({ children }) => {
   const { t } = useNMStateTranslation();
@@ -21,6 +23,10 @@ const CreatePolicyButtons: FC = ({ children }) => {
     const baseURL = getResourceUrl({
       model: NodeNetworkConfigurationPolicyModel,
     });
+
+    if (type === 'yaml') {
+      logNMStateEvent(NNCP_YAML_EDITOR_OPENED);
+    }
 
     return type === 'form'
       ? history.push('/node-network-configuration?createPolicy=true')
