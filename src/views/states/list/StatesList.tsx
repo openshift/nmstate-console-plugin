@@ -161,6 +161,7 @@ const StatesList: FC = () => {
                   obj={nnstate}
                   activeColumnIDs={new Set(activeColumns.map(({ id }) => id))}
                   rowData={{ rowIndex: index, selectedFilters, expandAll }}
+                  index={index}
                 />
               ))}
             </Table>

@@ -20,9 +20,16 @@ type PolicyWizardProps = {
   setPolicy: Updater<V1NodeNetworkConfigurationPolicy>;
   onSubmit: () => void | Promise<void>;
   onClose: () => void;
+  onStepChange?: (stepId: string | number) => void;
 };
 
-const PolicyWizard: FC<PolicyWizardProps> = ({ policy, setPolicy, onSubmit, onClose }) => {
+const PolicyWizard: FC<PolicyWizardProps> = ({
+  policy,
+  setPolicy,
+  onSubmit,
+  onClose,
+  onStepChange,
+}) => {
   const { t } = useNMStateTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>(null);
@@ -46,6 +53,9 @@ const PolicyWizard: FC<PolicyWizardProps> = ({ policy, setPolicy, onSubmit, onCl
     <Wizard
       onSave={onFormSubmit}
       onClose={onClose}
+      onStepChange={(event, currentStep) => {
+        onStepChange?.(currentStep.id);
+      }}
       className="nmstate-policy-wizard policy-form-content"
     >
       <WizardStep
