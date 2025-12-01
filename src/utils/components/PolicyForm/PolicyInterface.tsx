@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { ensurePath } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
@@ -11,11 +11,11 @@ import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk'
 import {
   Checkbox,
   Content,
+  Dropdown,
+  DropdownItem,
+  DropdownList,
   FormGroup,
   FormHelperText,
-  FormSelect,
-  FormSelectOption,
-  FormSelectProps,
   HelperText,
   HelperTextItem,
   Popover,
@@ -23,6 +23,7 @@ import {
   ValidatedOptions,
 } from '@patternfly/react-core';
 import { HelpIcon } from '@patternfly/react-icons';
+import DropdownToggle from '@utils/components/Toggles/DropdownToggle';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 import BondConfiguration from './components/BondConfiguration';
@@ -30,8 +31,6 @@ import IPConfiguration from './components/IPConfiguration';
 import PortConfiguration from './components/PortConfiguration';
 import { INTERFACE_TYPE_LABEL, NETWORK_STATES, onInterfaceChangeType } from './constants';
 import { doesOVSBridgeExist, validateInterfaceName } from './utils';
-
-type HandleSelectChange = FormSelectProps['onChange'];
 
 type PolicyInterfaceProps = {
   id: number;
@@ -49,16 +48,19 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
   label,
 }) => {
   const { t } = useNMStateTranslation();
+  const [isNetworkStateOpen, setIsNetworkStateOpen] = useState(false);
+  const [isTypeOpen, setIsTypeOpen] = useState(false);
 
-  const handleStateChange: HandleSelectChange = (event, newState: NETWORK_STATES) => {
+  const handleStateChange = (_event: React.MouseEvent, newState: NETWORK_STATES) => {
     onInterfaceChange((draftInterface) => (draftInterface.state = newState));
+    setIsNetworkStateOpen(false);
   };
 
   const handleNameChange = (newName: string) => {
     onInterfaceChange((draftInterface) => (draftInterface.name = newName));
   };
 
-  const handleTypechange: HandleSelectChange = (event, newType: string) => {
+  const handleTypechange = (_event: React.MouseEvent, newType: string) => {
     onInterfaceChange((draftInterface, draftPolicy) => {
       draftInterface.type = newType as InterfaceType;
       !doesOVSBridgeExist(draftPolicy) && delete draftPolicy.spec.desiredState.ovn;
@@ -96,6 +98,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
         delete draftInterface['link-aggregation'];
       }
     });
+    setIsTypeOpen(false);
   };
 
   const onSTPChange = (checked: boolean) => {
@@ -142,28 +145,57 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
         isRequired
         fieldId={`policy-interface-network-state-${id}`}
       >
-        <FormSelect
+        <Dropdown
           id={`policy-interface-network-state-${id}`}
-          onChange={handleStateChange}
-          value={policyInterface?.state}
+          isOpen={isNetworkStateOpen}
+          onOpenChange={(isOpen) => setIsNetworkStateOpen(isOpen)}
+          onSelect={handleStateChange}
+          toggle={DropdownToggle({
+            children:
+              (policyInterface?.state &&
+                Object.entries(NETWORK_STATES).find(
+                  ([, value]) => value === policyInterface?.state,
+                )?.[0]) ||
+              policyInterface?.state,
+            isExpanded: isNetworkStateOpen,
+            onClick: () => setIsNetworkStateOpen(!isNetworkStateOpen),
+            isFullWidth: true,
+          })}
         >
-          {Object.entries(NETWORK_STATES).map(([key, value]) => (
-            <FormSelectOption key={key} value={value} label={key} />
-          ))}
-        </FormSelect>
+          <DropdownList>
+            {Object.entries(NETWORK_STATES).map(([key, value]) => (
+              <DropdownItem key={key} value={value}>
+                {key}
+              </DropdownItem>
+            ))}
+          </DropdownList>
+        </Dropdown>
       </FormGroup>
 
       <FormGroup label={t('Type')} isRequired fieldId={`policy-interface-type-${id}`}>
-        <FormSelect
+        <Dropdown
           id={`policy-interface-type-${id}`}
-          onChange={handleTypechange}
-          value={policyInterface?.type}
-          isDisabled={isInterfaceCreated}
+          isOpen={isTypeOpen}
+          onOpenChange={(isOpen) => setIsTypeOpen(isOpen)}
+          onSelect={handleTypechange}
+          toggle={DropdownToggle({
+            children:
+              (policyInterface?.type && INTERFACE_TYPE_LABEL[policyInterface.type]) ||
+              policyInterface?.type,
+            isExpanded: isTypeOpen,
+            onClick: () => !isInterfaceCreated && setIsTypeOpen(!isTypeOpen),
+            isDisabled: isInterfaceCreated,
+            isFullWidth: true,
+          })}
         >
-          {Object.entries(INTERFACE_TYPE_LABEL).map(([key, value]) => (
-            <FormSelectOption key={key} value={key} label={value} />
-          ))}
-        </FormSelect>
+          <DropdownList>
+            {Object.entries(INTERFACE_TYPE_LABEL).map(([key, value]) => (
+              <DropdownItem key={key} value={key}>
+                {value}
+              </DropdownItem>
+            ))}
+          </DropdownList>
+        </Dropdown>
       </FormGroup>
 
       <IPConfiguration
