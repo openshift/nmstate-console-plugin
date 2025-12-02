@@ -29,6 +29,7 @@ import PolicyListEmptyState from './components/PolicyListEmptyState/PolicyListEm
 import PolicyRow from './components/PolicyRow';
 import usePolicyColumns from './hooks/usePolicyColumns';
 import usePolicyFilters from './hooks/usePolicyFilters';
+import { isEmpty } from '@utils/helpers';
 
 const PoliciesList: FC = () => {
   const { t } = useNMStateTranslation();
@@ -66,7 +67,7 @@ const PoliciesList: FC = () => {
   return (
     <>
       <ListPageHeader title={t(NodeNetworkConfigurationPolicyModel.label)}>
-        <CreatePolicyButtons>{t('Create')}</CreatePolicyButtons>
+        {!isEmpty(policies) && <CreatePolicyButtons>{t('Create')}</CreatePolicyButtons>}
       </ListPageHeader>
       <ListPageBody>
         <ListPageFilter
