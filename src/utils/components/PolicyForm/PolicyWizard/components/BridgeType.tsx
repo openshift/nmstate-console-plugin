@@ -31,7 +31,7 @@ const BridgeType: FC<BridgeTypeProps> = ({ policyInterface, onInterfaceChange, i
 
       if (newType === InterfaceType.OVS_BRIDGE) {
         delete draftInterface['link-aggregation'];
-        draftInterface.bridge = { port: [], options: {} };
+        draftInterface.bridge = { port: [], options: {}, ['allow-extra-patch-ports']: true } as any;
 
         if (isEmpty(getOVNConfiguration(draftPolicy))) {
           draftPolicy.spec.desiredState.ovn = {
