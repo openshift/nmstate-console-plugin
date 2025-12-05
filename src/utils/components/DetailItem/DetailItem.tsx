@@ -13,8 +13,9 @@ import {
 import { PencilAltIcon } from '@patternfly/react-icons';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
+import EditButtonWithTooltip from '../EditButton/EditButtonWithTooltip';
+
 import { DetailItemHeader } from './DetailItemHeader';
-import EditButtonWithTooltip from './EditButtonWithTooltip';
 
 import './DetailItem.scss';
 

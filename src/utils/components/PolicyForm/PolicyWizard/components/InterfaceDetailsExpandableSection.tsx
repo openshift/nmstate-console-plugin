@@ -16,8 +16,8 @@ import { MinusCircleIcon } from '@patternfly/react-icons';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getPolicyInterfaces } from '@utils/resources/policies/utils';
 
-import { INTERFACE_TYPE_LABEL, onInterfaceChangeType } from '../../constants';
-import { doesOVSBridgeExist, getExpandableTitle } from '../../utils';
+import { INTERFACE_TYPE_LABEL, onInterfaceChangeType } from '../../utils/constants';
+import { doesOVSBridgeExist, getExpandableTitle } from '../../utils/utils';
 
 import InterfaceDetails from './InterfaceDetails';
 

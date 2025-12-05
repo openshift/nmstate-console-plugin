@@ -29,8 +29,8 @@ import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 import BondConfiguration from './components/BondConfiguration';
 import IPConfiguration from './components/IPConfiguration';
 import PortConfiguration from './components/PortConfiguration';
-import { INTERFACE_TYPE_LABEL, NETWORK_STATES, onInterfaceChangeType } from './constants';
-import { doesOVSBridgeExist, validateInterfaceName } from './utils';
+import { INTERFACE_TYPE_LABEL, NETWORK_STATES, onInterfaceChangeType } from './utils/constants';
+import { doesOVSBridgeExist, validateInterfaceName } from './utils/utils';
 
 type PolicyInterfaceProps = {
   id: number;

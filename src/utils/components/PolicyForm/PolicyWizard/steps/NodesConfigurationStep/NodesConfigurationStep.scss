@@ -1,0 +1,5 @@
+@use '../../../utils/variables' as vars;
+
+.nodes-configuration-step {
+  width: vars.$nncp-wizard-step-width;
+}

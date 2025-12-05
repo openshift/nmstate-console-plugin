@@ -1,0 +1,9 @@
+@use '../../../utils/variables' as vars;
+
+.uplink-connection-step {
+  width: vars.$nncp-wizard-step-width;
+
+  &__recommended-label {
+    margin-left: var(--pf-t--global--spacer--sm);
+  }
+}

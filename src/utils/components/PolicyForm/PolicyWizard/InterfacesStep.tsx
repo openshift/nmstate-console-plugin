@@ -13,7 +13,7 @@ import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getPolicyInterfaces, getPolicyInterfacesByType } from '@utils/resources/policies/utils';
 
 import PolicyFormOVSBridgeMapping from '../components/PolicyFormOVSBridgeMapping';
-import { doesOVSBridgeExist } from '../utils';
+import { doesOVSBridgeExist } from '../utils/utils';
 
 import InterfaceDetailsExpandableSection from './components/InterfaceDetailsExpandableSection';
 

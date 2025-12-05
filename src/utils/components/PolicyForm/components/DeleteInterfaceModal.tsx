@@ -6,7 +6,7 @@ import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nms
 import { Button, ButtonVariant } from '@patternfly/react-core';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from '@patternfly/react-core';
 
-import { capitalizeFirstLetter } from '../utils';
+import { capitalizeFirstLetter } from '../utils/utils';
 
 type DeleteInterfaceModalProps = {
   closeModal: () => void;

@@ -6,7 +6,7 @@ import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nms
 import { Button, FormGroup, Grid, GridItem, TextInput } from '@patternfly/react-core';
 import { MinusCircleIcon, PlusCircleIcon } from '@patternfly/react-icons';
 
-import { BOND_OPTIONS_KEYS } from '../constants';
+import { BOND_OPTIONS_KEYS } from '../utils/constants';
 
 type BondOptionsProps = {
   id: number | string;

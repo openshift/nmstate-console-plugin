@@ -8,7 +8,7 @@ import { FormGroup, FormSelect, FormSelectOption, FormSelectProps } from '@patte
 import { ensurePath } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
-import { onInterfaceChangeType } from '../constants';
+import { onInterfaceChangeType } from '../utils/constants';
 
 import BondOptions from './BondOptions';
 import CopyMAC from './CopyMAC';

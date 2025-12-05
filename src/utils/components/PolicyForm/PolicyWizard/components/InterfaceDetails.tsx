@@ -24,8 +24,8 @@ import BondConfiguration from '../../components/BondConfiguration';
 import IPConfiguration from '../../components/IPConfiguration';
 import NetworkState from '../../components/NetworkState';
 import PortConfiguration from '../../components/PortConfiguration';
-import { onInterfaceChangeType } from '../../constants';
-import { validateInterfaceName } from '../../utils';
+import { onInterfaceChangeType } from '../../utils/constants';
+import { validateInterfaceName } from '../../utils/utils';
 
 import BridgeType from './BridgeType';
 

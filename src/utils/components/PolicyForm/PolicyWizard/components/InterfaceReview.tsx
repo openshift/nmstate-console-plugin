@@ -6,7 +6,7 @@ import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { isSTPEnabled } from '@utils/resources/interfaces/helpers';
 
-import { INTERFACE_TYPE_LABEL } from '../../constants';
+import { INTERFACE_TYPE_LABEL } from '../../utils/constants';
 
 type InterfaceReviewProps = {
   policyInterface?: NodeNetworkConfigurationInterface;

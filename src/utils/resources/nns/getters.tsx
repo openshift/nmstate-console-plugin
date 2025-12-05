@@ -5,3 +5,6 @@ import {
 
 export const getInterfaces = (nns: V1beta1NodeNetworkState): NodeNetworkConfigurationInterface[] =>
   nns?.status?.currentState?.interfaces;
+
+export const getNodeName = (nns: V1beta1NodeNetworkState) =>
+  nns?.metadata?.ownerReferences?.[0]?.name;
