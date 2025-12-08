@@ -1,12 +1,8 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
-import { KUBEADMIN_IDP, KUBEADMIN_USERNAME } from './constants';
+import { KUBEADMIN_IDP, KUBEADMIN_USERNAME, MINUTE, SKIP_TOUR } from './constants';
+import { OCP_GUIDED_TOUR_MODAL, SUBMIT_BUTTON_SELECTOR } from './selectors';
 import { ConsoleWindowType } from './types';
-
-import Loggable = Cypress.Loggable;
-import Timeoutable = Cypress.Timeoutable;
-import Withinable = Cypress.Withinable;
-import Shadow = Cypress.Shadow;
 
 declare global {
   namespace Cypress {
@@ -19,44 +15,32 @@ declare global {
       ): Chainable;
       byLegacyTestID(selector: string): Chainable;
       clickOutside(): Chainable;
+      skipOCPGuidedTour(): Chainable;
     }
   }
 }
 
-const submitButton = 'button[type=submit]';
-
 Cypress.Commands.add('login', (provider, username, password) => {
-  // Check if auth is disabled (for a local development environment).
-
   cy.visit(''); // visits baseUrl which is set in plugins.js
-  cy.window().then((win: ConsoleWindowType) => {
-    if (win.SERVER_FLAGS?.authDisabled) {
-      cy.log('skipping login, console is running with auth disabled');
-
-      cy.contains('li[data-test="nav"]', 'Networking').click();
-      cy.contains(
-        '*[data-test-id="nodenetworkconfigurationpolicy-nav-item"]',
-        'NodeNetworkConfigurationPolicy',
-      ).should('be.visible');
-      return;
+  cy.task('log', `  Logging in as ${username || KUBEADMIN_USERNAME}`);
+  cy.get('.pf-v6-c-login__main', { timeout: 3 * MINUTE }).should('exist');
+  const idp = provider || KUBEADMIN_IDP;
+  cy.get('body').then(($body) => {
+    if ($body.text().includes(idp)) {
+      cy.contains(idp).should('be.visible').click();
     }
-
-    cy.clearCookie('openshift-session-token');
-
-    const idp = provider || KUBEADMIN_IDP;
-
-    cy.get('main form').should('be.visible');
-
-    cy.get('body').then(($body) => {
-      if ($body.text().includes(idp)) {
-        cy.contains(idp).should('be.visible').click();
-      }
-    });
-
-    cy.get('#inputUsername').type(username || KUBEADMIN_USERNAME);
-    cy.get('#inputPassword').type(password || Cypress.env('KUBEADMIN_PASSWORD'));
-    cy.get(submitButton).click();
   });
+  cy.get('#inputUsername').type(username || KUBEADMIN_USERNAME);
+  cy.get('#inputPassword').type(password || Cypress.env('BRIDGE_KUBEADMIN_PASSWORD'));
+  cy.get(SUBMIT_BUTTON_SELECTOR).click();
+  cy.byTestID(Cypress.env('BRIDGE_KUBEADMIN_PASSWORD') ? 'user-dropdown-toggle' : 'username', {
+    timeout: MINUTE,
+  }).should('be.visible');
+  // wait for virtualization page appears, only for kubeadmin user
+  if (idp === KUBEADMIN_IDP) {
+    cy.contains('You are logged in as a temporary administrative user.').should('be.visible');
+  }
+  cy.task('log', '  Login is successful');
 });
 
 Cypress.Commands.add('logout', () => {
@@ -83,3 +67,11 @@ Cypress.Commands.add('byLegacyTestID', (selector) => cy.get(`[data-test-id="${se
 Cypress.Commands.add('clickOutside', () => {
   return cy.get('body').click(0, 0); //0,0 here are the x and y coordinates
 });
+
+Cypress.Commands.add('skipOCPGuidedTour', () =>
+  cy.get('body').then(($body) => {
+    if ($body.find(OCP_GUIDED_TOUR_MODAL).length) {
+      cy.contains('button', SKIP_TOUR).click();
+    }
+  }),
+);
