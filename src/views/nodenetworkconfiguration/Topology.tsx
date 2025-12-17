@@ -11,7 +11,11 @@ import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkStateModelGroupVersionKind,
 } from '@models';
-import { ListPageBody, useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
+import {
+  ListPageBody,
+  ListPageHeader,
+  useK8sWatchResource,
+} from '@openshift-console/dynamic-plugin-sdk';
 import { Popover } from '@patternfly/react-core';
 import {
   action,
@@ -133,9 +137,12 @@ const Topology: FC = () => {
 
   if (statesError && statesError?.response?.status === 403)
     return (
-      <ListPageBody>
-        <AccessDenied message={statesError.message} />
-      </ListPageBody>
+      <>
+        <ListPageHeader title="Node network configuration" />
+        <ListPageBody>
+          <AccessDenied message={statesError.message} />
+        </ListPageBody>
+      </>
     );
 
   return (
