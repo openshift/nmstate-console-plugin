@@ -3,13 +3,15 @@ import {
   EXPAND_INTERFACES_LIST_TEST_ID,
   INTERFACE_DRAWER_TEST_ID,
   LLDP_DRAWER_DETAILS_SECTION_TEST_ID,
+  LLDP_SYSTEM_NAME_FILTER_OPTION_ID,
+  LLDP_VLAN_NAME_FILTER_OPTION_ID,
   SEARCH_FILTER_DROPDOWN_TEST_ID,
-  TEXT_FILTER_BUTTON_SELECTOR,
 } from '../support/selectors';
 
 describe('NodeNetworkState list', () => {
   beforeEach(() => {
     cy.login();
+    cy.skipOCPGuidedTour();
   });
 
   it('Empty state', () => {
@@ -24,7 +26,7 @@ describe('NodeNetworkState list', () => {
     cy.get('h5').should('contain', 'No NodeNetworkStates found');
   });
 
-  it('with one VID instace ', () => {
+  it('with one VID instance ', () => {
     cy.intercept('GET', '/api/kubernetes/apis/nmstate.io/v1beta1/nodenetworkstates*', {
       fixture: 'NodeNetworkStatusWithVID.json',
     }).as('getStatuses');
@@ -52,7 +54,7 @@ describe('NodeNetworkState list', () => {
     });
   });
 
-  it('with LLDP informations ', () => {
+  it('with LLDP information', () => {
     cy.intercept('GET', '/api/kubernetes/apis/nmstate.io/v1beta1/nodenetworkstates*', {
       fixture: 'NodeNetworkStatusWithLLDP.json',
     }).as('getStatuses');
@@ -86,7 +88,7 @@ describe('NodeNetworkState list', () => {
     });
   });
 
-  it('filter by lldp', () => {
+  it('filter by LLDP', () => {
     cy.intercept('GET', '/api/kubernetes/apis/nmstate.io/v1beta1/nodenetworkstates*', {
       fixture: 'NodeNetworkStatusWithLLDP.json',
     }).as('getStatuses');
@@ -107,7 +109,7 @@ describe('NodeNetworkState list', () => {
       // open filter toolbar
       cy.get('button').contains('Filter').click({ force: true });
 
-      // filter by lldp enabled
+      // filter by LLDP enabled
       cy.contains('label', 'Enabled').find('input[type="checkbox"]').check();
 
       // close filter toolbar by clicking outside
@@ -125,7 +127,7 @@ describe('NodeNetworkState list', () => {
     });
   });
 
-  it('search by lldp vlan ID', () => {
+  it('search by LLDP VLAN ID', () => {
     cy.intercept('GET', '/api/kubernetes/apis/nmstate.io/v1beta1/nodenetworkstates*', {
       fixture: 'NodeNetworkStatusWithLLDP.json',
     }).as('getStatuses');
@@ -147,7 +149,7 @@ describe('NodeNetworkState list', () => {
 
       cy.byTestID(SEARCH_FILTER_DROPDOWN_TEST_ID).click();
 
-      cy.get(TEXT_FILTER_BUTTON_SELECTOR).contains('LLDP VLAN name').click();
+      cy.get(LLDP_VLAN_NAME_FILTER_OPTION_ID).click();
 
       cy.get('input[data-test-id="item-filter"]').type(VLAN_NAME);
 
@@ -163,7 +165,7 @@ describe('NodeNetworkState list', () => {
     });
   });
 
-  it('search by lldp system name', () => {
+  it('search by LLDP system name', () => {
     cy.intercept('GET', '/api/kubernetes/apis/nmstate.io/v1beta1/nodenetworkstates*', {
       fixture: 'NodeNetworkStatusWithLLDP.json',
     }).as('getStatuses');
@@ -185,7 +187,7 @@ describe('NodeNetworkState list', () => {
 
       cy.byTestID(SEARCH_FILTER_DROPDOWN_TEST_ID).click();
 
-      cy.get(TEXT_FILTER_BUTTON_SELECTOR).contains('LLDP system name').click();
+      cy.get(LLDP_SYSTEM_NAME_FILTER_OPTION_ID).click();
 
       cy.get('input[data-test-id="item-filter"]').type(SYSTEM_NAME);
 

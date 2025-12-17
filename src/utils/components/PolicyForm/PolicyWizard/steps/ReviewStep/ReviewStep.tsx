@@ -103,6 +103,7 @@ const ReviewStep: FC<ReviewStepProps> = ({ policy, creationError, setPolicy }) =
               <DetailItem
                 header={t('Physical network name')}
                 description={getOVNLocalnet(policy) || NO_DATA_DASH}
+                testId="review-physical-network-name"
               />
               <DetailItem
                 header={t('Node network configuration name')}
@@ -111,6 +112,7 @@ const ReviewStep: FC<ReviewStepProps> = ({ policy, creationError, setPolicy }) =
               <DetailItem
                 header={t('Network description')}
                 description={getDescription(policy) || NO_DATA_DASH}
+                testId="review-network-description"
               />
               <DetailItem
                 header={t('Uplink connection')}
