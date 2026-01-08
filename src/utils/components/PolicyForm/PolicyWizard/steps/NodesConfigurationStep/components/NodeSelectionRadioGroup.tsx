@@ -39,10 +39,10 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
       <Split hasGutter>
         <SplitItem>
           <Radio
-            id="node-selection-radio"
+            id="node-selection-radio-all"
             isChecked={nodeSelectionOption === NodeSelectionOptions.AllNodes}
             label={t('Apply to all the nodes on the cluster')}
-            name={NodeSelectionOptions.AllNodes}
+            name="node-selection-radio-group"
             onChange={() => setNodeSelectionOption(NodeSelectionOptions.AllNodes)}
           />
         </SplitItem>
@@ -53,10 +53,10 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
       <Split hasGutter>
         <SplitItem>
           <Radio
-            id="node-selection-radio"
+            id="node-selection-radio-select"
             isChecked={nodeSelectionOption === NodeSelectionOptions.SelectNodes}
             label={t('Apply to specific subsets of Nodes using the Nodes selector')}
-            name={NodeSelectionOptions.SelectNodes}
+            name="node-selection-radio-group"
             onChange={() => {
               setNodeSelectionOption(NodeSelectionOptions.SelectNodes);
               setNodeSelectorOpen(true);
