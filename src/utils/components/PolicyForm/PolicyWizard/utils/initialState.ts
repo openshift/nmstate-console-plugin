@@ -57,7 +57,6 @@ export const initialPolicy: V1NodeNetworkConfigurationPolicy = {
     name: `policy-${getRandomChars(8)}`,
   },
   spec: {
-    nodeSelector: { [WORKER_NODE_LABEL]: '' },
     desiredState: {
       ovn: {
         [OVN_BRIDGE_MAPPINGS]: [
