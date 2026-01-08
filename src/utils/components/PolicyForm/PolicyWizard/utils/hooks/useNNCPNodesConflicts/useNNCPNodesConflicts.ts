@@ -13,14 +13,16 @@ const useNNCPNodesConflicts: UseNNCPNodesConflicts = (policy) => {
   const { nncpNodesData } = useExistingNNCPsNodes();
   const [policyNodes] = useNNCPNodes(policy);
 
-  return Object.entries(nncpNodesData).map(([name, nodesData]) => {
-    const nodesIntersection = intersection(
-      getNodeNames(policyNodes),
-      getNodeNames(nodesData?.nodes),
-    );
-    if (!isEmpty(nodesIntersection))
-      return { name, nodeSelector: nncpNodesData[name]?.nodeSelector };
-  });
+  return Object.entries(nncpNodesData)
+    .map(([name, nodesData]) => {
+      const nodesIntersection = intersection(
+        getNodeNames(policyNodes),
+        getNodeNames(nodesData?.nodes),
+      );
+      if (!isEmpty(nodesIntersection))
+        return { name, nodeSelector: nncpNodesData[name]?.nodeSelector };
+    })
+    ?.filter(Boolean);
 };
 
 export default useNNCPNodesConflicts;
