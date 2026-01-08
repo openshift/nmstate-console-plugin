@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
-import { KUBEADMIN_IDP, KUBEADMIN_USERNAME } from './constants';
+import { KUBEADMIN_IDP, KUBEADMIN_USERNAME, SELECTORS } from './constants';
 import { ConsoleWindowType } from './types';
 
 import Loggable = Cypress.Loggable;
@@ -22,8 +22,6 @@ declare global {
     }
   }
 }
-
-const submitButton = 'button[type=submit]';
 
 Cypress.Commands.add('login', (provider, username, password) => {
   // Check if auth is disabled (for a local development environment).
@@ -53,9 +51,18 @@ Cypress.Commands.add('login', (provider, username, password) => {
       }
     });
 
-    cy.get('#inputUsername').type(username || KUBEADMIN_USERNAME);
-    cy.get('#inputPassword').type(password || Cypress.env('KUBEADMIN_PASSWORD'));
-    cy.get(submitButton).click();
+    cy.get(SELECTORS.usernameInput).type(username || KUBEADMIN_USERNAME);
+    cy.get(SELECTORS.passwordInput).type(password || Cypress.env('KUBEADMIN_PASSWORD'));
+    cy.get(SELECTORS.submitButton).click();
+
+    cy.wait(20000);
+
+    // Close tour popup if present
+    cy.get('body').then(($body) => {
+      if ($body.find(SELECTORS.tourPopup).length) {
+        cy.get(SELECTORS.tourPopup).click();
+      }
+    });
   });
 });
 
