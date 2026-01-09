@@ -87,20 +87,20 @@ const UplinkConnectionStep: FC<UplinkConnectionStepProps> = ({ setPolicy, policy
         <StackItem>
           <Radio
             description={t('Use the default node network to access the outside physical network.')}
-            id="uplink-connection-radio"
+            id="uplink-connection-radio-brex"
             isChecked={connectionOption === ConnectionOption.BREX}
             label={<>{t('Default node network')}</>}
-            name="brex"
+            name="uplink-connection-radio-group"
             onChange={() => handleConnectionOptionChange(ConnectionOption.BREX)}
           />
         </StackItem>
         <StackItem>
           <Radio
             description={t('Select the network interface to access the outside physical network.')}
-            id="uplink-connection-radio"
+            id="uplink-connection-radio-single"
             isChecked={connectionOption === ConnectionOption.SINGLE_DEVICE}
             label={t('A single interface')}
-            name="single-interface"
+            name="uplink-connection-radio-group"
             onChange={() => handleConnectionOptionChange(ConnectionOption.SINGLE_DEVICE)}
           />
           <SingleInterfaceContent
@@ -115,10 +115,10 @@ const UplinkConnectionStep: FC<UplinkConnectionStepProps> = ({ setPolicy, policy
             description={t(
               'Configure bond network interfaces to access the outside physical network, to achieve better resilience and higher total throughput.',
             )}
-            id="uplink-connection-radio"
+            id="uplink-connection-radio-bonding"
             isChecked={connectionOption === ConnectionOption.BONDING_INTERFACE}
             label={t('Bonding interface')}
-            name="bonding interface"
+            name="uplink-connection-radio-group"
             onChange={() => handleConnectionOptionChange(ConnectionOption.BONDING_INTERFACE)}
           />
           <BondingInterfaceContent
