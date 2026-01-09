@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { Updater } from 'use-immer';
 
 import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
@@ -6,7 +6,10 @@ import { Radio, Split, SplitItem } from '@patternfly/react-core';
 import EditButton from '@utils/components/EditButton/EditButton';
 import ExternalLink from '@utils/components/ExternalLink/ExternalLink';
 import NodeSelectorModal from '@utils/components/NodeSelectorModal/NodeSelectorModal';
+import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import { getNodeSelector } from '@utils/resources/policies/getters';
+import { WORKER_NODE_LABEL } from '../../../utils/constants';
 
 type NodeSelectionRadioGroupProps = {
   policy: V1NodeNetworkConfigurationPolicy;
@@ -21,21 +24,28 @@ enum NodeSelectionOptions {
 const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, setPolicy }) => {
   const { t } = useNMStateTranslation();
   const [nodeSelectorOpen, setNodeSelectorOpen] = useState(false);
-  const [nodeSelectionOption, setNodeSelectionOption] = useState<NodeSelectionOptions>(
-    NodeSelectionOptions.AllNodes,
-  );
+
+  // Derive the selection option from the policy state
+  const nodeSelectionOption = useMemo(() => {
+    const nodeSelector = getNodeSelector(policy);
+    return nodeSelector && !isEmpty(nodeSelector)
+      ? NodeSelectionOptions.SelectNodes
+      : NodeSelectionOptions.AllNodes;
+  }, [policy]);
 
   return (
     <>
-      <NodeSelectorModal
-        isOpen={nodeSelectorOpen}
-        policy={policy}
-        onClose={() => setNodeSelectorOpen(false)}
-        onSubmit={(newPolicy) => {
-          setPolicy(newPolicy);
-          setNodeSelectorOpen(false);
-        }}
-      />
+      {nodeSelectorOpen && (
+        <NodeSelectorModal
+          isOpen
+          policy={policy}
+          onClose={() => setNodeSelectorOpen(false)}
+          onSubmit={(newPolicy) => {
+            setPolicy(newPolicy);
+            setNodeSelectorOpen(false);
+          }}
+        />
+      )}
       <Split hasGutter>
         <SplitItem>
           <Radio
@@ -43,7 +53,11 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
             isChecked={nodeSelectionOption === NodeSelectionOptions.AllNodes}
             label={t('Apply to all the nodes on the cluster')}
             name="node-selection-radio-group"
-            onChange={() => setNodeSelectionOption(NodeSelectionOptions.AllNodes)}
+            onChange={() => {
+              setPolicy((draftPolicy) => {
+                delete draftPolicy.spec.nodeSelector;
+              });
+            }}
           />
         </SplitItem>
         <SplitItem>
@@ -58,7 +72,9 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
             label={t('Apply to specific subsets of Nodes using the Nodes selector')}
             name="node-selection-radio-group"
             onChange={() => {
-              setNodeSelectionOption(NodeSelectionOptions.SelectNodes);
+              setPolicy((draftPolicy) => {
+                draftPolicy.spec.nodeSelector = { [WORKER_NODE_LABEL]: '' };
+              });
               setNodeSelectorOpen(true);
             }}
           />
