@@ -42,6 +42,8 @@ const PolicyFormOVSBridgeMappingExpandable: FC<PolicyFormOVSBridgeMappingExpanda
     });
   };
 
+  if (!policy?.spec?.desiredState?.ovn?.[OVN_BRIDGE_MAPPINGS]?.length) return null;
+
   return policy?.spec?.desiredState?.ovn?.[OVN_BRIDGE_MAPPINGS]?.map((bridgeMapping, index) => {
     return (
       <PageSection key={index}>
