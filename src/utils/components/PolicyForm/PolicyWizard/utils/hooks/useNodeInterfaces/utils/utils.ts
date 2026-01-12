@@ -7,8 +7,7 @@ import {
 } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { getInterfaces } from '@utils/resources/nns/getters';
 import { getEthernetInterfaces } from '@utils/resources/nns/utils';
-
-const bridgeTypes = [InterfaceType.OVS_BRIDGE, InterfaceType.LINUX_BRIDGE, InterfaceType.BOND];
+import { bridgeTypes, GENEV_INTERFACE_PREFIX } from './constants';
 
 export const getExistingInterfaceNames = (nodeNetworkStates: V1beta1NodeNetworkState[]) => {
   const uniqueInterfaceNames = nodeNetworkStates.reduce((acc, nns) => {
@@ -35,7 +34,10 @@ const getUsedPortNamesForNode = (nns: V1beta1NodeNetworkState) => {
 export const getAvailableInterfacesForNode = (nns: V1beta1NodeNetworkState) => {
   const usedPortNames = getUsedPortNamesForNode(nns);
   const allEthernetInterfaces = getEthernetInterfaces(nns);
-  return allEthernetInterfaces?.filter((iface) => usedPortNames.includes(iface?.name));
+  return allEthernetInterfaces?.filter(
+    (iface) =>
+      !usedPortNames.includes(iface?.name) && !iface?.name?.startsWith(GENEV_INTERFACE_PREFIX),
+  );
 };
 
 const nnsInterfaceComparator = (
