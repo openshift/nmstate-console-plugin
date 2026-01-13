@@ -40,12 +40,16 @@ export const bridgeManagementInterface = {
   ipv6: { enabled: false },
 } as NodeNetworkConfigurationInterface;
 
-export const getInitialLinuxBondInterface = (bondName: string, ports?: string[]) => ({
+export const getInitialLinuxBondInterface = (
+  bondName: string,
+  ports?: string[],
+  aggregationMode?: string,
+) => ({
   name: bondName,
   type: InterfaceType.BOND,
   state: NETWORK_STATES.Up,
   'link-aggregation': {
-    mode: '',
+    mode: aggregationMode || '',
     port: ports || [],
   },
 });

@@ -19,6 +19,7 @@ import {
   useListPageFilter,
   VirtualizedTable,
 } from '@openshift-console/dynamic-plugin-sdk';
+import { isEmpty } from '@utils/helpers';
 import { getPolicyEnactments } from '@utils/resources/policies/utils';
 
 import { EnactmentStatuses } from '../constants';
@@ -29,7 +30,6 @@ import PolicyListEmptyState from './components/PolicyListEmptyState/PolicyListEm
 import PolicyRow from './components/PolicyRow';
 import usePolicyColumns from './hooks/usePolicyColumns';
 import usePolicyFilters from './hooks/usePolicyFilters';
-import { isEmpty } from '@utils/helpers';
 
 const PoliciesList: FC = () => {
   const { t } = useNMStateTranslation();
