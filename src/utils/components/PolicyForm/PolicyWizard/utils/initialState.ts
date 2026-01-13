@@ -7,7 +7,6 @@ import {
 import {
   DEFAULT_OVN_BRIDGE_NAME,
   DEFAULT_OVS_BRIDGE_NAME,
-  WORKER_NODE_LABEL,
 } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { NETWORK_STATES } from '@utils/components/PolicyForm/utils/constants';
 import { getRandomChars } from '@utils/helpers';
@@ -40,12 +39,16 @@ export const bridgeManagementInterface = {
   ipv6: { enabled: false },
 } as NodeNetworkConfigurationInterface;
 
-export const getInitialLinuxBondInterface = (bondName: string, ports?: string[]) => ({
+export const getInitialLinuxBondInterface = (
+  bondName: string,
+  ports?: string[],
+  aggregationMode?: string,
+) => ({
   name: bondName,
   type: InterfaceType.BOND,
   state: NETWORK_STATES.Up,
   'link-aggregation': {
-    mode: '',
+    mode: aggregationMode || '',
     port: ports || [],
   },
 });

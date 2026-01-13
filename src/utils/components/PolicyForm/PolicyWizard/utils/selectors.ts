@@ -29,7 +29,7 @@ export const getBondInterface = (policy: V1NodeNetworkConfigurationPolicy) =>
   getPolicyBondingInterfaces(policy)?.[0];
 
 export const getPolicyInterface = (policy: V1NodeNetworkConfigurationPolicy) =>
-  policy?.spec?.desiredState?.interfaces?.[0];
+  getPolicyInterfaces(policy)?.[0];
 
 export const getMTU = (policy: V1NodeNetworkConfigurationPolicy) =>
   getBridgeManagementInterface(policy)?.mtu;
@@ -37,12 +37,14 @@ export const getMTU = (policy: V1NodeNetworkConfigurationPolicy) =>
 export const getInterfaceName = (policy: V1NodeNetworkConfigurationPolicy) =>
   getPolicyInterface(policy)?.name;
 
+export const getBond = (policy: V1NodeNetworkConfigurationPolicy) =>
+  getBondInterface(policy) || getOVSBridgeBondPort(policy);
+
 export const getLinkAggregationSettings = (policy: V1NodeNetworkConfigurationPolicy) =>
-  getBondInterface(policy)?.[LINK_AGGREGATION] || getOVSBridgeBondPort(policy)?.[LINK_AGGREGATION];
+  getBond(policy)?.[LINK_AGGREGATION];
 
 export const getAggregationMode = (policy: V1NodeNetworkConfigurationPolicy) =>
-  getLinkAggregationSettings(policy)?.mode ||
-  getOVSBridgeBondPort(policy)?.[LINK_AGGREGATION]?.mode;
+  getLinkAggregationSettings(policy)?.mode;
 
 export const getBondInterfacePorts = (policy: V1NodeNetworkConfigurationPolicy): string[] =>
   getBondInterface(policy)?.[LINK_AGGREGATION]?.port;
@@ -78,8 +80,7 @@ export const getOVNLocalnet = (policy: V1NodeNetworkConfigurationPolicy) =>
 export const getOVNBridgeName = (policy: V1NodeNetworkConfigurationPolicy) =>
   getOVNBridgeMapping(policy)?.bridge;
 
-export const getBondName = (policy: V1NodeNetworkConfigurationPolicy) =>
-  getBondInterface(policy)?.name;
+export const getBondName = (policy: V1NodeNetworkConfigurationPolicy) => getBond(policy)?.name;
 
 export const getBridgeName = (policy: V1NodeNetworkConfigurationPolicy) =>
   getBridgeInterface(policy)?.name;
