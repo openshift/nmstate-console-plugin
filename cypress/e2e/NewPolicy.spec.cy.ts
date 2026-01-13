@@ -1,5 +1,3 @@
-import { SKIP_WELCOME_BANNER_TEST_ID } from '../support/selectors';
-
 const deletePolicyFromDetailsPage = (policyName: string) => {
   cy.contains('button', 'Actions', { matchCase: false }).click();
   cy.contains('button', 'Delete').click();
@@ -13,27 +11,38 @@ const deletePolicyFromDetailsPage = (policyName: string) => {
   cy.contains('h1', 'NodeNetworkConfigurationPolicy');
 };
 
-describe.skip('Create new policy with form', () => {
+describe('Create new policy with form', () => {
   beforeEach(() => {
     cy.login();
   });
 
-  it('with bridge interface', () => {
+  it('with default node network', () => {
     const testPolicyName = 'test-bridge-policy-name';
+    const testDescription = 'Test description';
+
     cy.visit('/k8s/cluster/nmstate.io~v1~NodeNetworkConfigurationPolicy');
-    cy.byTestID(SKIP_WELCOME_BANNER_TEST_ID).click();
     cy.byTestID('item-create').click();
 
     cy.contains('button', 'From Form').click();
 
-    cy.get('input[name="policy-name"]').clear().type(`${testPolicyName}`);
-
-    cy.get('input[name="policy-description"]').clear().type('test-policy-description');
-
-    cy.contains('button', 'Bridging').click();
-    cy.get(`button#add-bridging-interface-button`).click();
+    // Network identity step
+    cy.get('input[name="physical-network-name"]').clear().type(`${testPolicyName}`);
     cy.contains('button', 'Next').click();
-    cy.contains('button', 'Create policy').click();
+
+    // Nodes configuration step
+    cy.get('input[name="policy-name"]').clear().type(`${testPolicyName}`);
+    cy.get('input[name="policy-description"]').clear().type(`${testDescription}`);
+    cy.contains('button', 'Next').click();
+
+    // Uplink connection step - 'Default node network' selected by default
+    cy.contains('button', 'Next').click();
+
+    // Settings step is skipped because 'Default node network' is selected
+
+    // Review and Create step
+    cy.byLegacyTestID('review-physical-network-name').should('have.text', testPolicyName);
+    cy.byLegacyTestID('review-network-description').should('have.text', testDescription);
+    cy.contains('button', 'Create network').click();
 
     cy.contains('h1', testPolicyName);
 
