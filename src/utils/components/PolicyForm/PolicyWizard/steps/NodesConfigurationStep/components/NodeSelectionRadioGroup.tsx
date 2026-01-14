@@ -6,7 +6,8 @@ import { Radio, Split, SplitItem } from '@patternfly/react-core';
 import EditButton from '@utils/components/EditButton/EditButton';
 import ExternalLink from '@utils/components/ExternalLink/ExternalLink';
 import NodeSelectorModal from '@utils/components/NodeSelectorModal/NodeSelectorModal';
-import { isEmpty } from '@utils/helpers';
+import { NodeSelectionOptions } from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/utils/types';
+import { isOnlyWorkerLabel } from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/utils/utils';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getNodeSelector } from '@utils/resources/policies/getters';
 
@@ -17,11 +18,6 @@ type NodeSelectionRadioGroupProps = {
   setPolicy: Updater<V1NodeNetworkConfigurationPolicy>;
 };
 
-enum NodeSelectionOptions {
-  AllNodes = 'allNodes',
-  SelectNodes = 'selectNodes',
-}
-
 const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, setPolicy }) => {
   const { t } = useNMStateTranslation();
   const [nodeSelectorOpen, setNodeSelectorOpen] = useState(false);
@@ -29,7 +25,7 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
   // Derive the selection option from the policy state
   const nodeSelectionOption = useMemo(() => {
     const nodeSelector = getNodeSelector(policy);
-    return nodeSelector && !isEmpty(nodeSelector)
+    return nodeSelector && !isOnlyWorkerLabel(nodeSelector)
       ? NodeSelectionOptions.SelectNodes
       : NodeSelectionOptions.AllNodes;
   }, [policy]);
@@ -56,7 +52,7 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
             name="node-selection-radio-group"
             onChange={() => {
               setPolicy((draftPolicy) => {
-                delete draftPolicy.spec.nodeSelector;
+                draftPolicy.spec.nodeSelector = { [WORKER_NODE_LABEL]: '' };
               });
             }}
           />

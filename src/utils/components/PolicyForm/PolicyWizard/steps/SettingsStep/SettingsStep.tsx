@@ -94,6 +94,7 @@ const SettingsStep: FC<ConfigurationStepProps> = ({ policy, setPolicy }) => {
               type="number"
               id="mtu"
               name="mtu"
+              placeholder={'1500'}
               validated={mtuValidation}
               value={currentMTU}
               onChange={(_, newMTU) => handleMTUChange(newMTU)}
