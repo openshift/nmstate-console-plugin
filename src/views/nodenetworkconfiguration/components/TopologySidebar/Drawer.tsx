@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import StateDetailsPage from 'src/views/states/details/StateDetailsPage';
 
 import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
-import { isEmpty } from '@utils/helpers';
+import { getRandomChars, isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
 
 import useSelectedResources from './hooks/useSelectedResources';
@@ -18,8 +18,14 @@ type DrawerProps = {
 
 const Drawer: FC<DrawerProps> = ({ states, onClose }) => {
   const params = useQueryParams();
+  const [resetKey, setResetKey] = useState<number>(0);
+
+  const resetPolicyWizard = () => {
+    setResetKey((prevKey) => prevKey + 1);
+  };
 
   const selectedId = params?.[SELECTED_ID_QUERY_PARAM] || '';
+  const physicalNetworkName = params?.['physicalNetworkName'] || `localnet-${getRandomChars(6)}`;
 
   const createPolicy = !isEmpty(params?.[CREATE_POLICY_QUERY_PARAM]);
 
@@ -28,7 +34,15 @@ const Drawer: FC<DrawerProps> = ({ states, onClose }) => {
     states,
   );
 
-  if (createPolicy) return <CreatePolicyDrawer onClose={onClose} />;
+  if (createPolicy)
+    return (
+      <CreatePolicyDrawer
+        onClose={onClose}
+        physicalNetworkName={physicalNetworkName}
+        key={resetKey}
+        resetPolicyWizard={resetPolicyWizard}
+      />
+    );
 
   if (selectedInterface && !selectedPolicy)
     return <InterfaceDrawer selectedInterface={selectedInterface} />;

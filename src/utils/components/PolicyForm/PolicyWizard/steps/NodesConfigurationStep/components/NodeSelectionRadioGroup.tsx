@@ -6,24 +6,27 @@ import { Radio, Split, SplitItem } from '@patternfly/react-core';
 import EditButton from '@utils/components/EditButton/EditButton';
 import ExternalLink from '@utils/components/ExternalLink/ExternalLink';
 import NodeSelectorModal from '@utils/components/NodeSelectorModal/NodeSelectorModal';
+import { NodeSelectionOptions } from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/utils/types';
+import { isOnlyWorkerLabel } from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/utils/utils';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import { WORKER_NODE_LABEL } from '../../../utils/constants';
 
 type NodeSelectionRadioGroupProps = {
   policy: V1NodeNetworkConfigurationPolicy;
   setPolicy: Updater<V1NodeNetworkConfigurationPolicy>;
 };
 
-enum NodeSelectionOptions {
-  AllNodes = 'allNodes',
-  SelectNodes = 'selectNodes',
-}
-
 const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, setPolicy }) => {
   const { t } = useNMStateTranslation();
   const [nodeSelectorOpen, setNodeSelectorOpen] = useState(false);
-  const [nodeSelectionOption, setNodeSelectionOption] = useState<NodeSelectionOptions>(
-    NodeSelectionOptions.AllNodes,
-  );
+
+  // Derive the selection option from the policy state
+  const nodeSelectionOption = useMemo(() => {
+    const nodeSelector = getNodeSelector(policy);
+    return nodeSelector && !isOnlyWorkerLabel(nodeSelector)
+      ? NodeSelectionOptions.SelectNodes
+      : NodeSelectionOptions.AllNodes;
+  }, [policy]);
 
   return (
     <>
@@ -43,7 +46,11 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
             isChecked={nodeSelectionOption === NodeSelectionOptions.AllNodes}
             label={t('Apply to all the nodes on the cluster')}
             name="node-selection-radio-group"
-            onChange={() => setNodeSelectionOption(NodeSelectionOptions.AllNodes)}
+            onChange={() => {
+              setPolicy((draftPolicy) => {
+                draftPolicy.spec.nodeSelector = { [WORKER_NODE_LABEL]: '' };
+              });
+            }}
           />
         </SplitItem>
         <SplitItem>
@@ -58,7 +65,6 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
             label={t('Apply to specific subsets of Nodes using the Nodes selector')}
             name="node-selection-radio-group"
             onChange={() => {
-              setNodeSelectionOption(NodeSelectionOptions.SelectNodes);
               setNodeSelectorOpen(true);
             }}
           />

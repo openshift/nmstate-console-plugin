@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { useImmer } from 'use-immer';
@@ -6,8 +6,9 @@ import { useImmer } from 'use-immer';
 import { k8sCreate } from '@openshift-console/dynamic-plugin-sdk';
 import { signal } from '@preact/signals-react';
 import PolicyWizard from '@utils/components/PolicyForm/PolicyWizard/PolicyWizard';
-import { initialPolicy } from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
-import { getResourceUrl } from '@utils/helpers';
+import { getInitialPolicy } from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
+import { getRandomChars, getResourceUrl } from '@utils/helpers';
+import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 import {
   NNCP_ABANDONED,
   NNCP_CREATION_FAILED,
@@ -17,12 +18,21 @@ import { logCreationFailed, logNMStateEvent, logNNCPCreated } from '@utils/telem
 
 type CreatePolicyDrawerProps = {
   onClose?: () => void;
+  physicalNetworkName?: string;
+  resetPolicyWizard: () => void;
 };
 
-export const creatingPolicySignal = signal(initialPolicy);
+export const creatingPolicySignal = signal(null);
 
-const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({ onClose }) => {
+const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({
+  onClose,
+  physicalNetworkName,
+  resetPolicyWizard,
+}) => {
+  const initialPolicy = getInitialPolicy(`policy-${getRandomChars(8)}`, physicalNetworkName);
   const [policy, setPolicy] = useImmer(initialPolicy);
+  const createAnotherPolicyState = useState<boolean>(false);
+  const [createAnotherPolicy] = createAnotherPolicyState;
   const completed = useRef(false);
   const currentStepId = useRef<string | number>('policy-wizard-basicinfo');
   const history = useHistory();
@@ -53,8 +63,14 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({ onClose }) => {
 
       creatingPolicySignal.value = null;
 
+      const networkName = createdPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS][0].localnet;
+
+      if (createAnotherPolicy) resetPolicyWizard();
+
       history.push(
-        getResourceUrl({ model: NodeNetworkConfigurationPolicyModel, resource: createdPolicy }),
+        createAnotherPolicy
+          ? `node-network-configuration?createPolicy=true&physicalNetworkName=${networkName}`
+          : getResourceUrl({ model: NodeNetworkConfigurationPolicyModel, resource: createdPolicy }),
       );
     } catch (error) {
       completed.current = true;
@@ -72,6 +88,7 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({ onClose }) => {
     <PolicyWizard
       policy={policy}
       setPolicy={setPolicy}
+      createAnotherPolicyState={createAnotherPolicyState}
       onSubmit={onSubmit}
       onClose={closeDrawer}
       onStepChange={(stepId) => {

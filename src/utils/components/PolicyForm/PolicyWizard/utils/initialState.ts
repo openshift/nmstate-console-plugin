@@ -11,7 +11,6 @@ import {
   WORKER_NODE_LABEL,
 } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { NETWORK_STATES } from '@utils/components/PolicyForm/utils/constants';
-import { getRandomChars } from '@utils/helpers';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 import NodeNetworkConfigurationPolicyModel from '../../../../../console-models/NodeNetworkConfigurationPolicyModel';
@@ -75,24 +74,29 @@ export const getInitialLinuxBondInterface = (
   },
 });
 
-export const initialPolicy: V1NodeNetworkConfigurationPolicy = {
-  apiVersion: `${NodeNetworkConfigurationPolicyModel.apiGroup}/${NodeNetworkConfigurationPolicyModel.apiVersion}`,
-  kind: NodeNetworkConfigurationPolicyModel.kind,
-  metadata: {
-    name: `policy-${getRandomChars(8)}`,
-  },
-  spec: {
-    nodeSelector: { [WORKER_NODE_LABEL]: '' },
-    desiredState: {
-      ovn: {
-        [OVN_BRIDGE_MAPPINGS]: [
-          {
-            bridge: DEFAULT_OVN_BRIDGE_NAME,
-            localnet: `localnet-${getRandomChars(6)}`,
-            state: 'present',
-          },
-        ],
+export const getInitialPolicy = (
+  policyName: string,
+  physicalNetworkName?: string,
+): V1NodeNetworkConfigurationPolicy => {
+  return {
+    apiVersion: `${NodeNetworkConfigurationPolicyModel.apiGroup}/${NodeNetworkConfigurationPolicyModel.apiVersion}`,
+    kind: NodeNetworkConfigurationPolicyModel.kind,
+    metadata: {
+      name: policyName,
+    },
+    spec: {
+      nodeSelector: {},
+      desiredState: {
+        ovn: {
+          [OVN_BRIDGE_MAPPINGS]: [
+            {
+              bridge: DEFAULT_OVN_BRIDGE_NAME,
+              localnet: physicalNetworkName,
+              state: 'present',
+            },
+          ],
+        },
       },
     },
-  },
+  };
 };
