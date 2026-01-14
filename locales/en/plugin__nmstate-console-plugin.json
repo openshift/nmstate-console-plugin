@@ -151,6 +151,7 @@
   "Must have at least two interfaces.": "Must have at least two interfaces.",
   "Name": "Name",
   "Name already in use by another interface": "Name already in use by another interface",
+  "{{name}} created successfully": "{{name}} created successfully",
   "Neighbors": "Neighbors",
   "Network description": "Network description",
   "Network details": "Network details",

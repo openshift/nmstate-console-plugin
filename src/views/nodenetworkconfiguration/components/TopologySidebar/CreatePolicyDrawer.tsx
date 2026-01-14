@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { useImmer } from 'use-immer';
@@ -25,6 +25,8 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({ onClose }) => {
   const [policy, setPolicy] = useImmer(initialPolicy);
   const completed = useRef(false);
   const currentStepId = useRef<string | number>('policy-wizard-basicinfo');
+  const [wizardKey, setWizardKey] = useState(0);
+  const [lastCreatedPolicyName, setLastCreatedPolicyName] = useState<string>('');
   const history = useHistory();
 
   creatingPolicySignal.value = policy;
@@ -41,7 +43,7 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({ onClose }) => {
     };
   }, []);
 
-  const onSubmit = async () => {
+  const onSubmit = async (createAnother: boolean) => {
     try {
       const createdPolicy = await k8sCreate({
         model: NodeNetworkConfigurationPolicyModel,
@@ -51,8 +53,16 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({ onClose }) => {
       completed.current = true;
       logNNCPCreated(createdPolicy);
 
-      creatingPolicySignal.value = null;
+      if (createAnother) {
+        setPolicy(initialPolicy);
+        creatingPolicySignal.value = initialPolicy;
+        completed.current = false;
+        setWizardKey((prev) => prev + 1);
+        setLastCreatedPolicyName(createdPolicy.metadata.name);
+        return;
+      }
 
+      creatingPolicySignal.value = null;
       history.push(
         getResourceUrl({ model: NodeNetworkConfigurationPolicyModel, resource: createdPolicy }),
       );
@@ -70,6 +80,7 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({ onClose }) => {
 
   return (
     <PolicyWizard
+      key={wizardKey}
       policy={policy}
       setPolicy={setPolicy}
       onSubmit={onSubmit}
@@ -77,6 +88,8 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({ onClose }) => {
       onStepChange={(stepId) => {
         currentStepId.current = stepId;
       }}
+      lastCreatedPolicyName={lastCreatedPolicyName}
+      clearSuccessMessage={() => setLastCreatedPolicyName('')}
     />
   );
 };

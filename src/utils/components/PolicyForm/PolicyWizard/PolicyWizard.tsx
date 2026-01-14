@@ -3,7 +3,13 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
 import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
-import { Wizard, WizardStep } from '@patternfly/react-core';
+import {
+  Alert,
+  AlertActionCloseButton,
+  AlertVariant,
+  Wizard,
+  WizardStep,
+} from '@patternfly/react-core';
 import NodesConfigurationStep from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/NodesConfigurationStep';
 import SettingsStep from '@utils/components/PolicyForm/PolicyWizard/steps/SettingsStep/SettingsStep';
 import { getOVNLocalnet } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
@@ -27,9 +33,11 @@ import './PolicyWizard.scss';
 type PolicyWizardProps = {
   policy: V1NodeNetworkConfigurationPolicy;
   setPolicy: Updater<V1NodeNetworkConfigurationPolicy>;
-  onSubmit: () => void | Promise<void>;
+  onSubmit: (createAnother: boolean) => void | Promise<void>;
   onClose: () => void;
   onStepChange?: (stepId: string | number) => void;
+  lastCreatedPolicyName?: string;
+  clearSuccessMessage?: () => void;
 };
 
 const PolicyWizard: FC<PolicyWizardProps> = ({
@@ -38,10 +46,13 @@ const PolicyWizard: FC<PolicyWizardProps> = ({
   onSubmit,
   onClose,
   onStepChange,
+  lastCreatedPolicyName,
+  clearSuccessMessage,
 }) => {
   const { t } = useNMStateTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>(null);
+  const [createAnother, setCreateAnother] = useState(false);
 
   const onFormSubmit: MouseEventHandler<HTMLButtonElement> = useCallback(async () => {
     const error = ensureNoEmptyBridgeMapping(policy);
@@ -50,63 +61,79 @@ const PolicyWizard: FC<PolicyWizardProps> = ({
 
     setLoading(true);
     try {
-      await onSubmit();
+      await onSubmit(createAnother);
     } catch (error) {
       setError(error);
     } finally {
       setLoading(false);
     }
-  }, [onSubmit, policy, t]);
+  }, [onSubmit, policy, t, createAnother]);
 
   return (
-    <Wizard
-      onSave={onFormSubmit}
-      onClose={onClose}
-      onStepChange={(_, currentStep) => {
-        onStepChange?.(currentStep.id);
-      }}
-      className="nmstate-policy-wizard policy-form-content"
-    >
-      <WizardStep
-        footer={{ isNextDisabled: isEmpty(getOVNLocalnet(policy)) }}
-        id="policy-wizard-network-identity"
-        name={t('Network identity')}
-      >
-        <NetworkIdentity policy={policy} setPolicy={setPolicy} />
-      </WizardStep>
-      <WizardStep
-        footer={{ isNextDisabled: isEmpty(getName(policy)) }}
-        id="policy-wizard-basic-info"
-        name={t('Nodes configuration')}
-      >
-        <NodesConfigurationStep policy={policy} setPolicy={setPolicy} />
-      </WizardStep>
-      <WizardStep
-        id="policy-wizard-uplink-connection"
-        name={t('Uplink connection')}
-        footer={{ isNextDisabled: !uplinkSettingsValid(policy) }}
-      >
-        <UplinkConnectionStep policy={policy} setPolicy={setPolicy} />
-      </WizardStep>
-      <WizardStep
-        name={t('Settings')}
-        id="policy-wizard-configuration"
-        isDisabled={getUplinkConnectionOption(policy) === ConnectionOption.BREX}
-      >
-        <SettingsStep policy={policy} setPolicy={setPolicy} />
-      </WizardStep>
-      <WizardStep
-        footer={{
-          isNextDisabled: isEmpty(getName(policy)),
-          nextButtonProps: { isLoading: loading },
-          nextButtonText: t('Create network'),
+    <>
+      {lastCreatedPolicyName && (
+        <Alert
+          isInline
+          variant={AlertVariant.success}
+          title={t('{{name}} created successfully', { name: lastCreatedPolicyName })}
+          actionClose={<AlertActionCloseButton onClose={clearSuccessMessage} />}
+        />
+      )}
+      <Wizard
+        onSave={onFormSubmit}
+        onClose={onClose}
+        onStepChange={(_, currentStep) => {
+          onStepChange?.(currentStep.id);
         }}
-        id="policy-wizard-review"
-        name={t('Review and create')}
+        className="nmstate-policy-wizard policy-form-content"
       >
-        <ReviewStep policy={policy} creationError={error} setPolicy={setPolicy} />
-      </WizardStep>
-    </Wizard>
+        <WizardStep
+          footer={{ isNextDisabled: isEmpty(getOVNLocalnet(policy)) }}
+          id="policy-wizard-network-identity"
+          name={t('Network identity')}
+        >
+          <NetworkIdentity policy={policy} setPolicy={setPolicy} />
+        </WizardStep>
+        <WizardStep
+          footer={{ isNextDisabled: isEmpty(getName(policy)) }}
+          id="policy-wizard-basic-info"
+          name={t('Nodes configuration')}
+        >
+          <NodesConfigurationStep policy={policy} setPolicy={setPolicy} />
+        </WizardStep>
+        <WizardStep
+          id="policy-wizard-uplink-connection"
+          name={t('Uplink connection')}
+          footer={{ isNextDisabled: !uplinkSettingsValid(policy) }}
+        >
+          <UplinkConnectionStep policy={policy} setPolicy={setPolicy} />
+        </WizardStep>
+        <WizardStep
+          name={t('Settings')}
+          id="policy-wizard-configuration"
+          isDisabled={getUplinkConnectionOption(policy) === ConnectionOption.BREX}
+        >
+          <SettingsStep policy={policy} setPolicy={setPolicy} />
+        </WizardStep>
+        <WizardStep
+          footer={{
+            isNextDisabled: isEmpty(getName(policy)),
+            nextButtonProps: { isLoading: loading },
+            nextButtonText: t('Create network'),
+          }}
+          id="policy-wizard-review"
+          name={t('Review and create')}
+        >
+          <ReviewStep
+            policy={policy}
+            creationError={error}
+            setPolicy={setPolicy}
+            createAnother={createAnother}
+            setCreateAnother={setCreateAnother}
+          />
+        </WizardStep>
+      </Wizard>
+    </>
   );
 };
 

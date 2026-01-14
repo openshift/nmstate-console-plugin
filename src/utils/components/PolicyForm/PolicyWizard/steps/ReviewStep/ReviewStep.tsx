@@ -38,11 +38,19 @@ type ReviewStepProps = {
   policy: V1NodeNetworkConfigurationPolicy;
   creationError?: Error;
   setPolicy: Updater<V1NodeNetworkConfigurationPolicy>;
+  createAnother: boolean;
+  setCreateAnother: (value: boolean) => void;
 };
 
-const ReviewStep: FC<ReviewStepProps> = ({ policy, creationError, setPolicy }) => {
+const ReviewStep: FC<ReviewStepProps> = ({
+  policy,
+  creationError,
+  setPolicy,
+  createAnother,
+  setCreateAnother,
+}) => {
   const { t } = useNMStateTranslation();
-  const [openInVMNetworksPage, setOpenInVMNetworksPage] = useState<boolean>(false);
+  //const [openInVMNetworksPage, setOpenInVMNetworksPage] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
   const handleUpdate = (updatedPolicy: V1NodeNetworkConfigurationPolicy) => {
@@ -140,8 +148,8 @@ const ReviewStep: FC<ReviewStepProps> = ({ policy, creationError, setPolicy }) =
             <Checkbox
               label={t('Create another node network configuration')}
               id="create-new-vm-network"
-              isChecked={openInVMNetworksPage}
-              onChange={(_, newValue) => setOpenInVMNetworksPage(newValue)}
+              isChecked={createAnother}
+              onChange={(_, newValue) => setCreateAnother(newValue)}
             />
           </StackItem>
         </Stack>
