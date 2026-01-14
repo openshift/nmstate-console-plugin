@@ -65,7 +65,7 @@ const UplinkConnectionStep: FC<UplinkConnectionStepProps> = ({ setPolicy, policy
         const bondName = `bond-${getRandomChars(10)}`;
         const bridgePorts = getBridgePorts(draftPolicy);
         draftPolicy.spec.desiredState.interfaces = [
-          getInitialBridgeInterface([...bridgePorts, { name: bondName }]),
+          getInitialBridgeInterface([...bridgePorts]),
           getInitialLinuxBondInterface(bondName),
           bridgeManagementInterface,
         ];

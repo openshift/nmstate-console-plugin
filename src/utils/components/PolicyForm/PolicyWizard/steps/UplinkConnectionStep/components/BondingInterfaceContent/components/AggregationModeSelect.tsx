@@ -30,8 +30,6 @@ const AggregationModeSelect: FC<AggregationModeSelectProps> = ({ policy, setPoli
   const handleAggregationModeChange = (_, selectedMode: string) => {
     setPolicy((draftPolicy) => {
       updateBondType(draftPolicy, selectedMode);
-      // getLinkAggregationSettings(draftPolicy).mode =
-      //   selectedMode as NodeNetworkConfigurationInterfaceBondMode;
     });
     setIsOpen(false);
   };

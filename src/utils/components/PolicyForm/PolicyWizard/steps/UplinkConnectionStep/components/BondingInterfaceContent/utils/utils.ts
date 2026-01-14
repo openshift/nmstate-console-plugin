@@ -5,7 +5,7 @@ import { NodeNetworkConfigurationInterfaceBondMode as AggregationMode } from '..
 export const aggregationModes = {
   [AggregationMode.BALANCE_SLB]: {
     description: t('Load balancing, no switch config'),
-    label: t('Open vSwitch LSB - source load balancing'),
+    label: t('Open vSwitch SLB - source load balancing'),
     helperText: t('Failover results in loss of guest network connectivity.'),
   },
   [AggregationMode.ACTIVE_BACKUP]: {

@@ -9,6 +9,7 @@ import NodeSelectorModal from '@utils/components/NodeSelectorModal/NodeSelectorM
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getNodeSelector } from '@utils/resources/policies/getters';
+
 import { WORKER_NODE_LABEL } from '../../../utils/constants';
 
 type NodeSelectionRadioGroupProps = {
