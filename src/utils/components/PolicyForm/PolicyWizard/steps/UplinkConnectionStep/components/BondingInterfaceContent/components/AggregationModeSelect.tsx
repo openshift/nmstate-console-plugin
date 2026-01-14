@@ -65,7 +65,7 @@ const AggregationModeSelect: FC<AggregationModeSelectProps> = ({ policy, setPoli
               value={name}
               isSelected={selectedAggregationMode === name}
             >
-              {`(${mode.label})`}
+              {mode.label}
             </SelectOption>
           ))}
         </SelectList>
