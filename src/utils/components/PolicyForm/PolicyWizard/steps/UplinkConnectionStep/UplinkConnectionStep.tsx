@@ -5,7 +5,10 @@ import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmst
 import { Content, Form, FormGroup, Radio, Stack, StackItem, Title } from '@patternfly/react-core';
 import BondingInterfaceContent from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/BondingInterfaceContent/BondingInterfaceContent';
 import SingleInterfaceContent from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/SingleInterfaceContent/SingleInterfaceContent';
-import { DEFAULT_OVN_BRIDGE_NAME } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
+import {
+  DEFAULT_OVN_BRIDGE_NAME,
+  DEFAULT_OVS_BRIDGE_NAME,
+} from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import {
   bridgeManagementInterface,
   getInitialBridgeInterface,
@@ -65,7 +68,7 @@ const UplinkConnectionStep: FC<UplinkConnectionStepProps> = ({ setPolicy, policy
         const bondName = `bond-${getRandomChars(10)}`;
         const bridgePorts = getBridgePorts(draftPolicy);
         draftPolicy.spec.desiredState.interfaces = [
-          getInitialBridgeInterface([...bridgePorts]),
+          getInitialBridgeInterface([...bridgePorts, { name: DEFAULT_OVS_BRIDGE_NAME }]),
           getInitialLinuxBondInterface(bondName),
           bridgeManagementInterface,
         ];
