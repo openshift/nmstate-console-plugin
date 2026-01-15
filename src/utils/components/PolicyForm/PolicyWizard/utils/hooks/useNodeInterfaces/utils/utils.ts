@@ -1,12 +1,12 @@
 import { intersectionWith } from 'lodash';
 
 import {
-  InterfaceType,
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
 } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { getInterfaces } from '@utils/resources/nns/getters';
 import { getEthernetInterfaces } from '@utils/resources/nns/utils';
+
 import { bridgeTypes, GENEV_INTERFACE_PREFIX } from './constants';
 
 export const getExistingInterfaceNames = (nodeNetworkStates: V1beta1NodeNetworkState[]) => {
