@@ -32,6 +32,7 @@ const useNodeInterfaces: UseNodeInterfaces = (nodeSelector) => {
   const selectedNodeNNSResources = nnsResources?.filter((nns) =>
     selectedNodeNames.includes(getNodeName(nns)),
   );
+
   const availableInterfaces = getAvailableInterfacesForNodes(selectedNodeNNSResources);
   const existingInterfaceNames = getExistingInterfaceNames(nnsResources);
 

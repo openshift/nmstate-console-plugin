@@ -1,4 +1,11 @@
-import React, { FC, MouseEventHandler, useCallback, useState } from 'react';
+import React, {
+  Dispatch,
+  FC,
+  MouseEventHandler,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
@@ -26,6 +33,7 @@ import './PolicyWizard.scss';
 
 type PolicyWizardProps = {
   policy: V1NodeNetworkConfigurationPolicy;
+  createAnotherPolicyState: [boolean, Dispatch<SetStateAction<boolean>>];
   setPolicy: Updater<V1NodeNetworkConfigurationPolicy>;
   onSubmit: () => void | Promise<void>;
   onClose: () => void;
@@ -34,6 +42,7 @@ type PolicyWizardProps = {
 
 const PolicyWizard: FC<PolicyWizardProps> = ({
   policy,
+  createAnotherPolicyState,
   setPolicy,
   onSubmit,
   onClose,
@@ -104,7 +113,12 @@ const PolicyWizard: FC<PolicyWizardProps> = ({
         id="policy-wizard-review"
         name={t('Review and create')}
       >
-        <ReviewStep policy={policy} creationError={error} setPolicy={setPolicy} />
+        <ReviewStep
+          policy={policy}
+          creationError={error}
+          setPolicy={setPolicy}
+          createAnotherPolicyState={createAnotherPolicyState}
+        />
       </WizardStep>
     </Wizard>
   );
