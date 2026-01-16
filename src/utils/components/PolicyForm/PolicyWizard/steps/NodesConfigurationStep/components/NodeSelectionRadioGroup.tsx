@@ -69,9 +69,6 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
             label={t('Apply to specific subsets of Nodes using the Nodes selector')}
             name="node-selection-radio-group"
             onChange={() => {
-              setPolicy((draftPolicy) => {
-                draftPolicy.spec.nodeSelector = { [WORKER_NODE_LABEL]: '' };
-              });
               setNodeSelectorOpen(true);
             }}
           />

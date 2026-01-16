@@ -7,6 +7,7 @@ import {
 import {
   DEFAULT_OVN_BRIDGE_NAME,
   DEFAULT_OVS_BRIDGE_NAME,
+  WORKER_NODE_LABEL,
 } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { NETWORK_STATES } from '@utils/components/PolicyForm/utils/constants';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
@@ -63,7 +64,9 @@ export const getInitialPolicy = (
       name: policyName,
     },
     spec: {
-      nodeSelector: {},
+      nodeSelector: {
+        [WORKER_NODE_LABEL]: '',
+      },
       desiredState: {
         ovn: {
           [OVN_BRIDGE_MAPPINGS]: [
