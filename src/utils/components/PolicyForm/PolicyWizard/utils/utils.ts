@@ -13,6 +13,7 @@ import {
 import { getInitialLinuxBondInterface } from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
 import {
   getAggregationMode,
+  getBond,
   getBondInterface,
   getBondName,
   getBondPortNames,
@@ -94,6 +95,16 @@ export const getPortNamesAsPorts = (portNames: string[]) =>
 export const getPortNamesFromPorts = (ports: NodeNetworkConfigurationInterfaceBridgePort[]) =>
   ports?.map((port) => port?.name);
 
+export const updateBondName = (policy: V1NodeNetworkConfigurationPolicy, newName: string) => {
+  if (isLinuxBond(policy)) {
+    const oldName = getBondName(policy);
+    const existingBridgePorts = getBridgePorts(policy).filter((port) => port?.name !== oldName);
+    getBridgeInterface(policy).bridge.port = [...existingBridgePorts, { name: newName }];
+  }
+
+  getBond(policy).name = newName;
+};
+
 export const updateBondInterfaces = (
   policy: V1NodeNetworkConfigurationPolicy,
   portNames: string[],
@@ -117,14 +128,14 @@ const updateLinuxBonding = (
   const bondInterface = getBondInterface(policy);
 
   if (!bondInterface) {
+    const bondName = getBondName(policy);
     const interfaces = getPolicyInterfaces(policy);
     policy.spec.desiredState.interfaces = [
       ...interfaces,
-      getInitialLinuxBondInterface(getBondName(policy), bondPortNames, selectedAggregationMode),
+      getInitialLinuxBondInterface(bondName, bondPortNames, selectedAggregationMode),
     ];
-    getBridgeInterface(policy).bridge.port = getBridgePorts(policy).filter(
-      (port) => !port?.[LINK_AGGREGATION],
-    );
+    const existingBridgePorts = getBridgePorts(policy).filter((port) => !port?.[LINK_AGGREGATION]);
+    getBridgeInterface(policy).bridge.port = [...existingBridgePorts, { name: bondName }];
   } else {
     getLinkAggregationSettings(policy).mode = selectedAggregationMode;
   }

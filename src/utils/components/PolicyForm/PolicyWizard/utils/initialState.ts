@@ -7,6 +7,7 @@ import {
 import {
   DEFAULT_OVN_BRIDGE_NAME,
   DEFAULT_OVS_BRIDGE_NAME,
+  LINK_AGGREGATION,
   WORKER_NODE_LABEL,
 } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { NETWORK_STATES } from '@utils/components/PolicyForm/utils/constants';
@@ -14,8 +15,11 @@ import { getRandomChars } from '@utils/helpers';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 import NodeNetworkConfigurationPolicyModel from '../../../../../console-models/NodeNetworkConfigurationPolicyModel';
+import { NodeNetworkConfigurationInterfaceBondMode as AggregationMode } from '../../../../../nmstate-types/custom-models/NodeNetworkConfigurationInterfaceBondMode';
 
-export const getInitialBridgeInterface = (ports: NodeNetworkConfigurationInterfaceBridgePort[]) =>
+export const getInitialOVSBridgeInterface = (
+  ports: NodeNetworkConfigurationInterfaceBridgePort[],
+) =>
   ({
     name: DEFAULT_OVS_BRIDGE_NAME,
     type: InterfaceType.OVS_BRIDGE,
@@ -31,6 +35,23 @@ export const getInitialBridgeInterface = (ports: NodeNetworkConfigurationInterfa
       port: ports,
     },
   } as NodeNetworkConfigurationInterface);
+
+export const getInitialOVSBridgeWithBond = (
+  bondName: string,
+  bridgePorts: NodeNetworkConfigurationInterfaceBridgePort[],
+) => {
+  const ports = [
+    ...bridgePorts,
+    {
+      name: bondName,
+      [LINK_AGGREGATION]: {
+        mode: AggregationMode.BALANCE_SLB,
+        port: [],
+      },
+    },
+  ];
+  return getInitialOVSBridgeInterface(ports);
+};
 
 export const bridgeManagementInterface = {
   name: DEFAULT_OVS_BRIDGE_NAME,
@@ -48,7 +69,7 @@ export const getInitialLinuxBondInterface = (
   name: bondName,
   type: InterfaceType.BOND,
   state: NETWORK_STATES.Up,
-  'link-aggregation': {
+  [LINK_AGGREGATION]: {
     mode: aggregationMode || '',
     port: ports || [],
   },

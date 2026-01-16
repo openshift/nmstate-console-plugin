@@ -116,7 +116,7 @@ const ReviewStep: FC<ReviewStepProps> = ({ policy, creationError, setPolicy }) =
               />
               <DetailItem
                 header={t('Uplink connection')}
-                description={isEmpty(portNames) ? NO_DATA_DASH : portNames}
+                description={isEmpty(portNames) ? NO_DATA_DASH : portNames.join(', ')}
               />
               <DetailItem
                 header={t('Bridge name')}
