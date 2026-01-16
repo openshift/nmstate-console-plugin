@@ -85,7 +85,9 @@ export const getInitialPolicy = (
       name: policyName,
     },
     spec: {
-      nodeSelector: {},
+      nodeSelector: {
+        [WORKER_NODE_LABEL]: '',
+      },
       desiredState: {
         ovn: {
           [OVN_BRIDGE_MAPPINGS]: [
