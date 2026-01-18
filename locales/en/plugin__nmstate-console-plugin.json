@@ -15,6 +15,7 @@
   "{{label}} name": "{{label}} name",
   "{{matchingNodeText}} matching": "{{matchingNodeText}} matching",
   "{{modelName}} details": "{{modelName}} details",
+  "{{name}} created successfully": "{{name}} created successfully",
   "{{qualifiedNodesCount}} matching Nodes found": "{{qualifiedNodesCount}} matching Nodes found",
   "<0>List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.</0><1><0>{{kind}}</0><1>metadata</1><2>ownerReferences</2></1>": "<0>List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.</0><1><0>{{kind}}</0><1>metadata</1><2>ownerReferences</2></1>",
   "A single interface": "A single interface",

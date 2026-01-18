@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useHistory } from 'react-router';
 import classNames from 'classnames';
 
 import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { Alert, AlertActionCloseButton, AlertVariant } from '@patternfly/react-core';
 import { TopologySideBar } from '@patternfly/react-topology';
 import { isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
@@ -17,6 +18,7 @@ type TopologySidebarProps = {
 };
 const TopologySidebar: FC<TopologySidebarProps> = ({ states }) => {
   const history = useHistory();
+  const [successMessage, setSuccessMessage] = useState<string>('');
 
   const queryParams = useQueryParams();
 
@@ -36,7 +38,17 @@ const TopologySidebar: FC<TopologySidebarProps> = ({ states }) => {
       className={classNames('nmstate-topology__sidebar', { 'big-sidebar': createPolicyDrawer })}
     >
       <div className="nmstate-topology__sidebar__content">
-        <Drawer states={states} onClose={closeDrawer} />
+        {successMessage && (
+          <div className="nmstate-topology__sidebar__success-alert">
+            <Alert
+              isInline
+              variant={AlertVariant.success}
+              title={successMessage}
+              actionClose={<AlertActionCloseButton onClose={() => setSuccessMessage('')} />}
+            />
+          </div>
+        )}
+        <Drawer states={states} onClose={closeDrawer} onSuccess={setSuccessMessage} />
       </div>
     </TopologySideBar>
   );
