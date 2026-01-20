@@ -5,6 +5,15 @@
 
     &__content {
       height: 100%;
+      position: relative;
+    }
+
+    &__success-alert {
+      position: absolute;
+      top: var(--pf-t--global--spacer--sm);
+      right: var(--pf-t--global--spacer--md);
+      z-index: 1000;
+      max-width: 350px;
     }
   }
 

@@ -8,6 +8,7 @@ import { signal } from '@preact/signals-react';
 import PolicyWizard from '@utils/components/PolicyForm/PolicyWizard/PolicyWizard';
 import { getInitialPolicy } from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
 import { getRandomChars, getResourceUrl } from '@utils/helpers';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 import {
   NNCP_ABANDONED,
@@ -18,6 +19,7 @@ import { logCreationFailed, logNMStateEvent, logNNCPCreated } from '@utils/telem
 
 type CreatePolicyDrawerProps = {
   onClose?: () => void;
+  onSuccess?: (message: string) => void;
   physicalNetworkName?: string;
   resetPolicyWizard: () => void;
 };
@@ -26,9 +28,11 @@ export const creatingPolicySignal = signal(null);
 
 const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({
   onClose,
+  onSuccess,
   physicalNetworkName,
   resetPolicyWizard,
 }) => {
+  const { t } = useNMStateTranslation();
   const initialPolicy = getInitialPolicy(`policy-${getRandomChars(8)}`, physicalNetworkName);
   const [policy, setPolicy] = useImmer(initialPolicy);
   const createAnotherPolicyState = useState<boolean>(false);
@@ -64,6 +68,10 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({
       creatingPolicySignal.value = null;
 
       const networkName = createdPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS][0].localnet;
+
+      if (onSuccess) {
+        onSuccess(t('{{name}} created successfully', { name: networkName }));
+      }
 
       if (createAnotherPolicy) resetPolicyWizard();
 
