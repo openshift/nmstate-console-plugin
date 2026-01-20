@@ -1,5 +1,6 @@
 .pf-v6-c-toolbar__group.pf-topology-view__view-toolbar {
   width: 100%;
+  padding-left: 200px;
   .pf-v6-c-toolbar {
     width: 100%;
   }
@@ -10,6 +11,7 @@ div[id^='pf-topology-view-'] {
 }
 
 .topology-toolbar {
+  width: 100%;
   padding: var(--pf-t--global--spacer--md) 0;
   &__content {
     padding: 0 var(--pf-t--global--spacer--md);

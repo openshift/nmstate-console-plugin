@@ -18,7 +18,7 @@ import {
 import { logCreationFailed, logNMStateEvent, logNNCPCreated } from '@utils/telemetry/telemetry';
 
 type CreatePolicyDrawerProps = {
-  onClose?: () => void;
+  onClose?: (b: boolean) => void;
   onSuccess?: (message: string) => void;
   physicalNetworkName?: string;
   resetPolicyWizard: () => void;
@@ -89,7 +89,7 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({
 
   const closeDrawer = () => {
     creatingPolicySignal.value = null;
-    onClose();
+    onClose(true);
   };
 
   return (

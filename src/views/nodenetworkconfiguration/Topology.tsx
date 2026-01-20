@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
-
+import './components/TopologySidebar/TopologySidebar.scss';
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
@@ -37,23 +37,24 @@ import { filterPolicyAppliedNodes } from '@utils/resources/policies/utils';
 
 import TopologyLegend from './components/TopologyLegend/TopologyLegend';
 import { SELECTED_ID_QUERY_PARAM } from './components/TopologySidebar/constants';
+import TopologyDrawer from './components/TopologySidebar/InterfaceDrawer/TopologyDrawer';
 import { creatingPolicySignal } from './components/TopologySidebar/CreatePolicyDrawer';
-import TopologySidebar from './components/TopologySidebar/TopologySidebar';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
 import { GRAPH_POSITIONING_EVENT, NODE_POSITIONING_EVENT } from './utils/constants';
 import { componentFactory, layoutFactory } from './utils/factory';
 import { restoreNodePositions, saveNodePositions } from './utils/position';
 import { transformDataToTopologyModel } from './utils/utils';
+import CustomDrawer from './components/TopologySidebar/CustomDrawer';
 
 const Topology: FC = () => {
   useSignals();
 
   const [visualization, setVisualization] = useState<Visualization>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedNodeFilters, setSelectedNodeFilters] = useState<string[]>([]);
   const history = useHistory();
 
   const queryParams = useQueryParams();
-
   const [nodes] = useK8sWatchResource<IoK8sApiCoreV1Node[]>({
     groupVersionKind: NodeModelGroupVersionKind,
     isList: true,
@@ -134,7 +135,10 @@ const Topology: FC = () => {
     creatingPolicySignal.value,
     creatingPolicyNodesNames,
   ]);
-
+  const handleCloseDrawer = (isOpen: boolean) => {
+    history.push({ search: '' });
+    setIsOpen(isOpen);
+  };
   if (statesError && statesError?.response?.status === 403)
     return (
       <>
@@ -147,47 +151,53 @@ const Topology: FC = () => {
 
   return (
     <VisualizationProvider controller={visualization}>
-      <TopologyView
-        className="nmstate-topology"
-        sideBar={<TopologySidebar states={states} />}
-        viewToolbar={
-          <TopologyToolbar
-            nodeNames={nodeNames}
-            selectedNodeFilters={selectedNodeFilters}
-            setSelectedNodeFilters={setSelectedNodeFilters}
-          />
-        }
-        controlBar={
-          <TopologyControlBar
-            controlButtons={createTopologyControlButtons({
-              ...defaultControlButtonsOptions,
-              zoomInCallback: action(() => {
-                const scale = visualization.getGraph().getScale();
-                visualization.getGraph().setScale(scale * 1.1);
-              }),
-              zoomOutCallback: action(() => {
-                const scale = visualization.getGraph().getScale();
-                visualization.getGraph().setScale(scale * 0.9);
-              }),
-              fitToScreenCallback: action(() => {
-                visualization.getGraph().fit(40);
-              }),
-              resetViewCallback: action(() => {
-                visualization.getGraph().reset();
-                visualization.getGraph().layout();
-              }),
-            })}
-          />
-        }
+      <TopologyDrawer
+        isOpen={isOpen}
+        onClose={handleCloseDrawer}
+        panel={<CustomDrawer states={states} onClose={() => history.push({ search: '' })} />}
       >
-        <VisualizationSurface state={queryParams} />
-        <Popover
-          aria-label="Node network configuration graph legend"
-          bodyContent={<TopologyLegend />}
-          hasAutoWidth
-          triggerRef={() => document.getElementById('legend') as HTMLButtonElement}
-        />
-      </TopologyView>
+        <TopologyView
+          className="nmstate-topology"
+          viewToolbar={
+            <TopologyToolbar
+              nodeNames={nodeNames}
+              onOpen={handleCloseDrawer}
+              selectedNodeFilters={selectedNodeFilters}
+              setSelectedNodeFilters={setSelectedNodeFilters}
+            />
+          }
+          controlBar={
+            <TopologyControlBar
+              controlButtons={createTopologyControlButtons({
+                ...defaultControlButtonsOptions,
+                zoomInCallback: action(() => {
+                  const scale = visualization.getGraph().getScale();
+                  visualization.getGraph().setScale(scale * 1.1);
+                }),
+                zoomOutCallback: action(() => {
+                  const scale = visualization.getGraph().getScale();
+                  visualization.getGraph().setScale(scale * 0.9);
+                }),
+                fitToScreenCallback: action(() => {
+                  visualization.getGraph().fit(40);
+                }),
+                resetViewCallback: action(() => {
+                  visualization.getGraph().reset();
+                  visualization.getGraph().layout();
+                }),
+              })}
+            />
+          }
+        >
+          <VisualizationSurface state={queryParams} />
+          <Popover
+            aria-label="Node network configuration graph legend"
+            bodyContent={<TopologyLegend />}
+            hasAutoWidth
+            triggerRef={() => document.getElementById('legend') as HTMLButtonElement}
+          />
+        </TopologyView>
+      </TopologyDrawer>
     </VisualizationProvider>
   );
 };

@@ -2,7 +2,6 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import { useHistory } from 'react-router';
 import { useNavigate } from 'react-router-dom-v5-compat';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
-
 import { NodeNetworkConfigurationPolicyModelRef, NodeNetworkStateModelRef } from '@models';
 import { ListPageCreateDropdown } from '@openshift-console/dynamic-plugin-sdk';
 import {
@@ -16,25 +15,26 @@ import {
 import { ListIcon } from '@patternfly/react-icons';
 import { getResourceUrl } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-
 import { CREATE_POLICY_QUERY_PARAM } from '../TopologySidebar/constants';
-
 import TopologyToolbarFilter from './TopologyToolbarFilter';
-
 import './TopologyToolbar.scss';
 
 type TopologyToolbarProps = {
   selectedNodeFilters: string[];
   setSelectedNodeFilters: Dispatch<SetStateAction<string[]>>;
   nodeNames: string[];
+  onOpen: (b: boolean) => void;
 };
 
-const TopologyButton: FC<TopologyToolbarProps> = (props) => {
+const TopologyToolbar: FC<TopologyToolbarProps> = ({
+  setSelectedNodeFilters,
+  onOpen,
+  nodeNames,
+  selectedNodeFilters,
+}) => {
   const { t } = useNMStateTranslation();
   const navigate = useNavigate();
-  const setSelectedNodeFilters = props.setSelectedNodeFilters;
   const history = useHistory();
-
   const createItems = {
     form: t('From Form'),
     yaml: t('With YAML'),
@@ -46,10 +46,12 @@ const TopologyButton: FC<TopologyToolbarProps> = (props) => {
     });
 
     const newParams = new URLSearchParams({ [CREATE_POLICY_QUERY_PARAM]: 'true' });
-
-    return type === 'form'
-      ? history.push({ search: newParams.toString() })
-      : history.push(`${baseURL}~new`);
+    if (type === 'form') {
+      onOpen(true);
+      return history.push({ search: newParams.toString() });
+    } else {
+      return history.push(`${baseURL}~new`);
+    }
   };
 
   return (
@@ -66,7 +68,11 @@ const TopologyButton: FC<TopologyToolbarProps> = (props) => {
           >
             {t('Create')}
           </ListPageCreateDropdown>
-          <TopologyToolbarFilter {...props} />
+          <TopologyToolbarFilter
+            selectedNodeFilters={selectedNodeFilters}
+            nodeNames={nodeNames}
+            setSelectedNodeFilters={setSelectedNodeFilters}
+          />
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarItem className="list-view-btn">
@@ -83,4 +89,4 @@ const TopologyButton: FC<TopologyToolbarProps> = (props) => {
   );
 };
 
-export default TopologyButton;
+export default TopologyToolbar;
