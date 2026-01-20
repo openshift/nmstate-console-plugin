@@ -1,24 +1,16 @@
 .nmstate-topology {
-  &__sidebar {
-    left: 0;
-    right: auto;
-
-    &__content {
-      height: 100%;
-      position: relative;
-    }
-
-    &__success-alert {
-      position: absolute;
-      top: var(--pf-t--global--spacer--sm);
-      right: var(--pf-t--global--spacer--md);
-      z-index: 1000;
-      max-width: 350px;
-    }
-  }
-
   .pf-v6-c-wizard__nav {
     width: 200px;
+  }
+
+  .pf-v6-c-drawer__panel-main {
+    padding-block-end: 0;
+    > .pf-v6-c-drawer__body {
+      padding-block-start: 0;
+      padding-block-end: 0;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+    }
   }
 }
 

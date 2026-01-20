@@ -14,10 +14,10 @@ import PolicyDrawer from './PolicyDrawer';
 type DrawerProps = {
   states: V1beta1NodeNetworkState[];
   onClose: () => void;
-  onSuccess?: (message: string) => void;
+  onSuccess: (message: string) => void;
 };
 
-const Drawer: FC<DrawerProps> = ({ states, onClose, onSuccess }) => {
+const CustomDrawer: FC<DrawerProps> = ({ states, onClose, onSuccess }) => {
   const params = useQueryParams();
   const [resetKey, setResetKey] = useState<number>(0);
 
@@ -57,4 +57,4 @@ const Drawer: FC<DrawerProps> = ({ states, onClose, onSuccess }) => {
   return null;
 };
 
-export default Drawer;
+export default CustomDrawer;

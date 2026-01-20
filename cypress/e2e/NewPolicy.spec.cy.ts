@@ -26,11 +26,16 @@ describe('Create new policy with form', () => {
     cy.contains('button', 'From Form').click();
 
     // Network identity step
+    cy.wait(1000);
     cy.get('input[name="physical-network-name"]').clear().type(`${testPolicyName}`);
     cy.contains('button', 'Next').click();
 
     // Nodes configuration step
-    cy.get('input[name="policy-name"]').clear().type(`${testPolicyName}`);
+    cy.get('input[name="policy-name"]')
+      .should('be.visible')
+      .click()
+      .type('{selectall}{backspace}')
+      .type(testPolicyName);
     cy.get('input[name="policy-description"]').clear().type(`${testDescription}`);
     cy.contains('button', 'Next').click();
 
