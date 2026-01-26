@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { Updater } from 'use-immer';
 
 import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
@@ -10,6 +10,7 @@ import { NodeSelectionOptions } from '@utils/components/PolicyForm/PolicyWizard/
 import { isOnlyWorkerLabel } from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/utils/utils';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { WORKER_NODE_LABEL } from '../../../utils/constants';
+import { getNodeSelector } from '@utils/resources/policies/getters';
 
 type NodeSelectionRadioGroupProps = {
   policy: V1NodeNetworkConfigurationPolicy;
