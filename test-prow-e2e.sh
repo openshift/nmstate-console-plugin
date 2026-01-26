@@ -159,4 +159,4 @@ export NO_COLOR=1
 npm ci
 
 # Run tests.
-npm run cypress
+npm run test-cypress-headless
