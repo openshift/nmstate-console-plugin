@@ -1,5 +1,5 @@
 # Builder container
-FROM registry.ci.openshift.org/ocp/builder:rhel-8-base-nodejs-openshift-4.15 AS build
+FROM registry.ci.openshift.org/ocp/builder:rhel-9-base-nodejs-openshift-4.22 AS build
 
 # Copy app source
 COPY . /opt/app-root/src/app
@@ -7,7 +7,9 @@ WORKDIR /opt/app-root/src/app
 
 # Run install as supper tux
 USER 0
-RUN npm ci && npm run build
+RUN npm ci && \
+    npm install --no-save @esbuild/linux-x64 && \
+    npm run build
 
 # Web server container
 FROM registry.access.redhat.com/ubi9/nginx-120
