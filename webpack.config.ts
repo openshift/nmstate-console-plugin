@@ -33,9 +33,9 @@ const config: WebpackConfiguration & {
         exclude: /node_modules\/(?!(@kubevirt-ui)\/kubevirt-api).*/,
         use: [
           {
-            loader: 'ts-loader',
+            loader: 'esbuild-loader',
             options: {
-              configFile: pathTo('tsconfig.json'),
+              tsconfig: path.resolve(__dirname, 'tsconfig.json'),
             },
           },
         ],
@@ -122,6 +122,9 @@ const config: WebpackConfiguration & {
     chunkFilename: '[name]-chunk.js',
     filename: '[name]-bundle.js',
     path: pathTo('dist'),
+  },
+  watchOptions: {
+    ignored: '**/node_modules',
   },
 };
 
