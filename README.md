@@ -21,7 +21,7 @@ cd nmstate-console-plugin
 # edit the code
 
 # start a develoment server on port 9443
-yarn dev --port 9443 \
+npm run dev -- --port 9443 \
   --server-type https \
   --server-options-key /var/serving-cert/tls.key \
   --server-options-cert /var/serving-cert/tls.crt
@@ -36,7 +36,7 @@ nmstate-console-plugin development require web development tools, and a kubernet
 | requirements                                       |                                                                                      |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [nodejs](https://nodejs.org/)                      | JavaScript runtime environment                                                       |
-| [yarn](https://yarnpkg.com/)                       | package manager for nodejs                                                           |
+| [npm](https://www.npmjs.com/)                      | package manager for nodejs (comes with nodejs)                                       |
 | [kubernetes]()                                     | An [Openshift](<(https://www.openshift.com/)>) or kubernetes cluster for development |
 | [kubectl](https://kubernetes.io/docs/tasks/tools/) | The Kubernetes command-line tool                                                     |
 
@@ -65,8 +65,8 @@ See [cli docs](https://github.com/kubev2v/forklift-console-plugin/blob/main/docs
 
 In one terminal window, run:
 
-1. `yarn install`
-1. `yarn run start-console`
+1. `npm install`
+1. `npm run start-console`
 
 This will run the OpenShift console in a container connected to the cluster you are currently logged into. The plugin HTTP server runs on port 9001 with CORS enabled, the development server will be available at http://localhost:9000
 
@@ -101,7 +101,7 @@ export BRIDGE_K8S_AUTH_BEARER_TOKEN=$(oc whoami --show-token)
 export INVENTORY_SERVER_HOST=https://$(oc get routes -o custom-columns=HOST:.spec.host -A | grep 'nmstate-inventory' | head -n 1)
 
 # start the nmstate console plugin
-yarn dev
+npm run dev
 ```
 
 ### Deployment on cluster with Openshift templates
