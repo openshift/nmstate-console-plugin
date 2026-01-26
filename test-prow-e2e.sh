@@ -156,7 +156,7 @@ export BRIDGE_BASE_ADDRESS="$(oc get consoles.config.openshift.io cluster -o jso
 export NO_COLOR=1
 
 # Install dependencies.
-yarn install --ignore-engines
+npm ci
 
 # Run tests.
-yarn run cypress
+npm run cypress
