@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Updater } from 'use-immer';
 
 import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
@@ -35,15 +35,21 @@ import NodeNetworkConfigurationPolicyModel from '../../../../../../console-model
 import './ReviewStep.scss';
 
 type ReviewStepProps = {
+  createAnotherPolicyState: [boolean, Dispatch<SetStateAction<boolean>>];
   policy: V1NodeNetworkConfigurationPolicy;
   creationError?: Error;
   setPolicy: Updater<V1NodeNetworkConfigurationPolicy>;
 };
 
-const ReviewStep: FC<ReviewStepProps> = ({ policy, creationError, setPolicy }) => {
+const ReviewStep: FC<ReviewStepProps> = ({
+  createAnotherPolicyState,
+  policy,
+  creationError,
+  setPolicy,
+}) => {
   const { t } = useNMStateTranslation();
-  const [openInVMNetworksPage, setOpenInVMNetworksPage] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
+  const [createAnotherPolicy, setCreateAnotherPolicy] = createAnotherPolicyState;
 
   const handleUpdate = (updatedPolicy: V1NodeNetworkConfigurationPolicy) => {
     setError(null);
@@ -98,8 +104,6 @@ const ReviewStep: FC<ReviewStepProps> = ({ policy, creationError, setPolicy }) =
                 '2xl': '35ch',
               }}
             >
-              {/* TODO Find out what to put here*/}
-              <DetailItem header={t('Basic information')} description="NEED INFO" />
               <DetailItem
                 header={t('Physical network name')}
                 description={getOVNLocalnet(policy) || NO_DATA_DASH}
@@ -116,7 +120,7 @@ const ReviewStep: FC<ReviewStepProps> = ({ policy, creationError, setPolicy }) =
               />
               <DetailItem
                 header={t('Uplink connection')}
-                description={isEmpty(portNames) ? NO_DATA_DASH : portNames}
+                description={isEmpty(portNames) ? NO_DATA_DASH : portNames.join(', ')}
               />
               <DetailItem
                 header={t('Bridge name')}
@@ -140,8 +144,8 @@ const ReviewStep: FC<ReviewStepProps> = ({ policy, creationError, setPolicy }) =
             <Checkbox
               label={t('Create another node network configuration')}
               id="create-new-vm-network"
-              isChecked={openInVMNetworksPage}
-              onChange={(_, newValue) => setOpenInVMNetworksPage(newValue)}
+              isChecked={createAnotherPolicy}
+              onChange={(_, newValue) => setCreateAnotherPolicy(newValue)}
             />
           </StackItem>
         </Stack>

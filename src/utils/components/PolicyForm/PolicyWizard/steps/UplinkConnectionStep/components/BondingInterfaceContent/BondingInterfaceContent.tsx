@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import { Trans } from 'react-i18next';
 import { Updater } from 'use-immer';
 
 import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
@@ -8,12 +7,8 @@ import FormGroupHelperText from '@utils/components/FormGroupHelperText/FormGroup
 import TextWithHelpIcon from '@utils/components/HelpTextIcon/TextWithHelpIcon';
 import AggregationModeSelect from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/BondingInterfaceContent/components/AggregationModeSelect';
 import useBridgeNameValidation from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useBridgeNameValidation';
-import {
-  getBondInterface,
-  getBondName,
-  getInterfaceName,
-  getPolicyInterface,
-} from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
+import { getBondName } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
+import { updateBondName } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import NetworkInterfacesSelect from './components/NetworkInterfacesSelect';
@@ -39,7 +34,7 @@ const BondingInterfaceContent: FC<BondingInterfaceContentProps> = ({
 
   const handleNameChange = (newName: string) => {
     setPolicy((draftPolicy) => {
-      getBondInterface(draftPolicy).name = newName;
+      updateBondName(draftPolicy, newName);
     });
     setNameValidationMessage(validateName(newName));
   };
@@ -68,14 +63,9 @@ const BondingInterfaceContent: FC<BondingInterfaceContentProps> = ({
         <FormGroup
           label={
             <TextWithHelpIcon
-              helpBodyContent={
-                <Trans t={t} ns="plugin__nmstate-console-plugin">
-                  These network interfaces will be bonded together. The list contains unused network
-                  interfaces available on all of the selected nodes.
-                  <br />
-                  Unused network interfaces available on all of the selected nodes.
-                </Trans>
-              }
+              helpBodyContent={t(
+                'These network interfaces will be bonded together. The list contains unused network interfaces available on all of the selected nodes.',
+              )}
               helpHeaderContent={t('Network interfaces')}
               text={t('Network interfaces')}
             />

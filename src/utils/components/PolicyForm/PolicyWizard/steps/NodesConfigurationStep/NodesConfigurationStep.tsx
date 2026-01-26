@@ -6,7 +6,6 @@ import { Form, FormGroup, TextInput, Title, ValidatedOptions } from '@patternfly
 import FormGroupHelperText from '@utils/components/FormGroupHelperText/FormGroupHelperText';
 import NodeSelectorModal from '@utils/components/NodeSelectorModal/NodeSelectorModal';
 import NodesOverlapAlert from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/components/NodesOverlapAlert';
-import useExistingNNCPsNodes from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useExistingNNCPsNodes/useExistingNNCPsNodes';
 import useNNCPNodesConflicts from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useNNCPNodesConflicts/useNNCPNodesConflicts';
 import { getDescription, getName } from '@utils/components/resources/selectors';
 import useNNCPs from '@utils/hooks/resources/NNCPs/useNNCPs';

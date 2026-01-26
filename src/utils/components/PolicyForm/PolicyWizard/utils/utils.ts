@@ -10,12 +10,10 @@ import {
   MIN_NUM_INTERFACES_FOR_BOND,
   NUM_INTERFACES_FOR_SINGLE_INTERFACE_UPLINK,
 } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
-import {
-  getInitialBridgeInterface,
-  getInitialLinuxBondInterface,
-} from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
+import { getInitialLinuxBondInterface } from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
 import {
   getAggregationMode,
+  getBond,
   getBondInterface,
   getBondName,
   getBondPortNames,
@@ -97,6 +95,16 @@ export const getPortNamesAsPorts = (portNames: string[]) =>
 export const getPortNamesFromPorts = (ports: NodeNetworkConfigurationInterfaceBridgePort[]) =>
   ports?.map((port) => port?.name);
 
+export const updateBondName = (policy: V1NodeNetworkConfigurationPolicy, newName: string) => {
+  if (isLinuxBond(policy)) {
+    const oldName = getBondName(policy);
+    const existingBridgePorts = getBridgePorts(policy).filter((port) => port?.name !== oldName);
+    getBridgeInterface(policy).bridge.port = [...existingBridgePorts, { name: newName }];
+  }
+
+  getBond(policy).name = newName;
+};
+
 export const updateBondInterfaces = (
   policy: V1NodeNetworkConfigurationPolicy,
   portNames: string[],
@@ -112,45 +120,65 @@ export const updateBondInterfaces = (
   getLinkAggregationSettings(policy).port = getBondPorts(policy);
 };
 
+const updateLinuxBonding = (
+  policy: V1NodeNetworkConfigurationPolicy,
+  bondPortNames: string[],
+  selectedAggregationMode: string,
+) => {
+  const bondInterface = getBondInterface(policy);
+
+  if (!bondInterface) {
+    const bondName = getBondName(policy);
+    const interfaces = getPolicyInterfaces(policy);
+    policy.spec.desiredState.interfaces = [
+      ...interfaces,
+      getInitialLinuxBondInterface(bondName, bondPortNames, selectedAggregationMode),
+    ];
+    const existingBridgePorts = getBridgePorts(policy).filter((port) => !port?.[LINK_AGGREGATION]);
+    getBridgeInterface(policy).bridge.port = [...existingBridgePorts, { name: bondName }];
+  } else {
+    getLinkAggregationSettings(policy).mode = selectedAggregationMode;
+  }
+};
+
+const updateOVSBonding = (
+  policy: V1NodeNetworkConfigurationPolicy,
+  bondPortNames: string[],
+  selectedAggregationMode: string,
+) => {
+  const bridgeBondPort = getOVSBridgeBondPort(policy);
+
+  if (!bridgeBondPort) {
+    const bridgePorts = getBridgePorts(policy)?.filter(
+      (port) => port?.name !== getBondName(policy),
+    );
+    getBridgeInterface(policy).bridge.port = [
+      ...bridgePorts,
+      {
+        name: getBondName(policy),
+        [LINK_AGGREGATION]: {
+          mode: selectedAggregationMode,
+          port: getPortNamesAsPorts(bondPortNames),
+        },
+      },
+    ];
+    policy.spec.desiredState.interfaces = getPolicyInterfaces(policy)?.filter(
+      (iface) => iface?.type !== InterfaceType.BOND,
+    );
+  } else {
+    getLinkAggregationSettings(policy).mode = selectedAggregationMode;
+  }
+};
+
 export const updateBondType = (
   policy: V1NodeNetworkConfigurationPolicy,
   selectedAggregationMode: string,
 ) => {
   const bondPortNames = getBondPortNames(policy);
 
-  if (selectedAggregationMode === AggregationMode.BALANCE_RR) {
-    const bondInterface = getBondInterface(policy);
-
-    if (!bondInterface) {
-      const interfaces = policy?.spec?.desiredState?.interfaces;
-      policy.spec.desiredState.interfaces = [
-        ...interfaces,
-        getInitialLinuxBondInterface(generateBondName(), bondPortNames),
-      ];
-      getBridgeInterface(policy).bridge.port = getBridgePorts(policy).filter(
-        (port) => !port?.[LINK_AGGREGATION],
-      );
-    }
+  if (selectedAggregationMode === AggregationMode.BALANCE_SLB) {
+    updateOVSBonding(policy, bondPortNames, selectedAggregationMode);
   } else {
-    const bridgeBondPort = getOVSBridgeBondPort(policy);
-    const bridgePorts = getBridgePorts(policy)?.filter(
-      (port) => port?.name !== getBondName(policy),
-    );
-
-    if (!bridgeBondPort) {
-      getBridgeInterface(policy).bridge.port = [
-        ...bridgePorts,
-        {
-          name: getBondName(policy) || generateBondName(),
-          [LINK_AGGREGATION]: {
-            mode: selectedAggregationMode,
-            port: getPortNamesAsPorts(bondPortNames),
-          },
-        },
-      ];
-    }
-    policy.spec.desiredState.interfaces = getPolicyInterfaces(policy)?.filter(
-      (iface) => iface?.type !== InterfaceType.BOND,
-    );
+    updateLinuxBonding(policy, bondPortNames, selectedAggregationMode);
   }
 };

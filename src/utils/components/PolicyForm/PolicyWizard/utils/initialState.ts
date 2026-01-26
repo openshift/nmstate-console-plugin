@@ -7,15 +7,18 @@ import {
 import {
   DEFAULT_OVN_BRIDGE_NAME,
   DEFAULT_OVS_BRIDGE_NAME,
+  LINK_AGGREGATION,
   WORKER_NODE_LABEL,
 } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { NETWORK_STATES } from '@utils/components/PolicyForm/utils/constants';
-import { getRandomChars } from '@utils/helpers';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 
 import NodeNetworkConfigurationPolicyModel from '../../../../../console-models/NodeNetworkConfigurationPolicyModel';
+import { NodeNetworkConfigurationInterfaceBondMode as AggregationMode } from '../../../../../nmstate-types/custom-models/NodeNetworkConfigurationInterfaceBondMode';
 
-export const getInitialBridgeInterface = (ports: NodeNetworkConfigurationInterfaceBridgePort[]) =>
+export const getInitialOVSBridgeInterface = (
+  ports: NodeNetworkConfigurationInterfaceBridgePort[],
+) =>
   ({
     name: DEFAULT_OVS_BRIDGE_NAME,
     type: InterfaceType.OVS_BRIDGE,
@@ -32,6 +35,23 @@ export const getInitialBridgeInterface = (ports: NodeNetworkConfigurationInterfa
     },
   } as NodeNetworkConfigurationInterface);
 
+export const getInitialOVSBridgeWithBond = (
+  bondName: string,
+  bridgePorts: NodeNetworkConfigurationInterfaceBridgePort[],
+) => {
+  const ports = [
+    ...bridgePorts,
+    {
+      name: bondName,
+      [LINK_AGGREGATION]: {
+        mode: AggregationMode.BALANCE_SLB,
+        port: [],
+      },
+    },
+  ];
+  return getInitialOVSBridgeInterface(ports);
+};
+
 export const bridgeManagementInterface = {
   name: DEFAULT_OVS_BRIDGE_NAME,
   type: InterfaceType.OVS_INTERFACE,
@@ -40,34 +60,45 @@ export const bridgeManagementInterface = {
   ipv6: { enabled: false },
 } as NodeNetworkConfigurationInterface;
 
-export const getInitialLinuxBondInterface = (bondName: string, ports?: string[]) => ({
+export const getInitialLinuxBondInterface = (
+  bondName: string,
+  ports?: string[],
+  aggregationMode?: string,
+) => ({
   name: bondName,
   type: InterfaceType.BOND,
   state: NETWORK_STATES.Up,
-  'link-aggregation': {
-    mode: '',
+  [LINK_AGGREGATION]: {
+    mode: aggregationMode || '',
     port: ports || [],
   },
 });
 
-export const initialPolicy: V1NodeNetworkConfigurationPolicy = {
-  apiVersion: `${NodeNetworkConfigurationPolicyModel.apiGroup}/${NodeNetworkConfigurationPolicyModel.apiVersion}`,
-  kind: NodeNetworkConfigurationPolicyModel.kind,
-  metadata: {
-    name: `policy-${getRandomChars(8)}`,
-  },
-  spec: {
-    nodeSelector: { [WORKER_NODE_LABEL]: '' },
-    desiredState: {
-      ovn: {
-        [OVN_BRIDGE_MAPPINGS]: [
-          {
-            bridge: DEFAULT_OVN_BRIDGE_NAME,
-            localnet: `localnet-${getRandomChars(6)}`,
-            state: 'present',
-          },
-        ],
+export const getInitialPolicy = (
+  policyName: string,
+  physicalNetworkName?: string,
+): V1NodeNetworkConfigurationPolicy => {
+  return {
+    apiVersion: `${NodeNetworkConfigurationPolicyModel.apiGroup}/${NodeNetworkConfigurationPolicyModel.apiVersion}`,
+    kind: NodeNetworkConfigurationPolicyModel.kind,
+    metadata: {
+      name: policyName,
+    },
+    spec: {
+      nodeSelector: {
+        [WORKER_NODE_LABEL]: '',
+      },
+      desiredState: {
+        ovn: {
+          [OVN_BRIDGE_MAPPINGS]: [
+            {
+              bridge: DEFAULT_OVN_BRIDGE_NAME,
+              localnet: physicalNetworkName,
+              state: 'present',
+            },
+          ],
+        },
       },
     },
-  },
+  };
 };

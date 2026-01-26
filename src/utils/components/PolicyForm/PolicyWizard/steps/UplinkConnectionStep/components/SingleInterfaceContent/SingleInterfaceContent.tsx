@@ -5,6 +5,7 @@ import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmst
 import { FormGroup, Label } from '@patternfly/react-core';
 import TextWithHelpIcon from '@utils/components/HelpTextIcon/TextWithHelpIcon';
 import IPAddressAlert from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/SingleInterfaceContent/components/IPAddressAlert';
+import { DEFAULT_OVS_INTERFACE_NAME } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { NodeInterfacesData } from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useNodeInterfaces/utils/types';
 import { getBridgePorts } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import SelectTypeahead from '@utils/components/SelectTypeahead/SelectTypeahead';
@@ -38,7 +39,9 @@ const SingleInterfaceContent: FC<SingleInterfaceContentProps> = ({
 
   if (!showContent) return null;
 
-  const selectedInterfaceName = getBridgePorts(policy)?.[0]?.name || '';
+  const selectedInterfaceName =
+    getBridgePorts(policy)?.filter((iface) => iface.name !== DEFAULT_OVS_INTERFACE_NAME)?.[0]
+      ?.name || '';
 
   const selectedInterface = availableInterfaces?.find(
     (iface) => iface.name === selectedInterfaceName,
@@ -70,6 +73,7 @@ const SingleInterfaceContent: FC<SingleInterfaceContentProps> = ({
             setPolicy((draftPolicy) => {
               draftPolicy.spec.desiredState.interfaces[0].bridge.port = [
                 { name: selectedIfaceName },
+                { name: DEFAULT_OVS_INTERFACE_NAME },
               ];
             })
           }
