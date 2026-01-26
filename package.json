@@ -83,7 +83,6 @@
     "sass-loader": "^16.0.6",
     "style-loader": "^3.3.1",
     "ts-jest": "^28.0.7",
-    "ts-loader": "^9.3.1",
     "ts-node": "^10.8.1",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
     "typescript": "5.7.x",
@@ -94,6 +93,7 @@
   },
   "dependencies": {
     "@preact/signals-react": "^3.0.1",
+    "esbuild-loader": "^4.4.2",
     "mocha": "^10.x",
     "word-wrap": "^1.2.5"
   }
