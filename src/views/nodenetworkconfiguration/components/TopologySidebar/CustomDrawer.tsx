@@ -17,7 +17,7 @@ type DrawerProps = {
   onSuccess?: (message: string) => void;
 };
 
-const Drawer: FC<DrawerProps> = ({ states, onClose, onSuccess }) => {
+const CustomDrawer: FC<DrawerProps> = ({ states, onClose, onSuccess }) => {
   const params = useQueryParams();
   const [resetKey, setResetKey] = useState<number>(0);
 
@@ -57,4 +57,4 @@ const Drawer: FC<DrawerProps> = ({ states, onClose, onSuccess }) => {
   return null;
 };
 
-export default Drawer;
+export default CustomDrawer;

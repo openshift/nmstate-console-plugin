@@ -22,6 +22,10 @@
   }
 }
 
+.nmstate-policy-wizard .pf-v6-c-wizard__main-body {
+  padding: 20px;
+}
+
 .pf-topology-side-bar.nmstate-topology__sidebar.big-sidebar {
   @media (min-width: 768px) {
     max-width: 100%;
