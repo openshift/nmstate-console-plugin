@@ -33,9 +33,9 @@ const config: WebpackConfiguration & {
         exclude: /node_modules\/(?!(@kubevirt-ui)\/kubevirt-api).*/,
         use: [
           {
-            loader: 'ts-loader',
+            loader: 'esbuild-loader',
             options: {
-              configFile: pathTo('tsconfig.json'),
+              tsconfig: path.resolve(__dirname, 'tsconfig.json'),
             },
           },
         ],
@@ -78,7 +78,9 @@ const config: WebpackConfiguration & {
     ],
   },
   devServer: {
-    static: './dist',
+    static: {
+      directory: pathTo('dist'),
+    },
     port: process.env.PORT || 9001,
     // Allow bridge running in a container to connect to the plugin dev server.
     allowedHosts: 'all',
@@ -90,6 +92,13 @@ const config: WebpackConfiguration & {
     },
     devMiddleware: {
       writeToDisk: true,
+    },
+    hot: true,
+    client: {
+      progress: true,
+      webSocketURL: {
+        port: process.env.PORT || 9001,
+      },
     },
   },
   plugins: [
@@ -113,6 +122,9 @@ const config: WebpackConfiguration & {
     chunkFilename: '[name]-chunk.js',
     filename: '[name]-bundle.js',
     path: pathTo('dist'),
+  },
+  watchOptions: {
+    ignored: '**/node_modules',
   },
 };
 
