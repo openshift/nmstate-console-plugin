@@ -11,7 +11,9 @@ USER 0
 RUN test -d ${REMOTE_SOURCES_DIR}/cachito-gomod-with-deps || exit 1; \
     cp -f $REMOTE_SOURCES_DIR/cachito-gomod-with-deps/app/{.npmrc,package-lock.json,registry-ca.pem} . \
  && source ${REMOTE_SOURCES_DIR}/cachito-gomod-with-deps/cachito.env \
- && npm ci && npm run build
+ && npm ci && \
+    npm install --no-save @esbuild/linux-x64 && \
+    npm run build
 
 # Web server container
 FROM registry.ci.openshift.org/ocp/4.22:base-rhel9
