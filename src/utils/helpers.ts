@@ -91,3 +91,24 @@ export const labelsToParams = (labels: Record<string, string>) =>
   Object.entries(labels)
     .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
     .join('&');
+
+export const columnSorting = <T>(
+  data: T[],
+  direction: 'asc' | 'desc' | null,
+  pagination: { startIndex: number; endIndex: number },
+  sortField?: string,
+): T[] => {
+  if (!data || !direction || !sortField) return data;
+
+  const sorted = [...data].sort((a, b) => {
+    const aValue = sortField.split('.').reduce((obj, key) => obj?.[key], a as any);
+    const bValue = sortField.split('.').reduce((obj, key) => obj?.[key], b as any);
+
+    if (aValue < bValue) return direction === 'asc' ? -1 : 1;
+    if (aValue > bValue) return direction === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const { startIndex, endIndex } = pagination;
+  return sorted.slice(startIndex, endIndex);
+};

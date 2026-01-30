@@ -1,3 +1,5 @@
+import { TFunction } from 'react-i18next';
+
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
 import {
   InterfaceType,
@@ -5,8 +7,16 @@ import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1NodeNetworkConfigurationPolicy,
 } from '@kubevirt-ui/kubevirt-api/nmstate';
-import { ENACTMENT_LABEL_POLICY } from '@utils/constants';
+import { DEFAULT_OVS_INTERFACE_NAME } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
+import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';
+import { getUplinkConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
+import { ENACTMENT_LABEL_POLICY, NO_DATA_DASH } from '@utils/constants';
 import { isEmpty } from '@utils/helpers';
+import {
+  getAggregationMode,
+  getBondName,
+  getBridgePortNames,
+} from '@utils/resources/policies/selectors';
 
 export const getPolicyEnactments = (
   policy: V1NodeNetworkConfigurationPolicy,
@@ -69,3 +79,28 @@ export const getPolicyBridgingInterfaces = (policy): NodeNetworkConfigurationInt
 
 export const getPolicyOVSInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
   getPolicyInterfaces(policy)?.filter((iface) => iface.type === InterfaceType.OVS_INTERFACE) || [];
+
+export const getBridgePortsWithoutDefaultOVSIface = (policy: V1NodeNetworkConfigurationPolicy) =>
+  getBridgePortNames(policy)?.filter((port) => port !== DEFAULT_OVS_INTERFACE_NAME) || [];
+
+export const getBondUplinkDisplayText = (policy: V1NodeNetworkConfigurationPolicy) => {
+  const bondPorts = getBridgePortsWithoutDefaultOVSIface(policy).join(' + ');
+  const bondName = getBondName(policy);
+  const aggregationMode = getAggregationMode(policy);
+
+  return `${bondName} (${bondPorts}), mode=(${aggregationMode})`;
+};
+
+export const getUplinkDisplayText = (policy: V1NodeNetworkConfigurationPolicy, t: TFunction) => {
+  const connectionOption = getUplinkConnectionOption(policy);
+  switch (connectionOption) {
+    case ConnectionOption.BREX:
+      return t("Cluster's default network");
+    case ConnectionOption.SINGLE_DEVICE:
+      return getBridgePortsWithoutDefaultOVSIface(policy)?.[0];
+    case ConnectionOption.BONDING_INTERFACE:
+      return getBondUplinkDisplayText(policy);
+    default:
+      return NO_DATA_DASH;
+  }
+};

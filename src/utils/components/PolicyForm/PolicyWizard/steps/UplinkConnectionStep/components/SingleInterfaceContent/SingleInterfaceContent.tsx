@@ -7,10 +7,10 @@ import TextWithHelpIcon from '@utils/components/HelpTextIcon/TextWithHelpIcon';
 import IPAddressAlert from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/SingleInterfaceContent/components/IPAddressAlert';
 import { DEFAULT_OVS_INTERFACE_NAME } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { NodeInterfacesData } from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useNodeInterfaces/utils/types';
-import { getBridgePorts } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import SelectTypeahead from '@utils/components/SelectTypeahead/SelectTypeahead';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getIPV4Address, getIPV6Address } from '@utils/resources/interfaces/getters';
+import { getBridgePorts } from '@utils/resources/policies/selectors';
 
 import './SingleInterfaceContent.scss';
 
