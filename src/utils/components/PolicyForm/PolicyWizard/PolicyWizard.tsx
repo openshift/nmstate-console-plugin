@@ -13,7 +13,6 @@ import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmst
 import { Wizard, WizardStep } from '@patternfly/react-core';
 import NodesConfigurationStep from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/NodesConfigurationStep';
 import SettingsStep from '@utils/components/PolicyForm/PolicyWizard/steps/SettingsStep/SettingsStep';
-import { getOVNLocalnet } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';
 import {
   getUplinkConnectionOption,
@@ -21,6 +20,7 @@ import {
 } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { getName } from '@utils/components/resources/selectors';
 import { isEmpty } from '@utils/helpers';
+import { getOVNLocalnet } from '@utils/resources/policies/selectors';
 
 import { ensureNoEmptyBridgeMapping } from '../utils/utils';
 

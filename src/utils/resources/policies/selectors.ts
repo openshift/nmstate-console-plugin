@@ -64,7 +64,7 @@ export const getBondPortNames = (policy: V1NodeNetworkConfigurationPolicy) => {
 
   if (typeof bondPorts?.[0] === 'string') return bondPorts;
 
-  return bondPorts.map((port) => port?.name);
+  return bondPorts?.map((port) => port?.name);
 };
 
 export const getBridgePortNames = (policy: V1NodeNetworkConfigurationPolicy) =>
@@ -83,3 +83,19 @@ export const getBondName = (policy: V1NodeNetworkConfigurationPolicy) => getBond
 
 export const getBridgeName = (policy: V1NodeNetworkConfigurationPolicy) =>
   getBridgeInterface(policy)?.name;
+
+export const getPolicyLocalnetNames = (policy: V1NodeNetworkConfigurationPolicy): string[] => {
+  const bridgeMappings = getOVN(policy)?.[OVN_BRIDGE_MAPPINGS] || [];
+  return bridgeMappings.map((mapping) => mapping?.localnet).filter(Boolean);
+};
+
+export const getUplinkConnectionOption = (policy: V1NodeNetworkConfigurationPolicy): string => {
+  const bridgePorts = getBridgePortNames(policy);
+  const bondPorts = getBondPortNames(policy);
+  const bridgeName = getOVNBridgeName(policy);
+
+  if (bridgeName === 'br-ex') return 'brex';
+  if (bondPorts?.length > 0) return 'bonding_interface';
+  if (bridgePorts?.length === 1) return 'single_device';
+  return '';
+};

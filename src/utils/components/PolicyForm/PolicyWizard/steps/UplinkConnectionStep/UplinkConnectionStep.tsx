@@ -14,7 +14,6 @@ import {
   getInitialOVSBridgeInterface,
   getInitialOVSBridgeWithBond,
 } from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
-import { getBridgeName } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';
 import {
   getUplinkConnectionOption,
@@ -24,6 +23,7 @@ import {
 import { getRandomChars } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getNodeSelector } from '@utils/resources/policies/getters';
+import { getBridgeName } from '@utils/resources/policies/selectors';
 
 import useNodeInterfaces from '../../utils/hooks/useNodeInterfaces/useNodeInterfaces';
 
