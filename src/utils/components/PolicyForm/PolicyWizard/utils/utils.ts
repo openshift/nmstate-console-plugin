@@ -92,9 +92,6 @@ export const getPortNamesAsPorts = (portNames: string[]) =>
     return { name } as NodeNetworkConfigurationInterfaceBridgePort;
   });
 
-export const getPortNamesFromPorts = (ports: NodeNetworkConfigurationInterfaceBridgePort[]) =>
-  ports?.map((port) => port?.name);
-
 export const updateBondName = (policy: V1NodeNetworkConfigurationPolicy, newName: string) => {
   if (isLinuxBond(policy)) {
     const oldName = getBondName(policy);

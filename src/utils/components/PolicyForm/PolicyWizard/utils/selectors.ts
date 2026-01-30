@@ -4,7 +4,6 @@ import {
   V1NodeNetworkConfigurationPolicy,
 } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { LINK_AGGREGATION } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
-import { getPortNamesFromPorts } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 import {
   getPolicyBondingInterfaces,
@@ -69,7 +68,7 @@ export const getBondPortNames = (policy: V1NodeNetworkConfigurationPolicy) => {
 };
 
 export const getBridgePortNames = (policy: V1NodeNetworkConfigurationPolicy) =>
-  getPortNamesFromPorts(getBridgePorts(policy));
+  getBridgePorts(policy)?.map((port) => port?.name);
 
 export const getOVNBridgeMapping = (policy: V1NodeNetworkConfigurationPolicy) =>
   getOVN(policy)?.[OVN_BRIDGE_MAPPINGS]?.[0];

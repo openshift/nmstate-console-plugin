@@ -16,6 +16,7 @@ import {
   Title,
 } from '@patternfly/react-core';
 import DetailItem from '@utils/components/DetailItem/DetailItem';
+import { getUplinkDisplayText } from '@utils/components/PolicyForm/PolicyWizard/steps/ReviewStep/utils/utils';
 import {
   getBridgePortNames,
   getMTU,
@@ -120,7 +121,7 @@ const ReviewStep: FC<ReviewStepProps> = ({
               />
               <DetailItem
                 header={t('Uplink connection')}
-                description={isEmpty(portNames) ? NO_DATA_DASH : portNames.join(', ')}
+                description={getUplinkDisplayText(policy, t)}
               />
               <DetailItem
                 header={t('Bridge name')}
