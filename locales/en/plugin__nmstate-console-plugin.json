@@ -123,7 +123,7 @@
   "Labels": "Labels",
   "Learn more": "Learn more",
   "Legend": "Legend",
-  "Let&apos;s configure Open vSwitch (OVS). First, to allow VirtualMachines (VMs) to connect to the data center network, a bridge must be created on the nodes. Then, you can expose access to the data center network through this bridge by defining a new VM network.": "Let&apos;s configure Open vSwitch (OVS). First, to allow VirtualMachines (VMs) to connect to the data center network, a bridge must be created on the nodes. Then, you can expose access to the data center network through this bridge by defining a new VM network.",
+  "Let's configure Open vSwitch (OVS). First, to allow VirtualMachines (VMs) to connect to the data center network, a bridge must be created on the nodes. Then, you can expose access to the data center network through this bridge by defining a new VM network.": "Let's configure Open vSwitch (OVS). First, to allow VirtualMachines (VMs) to connect to the data center network, a bridge must be created on the nodes. Then, you can expose access to the data center network through this bridge by defining a new VM network.",
   "Linux Bonding - 802.3ad / LACP (Mode 4)": "Linux Bonding - 802.3ad / LACP (Mode 4)",
   "Linux Bonding - Active / Backup (Mode 1)": "Linux Bonding - Active / Backup (Mode 1)",
   "Linux Bonding - Balance XOR (Mode 2)": "Linux Bonding - Balance XOR (Mode 2)",
