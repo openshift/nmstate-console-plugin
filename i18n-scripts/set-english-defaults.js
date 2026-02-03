@@ -16,16 +16,16 @@ function determineRule(key) {
   const withCount = key.startsWith('{{count}}')
 
 
-  if (withCount && key.includes('_other')) {
+  if (withCount && key.endsWith('_other')) {
     return 0;
   }
   if (withCount) {
     return 1;
   }
-  if (key.includes('_other')) {
+  if (key.endsWith('_other')) {
     return 2;
   }
-  if (key.includes('_one')) {
+  if (key.endsWith('_one')) {
     return 3;
   }
   return 4;
