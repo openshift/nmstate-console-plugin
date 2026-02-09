@@ -15,13 +15,13 @@ import FormGroupHelperText from '@utils/components/FormGroupHelperText/FormGroup
 import TextWithHelpIcon from '@utils/components/HelpTextIcon/TextWithHelpIcon';
 import { validateMTU } from '@utils/components/PolicyForm/PolicyWizard/steps/SettingsStep/utils/utils';
 import useBridgeNameValidation from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useBridgeNameValidation';
+import { updateBridgeName } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import {
   getBridgeManagementInterface,
   getInterfaceName,
   getMTU,
-} from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
-import { updateBridgeName } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
-import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+} from '@utils/resources/policies/selectors';
 
 import './SettingsStep.scss';
 

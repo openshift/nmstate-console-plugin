@@ -11,6 +11,8 @@ import {
   NUM_INTERFACES_FOR_SINGLE_INTERFACE_UPLINK,
 } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { getInitialLinuxBondInterface } from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
+import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';
+import { getRandomChars, isEmpty } from '@utils/helpers';
 import {
   getAggregationMode,
   getBond,
@@ -24,9 +26,7 @@ import {
   getOVNBridgeMapping,
   getOVNBridgeName,
   getOVSBridgeBondPort,
-} from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
-import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';
-import { getRandomChars, isEmpty } from '@utils/helpers';
+} from '@utils/resources/policies/selectors';
 import { getPolicyInterfaces } from '@utils/resources/policies/utils';
 
 import { NodeNetworkConfigurationInterfaceBondMode as AggregationMode } from '../../../../../nmstate-types/custom-models/NodeNetworkConfigurationInterfaceBondMode';

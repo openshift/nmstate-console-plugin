@@ -6,6 +6,10 @@ import {
   NodeNetworkConfigurationExtensions,
   NodeNetworkConfigurationModules,
 } from './src/views/nodenetworkconfiguration/manifest';
+import {
+  PhysicalNetworksExposedModules,
+  PhysicalNetworksExtensions,
+} from './src/views/physical-networks/manifest';
 import { PolicyExposedModules, PolicyExtensions } from './src/views/policies/manifest';
 import { StateExposedModules, StateExtensions } from './src/views/states/manifest';
 
@@ -19,6 +23,7 @@ export const pluginMetadata: ConsolePluginBuildMetadata = {
     ...PolicyExposedModules,
     ...StateExposedModules,
     ...NodeNetworkConfigurationModules,
+    ...PhysicalNetworksExposedModules,
     nmstateFlags: './utils/flags',
   },
   dependencies: {
@@ -36,4 +41,5 @@ export const extensions: EncodedExtension[] = [
   ...PolicyExtensions,
   ...StateExtensions,
   ...NodeNetworkConfigurationExtensions,
+  ...PhysicalNetworksExtensions,
 ];
