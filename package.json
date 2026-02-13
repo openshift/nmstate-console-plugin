@@ -51,7 +51,7 @@
     "classnames": "^2.5.1",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
-    "cypress": "11",
+    "cypress": "15.10.0",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.1.0",
@@ -71,7 +71,7 @@
     "react-i18next": "^11.7.3",
     "react-router": "5.3.x",
     "react-router-dom": "5.3.x",
-    "react-router-dom-v5-compat": "^6.22.3",
+    "react-router-dom-v5-compat": "6.30.3",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",
@@ -83,11 +83,12 @@
     "use-immer": "^0.8.1",
     "webpack": "5.90.3",
     "webpack-cli": "4.10.x",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "4.15.2"
   },
   "resolutions": {
     "webpack": "^5.68.0",
-    "@types/react": "17.0.40"
+    "@types/react": "17.0.40",
+    "webpack-dev-server/express": "4.22.1"
   },
   "dependencies": {
     "@preact/signals-react": "^3.0.1",
