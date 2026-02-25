@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
-
+import './components/TopologySidebar/TopologySidebar.scss';
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
@@ -37,8 +37,9 @@ import { filterPolicyAppliedNodes } from '@utils/resources/policies/utils';
 
 import TopologyLegend from './components/TopologyLegend/TopologyLegend';
 import { SELECTED_ID_QUERY_PARAM } from './components/TopologySidebar/constants';
+import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
+import TopologyDrawer from './components/TopologySidebar/InterfaceDrawer/TopologyDrawer';
 import { creatingPolicySignal } from './components/TopologySidebar/CreatePolicyDrawer';
-import TopologySidebar from './components/TopologySidebar/TopologySidebar';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
 import { GRAPH_POSITIONING_EVENT, NODE_POSITIONING_EVENT } from './utils/constants';
 import { componentFactory, layoutFactory } from './utils/factory';
@@ -47,7 +48,7 @@ import { transformDataToTopologyModel } from './utils/utils';
 
 const Topology: FC = () => {
   useSignals();
-
+  const { t } = useNMStateTranslation();
   const [visualization, setVisualization] = useState<Visualization>(null);
   const [selectedNodeFilters, setSelectedNodeFilters] = useState<string[]>([]);
   const history = useHistory();
@@ -135,6 +136,18 @@ const Topology: FC = () => {
     creatingPolicyNodesNames,
   ]);
 
+  // Re-run fit after mount to ensure correct scale when container size stabilizes (e.g. navigation from create flow)
+  useEffect(() => {
+    if (!visualization) return;
+
+    const id = requestAnimationFrame(() => {
+      visualization.getGraph().fit(40);
+    });
+
+    return () => cancelAnimationFrame(id);
+  }, [visualization]);
+
+
   if (statesError && statesError?.response?.status === 403)
     return (
       <>
@@ -145,11 +158,11 @@ const Topology: FC = () => {
       </>
     );
 
+  
   return (
     <VisualizationProvider controller={visualization}>
       <TopologyView
         className="nmstate-topology"
-        sideBar={<TopologySidebar states={states} />}
         viewToolbar={
           <TopologyToolbar
             nodeNames={nodeNames}
@@ -180,13 +193,15 @@ const Topology: FC = () => {
           />
         }
       >
-        <VisualizationSurface state={queryParams} />
-        <Popover
-          aria-label="Node network configuration graph legend"
-          bodyContent={<TopologyLegend />}
-          hasAutoWidth
-          triggerRef={() => document.getElementById('legend') as HTMLButtonElement}
-        />
+        <TopologyDrawer states={states}>
+          <VisualizationSurface state={queryParams} />
+          <Popover
+            aria-label={t('Node network configuration graph legend')}
+            bodyContent={<TopologyLegend />}
+            hasAutoWidth
+            triggerRef={() => document.getElementById('legend') as HTMLButtonElement}
+          />
+        </TopologyDrawer>
       </TopologyView>
     </VisualizationProvider>
   );
