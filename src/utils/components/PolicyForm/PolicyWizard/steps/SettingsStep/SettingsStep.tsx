@@ -16,7 +16,6 @@ import TextWithHelpIcon from '@utils/components/HelpTextIcon/TextWithHelpIcon';
 import { validateMTU } from '@utils/components/PolicyForm/PolicyWizard/steps/SettingsStep/utils/utils';
 import useBridgeNameValidation from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useBridgeNameValidation';
 import {
-  getBridgeInterface,
   getBridgeManagementInterface,
   getInterfaceName,
   getMTU,
