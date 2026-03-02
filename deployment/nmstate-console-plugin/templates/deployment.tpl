@@ -19,6 +19,7 @@ spec:
       labels:
         app: {{ .Values.plugin }}
     spec:
+      serviceAccountName: {{ .Values.plugin }}
       containers:
         - name: {{ .Values.plugin }}
           image: {{ .Values.image }}
