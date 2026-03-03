@@ -12,6 +12,16 @@ message: >-
   oc patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["${PLUGIN_NAME}"] } }' --type=merge
   For more information about using this template, see https://github.com/edge-infrastructure/nmstate-console-plugin
 objects:
+  - apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: "${PLUGIN_NAME}"
+      namespace: "${NAMESPACE}"
+      labels:
+        app: "${PLUGIN_NAME}"
+        app.kubernetes.io/component: "${PLUGIN_NAME}"
+        app.kubernetes.io/instance: "${PLUGIN_NAME}"
+        app.kubernetes.io/part-of: "${PLUGIN_NAME}"
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -33,6 +43,7 @@ objects:
           labels:
             app: "${PLUGIN_NAME}"
         spec:
+          serviceAccountName: "${PLUGIN_NAME}"
           containers:
             - name: "${PLUGIN_NAME}"
               image: "${IMAGE}"
