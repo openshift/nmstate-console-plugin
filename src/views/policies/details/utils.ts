@@ -12,7 +12,7 @@ export const getMatchedPolicyNodes = (
   if (isEmpty(policy.spec.nodeSelector)) return nodes;
 
   return nodes.filter((node) =>
-    Object.entries(policy).every(
+    Object.entries(policy.spec.nodeSelector).every(
       ([labelKey, labelValue]) => node.metadata?.labels?.[labelKey] === labelValue,
     ),
   );
