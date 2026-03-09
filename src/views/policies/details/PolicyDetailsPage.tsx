@@ -17,9 +17,10 @@ import {
   Skeleton,
   Title,
 } from '@patternfly/react-core';
+import { filterPolicyAppliedNodes } from '@utils/resources/policies/utils';
 
 import PolicyEnactments from './PolicyEnactments';
-import { getInterfaceToShow, getMatchedPolicyNodes } from './utils';
+import { getInterfaceToShow } from './utils';
 
 export type PolicyDetailsPageProps = {
   obj?: V1NodeNetworkConfigurationPolicy;
@@ -35,7 +36,7 @@ const PolicyDetailsPage: FC<PolicyDetailsPageProps> = ({ obj: policy, iface }) =
     namespaced: false,
   });
 
-  const policyMatchedNodes = getMatchedPolicyNodes(policy, nodes);
+  const policyMatchedNodes = filterPolicyAppliedNodes(nodes, policy);
   const interfaceToShow = getInterfaceToShow(policy, iface?.name);
 
   const dnsResolver = policy?.spec?.desiredState?.['dns-resolver'];
