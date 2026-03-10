@@ -83,6 +83,7 @@ const PoliciesList: FC = () => {
             })),
             id: NodeNetworkConfigurationPolicyModelRef,
             selectedColumns: new Set(activeColumns?.map((col) => col?.id)),
+            showNamespaceOverride: false,
             type: t('NodeNetworkConfigurationPolicy'),
           }}
         />

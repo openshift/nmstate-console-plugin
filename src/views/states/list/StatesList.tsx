@@ -118,6 +118,7 @@ const StatesList: FC = () => {
                   })),
                   id: NodeNetworkStateModelRef,
                   selectedColumns: new Set(activeColumns?.map((col) => col?.id)),
+                  showNamespaceOverride: false,
                   type: t('NodeNetworkState'),
                 }}
               />
