@@ -1,5 +1,5 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom-v5-compat';
 
 import { Button } from '@patternfly/react-core';
 import { ActionsColumn, ExpandableRowContent, Tbody, Td, Tr } from '@patternfly/react-table';
@@ -31,7 +31,7 @@ const PhysicalNetworkRow: FC<PhysicalNetworksRowProps> = ({
 }) => {
   const { t } = useNMStateTranslation();
   const [isNodesModalOpen, setIsNodesModalOpen] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const isNetworkExpanded = (physicalNetwork: PhysicalNetwork) =>
     expandedNetworks.includes(physicalNetwork.name);
 
@@ -59,7 +59,7 @@ const PhysicalNetworkRow: FC<PhysicalNetworksRowProps> = ({
           </Button>
         </Td>
         <Td id="actionColumn" isActionCell key="actionColumn">
-          <ActionsColumn items={getRowActions(t, history, network.name)} />
+          <ActionsColumn items={getRowActions(t, navigate, network.name)} />
         </Td>
       </Tr>
       {!isEmpty(network.nncps) ? (

@@ -1,5 +1,4 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
-import { useHistory } from 'react-router';
 import { useNavigate } from 'react-router-dom-v5-compat';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { NodeNetworkConfigurationPolicyModelRef, NodeNetworkStateModelRef } from '@models';
@@ -32,7 +31,6 @@ const TopologyToolbar: FC<TopologyToolbarProps> = ({
 }) => {
   const { t } = useNMStateTranslation();
   const navigate = useNavigate();
-  const history = useHistory();
   const createItems = {
     form: t('From Form'),
     yaml: t('With YAML'),
@@ -46,8 +44,8 @@ const TopologyToolbar: FC<TopologyToolbarProps> = ({
     const newParams = new URLSearchParams({ [CREATE_POLICY_QUERY_PARAM]: 'true' });
 
     return type === 'form'
-      ? history.push({ search: newParams.toString() })
-      : history.push(`${baseURL}~new`);
+      ? navigate({ search: newParams.toString() })
+      : navigate(`${baseURL}~new`);
   };
 
   return (

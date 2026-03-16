@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom-v5-compat';
 import NodeNetworkConfigurationPolicyModel, {
   NodeNetworkConfigurationPolicyModelRef,
 } from 'src/console-models/NodeNetworkConfigurationPolicyModel';
@@ -12,7 +12,7 @@ import { logNMStateEvent } from '@utils/telemetry/telemetry';
 
 const CreatePolicyButtons: FC = ({ children }) => {
   const { t } = useNMStateTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const createItems = {
     form: t('From Form'),
@@ -29,8 +29,8 @@ const CreatePolicyButtons: FC = ({ children }) => {
     }
 
     return type === 'form'
-      ? history.push('/node-network-configuration?createPolicy=true')
-      : history.push(`${baseURL}~new`);
+      ? navigate('/node-network-configuration?createPolicy=true')
+      : navigate(`${baseURL}~new`);
   };
 
   return (

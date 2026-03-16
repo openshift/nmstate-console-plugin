@@ -1,6 +1,6 @@
 import React, { FC, MouseEventHandler, useState } from 'react';
 import { Trans } from 'react-i18next';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom-v5-compat';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
@@ -32,7 +32,7 @@ type DeleteModalProps = {
 
 const DeleteModal: FC<DeleteModalProps> = ({ closeModal, isOpen, policy }) => {
   const { t } = useNMStateTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [error, setError] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -47,7 +47,7 @@ const DeleteModal: FC<DeleteModalProps> = ({ closeModal, isOpen, policy }) => {
       ns: policy?.metadata?.namespace,
       name: policy?.metadata?.name,
     })
-      .then(() => history.push(getResourceUrl({ model: NodeNetworkConfigurationPolicyModel })))
+      .then(() => navigate(getResourceUrl({ model: NodeNetworkConfigurationPolicyModel })))
       .catch(setError)
       .finally(() => {
         setError(undefined);

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom-v5-compat';
 
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import {
@@ -16,7 +16,7 @@ import { NODE_NETWORK_CONFIGURATION_WIZARD_PATH } from '../utils/constants';
 
 const PhysicalNetworksEmptyState: FC = () => {
   const { t } = useNMStateTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <EmptyState
@@ -32,7 +32,7 @@ const PhysicalNetworksEmptyState: FC = () => {
       </EmptyStateBody>
       <EmptyStateFooter>
         <EmptyStateActions>
-          <Button onClick={() => history.push(NODE_NETWORK_CONFIGURATION_WIZARD_PATH)}>
+          <Button onClick={() => navigate(NODE_NETWORK_CONFIGURATION_WIZARD_PATH)}>
             {t('Create network')}
           </Button>
         </EmptyStateActions>

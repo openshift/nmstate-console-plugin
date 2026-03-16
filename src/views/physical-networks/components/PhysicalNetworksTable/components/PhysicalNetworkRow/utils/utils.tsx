@@ -8,12 +8,12 @@ import { PhysicalNetworksRowActions } from './types';
 
 export const getRowActions = (
   t: TFunction,
-  history,
+  navigate: (path: string) => void,
   networkName: string,
 ): PhysicalNetworksRowActions => [
   {
     onClick: () =>
-      history.push(
+      navigate(
         `${NODE_NETWORK_CONFIGURATION_WIZARD_PATH}&${PHYSICAL_NETWORK_NAME_PARAM_KEY}=${encodeURIComponent(
           networkName,
         )}`,
@@ -29,7 +29,7 @@ export const getRowActions = (
   },
   {
     onClick: () =>
-      history.push(
+      navigate(
         `k8s/cluster/virtualmachine-networks/~new?${PHYSICAL_NETWORK_NAME_PARAM_KEY}=${encodeURIComponent(
           networkName,
         )}`,

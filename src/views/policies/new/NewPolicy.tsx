@@ -1,5 +1,5 @@
 import React, { FC, MouseEventHandler, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom-v5-compat';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { getResourceUrl } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
@@ -58,7 +58,7 @@ const NewPolicy: FC = () => {
   const [policy, setPolicy] = useImmer(initialPolicy);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>(undefined);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onFormSubmit: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -72,7 +72,7 @@ const NewPolicy: FC = () => {
       data: policy,
     })
       .then(() =>
-        history.push(
+        navigate(
           getResourceUrl({ model: NodeNetworkConfigurationPolicyModel, resource: policy }),
         ),
       )
@@ -82,7 +82,7 @@ const NewPolicy: FC = () => {
 
   const goToYAMLEditor = () => {
     const baseUrl = getResourceUrl({ model: NodeNetworkConfigurationPolicyModel });
-    history.push(`${baseUrl}~new`);
+    navigate(`${baseUrl}~new`);
   };
 
   return (
@@ -124,7 +124,7 @@ const NewPolicy: FC = () => {
           {t('Create')}
         </Button>
 
-        <Button onClick={history.goBack} variant={ButtonVariant.secondary}>
+        <Button onClick={() => navigate(-1)} variant={ButtonVariant.secondary}>
           {t('Cancel')}
         </Button>
       </ActionGroup>

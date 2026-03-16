@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom-v5-compat';
 
 import PaneHeading from '@utils/components/PaneHeading/PaneHeading';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
@@ -13,7 +13,7 @@ type PhysicalNetworksPageHeaderProps = {
 
 const PhysicalNetworksPageHeader: FC<PhysicalNetworksPageHeaderProps> = ({ showCreateButton }) => {
   const { t } = useNMStateTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <PaneHeading>
@@ -22,7 +22,7 @@ const PhysicalNetworksPageHeader: FC<PhysicalNetworksPageHeaderProps> = ({ showC
       </Title>
       {showCreateButton && (
         <Button
-          onClick={() => history.push(NODE_NETWORK_CONFIGURATION_WIZARD_PATH)}
+          onClick={() => navigate(NODE_NETWORK_CONFIGURATION_WIZARD_PATH)}
           variant="primary"
         >
           {t('Create network')}
