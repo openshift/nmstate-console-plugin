@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom-v5-compat';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { useImmer } from 'use-immer';
 
@@ -39,7 +39,7 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({
   const [createAnotherPolicy] = createAnotherPolicyState;
   const completed = useRef(false);
   const currentStepId = useRef<string | number>('policy-wizard-basicinfo');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   creatingPolicySignal.value = policy;
 
@@ -75,7 +75,7 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({
 
       if (createAnotherPolicy) resetPolicyWizard();
 
-      history.push(
+      navigate(
         createAnotherPolicy
           ? `node-network-configuration?createPolicy=true&physicalNetworkName=${networkName}`
           : getResourceUrl({ model: NodeNetworkConfigurationPolicyModel, resource: createdPolicy }),

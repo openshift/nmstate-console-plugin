@@ -1,4 +1,4 @@
-import { useHistory, useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom-v5-compat';
 
 import {
   NodeNetworkConfigurationInterface,
@@ -8,7 +8,7 @@ import {
 import { baseListUrl } from '../constants';
 
 const useDrawerInterface = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { search } = useLocation();
 
   const params = new URLSearchParams(search);
@@ -25,7 +25,7 @@ const useDrawerInterface = () => {
       nodeNetworkState?: V1beta1NodeNetworkState,
       nodeNetworkInterface?: NodeNetworkConfigurationInterface,
     ) => {
-      if (!nodeNetworkInterface) return history.push(baseListUrl);
+      if (!nodeNetworkInterface) return navigate(baseListUrl);
 
       const query = new URLSearchParams({
         selectedInterface: nodeNetworkInterface.name,
@@ -33,7 +33,7 @@ const useDrawerInterface = () => {
         selectedState: nodeNetworkState?.metadata?.name,
       });
 
-      history.push(`${baseListUrl}?${query.toString()}`);
+      navigate(`${baseListUrl}?${query.toString()}`);
     },
   };
 };

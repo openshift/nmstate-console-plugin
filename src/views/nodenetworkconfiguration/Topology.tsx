@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom-v5-compat';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 import './components/TopologySidebar/TopologySidebar.scss';
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
@@ -51,7 +51,7 @@ const Topology: FC = () => {
   const { t } = useNMStateTranslation();
   const [visualization, setVisualization] = useState<Visualization>(null);
   const [selectedNodeFilters, setSelectedNodeFilters] = useState<string[]>([]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const queryParams = useQueryParams();
 
@@ -83,7 +83,9 @@ const Topology: FC = () => {
     [states],
   );
 
-  useSignalEffect(() => (creatingPolicySignal.value = null));
+  useSignalEffect(() => {
+    creatingPolicySignal.value = null;
+  });
 
   useEffect(() => {
     if (!statesLoaded || statesError || isEmpty(states)) return;
@@ -107,7 +109,7 @@ const Topology: FC = () => {
 
       newVisualization.addEventListener(SELECTION_EVENT, (id) => {
         const newParams = new URLSearchParams({ [SELECTED_ID_QUERY_PARAM]: id });
-        history.push({ search: newParams.toString() });
+        navigate({ search: newParams.toString() });
       });
 
       newVisualization.addEventListener(NODE_POSITIONING_EVENT, () =>

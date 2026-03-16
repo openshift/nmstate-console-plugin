@@ -186,7 +186,7 @@ export const transformDataToTopologyModel = (
 
     const childNodes = createNodes(
       nnsName,
-      [...nodeState.status.currentState.interfaces, ...creatingPolicyToAdd],
+      [...(nodeState.status?.currentState?.interfaces || []), ...creatingPolicyToAdd],
       nnceConfigredInterfaces,
     );
 
@@ -221,8 +221,8 @@ const getCorrelatedEnactment = (
   availableEnhancments: V1beta1NodeNetworkConfigurationEnactment[],
   nnsName: string,
 ): V1beta1NodeNetworkConfigurationEnactment => {
-  return availableEnhancments.find((nnce) =>
-    nnce.metadata.ownerReferences.some((ref) => ref.name === nnsName),
+  return availableEnhancments?.find((nnce) =>
+    nnce.metadata?.ownerReferences?.some((ref) => ref.name === nnsName),
   );
 };
 

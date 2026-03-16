@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, useState } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom-v5-compat';
 import {
   Drawer,
   DrawerContent,
@@ -25,7 +25,7 @@ type Props = {
 const TopologyDrawer: FC<Props> = ({ states, children }) => {
   const { t } = useNMStateTranslation();
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
 
   const [successMessage, setSuccessMessage] = useState<string>('');
@@ -33,7 +33,7 @@ const TopologyDrawer: FC<Props> = ({ states, children }) => {
   const closeDrawer = () => {
     const updatedParams = new URLSearchParams(location.search);
     updatedParams.delete(CREATE_POLICY_QUERY_PARAM);
-    history.push({ search: updatedParams.toString() });
+    navigate({ search: updatedParams.toString() });
   };
 
   const isDrawerOpen = queryParams.get(CREATE_POLICY_QUERY_PARAM) === 'true';
