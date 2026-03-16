@@ -1,7 +1,7 @@
 import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui/kubevirt-api/nmstate';
 
 export const getEnactmentStatus = (enactment: V1beta1NodeNetworkConfigurationEnactment): string =>
-  enactment?.status?.conditions?.find((condition) => condition.status === 'True').type;
+  enactment?.status?.conditions?.find((condition) => condition.status === 'True')?.type;
 
 export const categorizeEnactments = (enactments: V1beta1NodeNetworkConfigurationEnactment[]) => {
   return (enactments || []).reduce(
