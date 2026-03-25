@@ -56,7 +56,7 @@
     "classnames": "^2.5.1",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.7.1",
-    "cypress": "^12.17.4",
+    "cypress": "^15.10.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.1.0",
@@ -92,10 +92,10 @@
     "webpack-dev-server": "^5.2.3"
   },
   "dependencies": {
-    "@preact/signals-react": "^3.7.0",
-    "esbuild-loader": "^4.4.2",
     "@patternfly/react-catalog-view-extension": "6.1.0",
     "@patternfly/react-data-view": "^6.4.0",
+    "@preact/signals-react": "^3.7.0",
+    "esbuild-loader": "^4.4.2",
     "mocha": "^10.x",
     "word-wrap": "^1.2.5"
   },
