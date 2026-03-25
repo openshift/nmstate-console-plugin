@@ -23,7 +23,7 @@ const getUsedPortNamesForNode = (nns: V1beta1NodeNetworkState) => {
   const interfaces = getInterfaces(nns);
   return interfaces.reduce((acc, iface) => {
     if (bridgeTypes.includes(iface?.type)) {
-      const ports = iface?.bridge?.port?.map((port) => port?.name);
+      const ports = iface?.bridge?.port?.map((port) => port?.name) || [];
       acc = [...acc, ...ports];
     }
 
