@@ -24,7 +24,9 @@ const getUsedPortNamesForNode = (nns: V1beta1NodeNetworkState) => {
   return interfaces.reduce((acc, iface) => {
     if (bridgeTypes.includes(iface?.type)) {
       const ports = iface?.bridge?.port?.map((port) => port?.name);
-      acc = [...acc, ...ports];
+      if (ports) {
+        acc = [...acc, ...ports];
+      }
     }
 
     return acc;
