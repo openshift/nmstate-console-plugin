@@ -33,7 +33,7 @@ export const isPolicyAppliedInNode = (
 export const filterPolicyAppliedNodes = (
   nodes: IoK8sApiCoreV1Node[],
   policy: V1NodeNetworkConfigurationPolicy,
-) => nodes.filter((node) => isPolicyAppliedInNode(policy, node));
+) => (nodes || []).filter((node) => isPolicyAppliedInNode(policy, node));
 
 export const getPolicyInterfaces = (
   policy: V1NodeNetworkConfigurationPolicy,
