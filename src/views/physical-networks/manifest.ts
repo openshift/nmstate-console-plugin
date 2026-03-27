@@ -18,7 +18,7 @@ export const PhysicalNetworksExtensions: EncodedExtension[] = [
         'data-quickstart-id': 'qs-nav-physical-networks',
         'data-test-id': 'physical-networks-nav-item',
       },
-      href: 'physical-networks',
+      href: '/physical-networks',
       id: 'physical-networks',
       insertBefore: 'networkPolicies',
       name: '%plugin__nmstate-console-plugin~Physical networks%',
