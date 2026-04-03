@@ -25,7 +25,7 @@ const PolicyListEmptyState: FC = () => {
 
   return (
     <EmptyState
-      titleText={t('No NodeNetworkConfigurationPolicy defined yet')}
+      titleText={t('No NodeNetworkConfigurationPolicy found')}
       headingLevel="h4"
       icon={() => <img src={EmptyPolicyStateImage} className="policy-empty-state-icon" />}
       variant={EmptyStateVariant.lg}

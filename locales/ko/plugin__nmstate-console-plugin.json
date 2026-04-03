@@ -171,7 +171,7 @@
   "Network types": "네트워크 유형",
   "No": "아니요",
   "No matching Nodes found for the labels": "라벨과 일치하는 노드가 없음",
-  "No NodeNetworkConfigurationPolicy defined yet": "NodeNetworkConfigurationPolicy가 아직 정의되어 있지 않음",
+  "No NodeNetworkConfigurationPolicy found": "",
   "No NodeNetworkStates found": "NodeNetworkStates를 찾을 수 없음",
   "No owner": "소유자 없음",
   "No physical networks defined yet": "",
