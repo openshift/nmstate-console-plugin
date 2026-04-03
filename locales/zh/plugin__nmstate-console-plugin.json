@@ -171,7 +171,7 @@
   "Network types": "网络类型",
   "No": "否",
   "No matching Nodes found for the labels": "没有找到与标签匹配的节点",
-  "No NodeNetworkConfigurationPolicy defined yet": "还没有定义 NodeNetworkConfigurationPolicy",
+  "No NodeNetworkConfigurationPolicy found": "",
   "No NodeNetworkStates found": "没有找到 NodeNetworkStates",
   "No owner": "没有所有者",
   "No physical networks defined yet": "",

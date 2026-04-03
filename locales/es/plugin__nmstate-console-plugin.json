@@ -176,7 +176,7 @@
   "Network types": "Tipos de red",
   "No": "No",
   "No matching Nodes found for the labels": "No se encontraron nodos coincidentes para las etiquetas",
-  "No NodeNetworkConfigurationPolicy defined yet": "NodeNetworkConfigurationPolicy aún no está definido",
+  "No NodeNetworkConfigurationPolicy found": "",
   "No NodeNetworkStates found": "No se encontraron NodeNetworkStates",
   "No owner": "Sin propietario",
   "No physical networks defined yet": "",

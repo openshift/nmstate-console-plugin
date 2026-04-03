@@ -176,7 +176,7 @@
   "Network types": "Types de réseaux",
   "No": "Non",
   "No matching Nodes found for the labels": "Aucun nœud correspondant trouvé pour les étiquettes",
-  "No NodeNetworkConfigurationPolicy defined yet": "Aucune politique de configuration réseau de nœuds n'a encore été définie.",
+  "No NodeNetworkConfigurationPolicy found": "",
   "No NodeNetworkStates found": "Aucun NodeNetworkStates trouvé",
   "No owner": "Aucun propriétaire",
   "No physical networks defined yet": "",

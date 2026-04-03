@@ -171,7 +171,7 @@
   "Network types": "ネットワークタイプ",
   "No": "No",
   "No matching Nodes found for the labels": "ラベルに一致するノードが見つかりません",
-  "No NodeNetworkConfigurationPolicy defined yet": "NodeNetworkConfigurationPolicy はまだ定義されていません",
+  "No NodeNetworkConfigurationPolicy found": "",
   "No NodeNetworkStates found": "NodeNetworkStates が見つかりません",
   "No owner": "所有者なし",
   "No physical networks defined yet": "",

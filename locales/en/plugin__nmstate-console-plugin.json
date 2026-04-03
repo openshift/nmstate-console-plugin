@@ -171,7 +171,7 @@
   "Network types": "Network types",
   "No": "No",
   "No matching Nodes found for the labels": "No matching Nodes found for the labels",
-  "No NodeNetworkConfigurationPolicy defined yet": "No NodeNetworkConfigurationPolicy defined yet",
+  "No NodeNetworkConfigurationPolicy found": "No NodeNetworkConfigurationPolicy found",
   "No NodeNetworkStates found": "No NodeNetworkStates found",
   "No owner": "No owner",
   "No physical networks defined yet": "No physical networks defined yet",
