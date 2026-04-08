@@ -23,70 +23,81 @@ declare global {
   }
 }
 
-Cypress.Commands.add('login', (provider, username, password) => {
-  // Check if auth is disabled (for a local development environment).
+Cypress.Commands.add(
+  'login',
+  (
+    provider: string = KUBEADMIN_IDP,
+    username: string = KUBEADMIN_USERNAME,
+    password: string = Cypress.env('BRIDGE_KUBEADMIN_PASSWORD'),
+  ) => {
+    // Constants for selectors
+    const SELECTORS = {
+      loginButton: '[data-test-id=login], [data-test=login]',
+      passwordInput: '#inputPassword',
+      submitButton: 'button[type=submit]',
+      tourPopup: '[data-test="tour-step-footer-secondary"]',
+      userDropdown: '[data-test="user-dropdown-toggle"]',
+      usernameInput: '#inputUsername',
+    };
 
-  cy.visit(''); // visits baseUrl which is set in plugins.js
-  cy.window().then((win: ConsoleWindowType) => {
-    if (win.SERVER_FLAGS?.authDisabled) {
-      cy.log('skipping login, console is running with auth disabled');
-
-      cy.contains('li[data-test="nav"]', 'Networking').click();
-      cy.contains(
-        '*[data-test-id="nodenetworkconfigurationpolicy-nav-item"]',
-        'NodeNetworkConfigurationPolicy',
-      ).should('be.visible');
-      return;
-    }
-
-    cy.clearCookie('openshift-session-token');
-
-    const idp = provider || KUBEADMIN_IDP;
-
-    cy.get('main form').should('be.visible');
-
-    cy.get('body').then(($body) => {
-      if ($body.text().includes(idp)) {
-        cy.contains(idp).should('be.visible').click();
+    // Visit the base URL and check auth status
+    cy.visit('/');
+    cy.window().then((win: any) => {
+      if (win.SERVER_FLAGS?.authDisabled) {
+        cy.log('Skipping login - console is running with auth disabled');
+        return;
       }
+
+      // Clear session token
+      cy.clearCookie('openshift-session-token');
+
+      // Login flow
+      cy.get(SELECTORS.loginButton, { timeout: 300000 }).should('be.visible');
+
+      // Handle IDP selection if present
+      const idp = provider || KUBEADMIN_IDP;
+      cy.get('body').then(($body) => {
+        if ($body.text().includes(idp)) {
+          cy.contains(idp).should('be.visible').click();
+        }
+      });
+
+      // Fill and submit credentials
+      cy.get(SELECTORS.usernameInput).type(username);
+      cy.get(SELECTORS.passwordInput).type(password, { log: false }); // Hide password in logs
+      cy.get(SELECTORS.submitButton).click();
+
+      cy.wait(20000);
+
+      // Close tour popup if present
+      cy.get('body').then(($body) => {
+        if ($body.find(SELECTORS.tourPopup).length) {
+          cy.get(SELECTORS.tourPopup).click();
+        }
+      });
+
+      cy.get(SELECTORS.userDropdown, { timeout: 300000 }).should('be.visible');
+
+      // Verify login via CLI
+      cy.exec('oc whoami').then((result) => {
+        cy.log(`Logged in as: ${result.stdout.trim()}`);
+      });
     });
-
-    cy.get(SELECTORS.usernameInput).type(username || KUBEADMIN_USERNAME);
-    cy.get(SELECTORS.passwordInput).type(password || Cypress.env('KUBEADMIN_PASSWORD'));
-    cy.get(SELECTORS.submitButton).click();
-
-    cy.wait(20000);
-
-    // Close tour popup if present
-    cy.get('body').then(($body) => {
-      if ($body.find(SELECTORS.tourPopup).length) {
-        cy.get(SELECTORS.tourPopup).click();
-      }
-    });
-  });
-});
+  },
+);
 
 Cypress.Commands.add('logout', () => {
   // Check if auth is disabled (for a local development environment).
-  cy.window().then((win: ConsoleWindowType) => {
-    if (win.SERVER_FLAGS?.authDisabled) {
-      cy.log('skipping logout, console is running with auth disabled');
+  cy.window().then((win) => {
+    if (win.SERVER_FLAGS.authDisabled) {
+      cy.task('log', '  skipping logout, console is running with auth disabled');
       return;
     }
-    cy.log('Logging out');
+    cy.task('log', '  Logging out');
     cy.byTestID('user-dropdown').click();
     cy.byTestID('log-out').should('be.visible');
-    cy.byTestID('log-out').click({ force: true });
+    // eslint-disable-next-line cypress/no-force
+    cy.byTestID('log-out').click();
     cy.byLegacyTestID('login').should('be.visible');
   });
-});
-
-Cypress.Commands.add('byTestID', (selector, options) =>
-  cy.get(`[data-test="${selector}"]`, options),
-);
-
-Cypress.Commands.add('byLegacyTestID', (selector) => cy.get(`[data-test-id="${selector}"]`));
-
-Cypress.Commands.add('clickOutside', () => {
-  return cy.get('body').click(0, 0); //0,0 here are the x and y coordinates
 });
