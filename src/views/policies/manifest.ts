@@ -1,4 +1,3 @@
-import type { EncodedExtension } from '@openshift/dynamic-plugin-sdk';
 import type {
   ExtensionK8sModel,
   ResourceClusterNavItem,
@@ -6,6 +5,7 @@ import type {
   ResourceListPage,
   YAMLTemplate,
 } from '@openshift-console/dynamic-plugin-sdk';
+import type { EncodedExtension } from '@openshift-console/dynamic-plugin-sdk-webpack';
 
 import NodeNetworkConfigurationPolicyModel from '../../console-models/NodeNetworkConfigurationPolicyModel';
 

@@ -1,5 +1,5 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
-import { useNavigate } from 'react-router-dom-v5-compat';
+import { useNavigate } from 'react-router';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { NodeNetworkConfigurationPolicyModelRef, NodeNetworkStateModelRef } from '@models';
 import { ListPageCreateDropdown } from '@openshift-console/dynamic-plugin-sdk';

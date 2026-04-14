@@ -1,5 +1,5 @@
-import type { EncodedExtension } from '@openshift/dynamic-plugin-sdk';
 import type { HrefNavItem, RoutePage } from '@openshift-console/dynamic-plugin-sdk';
+import type { EncodedExtension } from '@openshift-console/dynamic-plugin-sdk-webpack';
 
 export const NodeNetworkConfigurationModules = {
   Topology: './views/nodenetworkconfiguration/Topology',

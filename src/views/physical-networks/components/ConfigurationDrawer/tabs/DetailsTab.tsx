@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom-v5-compat';
+import { Link } from 'react-router';
 
 import DetailItem from '@utils/components/DetailItem/DetailItem';
 import { getName } from '@utils/components/resources/selectors';
@@ -50,10 +50,7 @@ const DetailsTab: FC<DetailsTabProps> = ({ selectedConfiguration }) => {
         description={selectedConfiguration?.aggregationMode ?? NO_DATA_DASH}
         header={t('Aggregation mode')}
       />
-      <DetailItem
-        description={selectedConfiguration?.mtu ?? NO_DATA_DASH}
-        header={t('MTU')}
-      />
+      <DetailItem description={selectedConfiguration?.mtu ?? NO_DATA_DASH} header={t('MTU')} />
     </DescriptionList>
   );
 };

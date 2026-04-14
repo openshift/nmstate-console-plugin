@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom-v5-compat';
+import { Link } from 'react-router';
 import { modelToRef } from 'src/console-models/modelUtils';
 
 import { K8sModel } from '@openshift-console/dynamic-plugin-sdk';

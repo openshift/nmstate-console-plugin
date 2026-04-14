@@ -1,6 +1,6 @@
 import React from 'react';
 import { TFunction } from 'react-i18next';
-import { Link } from 'react-router-dom-v5-compat';
+import { Link } from 'react-router';
 
 import { ResourceIcon } from '@openshift-console/dynamic-plugin-sdk';
 import { DataViewTh, DataViewTr } from '@patternfly/react-data-view/dist/esm/DataViewTable';

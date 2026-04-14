@@ -1,5 +1,5 @@
-import type { EncodedExtension } from '@openshift/dynamic-plugin-sdk';
 import type { ResourceListPage } from '@openshift-console/dynamic-plugin-sdk';
+import type { EncodedExtension } from '@openshift-console/dynamic-plugin-sdk-webpack';
 
 import { NodeNetworkStateModelGroupVersionKind } from '../../console-models';
 
