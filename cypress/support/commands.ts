@@ -24,44 +24,106 @@ declare global {
 }
 
 Cypress.Commands.add('login', (provider, username, password) => {
-  // Check if auth is disabled (for a local development environment).
+  const idp = provider || KUBEADMIN_IDP;
+  const user = username || KUBEADMIN_USERNAME;
+  const pass = password || Cypress.env('KUBEADMIN_PASSWORD');
 
-  cy.visit(''); // visits baseUrl which is set in plugins.js
+  const selectIdpIfPresent = (idpName: string) => {
+    cy.get('body').then(($body) => {
+      if ($body.text().includes(idpName)) {
+        cy.contains(idpName).should('be.visible').click();
+      }
+    });
+  };
+
+  const fillAndSubmitLoginForm = (args: {
+    idpName: string;
+    usernameSel: string;
+    passwordSel: string;
+    submitSel: string;
+    user: string;
+    pass: string;
+  }) => {
+    cy.get('main form').should('be.visible');
+    selectIdpIfPresent(args.idpName);
+    cy.get(args.usernameSel).type(args.user);
+    cy.get(args.passwordSel).type(args.pass);
+    cy.get(args.submitSel).click();
+  };
+
+  const closeTourPopupIfPresent = () => {
+    cy.get('body').then(($body) => {
+      if ($body.find(SELECTORS.tourPopup).length) {
+        cy.get(SELECTORS.tourPopup).click();
+      }
+    });
+  };
+
+  cy.visit('/'); // visits baseUrl
+
+  // If auth is disabled (local dev), skip the login flow entirely.
   cy.window().then((win: ConsoleWindowType) => {
     if (win.SERVER_FLAGS?.authDisabled) {
       cy.log('skipping login, console is running with auth disabled');
-
       cy.contains('li[data-test="nav"]', 'Networking').click();
       cy.contains(
         '*[data-test-id="nodenetworkconfigurationpolicy-nav-item"]',
         'NodeNetworkConfigurationPolicy',
       ).should('be.visible');
-      return;
+      return 'authDisabled' as const;
     }
+    return 'authEnabled' as const;
+  }).then((authMode) => {
+    if (authMode === 'authDisabled') return;
 
-    cy.clearCookie('openshift-session-token');
+    // OpenShift redirects unauthenticated users to oauth-openshift.apps... (different origin than
+    // console-openshift-console...). Cypress 12+ requires cy.origin() for commands on that page.
+    cy.url().then((currentUrl) => {
+      const url = new URL(currentUrl);
+      const isOauthOrigin = url.hostname.includes('oauth-openshift');
 
-    const idp = provider || KUBEADMIN_IDP;
+      cy.clearCookie('openshift-session-token');
 
-    cy.get('main form').should('be.visible');
+      if (isOauthOrigin) {
+        cy.origin(
+          url.origin,
+          {
+            args: {
+              idpName: idp,
+              user,
+              pass,
+              usernameSel: SELECTORS.usernameInput,
+              passwordSel: SELECTORS.passwordInput,
+              submitSel: SELECTORS.submitButton,
+            },
+          },
+          ({ idpName, user, pass, usernameSel, passwordSel, submitSel }) => {
+            cy.get('main form').should('be.visible');
 
-    cy.get('body').then(($body) => {
-      if ($body.text().includes(idp)) {
-        cy.contains(idp).should('be.visible').click();
+            cy.get('body').then(($body) => {
+              if ($body.text().includes(idpName)) {
+                cy.contains(idpName).should('be.visible').click();
+              }
+            });
+
+            cy.get(usernameSel).type(user);
+            cy.get(passwordSel).type(pass);
+            cy.get(submitSel).click();
+          },
+        );
+      } else {
+        fillAndSubmitLoginForm({
+          idpName: idp,
+          user,
+          pass,
+          usernameSel: SELECTORS.usernameInput,
+          passwordSel: SELECTORS.passwordInput,
+          submitSel: SELECTORS.submitButton,
+        });
       }
-    });
 
-    cy.get(SELECTORS.usernameInput).type(username || KUBEADMIN_USERNAME);
-    cy.get(SELECTORS.passwordInput).type(password || Cypress.env('KUBEADMIN_PASSWORD'));
-    cy.get(SELECTORS.submitButton).click();
-
-    cy.wait(20000);
-
-    // Close tour popup if present
-    cy.get('body').then(($body) => {
-      if ($body.find(SELECTORS.tourPopup).length) {
-        cy.get(SELECTORS.tourPopup).click();
-      }
+      cy.wait(20000);
+      closeTourPopupIfPresent();
     });
   });
 });
