@@ -1,4 +1,6 @@
 {
+  "({{inheritedMTU}} from existing bridge)": "",
+  "({{inheritedMTU}} from uplink)": "",
   "(IPv4)": "(IPv4)",
   "{{annotationsCount}} Annotations": "{{annotationsCount}} anotaciones",
   "{{count}} aborted enactments_one": "{{count}} promulgación abortada_one",
@@ -37,8 +39,8 @@
   "An error occurred": "Ocurrió un error",
   "Annotations": "Anotaciones",
   "Apply this only to specific subsets of nodes using the node selector": "Aplicar esto solo a subconjuntos específicos de nodos con el selector de nodos",
-  "Apply to all the nodes on the cluster": "Aplicar a todos los nodos del clúster",
-  "Apply to specific subsets of Nodes using the Nodes selector": "Aplicar a subconjuntos específicos de nodos con el selector de nodos",
+  "Apply to all the worker nodes on the cluster": "",
+  "Apply to specific subsets of nodes using the node selector": "",
   "Are you sure you want to remove {{interfaceType}} interface <5>{{name}}</5>?": "¿Confirma que desea eliminar la interfaz {{interfaceType}} <5>{{name}}</5>?",
   "Auto-DNS": "DNS automático",
   "Auto-gateway": "Puerta de enlace automática",

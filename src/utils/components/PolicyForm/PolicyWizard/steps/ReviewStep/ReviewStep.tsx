@@ -22,10 +22,12 @@ import { SidebarEditorProvider } from '@utils/components/SidebarEditor/SidebarEd
 import SidebarEditorSwitch from '@utils/components/SidebarEditor/SidebarEditorSwitch';
 import { NO_DATA_DASH } from '@utils/constants';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { getMTU, getOVNBridgeName, getOVNLocalnet } from '@utils/resources/policies/selectors';
+import { getOVNBridgeName, getOVNLocalnet } from '@utils/resources/policies/selectors';
 import { getUplinkDisplayText } from '@utils/resources/policies/utils';
 
 import NodeNetworkConfigurationPolicyModel from '../../../../../../console-models/NodeNetworkConfigurationPolicyModel';
+
+import MTUDetailItem from './components/MTUDetailItem';
 
 import './ReviewStep.scss';
 
@@ -120,7 +122,7 @@ const ReviewStep: FC<ReviewStepProps> = ({
                 header={t('Bridge name')}
                 description={getOVNBridgeName(policy) || NO_DATA_DASH}
               />
-              <DetailItem header={t('MTU')} description={getMTU(policy) || NO_DATA_DASH} />
+              <MTUDetailItem policy={policy} />
             </DescriptionList>
           </StackItem>
           <StackItem isFilled />

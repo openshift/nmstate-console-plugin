@@ -2,4 +2,8 @@
 
 .settings-step {
   width: vars.$nncp-wizard-step-width;
+
+  input[type='number'] {
+    max-width: 100%;
+  }
 }

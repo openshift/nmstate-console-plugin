@@ -36,7 +36,12 @@ const useNodeInterfaces: UseNodeInterfaces = (nodeSelector) => {
   const availableInterfaces = getAvailableInterfacesForNodes(selectedNodeNNSResources);
   const existingInterfaceNames = getExistingInterfaceNames(nnsResources);
 
-  return { availableInterfaces, existingInterfaceNames, loaded: nnsLoaded && data?.nodes?.loaded };
+  return {
+    availableInterfaces,
+    existingInterfaceNames,
+    loaded: nnsLoaded && data?.nodes?.loaded,
+    selectedNodeNNSResources,
+  };
 };
 
 export default useNodeInterfaces;

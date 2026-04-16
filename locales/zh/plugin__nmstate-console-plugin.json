@@ -1,4 +1,6 @@
 {
+  "({{inheritedMTU}} from existing bridge)": "",
+  "({{inheritedMTU}} from uplink)": "",
   "(IPv4)": "(IPv4)",
   "{{annotationsCount}} Annotations": "{{annotationsCount}} 注解",
   "{{count}} aborted enactments_one": "{{count}} 个中止的 enactments",
@@ -32,8 +34,8 @@
   "An error occurred": "发生错误",
   "Annotations": "注解",
   "Apply this only to specific subsets of nodes using the node selector": "只应用到使用节点选择器的节点子集",
-  "Apply to all the nodes on the cluster": "应用到集群中的所有节点",
-  "Apply to specific subsets of Nodes using the Nodes selector": "应用到使用节点选择器的节点子集",
+  "Apply to all the worker nodes on the cluster": "",
+  "Apply to specific subsets of nodes using the node selector": "",
   "Are you sure you want to remove {{interfaceType}} interface <5>{{name}}</5>?": "您确定要删除 {{interfaceType}} 接口 <5>{{name}}</5> 吗？",
   "Auto-DNS": "Auto-DNS",
   "Auto-gateway": "Auto-gateway",

@@ -1,4 +1,6 @@
 {
+  "({{inheritedMTU}} from existing bridge)": "",
+  "({{inheritedMTU}} from uplink)": "",
   "(IPv4)": "(IPv4)",
   "{{annotationsCount}} Annotations": "{{annotationsCount}} 個のアノテーション",
   "{{count}} aborted enactments_one": "中止された施行: {{count}} 件",
@@ -32,8 +34,8 @@
   "An error occurred": "エラーが発生しました",
   "Annotations": "アノテーション",
   "Apply this only to specific subsets of nodes using the node selector": "ノードセレクターを使用して、特定のノードサブセットにのみこれを適用します",
-  "Apply to all the nodes on the cluster": "クラスター上のすべてのノードに適用します",
-  "Apply to specific subsets of Nodes using the Nodes selector": "ノードセレクターを使用して、特定のノードサブセットに適用します",
+  "Apply to all the worker nodes on the cluster": "",
+  "Apply to specific subsets of nodes using the node selector": "",
   "Are you sure you want to remove {{interfaceType}} interface <5>{{name}}</5>?": "{{interfaceType}} インターフェイス <5>{{name}}</5> を削除してもよろしいですか?",
   "Auto-DNS": "自動 DNS",
   "Auto-gateway": "自動ゲートウェイ",
