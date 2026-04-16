@@ -13,4 +13,5 @@ export type NodeInterfacesData = {
   availableInterfaces: NodeNetworkConfigurationInterface[];
   existingInterfaceNames: string[];
   loaded: boolean;
+  selectedNodeNNSResources: V1beta1NodeNetworkState[];
 };

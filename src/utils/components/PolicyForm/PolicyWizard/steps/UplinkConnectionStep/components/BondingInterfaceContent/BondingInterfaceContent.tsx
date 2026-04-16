@@ -70,6 +70,7 @@ const BondingInterfaceContent: FC<BondingInterfaceContentProps> = ({
               text={t('Network interfaces')}
             />
           }
+          isRequired
           fieldId="bonding-port"
         >
           <NetworkInterfacesSelect policy={policy} setPolicy={setPolicy} />

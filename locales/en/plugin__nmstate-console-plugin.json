@@ -1,4 +1,6 @@
 {
+  "({{inheritedMTU}} from existing bridge)": "({{inheritedMTU}} from existing bridge)",
+  "({{inheritedMTU}} from uplink)": "({{inheritedMTU}} from uplink)",
   "(IPv4)": "(IPv4)",
   "{{annotationsCount}} Annotations": "{{annotationsCount}} Annotations",
   "{{count}} aborted enactments_one": "{{count}} aborted enactment",
@@ -32,8 +34,8 @@
   "An error occurred": "An error occurred",
   "Annotations": "Annotations",
   "Apply this only to specific subsets of nodes using the node selector": "Apply this only to specific subsets of nodes using the node selector",
-  "Apply to all the nodes on the cluster": "Apply to all the nodes on the cluster",
-  "Apply to specific subsets of Nodes using the Nodes selector": "Apply to specific subsets of Nodes using the Nodes selector",
+  "Apply to all the worker nodes on the cluster": "Apply to all the worker nodes on the cluster",
+  "Apply to specific subsets of nodes using the node selector": "Apply to specific subsets of nodes using the node selector",
   "Are you sure you want to remove {{interfaceType}} interface <5>{{name}}</5>?": "Are you sure you want to remove {{interfaceType}} interface <5>{{name}}</5>?",
   "Auto-DNS": "Auto-DNS",
   "Auto-gateway": "Auto-gateway",

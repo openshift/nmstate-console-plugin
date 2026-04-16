@@ -15,6 +15,7 @@ import FormGroupHelperText from '@utils/components/FormGroupHelperText/FormGroup
 import TextWithHelpIcon from '@utils/components/HelpTextIcon/TextWithHelpIcon';
 import { validateMTU } from '@utils/components/PolicyForm/PolicyWizard/steps/SettingsStep/utils/utils';
 import useBridgeNameValidation from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useBridgeNameValidation';
+import useInheritedMTU from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useInheritedMTU/useInheritedMTU';
 import { updateBridgeName } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import {
@@ -22,6 +23,8 @@ import {
   getInterfaceName,
   getMTU,
 } from '@utils/resources/policies/selectors';
+
+import { DEFAULT_MTU } from './utils/constants';
 
 import './SettingsStep.scss';
 
@@ -35,8 +38,10 @@ const SettingsStep: FC<ConfigurationStepProps> = ({ policy, setPolicy }) => {
   const [mtuValidationMessage, setMTUValidationMessage] = useState<string>('');
   const [nameValidationMessage, setNameValidationMessage] = useState<string>('');
   const validateName = useBridgeNameValidation(policy);
+  const inheritedMTU = useInheritedMTU(policy);
 
   const currentMTU = getMTU(policy);
+  const mtuPlaceholder = (inheritedMTU ?? DEFAULT_MTU).toString();
   const mtuValidation = mtuValidationMessage ? ValidatedOptions.error : ValidatedOptions.default;
   const nameValidation = nameValidationMessage ? ValidatedOptions.error : ValidatedOptions.default;
 
@@ -93,7 +98,7 @@ const SettingsStep: FC<ConfigurationStepProps> = ({ policy, setPolicy }) => {
               type="number"
               id="mtu"
               name="mtu"
-              placeholder={'1500'}
+              placeholder={mtuPlaceholder}
               validated={mtuValidation}
               value={currentMTU}
               onChange={(_, newMTU) => handleMTUChange(newMTU)}

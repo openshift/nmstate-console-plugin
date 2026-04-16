@@ -1,4 +1,6 @@
 {
+  "({{inheritedMTU}} from existing bridge)": "",
+  "({{inheritedMTU}} from uplink)": "",
   "(IPv4)": "(IPv4)",
   "{{annotationsCount}} Annotations": "{{annotationsCount}} 주석",
   "{{count}} aborted enactments_one": "{{count}} 중단된 실행",
@@ -32,8 +34,8 @@
   "An error occurred": "오류가 발생했습니다",
   "Annotations": "주석",
   "Apply this only to specific subsets of nodes using the node selector": "노드 선택기를 사용하여 특정 노드 하위 집합에만 적용합니다",
-  "Apply to all the nodes on the cluster": "클러스터의 모든 노드에 적용합니다",
-  "Apply to specific subsets of Nodes using the Nodes selector": "노드 선택기를 사용하여 노드의 특정 하위 집합에 적용합니다",
+  "Apply to all the worker nodes on the cluster": "",
+  "Apply to specific subsets of nodes using the node selector": "",
   "Are you sure you want to remove {{interfaceType}} interface <5>{{name}}</5>?": "{{interfaceType}} 인터페이스 <5>{{name}}</5> 를 제거하시겠습니까?",
   "Auto-DNS": "Auto-DNS",
   "Auto-gateway": "Auto-gateway",

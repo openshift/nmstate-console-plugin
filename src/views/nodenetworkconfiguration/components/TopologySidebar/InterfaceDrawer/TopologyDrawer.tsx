@@ -1,21 +1,24 @@
 import React, { FC, ReactNode, useState } from 'react';
-import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { useNavigate } from 'react-router-dom-v5-compat';
+import { useLocation } from 'react-router-dom-v5-compat';
+import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
+
+import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
 import {
+  Alert,
+  AlertActionCloseButton,
+  AlertVariant,
   Drawer,
   DrawerContent,
   DrawerContentBody,
-  DrawerPanelContent,
   DrawerPanelBody,
-  Alert,
-  AlertVariant,
-  AlertActionCloseButton,
+  DrawerPanelContent,
 } from '@patternfly/react-core';
-import '.././TopologySidebar.scss';
-import CustomDrawer from '../CustomDrawer';
-import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
-import { useLocation } from 'react-router-dom-v5-compat';
+
 import { CREATE_POLICY_QUERY_PARAM } from '../constants';
+import CustomDrawer from '../CustomDrawer';
+
+import '.././TopologySidebar.scss';
 
 type Props = {
   states: V1beta1NodeNetworkState[];
@@ -46,7 +49,6 @@ const TopologyDrawer: FC<Props> = ({ states, children }) => {
             isResizable
             defaultSize="1200px"
             minSize="150px"
-            maxSize="1200px"
             role="dialog"
             aria-label={t('Topology side panel')}
             className="drawerPanelContent"

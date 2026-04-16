@@ -48,7 +48,7 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
           <Radio
             id="node-selection-radio-all"
             isChecked={nodeSelectionOption === NodeSelectionOptions.AllNodes}
-            label={t('Apply to all the nodes on the cluster')}
+            label={t('Apply to all the worker nodes on the cluster')}
             name="node-selection-radio-group"
             onChange={() => {
               setPolicy((draftPolicy) => {
@@ -66,7 +66,7 @@ const NodeSelectionRadioGroup: FC<NodeSelectionRadioGroupProps> = ({ policy, set
           <Radio
             id="node-selection-radio-select"
             isChecked={nodeSelectionOption === NodeSelectionOptions.SelectNodes}
-            label={t('Apply to specific subsets of Nodes using the Nodes selector')}
+            label={t('Apply to specific subsets of nodes using the node selector')}
             name="node-selection-radio-group"
             onChange={() => {
               setNodeSelectorOpen(true);
