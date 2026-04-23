@@ -15,6 +15,26 @@ export const PhysicalNetworksExtensions: EncodedExtension[] = [
     },
     properties: {
       dataAttributes: {
+        'data-quickstart-id': 'qs-nav-physical-networks-virt-perspective',
+        'data-test-id': 'physical-networks-virt-perspective-nav-item',
+      },
+      href: '/physical-networks',
+      id: 'physical-networks-virt-perspective',
+      insertBefore: 'networkpolicies-virt-perspective',
+      name: '%plugin__nmstate-console-plugin~Physical networks%',
+      prefixNamespaced: false,
+      section: 'networking-virt-perspective',
+      perspective: 'virtualization-perspective',
+      insertAfter: ['udns-virt-perspective', 'node-network-configuration-virt-perspective'],
+    },
+    type: 'console.navigation/href',
+  } as EncodedExtension<HrefNavItem>,
+  {
+    flags: {
+      required: ['NMSTATE_DYNAMIC'],
+    },
+    properties: {
+      dataAttributes: {
         'data-quickstart-id': 'qs-nav-physical-networks',
         'data-test-id': 'physical-networks-nav-item',
       },
