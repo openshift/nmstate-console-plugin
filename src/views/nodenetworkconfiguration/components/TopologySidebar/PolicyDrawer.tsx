@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import { useLocation } from 'react-router-dom-v5-compat';
+import { useLocation } from 'react-router';
 import PolicyDetailsPage from 'src/views/policies/details/PolicyDetailsPage';
 import PolicyPageTitle from 'src/views/policies/details/PolicyPageTitle';
 import PolicyYAMLPage from 'src/views/policies/details/PolicyYamlPage';

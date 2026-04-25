@@ -1,6 +1,8 @@
-import type { EncodedExtension } from '@openshift/dynamic-plugin-sdk';
+import type {
+  EncodedExtension,
+  ConsolePluginBuildMetadata,
+} from '@openshift-console/dynamic-plugin-sdk-webpack';
 import { FeatureFlag } from '@openshift-console/dynamic-plugin-sdk';
-import type { ConsolePluginBuildMetadata } from '@openshift-console/dynamic-plugin-sdk-webpack';
 
 import {
   NodeNetworkConfigurationExtensions,

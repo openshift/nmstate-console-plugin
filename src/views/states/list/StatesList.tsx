@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom-v5-compat';
+import { useNavigate } from 'react-router';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
 import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';

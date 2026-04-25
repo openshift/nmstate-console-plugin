@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useNavigate } from 'react-router-dom-v5-compat';
+import { useNavigate } from 'react-router';
 
 import PaneHeading from '@utils/components/PaneHeading/PaneHeading';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
@@ -21,10 +21,7 @@ const PhysicalNetworksPageHeader: FC<PhysicalNetworksPageHeaderProps> = ({ showC
         {t('Physical networks')}
       </Title>
       {showCreateButton && (
-        <Button
-          onClick={() => navigate(NODE_NETWORK_CONFIGURATION_WIZARD_PATH)}
-          variant="primary"
-        >
+        <Button onClick={() => navigate(NODE_NETWORK_CONFIGURATION_WIZARD_PATH)} variant="primary">
           {t('Create network')}
         </Button>
       )}

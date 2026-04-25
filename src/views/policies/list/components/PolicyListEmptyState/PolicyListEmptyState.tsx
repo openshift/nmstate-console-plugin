@@ -12,7 +12,7 @@ import {
   EmptyStateFooter,
   EmptyStateVariant,
 } from '@patternfly/react-core';
-import ExternalLinkSquareAltIcon from '@patternfly/react-icons/dist/esm/icons/external-link-square-alt-icon';
+import { ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
 
 import CreatePolicyButtons from '../CreatePolicyButtons';
 
