@@ -2,23 +2,31 @@
 # See the OWNERS docs: https://git.k8s.io/community/contributors/guide/owners.md
 
 approvers:
-  - tnisan
-  - yaacov
-  - vojtechszocs
-  - pcbailey
-  - metalice
   - avivtur
-  - upalatucci
   - cybertron
-reviewers:
-  - tnisan
-  - yaacov
+  - lkladnit
   - metalice
+  - parthivk100
   - pcbailey
-  - avivtur
-  - vojtechszocs
-  - hstastna
+  - rszwajko
+  - ronlavi2412
+  - sjd78
   - upalatucci
+  - vojtechszocs
+reviewers:
+  - adamviktora
+  - avivtur
+  - batyana
+  - galkremer1
+  - lkladnit
+  - metalice
+  - parthivk100
+  - pcbailey
+  - rszwajko
+  - ronlavi2412
+  - sjd78
+  - upalatucci
+  - vojtechszocs
 
 # Bugzilla info;
 component: Networking
