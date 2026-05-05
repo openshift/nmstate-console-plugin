@@ -14,10 +14,7 @@ import {
   getInitialOVSBridgeInterface,
   getInitialOVSBridgeWithBond,
 } from '@utils/components/PolicyForm/PolicyWizard/utils/initialState';
-import {
-  getBridgeName,
-  getBridgePorts,
-} from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
+import { getBridgeName } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';
 import {
   getUplinkConnectionOption,
