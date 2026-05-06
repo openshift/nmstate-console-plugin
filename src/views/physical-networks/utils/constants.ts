@@ -4,6 +4,6 @@ export const DEFAULT_OVN_BRIDGE_NAME = 'br-ex';
 export const OVN_BRIDGE_MAPPINGS = 'bridge-mappings';
 
 export const NODE_NETWORK_CONFIGURATION_WIZARD_PATH =
-  'node-network-configuration?createPolicy=true';
+  '/node-network-configuration?createPolicy=true';
 
 export const PHYSICAL_NETWORK_NAME_PARAM_KEY = 'physicalNetworkName';
