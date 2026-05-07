@@ -4,6 +4,7 @@ import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
 } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { isEmpty } from '@utils/helpers';
 import { getInterfaces } from '@utils/resources/nns/getters';
 import { getEthernetInterfaces } from '@utils/resources/nns/utils';
 
@@ -46,6 +47,8 @@ const nnsInterfaceComparator = (
 ) => ifaceA.name === ifaceB.name;
 
 export const getAvailableInterfacesForNodes = (nodeNetworkStates: V1beta1NodeNetworkState[]) => {
-  const portsByNode = nodeNetworkStates.map((nns) => getAvailableInterfacesForNode(nns));
+  if (isEmpty(nodeNetworkStates)) return [];
+
+  const portsByNode = nodeNetworkStates?.map((nns) => getAvailableInterfacesForNode(nns));
   return intersectionWith(...portsByNode, nnsInterfaceComparator);
 };
