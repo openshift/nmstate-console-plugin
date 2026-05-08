@@ -1,0 +1,27 @@
+---
+description: AI context for nmstate-console-plugin — OpenShift console dynamic plugin for kubernetes-nmstate
+globs:
+alwaysApply: true
+---
+
+# nmstate-console-plugin
+
+OpenShift console dynamic plugin for kubernetes-nmstate. Provides UI views for policies, states, physical networks, and topology visualization.
+
+## Key Context Files
+
+- [AGENTS.md](../../AGENTS.md) — repo structure, key patterns, conventions, review guidelines
+- [ARCHITECTURE.md](../../ARCHITECTURE.md) — system design, plugin registration, data flow, dependencies
+- [CONTRIBUTING.md](../../CONTRIBUTING.md) — coding standards, linting rules, PR process
+
+## Conventions
+
+- **Components:** functional only, typed with `FC`, use PatternFly 6, default export for pages
+- **i18n:** `useNMStateTranslation()` for all user-visible strings, never hardcode English
+- **Imports:** React → external packages → internal `src/` → `@kubevirt-ui` → `@openshift-console` → `@patternfly` → CSS
+- **Path aliases:** `@utils/*`, `@models`, `@images/*`
+- **K8s data:** SDK hooks only (`useK8sWatchResource`, `k8sCreate`, `k8sPatch`) — no direct API calls
+- **Models:** one file per K8s resource in `src/console-models/`, export `GroupVersionKind` + `Ref`, re-export from `index.ts`
+- **Views:** each view has `manifest.ts` with `ExposedModules` + `Extensions`, aggregated in `plugin-manifest.ts`
+- **Linting:** ESLint + Prettier, single quotes, trailing commas, 100-char width, `simple-import-sort`
+- **Testing:** Jest (`npm test`), Cypress e2e (`npm run cypress`), mock SDK + i18n via `src/__mocks__/`
