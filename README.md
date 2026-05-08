@@ -19,7 +19,7 @@ NMState is a tool for state-driven network configuration on cluster nodes. This 
 ## Quick Start
 
 ```bash
-git clone git@github.com:upalatucci/nmstate-console-plugin.git
+git clone git@github.com:openshift/nmstate-console-plugin.git
 cd nmstate-console-plugin
 npm install
 npm run start-console
@@ -96,7 +96,7 @@ The OpenShift console runs in a container connected to your current cluster. The
 
 #### Running with a remote NMState API server
 
-When running [OpenShift Local](https://developers.redhat.com/products/openshift-local), install NMState and KubeVirt via OperatorHub. On [KinD](https://sigs.k8s.io/kind), use the [CI scripts](https://github.com/upalatucci/nmstate-console-plugin/tree/main/scripts).
+When running [OpenShift Local](https://developers.redhat.com/products/openshift-local), install NMState and KubeVirt via OperatorHub. On [KinD](https://sigs.k8s.io/kind), use the [CI scripts](https://github.com/openshift/nmstate-console-plugin/tree/main/scripts).
 
 ```bash
 export BRIDGE_K8S_MODE_OFF_CLUSTER_ENDPOINT=$(oc whoami --show-server)
@@ -173,7 +173,7 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for coding sta
 | [OpenShift web console](https://github.com/openshift/console)                   | Web-based user interface for OpenShift                      |
 | [OpenShift Dynamic Plugin SDK](https://github.com/openshift/dynamic-plugin-sdk) | Dynamic plugin SDK for OpenShift user interfaces            |
 | [NMState documentation](https://nmstate.io/)                                    | Usage documentation for NMState configuration               |
-| [PatternFly](https://www.patternfly.org/)                                       | Open source design system used for OpenShift UI development |
+| [PatternFly](https://www.patternfly.org/)                                       | Open-source design system used for OpenShift UI development |
 
 ## Credit
 

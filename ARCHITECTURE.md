@@ -4,7 +4,7 @@ This document describes the high-level architecture of nmstate-console-plugin, a
 
 ## System Context
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │                 OpenShift Console                │
 │                                                  │
@@ -39,7 +39,7 @@ The plugin runs as a remote webpack module loaded by the OpenShift console at ru
 
 The plugin registers itself with the console via `plugin-manifest.ts`, which aggregates extensions from each view's `manifest.ts`:
 
-```
+```text
 plugin-manifest.ts
 ├── pluginMetadata        (name, version, exposedModules)
 └── extensions[]          (nav items, pages, templates, feature flags)
@@ -60,7 +60,7 @@ Each manifest exports:
 
 Each view is a self-contained feature directory under `src/views/`:
 
-```
+```text
 src/views/{view}/
 ├── manifest.ts              # Plugin extension registration
 ├── constants.ts             # View-specific constants
@@ -86,7 +86,7 @@ src/views/{view}/
 
 ### Shared Utilities
 
-```
+```text
 src/utils/
 ├── components/       # Reusable UI: Loading spinner, HelpTextIcon, etc.
 ├── hooks/            # useNMStateTranslation, shared data hooks
@@ -110,7 +110,7 @@ Resource utilities follow a consistent pattern:
 
 ### K8s Models & Types
 
-```
+```text
 src/console-models/           # K8sModel definitions (used by SDK)
 ├── NMStateModel.ts           #   NMState (nmstate.io/v1)
 ├── NodeNetworkConfigurationPolicyModel.ts
@@ -133,7 +133,7 @@ Models serve two purposes:
 
 ## Data Flow
 
-```
+```text
 K8s API (NMState CRDs)
         │
         ▼
@@ -164,7 +164,7 @@ The plugin sets a single feature flag on load:
 
 ## Build & Deployment
 
-```
+```text
 Source (TypeScript/React)
         │
         ▼ webpack + ConsoleRemotePlugin

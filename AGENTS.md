@@ -10,7 +10,7 @@ This is an OpenShift console dynamic plugin for kubernetes-nmstate. It provides 
 
 ## Repository Structure
 
-```
+```text
 src/
 ├── console-models/          # K8s resource model definitions (K8sModel objects)
 ├── nmstate-types/            # NMState CRD types and custom models

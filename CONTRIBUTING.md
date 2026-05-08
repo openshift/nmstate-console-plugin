@@ -82,7 +82,7 @@ npm run test:coverage       # Run with coverage report
 npm run test:updateSnapshot # Update snapshots
 ```
 
-Tests live alongside source files as `*.test.ts` or `*.spec.ts`. The SDK and i18n are mocked via `src/__mocks__/`.
+Tests live alongside source files as `*.test.ts(x)` or `*.spec.ts(x)`. The SDK and i18n are mocked via `src/__mocks__/`.
 
 ### E2E tests (Cypress)
 
