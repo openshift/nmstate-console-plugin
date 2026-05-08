@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.yaml
+
+language: en-US
+tone_instructions: >
+  Be concise and direct. Focus on correctness, SDK compatibility, and PatternFly
+  best practices. This is an OpenShift console dynamic plugin — flag any direct
+  K8s API calls, missing i18n, or incorrect extension registration.
+
+reviews:
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  path_instructions:
+    - path: "src/views/**/manifest.ts"
+      instructions: >
+        These files register plugin extensions with the OpenShift console.
+        Verify that EncodedExtension types match the extension type string,
+        ExposedModules paths resolve to real files, and nav items include
+        both admin and virtualization perspectives where appropriate.
+    - path: "src/console-models/**"
+      instructions: >
+        K8s model definitions. Verify apiGroup, apiVersion, kind, and plural
+        are correct for the CRD. Ensure GroupVersionKind and Ref exports exist
+        and the model is re-exported from index.ts.
+    - path: "src/views/**/*.tsx"
+      instructions: >
+        React components must use PatternFly 6, functional components with FC
+        typing, and useNMStateTranslation() for all user-visible strings.
+        No hardcoded English text in JSX.
+    - path: "src/utils/resources/**"
+      instructions: >
+        Resource utilities must use SDK hooks (useK8sWatchResource) and SDK
+        mutation functions (k8sCreate, k8sPatch, k8sDelete). No direct fetch
+        calls to the K8s API.
+  path_filters:
+    - "!package-lock.json"
+    - "!locales/**"
+    - "!src/nmstate-types/crds/**"
+    - "!dist/**"
+    - "!node_modules/**"
+    - "!i18n-scripts/**"
+  auto_review:
+    enabled: true
+    drafts: false
