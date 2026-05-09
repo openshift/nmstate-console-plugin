@@ -10,13 +10,14 @@ For initial setup (clone, install, running the dev server), see [README.md](READ
 
 - Functional components only, typed with `FC` from React
 - Use PatternFly 6 components for all UI — no custom HTML elements for standard patterns
+- One component per file — utility files, types (aside from props), constants, etc. go in a `utils/` folder within the component's directory
 - Define props as TypeScript `type` in the same file or a co-located `types.ts`
 - Default export for page-level components
 - Use path aliases for cross-directory imports: `@utils/*`, `@models`, `@images/*`
 
 ### Internationalization
 
-All user-visible strings must be translated:
+All user-visible strings must be translated. Use `useNMStateTranslation()` for simple strings and the `Trans` component for strings with embedded HTML:
 
 ```tsx
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
@@ -111,10 +112,11 @@ Follow the existing commit style — short imperative subject line describing th
 2. Run `npm test` and ensure tests pass
 3. Test your changes in the console (run `npm run start-console`)
 4. Update translations if you added user-visible strings (`npm run i18n`)
+5. Update context files (CLAUDE.md, AGENTS.md, ARCHITECTURE.md) if adding or modifying the directory structure
 
 ### Review
 
-- PRs require approval from at least one reviewer listed in [OWNERS](OWNERS)
+- PRs require approval from at least one person in the reviewer list and a different person from the approver list in [OWNERS](OWNERS). If the submitter is in one of the lists, their ack is added automatically
 - Merge via merge commit (the repo uses merge commits, not squash)
 - CI runs Prow-based checks — ensure `test-prow-e2e.sh` passes
 

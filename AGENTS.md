@@ -56,40 +56,29 @@ Defined in `tsconfig.json`:
 - `@utils/*` → `src/utils/*`
 - `@models` → `src/console-models/index.ts`
 
-### React components
+### React components & i18n
 
-- Functional components only, typed with `FC` from React
-- PatternFly 6 components for all UI elements
-- Props defined as TypeScript `type` (not `interface`) in the same file or a `types.ts` file
-- Default export for page-level components
+For coding standards (component rules, PatternFly usage, i18n, linting), see [CONTRIBUTING.md](CONTRIBUTING.md#coding-standards).
 
-### Internationalization (i18n)
-
-- Use `useNMStateTranslation()` hook (wraps `useTranslation('plugin__nmstate-console-plugin')`)
+Key details for code generation:
 - Translation keys use the `plugin__nmstate-console-plugin~` prefix
 - In manifest files, use `%plugin__nmstate-console-plugin~Label%` syntax for nav item names
+- Shared hooks (used in multiple locations) live in `src/utils/hooks/`; single-use hooks are co-located with the component that uses them
 
 ### State management
 
 - No global state library — uses OpenShift SDK's `useK8sWatchResource` for K8s data
 - Local component state via React `useState`/`useReducer`
-- Custom hooks in `src/utils/hooks/` for shared logic
 
 ## Conventions
 
-### File naming
+For full coding standards, linting rules, testing, and PR process, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+### File & directory naming
 - React components: `PascalCase.tsx`
 - Utilities, hooks, constants: `camelCase.ts`
+- Directories for components use PascalCase, directories for hooks use camelCase, all other directories use kebab-case
 - Each view directory has a `manifest.ts`, `constants.ts`, and optionally `utils.ts`
-
-### Imports
-- Group imports: React first, then `react-router`, then internal `src/` paths, then `@kubevirt-ui`, then `@openshift-console`, then `@patternfly`
-- Use path aliases (`@utils/*`, `@models`) for cross-directory imports
-
-### Testing
-- Unit tests: Jest + `ts-jest`, files named `*.test.ts` or `*.spec.ts` under `src/`
-- E2E tests: Cypress, specs in `cypress/e2e/`
-- Mock `@openshift-console/*` and `react-i18next` via `src/__mocks__/`
 
 ### Deployment
 - Webpack builds the plugin as a dynamic console remote module
@@ -100,9 +89,9 @@ Defined in `tsconfig.json`:
 
 When reviewing changes to this codebase:
 
-1. **SDK compatibility** — verify that `@openshift-console/dynamic-plugin-sdk` APIs are used correctly; the SDK version is pinned to `4.22.0-prerelease.3`
-2. **i18n** — all user-visible strings must use the translation hook, never hardcode English text
-3. **PatternFly** — use PatternFly components instead of custom HTML; follow PatternFly 6 patterns
+1. **SDK compatibility** — verify that `@openshift-console/dynamic-plugin-sdk` APIs are used correctly; the SDK version should correspond to the nmstate branch
+2. **i18n** — all user-visible strings must use the `useNMStateTranslation` hook or the `Trans` component; never hardcode English text
+3. **PatternFly** — use PatternFly components and PF utility classes instead of custom HTML/CSS; follow PatternFly 6 patterns
 4. **Type safety** — `strict` is `false` in tsconfig, but new code should use explicit types
 5. **Model consistency** — new K8s resources need a model in `console-models/`, a manifest entry, and registration in `plugin-manifest.ts`
 6. **No direct K8s API calls** — use the OpenShift SDK hooks (`useK8sWatchResource`, `k8sCreate`, `k8sPatch`, etc.)

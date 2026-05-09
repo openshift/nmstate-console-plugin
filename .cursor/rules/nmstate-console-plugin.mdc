@@ -17,8 +17,8 @@ OpenShift console dynamic plugin for kubernetes-nmstate. Provides UI views for p
 ## Conventions
 
 - **Components:** functional only, typed with `FC`, use PatternFly 6, default export for pages
-- **i18n:** `useNMStateTranslation()` for all user-visible strings, never hardcode English
-- **Imports:** React → external packages → internal `src/` → `@kubevirt-ui` → `@openshift-console` → `@patternfly` → CSS
+- **i18n:** `useNMStateTranslation()` or `Trans` component for all user-visible strings, never hardcode English
+- **Imports:** sorted by `eslint-plugin-simple-import-sort` — React → external packages → internal `src/` → `@kubevirt-ui` → `@openshift-console` → `@patternfly` → CSS
 - **Path aliases:** `@utils/*`, `@models`, `@images/*`
 - **K8s data:** SDK hooks only (`useK8sWatchResource`, `k8sCreate`, `k8sPatch`) — no direct API calls
 - **Models:** one file per K8s resource in `src/console-models/`, export `GroupVersionKind` + `Ref`, re-export from `index.ts`

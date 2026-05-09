@@ -19,7 +19,7 @@ Read these files for full context before working on this codebase:
 **Views:** `src/views/policies/`, `src/views/states/`, `src/views/physical-networks/`, `src/views/nodenetworkconfiguration/`
 
 **Key rules:**
-- Use `useNMStateTranslation()` for all user-visible strings — never hardcode English
+- Use `useNMStateTranslation()` or the `Trans` component for all user-visible strings — never hardcode English
 - Use PatternFly 6 components — no custom HTML for standard patterns
 - Use SDK hooks (`useK8sWatchResource`, `k8sCreate`, `k8sPatch`) — no direct K8s API calls
 - Each view registers via `manifest.ts` → aggregated in `plugin-manifest.ts`

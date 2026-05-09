@@ -4,7 +4,8 @@ language: en-US
 tone_instructions: >
   Be concise and direct. Focus on correctness, SDK compatibility, and PatternFly
   best practices. This is an OpenShift console dynamic plugin — flag any direct
-  K8s API calls, missing i18n, or incorrect extension registration.
+  K8s API calls, missing i18n (must use useNMStateTranslation hook or Trans
+  component), or incorrect extension registration.
 
 reviews:
   request_changes_workflow: false
@@ -26,9 +27,11 @@ reviews:
         and the model is re-exported from index.ts.
     - path: "src/views/**/*.tsx"
       instructions: >
-        React components must use PatternFly 6, functional components with FC
-        typing, and useNMStateTranslation() for all user-visible strings.
-        No hardcoded English text in JSX.
+        React components must use PatternFly 6 components and PF utility classes,
+        functional components with FC typing, and useNMStateTranslation() for
+        simple user-visible strings or the Trans component for strings with
+        embedded HTML. No hardcoded English text in JSX. Each file should contain
+        only a single component.
     - path: "src/utils/resources/**"
       instructions: >
         Resource utilities must use SDK hooks (useK8sWatchResource) and SDK

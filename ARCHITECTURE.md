@@ -58,7 +58,7 @@ Each manifest exports:
 
 ### Views
 
-Each view is a self-contained feature directory under `src/views/`:
+Each view is a self-contained feature directory under `src/views/`. A typical view may include:
 
 ```text
 src/views/{view}/
@@ -104,8 +104,7 @@ src/utils/
 ```
 
 Resource utilities follow a consistent pattern:
-- **getters** — extract fields from K8s resource objects
-- **selectors** — filter/sort collections of resources
+- **selectors** — extract fields from K8s resource objects and may also transform the extracted data
 - **utils** — transform or compute derived data
 
 ### K8s Models & Types
@@ -140,7 +139,7 @@ K8s API (NMState CRDs)
 useK8sWatchResource(model)     ← SDK hook, real-time watch
         │
         ▼
-Resource getters/selectors     ← src/utils/resources/
+Resource selectors              ← src/utils/resources/
         │
         ▼
 View component                 ← src/views/{view}/
@@ -150,7 +149,7 @@ PatternFly UI                  ← tables, forms, topology
 ```
 
 1. **Watch** — view components call `useK8sWatchResource` with a `K8sModel` to establish a real-time watch on cluster resources
-2. **Transform** — resource utilities (getters, selectors) extract and reshape the raw K8s objects for display
+2. **Transform** — resource selectors extract and reshape the raw K8s objects for display
 3. **Render** — PatternFly components render the data as tables, forms, detail pages, or topology graphs
 4. **Mutate** — create/edit/delete operations use SDK functions (`k8sCreate`, `k8sPatch`, `k8sDelete`) which proxy through the console backend
 
