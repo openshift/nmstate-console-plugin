@@ -58,7 +58,7 @@ Each manifest exports:
 
 ### Views
 
-Each view is a self-contained feature directory under `src/views/`. A typical view may include:
+Each view is a self-contained feature directory under `src/views/`. The structure below is a representative example — not every view will have all of these subdirectories:
 
 ```text
 src/views/{view}/

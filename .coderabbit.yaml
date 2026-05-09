@@ -32,6 +32,13 @@ reviews:
         simple user-visible strings or the Trans component for strings with
         embedded HTML. No hardcoded English text in JSX. Each file should contain
         only a single component.
+    - path: "src/utils/components/**/*.tsx"
+      instructions: >
+        Shared React components must use PatternFly 6 components and PF utility
+        classes, functional components with FC typing, and useNMStateTranslation()
+        for simple user-visible strings or the Trans component for strings with
+        embedded HTML. No hardcoded English text in JSX. Each file should contain
+        only a single component.
     - path: "src/utils/resources/**"
       instructions: >
         Resource utilities must use SDK hooks (useK8sWatchResource) and SDK

@@ -67,8 +67,6 @@ bash scripts/clean-cluster.sh
 
 > Running virtualized workloads (e.g. virtual machines) on this cluster requires starting the cluster as root: `sudo bash scripts/deploy-cluster.sh`
 
-See [CLI docs](https://github.com/kubev2v/forklift-console-plugin/blob/main/docs/cli-tools.md) for more information about OpenShift Local and KinD.
-
 #### Running with mock data
 
 ```bash

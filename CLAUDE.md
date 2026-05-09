@@ -12,19 +12,11 @@ Read these files for full context before working on this codebase:
 
 ## Quick Reference
 
-**Stack:** React 18, TypeScript, PatternFly 6, OpenShift Dynamic Plugin SDK, Webpack, i18next
-
-**Path aliases:** `@utils/*` → `src/utils/*`, `@models` → `src/console-models/index.ts`, `@images/*` → `images/*`
-
 **Views:** `src/views/policies/`, `src/views/states/`, `src/views/physical-networks/`, `src/views/nodenetworkconfiguration/`
 
-**Key rules:**
-- Use `useNMStateTranslation()` or the `Trans` component for all user-visible strings — never hardcode English
-- Use PatternFly 6 components — no custom HTML for standard patterns
-- Use SDK hooks (`useK8sWatchResource`, `k8sCreate`, `k8sPatch`) — no direct K8s API calls
-- Each view registers via `manifest.ts` → aggregated in `plugin-manifest.ts`
-- New K8s resources need a model in `src/console-models/`, exported from `index.ts`
-
-**Linting:** ESLint + Prettier, single quotes, trailing commas, 100-char width, `simple-import-sort`
-
-**Testing:** `npm test` (Jest), `npm run cypress` (Cypress e2e)
+**Commands:**
+- `npm run start-console` — run dev server
+- `npm run lint` / `npm run lint:fix` — lint
+- `npm test` — Jest unit tests
+- `npm run cypress` — Cypress e2e tests
+- `npm run i18n` — extract translation keys
