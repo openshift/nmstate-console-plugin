@@ -104,8 +104,9 @@ src/utils/
 ```
 
 Resource utilities follow a consistent pattern:
-- **selectors** — extract fields from K8s resource objects and may also transform the extracted data
-- **utils** — transform or compute derived data
+- **selectors** (`selectors.ts`) — extract and transform fields from K8s resource objects
+- **getters** (`getters.ts`) — older naming convention for the same purpose; some resource directories still use `getters.ts` (e.g., `nns/`, `interfaces/`) while others have migrated to `selectors.ts` (e.g., `enactments/`). New code should use the `selectors` naming
+- **utils** (`utils.ts`) — transform or compute derived data
 
 ### K8s Models & Types
 
@@ -182,6 +183,15 @@ OpenShift Console loads plugin at runtime
 - **Webpack** builds the plugin using `ConsoleRemotePlugin` from the SDK, which generates the remote module entry points and plugin metadata
 - **Deployment** creates a Kubernetes `Deployment` + `Service` serving the static assets, plus a `ConsolePlugin` custom resource that registers the plugin with the console operator
 - The console operator must be patched to include `nmstate-console-plugin` in its plugin list
+
+## Release Strategy
+
+The repo maintains multiple active release branches aligned to OpenShift versions:
+
+- **`main`** — targets the next OpenShift release
+- **`release-X.Y`** — stable branches for OpenShift X.Y (currently `release-4.17` through `release-4.23`)
+
+Each release branch pins its SDK version to match (e.g., `release-4.22` uses `@openshift-console/dynamic-plugin-sdk` 4.22.x). Bug fixes and CVE remediations land on `main` first, then are cherry-picked to affected release branches as separate PRs.
 
 ## Key Dependencies
 

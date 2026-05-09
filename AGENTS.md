@@ -63,7 +63,9 @@ For coding standards (component rules, PatternFly usage, i18n, linting), see [CO
 Key details for code generation:
 - Translation keys use the `plugin__nmstate-console-plugin~` prefix
 - In manifest files, use `%plugin__nmstate-console-plugin~Label%` syntax for nav item names
-- Shared hooks (used in multiple locations) live in `src/utils/hooks/`; single-use hooks are co-located with the component that uses them
+- Shared hooks (used in 2+ components) live in `src/utils/hooks/`; single-use hooks must be co-located with the component that uses them — do not add to shared utils
+- One component per file — utility functions, types (aside from props), and constants go in a `utils/` folder within the component's directory
+- Prefer PatternFly utility classes (e.g., `pf-v6-u-mt-md`) over custom CSS for spacing and layout
 
 ### State management
 
@@ -89,9 +91,11 @@ For full coding standards, linting rules, testing, and PR process, see [CONTRIBU
 
 When reviewing changes to this codebase:
 
-1. **SDK compatibility** — verify that `@openshift-console/dynamic-plugin-sdk` APIs are used correctly; the SDK version should correspond to the nmstate branch
+1. **SDK compatibility** — verify that `@openshift-console/dynamic-plugin-sdk` APIs are used correctly; the SDK version must match the target release branch (e.g., `release-4.22` uses SDK 4.22.x)
 2. **i18n** — all user-visible strings must use the `useNMStateTranslation` hook or the `Trans` component; never hardcode English text
 3. **PatternFly** — use PatternFly components and PF utility classes instead of custom HTML/CSS; follow PatternFly 6 patterns
 4. **Type safety** — `strict` is `false` in tsconfig, but new code should use explicit types
 5. **Model consistency** — new K8s resources need a model in `console-models/`, a manifest entry, and registration in `plugin-manifest.ts`
 6. **No direct K8s API calls** — use the OpenShift SDK hooks (`useK8sWatchResource`, `k8sCreate`, `k8sPatch`, etc.)
+7. **Component isolation** — one component per file; single-use hooks stay co-located with their component, not in shared `utils/hooks/`
+8. **Naming conventions** — new resource utility files should use `selectors.ts` (not `getters.ts`); some older directories still use `getters.ts` but the project is migrating to the `selectors` naming

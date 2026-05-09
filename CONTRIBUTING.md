@@ -120,6 +120,25 @@ Follow the existing commit style — short imperative subject line describing th
 - Merge via merge commit (the repo uses merge commits, not squash)
 - CI runs Prow-based checks — ensure `test-prow-e2e.sh` passes
 
+### CVE and dependency remediation
+
+CVE fixes are the most common PR type. The typical workflow:
+
+1. Identify the vulnerable transitive dependency (e.g., `lodash`, `immutable`, `qs`) from an `OCPBUGS-*` ticket
+2. Update or pin the dependency in `package.json` and regenerate `package-lock.json`
+3. Create the fix on `main`, then cherry-pick to every active release branch (currently `release-4.17` through `release-4.23`)
+4. Title format: `OCPBUGS-{id}: CVE remediation for {package}` on `main`, prefixed with `[release-X.Y]` on release branches
+
+Each release branch gets its own PR. Use `openshift-cherrypick-robot` labels or create cherry-picks manually.
+
+### Release branches
+
+The repo maintains multiple active release branches (`release-4.17`, `release-4.18`, ..., `release-4.23`). Each branch tracks a specific OpenShift release:
+
+- **`main`** — development branch for the next release
+- **`release-X.Y`** — stable branch for OpenShift X.Y; receives bug fixes and CVE remediations via cherry-picks
+- SDK version must correspond to the target release branch (e.g., `release-4.22` uses SDK 4.22.x)
+
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE).
