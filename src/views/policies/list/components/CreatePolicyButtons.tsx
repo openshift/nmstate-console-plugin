@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 import NodeNetworkConfigurationPolicyModel, {
   NodeNetworkConfigurationPolicyModelRef,
@@ -10,7 +10,11 @@ import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { NNCP_YAML_EDITOR_OPENED } from '@utils/telemetry/constants';
 import { logNMStateEvent } from '@utils/telemetry/telemetry';
 
-const CreatePolicyButtons: FC = ({ children }) => {
+type CreatePolicyButtonsProps = {
+  children: ReactNode;
+};
+
+const CreatePolicyButtons: FC<CreatePolicyButtonsProps> = ({ children }) => {
   const { t } = useNMStateTranslation();
   const navigate = useNavigate();
 

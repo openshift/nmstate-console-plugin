@@ -14,11 +14,12 @@ import {
   NodeShape,
   NodeStatus,
 } from '@patternfly/react-topology';
+import { BASE_IFACE, LINK_AGGREGATION } from '@utils/constants';
 import { isEmpty } from '@utils/helpers';
 
 import BridgeIcon from '../components/BridgeIcon';
 
-import { GROUP, NODE_DIAMETER } from './constants';
+import { BR_INT, GENEV_SYS_PREFIX, GROUP, NODE_DIAMETER, OVN_K8S_MP0 } from './constants';
 
 const statusMap: { [key: string]: NodeStatus } = {
   up: NodeStatus.success,
@@ -27,10 +28,13 @@ const statusMap: { [key: string]: NodeStatus } = {
 };
 
 const networkTypeLevelMap = {
+  [InterfaceType.OVS_INTERFACE]: 1,
+  [InterfaceType.OVS_BRIDGE]: 2,
   [InterfaceType.LINUX_BRIDGE]: 2,
   [InterfaceType.VLAN]: 3,
   [InterfaceType.BOND]: 4,
   [InterfaceType.ETHERNET]: 5,
+  [InterfaceType.INFINIBAND]: 5,
 };
 
 export const networkNodeLevel = new Proxy(networkTypeLevelMap, {
@@ -58,25 +62,30 @@ const getIcon = (iface: NodeNetworkConfigurationInterface) => {
 const createNodes = (
   nnsName: string,
   interfaces: NodeNetworkConfigurationInterface[],
-  nnceConfigredInterfaces: NodeNetworkConfigurationInterface[],
+  nnceConfiguredInterfaces: NodeNetworkConfigurationInterface[],
 ): NodeModel[] =>
   interfaces.map((iface) => {
-    const isDerivedFromPolicy = findInterfaceByName(nnceConfigredInterfaces, iface.name);
+    const isDerivedFromPolicy = findInterfaceByName(nnceConfiguredInterfaces, iface.name);
     return {
       id: `${nnsName}~${iface.name}~${iface.type}`,
       type: ModelKind.node,
       label: iface.name,
       width: NODE_DIAMETER,
       height: NODE_DIAMETER,
-      visible: !iface.patch && iface.type !== InterfaceType.LOOPBACK,
+      visible:
+        !iface.patch &&
+        iface.type !== InterfaceType.LOOPBACK &&
+        iface.name !== OVN_K8S_MP0 &&
+        iface.name !== BR_INT &&
+        !iface.name.startsWith(GENEV_SYS_PREFIX),
       shape: isDerivedFromPolicy ? NodeShape.circle : NodeShape.rect,
       status: getStatus(iface),
       data: {
         icon: getIcon(iface),
         type: iface.type,
         bridgePorts: iface.bridge?.port,
-        bondPorts: iface['link-aggregation']?.port,
-        vlanBaseInterface: iface.vlan?.['base-iface'],
+        bondPorts: iface[LINK_AGGREGATION]?.port,
+        vlanBaseInterface: iface.vlan?.[BASE_IFACE],
         level: networkNodeLevel[iface.type],
         isDerivedFromPolicy,
       },
