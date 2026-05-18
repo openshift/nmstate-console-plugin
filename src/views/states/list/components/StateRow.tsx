@@ -10,7 +10,7 @@ import { Button, ButtonVariant, Flex, FlexItem, Popover, Title } from '@patternf
 import { ExpandableRowContent, Tbody, Td, Tr } from '@patternfly/react-table';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
-import { SelectedFilters } from '../hooks/useSelectedFilters';
+import { SelectedFilters } from '../constants';
 
 import InterfacesPopoverBody from './InterfacesPopoverBody';
 import InterfacesTable from './InterfacesTable';

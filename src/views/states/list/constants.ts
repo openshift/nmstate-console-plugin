@@ -12,7 +12,12 @@ export const FILTER_TYPES = {
   LLDP: 'lldp',
   LLDP_NAME: 'lldp-name',
   LLDP_SYSTEM_NAME: 'lldp-system-name',
+  NODE_LABEL: 'node-label',
 } as const;
 
 export const LLDP_ENABLED = 'enabled';
 export const LLDP_DISABLED = 'disabled';
+
+export type SelectedFilters = {
+  [filter: string]: string[];
+};
