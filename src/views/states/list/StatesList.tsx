@@ -4,23 +4,30 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
 import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { NodeNetworkStateModel, NodeNetworkStateModelGroupVersionKind } from '@models';
-import { ListPageBody, ListPageHeader, useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
-import { Button, Icon, Pagination } from '@patternfly/react-core';
+import {
+  ListPageBody,
+  ListPageHeader,
+  useK8sWatchResource,
+} from '@openshift-console/dynamic-plugin-sdk';
+import { Button, Icon, Pagination, ToolbarItem } from '@patternfly/react-core';
 import { DataView, DataViewToolbar, useDataViewPagination } from '@patternfly/react-data-view';
 import { TopologyIcon } from '@patternfly/react-icons';
 import { Table, TableGridBreakpoint, Th, Thead, Tr } from '@patternfly/react-table';
+import { getName } from '@utils/components/resources/selectors';
 import { isEmpty } from '@utils/helpers';
 import { paginationDefaultValues } from '@utils/hooks/usePagination/utils/constants';
 
 import InterfaceDrawer from './components/InterfaceDrawer/InterfaceDrawer';
 import NNStateEmptyState from './components/NNStateEmptyState';
+import NodeLabelSearchFilter from './components/NodeLabelSearchFilter';
 import StateRow from './components/StateRow';
-import StatusBox from './components/StatusBox';
 import StatesListFilters from './components/StatesListFilters';
+import StatusBox from './components/StatusBox';
 import useDrawerInterface from './hooks/useDrawerInterface';
 import useStateColumns, { COLUMN_NAME_ID } from './hooks/useStateColumns';
-import useStatesFilters, { StatesFilters } from './hooks/useStatesFilters';
+import useStatesFilters, { INITIAL_FILTERS, StatesFilters } from './hooks/useStatesFilters';
 import useStatesSort from './hooks/useStatesSort';
+import { FILTER_TYPES } from './constants';
 
 const StatesList: FC = () => {
   const { t } = useNMStateTranslation();
@@ -82,9 +89,7 @@ const StatesList: FC = () => {
         <StatusBox loaded={statesLoaded} error={statesError}>
           <DataView>
             <DataViewToolbar
-              filters={
-                <StatesListFilters filters={filters} onFiltersChange={onFiltersChange} />
-              }
+              filters={<StatesListFilters filters={filters} onFiltersChange={onFiltersChange} />}
               actions={
                 <Button onClick={() => setExpandAll(!expandAll)}>
                   {expandAll ? t('Collapse all') : t('Expand all')}
@@ -100,7 +105,8 @@ const StatesList: FC = () => {
                   perPageOptions={paginationDefaultValues}
                 />
               }
-            />
+            >
+            </DataViewToolbar>
             {sortedStates?.length ? (
               <Table gridBreakPoint={TableGridBreakpoint.none} role="presentation">
                 <Thead>
@@ -118,7 +124,7 @@ const StatesList: FC = () => {
                 </Thead>
                 {paginatedData.map((nnstate, index) => (
                   <StateRow
-                    key={nnstate?.metadata?.name}
+                    key={getName(nnstate)}
                     obj={nnstate}
                     activeColumnIDs={new Set(activeColumns.map(({ id }) => id))}
                     rowData={{ rowIndex: index, selectedFilters, expandAll }}

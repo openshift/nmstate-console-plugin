@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 
 import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { useDataViewSort } from '@patternfly/react-data-view';
-import { SortByDirection } from '@patternfly/react-table';
-import { ThSortType } from '@patternfly/react-table/dist/esm/components/Table/base/types';
+import { SortByDirection, ThSortType } from '@patternfly/react-table';
+import { getName } from '@utils/components/resources/selectors';
 
 import { COLUMN_NAME_ID } from './useStateColumns';
 
@@ -19,8 +19,8 @@ const useStatesSort = (data: V1beta1NodeNetworkState[]): UseStatesSortResult => 
     const items = [...data];
     if (!sortBy) return items;
     return items.sort((a, b) => {
-      const aName = a.metadata?.name ?? '';
-      const bName = b.metadata?.name ?? '';
+      const aName = getName(a) ?? '';
+      const bName = getName(b) ?? '';
       return direction === 'asc' ? aName.localeCompare(bName) : bName.localeCompare(aName);
     });
   }, [data, sortBy, direction]);

@@ -7,6 +7,7 @@ import {
 } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { useDataViewFilters } from '@patternfly/react-data-view';
+import { getLabels, getName } from '@utils/components/resources/selectors';
 import { isEmpty } from '@utils/helpers';
 import { getInterfaces } from '@utils/resources/nns/getters';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
@@ -42,7 +43,7 @@ export const INITIAL_FILTERS = {
   [FILTER_TYPES.MAC_ADDRESS]: '' as string,
   [FILTER_TYPES.LLDP_NAME]: '' as string,
   [FILTER_TYPES.LLDP_SYSTEM_NAME]: '' as string,
-  [FILTER_TYPES.NODE_LABEL]: '' as string,
+  [FILTER_TYPES.NODE_LABEL]: [] as string[],
   [FILTER_TYPES.LLDP]: [] as string[],
   [FILTER_TYPES.INTERFACE_STATE]: [] as string[],
   [FILTER_TYPES.INTERFACE_TYPE]: [] as string[],
@@ -59,7 +60,7 @@ type UseStatesFiltersResult = {
 };
 
 const useStatesFilters = (states: V1beta1NodeNetworkState[]): UseStatesFiltersResult => {
-  const [nodes] = useK8sWatchResource<IoK8sApiCoreV1Node[]>({
+  const [nodes, nodesLoaded] = useK8sWatchResource<IoK8sApiCoreV1Node[]>({
     groupVersionKind: NodeModelGroupVersionKind,
     isList: true,
     namespaced: false,
@@ -68,8 +69,9 @@ const useStatesFilters = (states: V1beta1NodeNetworkState[]): UseStatesFiltersRe
   const nodeLabelsMap = useMemo(() => {
     const map: Record<string, Record<string, string>> = {};
     nodes?.forEach((node) => {
-      if (node.metadata?.name) {
-        map[node.metadata.name] = node.metadata.labels || {};
+      const name = getName(node);
+      if (name) {
+        map[name] = getLabels(node) || {};
       }
     });
     return map;
@@ -83,7 +85,7 @@ const useStatesFilters = (states: V1beta1NodeNetworkState[]): UseStatesFiltersRe
     if (!states) return [];
     return states.filter((obj) => {
       const ifaces = getInterfaces(obj);
-      const nodeName = obj.metadata?.name ?? '';
+      const nodeName = getName(obj) ?? '';
       const nodeLabels = nodeLabelsMap[nodeName] || {};
 
       const passesTextFilters = Object.entries(TEXT_INTERFACE_FILTERS).every(([key, fn]) => {
@@ -92,8 +94,9 @@ const useStatesFilters = (states: V1beta1NodeNetworkState[]): UseStatesFiltersRe
       });
 
       const passesNodeLabel =
-        !filters[FILTER_TYPES.NODE_LABEL] ||
-        matchNodeLabel(filters[FILTER_TYPES.NODE_LABEL], nodeLabels);
+        isEmpty(filters[FILTER_TYPES.NODE_LABEL]) ||
+        !nodesLoaded ||
+        filters[FILTER_TYPES.NODE_LABEL].every((label) => matchNodeLabel(label, nodeLabels));
 
       const passesCheckboxFilters = Object.entries(CHECKBOX_INTERFACE_FILTERS).every(([key, fn]) => {
         const vals = filters[key] as string[];
@@ -102,7 +105,7 @@ const useStatesFilters = (states: V1beta1NodeNetworkState[]): UseStatesFiltersRe
 
       return passesTextFilters && passesNodeLabel && passesCheckboxFilters;
     });
-  }, [states, filters, nodeLabelsMap]);
+  }, [states, filters, nodeLabelsMap, nodesLoaded]);
 
   const selectedFilters: SelectedFilters = useMemo(
     () =>
