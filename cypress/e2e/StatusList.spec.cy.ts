@@ -1,10 +1,12 @@
 import {
+  CHECKBOX_FILTER_TOGGLE_SELECTOR,
   EXPAND_INTERFACE_INFO,
   EXPAND_INTERFACES_LIST_TEST_ID,
   INTERFACE_DRAWER_TEST_ID,
   LLDP_DRAWER_DETAILS_SECTION_TEST_ID,
-  SEARCH_FILTER_DROPDOWN_TEST_ID,
-  TEXT_FILTER_BUTTON_SELECTOR,
+  LLDP_NAME_FILTER_INPUT,
+  LLDP_SYSTEM_NAME_FILTER_INPUT,
+  STATES_LIST_FILTERS,
 } from '../support/selectors';
 
 describe('NodeNetworkState list', () => {
@@ -104,14 +106,13 @@ describe('NodeNetworkState list', () => {
 
       cy.get('table').should('contain', nns.metadata.name);
 
-      // open filter toolbar
-      cy.get('button').contains('Filter').click({ force: true });
+      // open the filter-type dropdown and select "LLDP"
+      cy.byTestID(STATES_LIST_FILTERS).find('button:visible').first().click();
+      cy.contains('button[role="menuitem"]', /^LLDP$/).click();
 
-      // filter by lldp enabled
-      cy.contains('label', 'Enabled').find('input[type="checkbox"]').check();
-
-      // close filter toolbar by clicking outside
-      cy.clickOutside();
+      // open the LLDP checkbox filter and check "Enabled"
+      cy.get(CHECKBOX_FILTER_TOGGLE_SELECTOR).click();
+      cy.get('[data-ouia-component-id="DataViewCheckboxFilter-filter-item-enabled"] label').click();
 
       cy.get('table').should('contain', nns.metadata.name);
       cy.get(EXPAND_INTERFACES_LIST_TEST_ID).click();
@@ -145,11 +146,10 @@ describe('NodeNetworkState list', () => {
 
       cy.get('table').should('contain', nns.metadata.name);
 
-      cy.byTestID(SEARCH_FILTER_DROPDOWN_TEST_ID).click();
-
-      cy.get(TEXT_FILTER_BUTTON_SELECTOR).contains('LLDP VLAN name').click();
-
-      cy.get('input[data-test-id="item-filter"]').type(VLAN_NAME);
+      // switch the filter type to "LLDP VLAN name" and type the search value
+      cy.byTestID(STATES_LIST_FILTERS).find('button:visible').first().click();
+      cy.contains('button[role="menuitem"]', 'LLDP VLAN name').click();
+      cy.get(LLDP_NAME_FILTER_INPUT).type(VLAN_NAME);
 
       cy.get('table').should('contain', nns.metadata.name);
       cy.get(EXPAND_INTERFACES_LIST_TEST_ID).click();
@@ -183,11 +183,10 @@ describe('NodeNetworkState list', () => {
 
       cy.get('table').should('contain', nns.metadata.name);
 
-      cy.byTestID(SEARCH_FILTER_DROPDOWN_TEST_ID).click();
-
-      cy.get(TEXT_FILTER_BUTTON_SELECTOR).contains('LLDP system name').click();
-
-      cy.get('input[data-test-id="item-filter"]').type(SYSTEM_NAME);
+      // switch the filter type to "LLDP system name" and type the search value
+      cy.byTestID(STATES_LIST_FILTERS).find('button:visible').first().click();
+      cy.contains('button[role="menuitem"]', 'LLDP system name').click();
+      cy.get(LLDP_SYSTEM_NAME_FILTER_INPUT).type(SYSTEM_NAME);
 
       cy.get('table').should('contain', nns.metadata.name);
       cy.get(EXPAND_INTERFACES_LIST_TEST_ID).click();

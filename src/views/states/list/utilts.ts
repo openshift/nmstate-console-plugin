@@ -97,3 +97,16 @@ export const searchInterfaceByLLDPSystemName = (
     return systemName.includes(searchLLDPSystemName);
   });
 };
+
+export const matchNodeLabel = (search: string, labels: Record<string, string>): boolean => {
+  if (isEmpty(search)) return true;
+
+  if (search.includes('=')) {
+    const equalIndex = search.indexOf('=');
+    const key = search.slice(0, equalIndex);
+    const value = search.slice(equalIndex + 1);
+    return labels[key] === value;
+  }
+
+  return Object.prototype.hasOwnProperty.call(labels, search);
+};

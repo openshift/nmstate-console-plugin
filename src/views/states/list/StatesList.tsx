@@ -3,36 +3,29 @@ import { useNavigate } from 'react-router';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
 import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
-import {
-  NodeNetworkStateModel,
-  NodeNetworkStateModelGroupVersionKind,
-  NodeNetworkStateModelRef,
-} from '@models';
+import { NodeNetworkStateModel, NodeNetworkStateModelGroupVersionKind } from '@models';
 import {
   ListPageBody,
-  ListPageFilter,
   ListPageHeader,
   useK8sWatchResource,
-  useListPageFilter,
 } from '@openshift-console/dynamic-plugin-sdk';
-import { Button, Flex, Icon, Pagination } from '@patternfly/react-core';
+import { Button, Icon, Pagination } from '@patternfly/react-core';
+import { DataView, DataViewToolbar, useDataViewPagination } from '@patternfly/react-data-view';
 import { TopologyIcon } from '@patternfly/react-icons';
 import { Table, TableGridBreakpoint, Th, Thead, Tr } from '@patternfly/react-table';
+import { getName } from '@utils/components/resources/selectors';
 import { isEmpty } from '@utils/helpers';
-import usePagination from '@utils/hooks/usePagination/usePagination';
 import { paginationDefaultValues } from '@utils/hooks/usePagination/utils/constants';
 
 import InterfaceDrawer from './components/InterfaceDrawer/InterfaceDrawer';
 import NNStateEmptyState from './components/NNStateEmptyState';
 import StateRow from './components/StateRow';
+import StatesListFilters from './components/StatesListFilters';
 import StatusBox from './components/StatusBox';
 import useDrawerInterface from './hooks/useDrawerInterface';
-import useSelectedFilters from './hooks/useSelectedFilters';
-import useSortStates from './hooks/useSortStates';
 import useStateColumns, { COLUMN_NAME_ID } from './hooks/useStateColumns';
-import { useStateFilters, useStateSearchFilters } from './hooks/useStateFilters';
-
-import './states-list.scss';
+import useStatesFilters, { StatesFilters } from './hooks/useStatesFilters';
+import useStatesSort from './hooks/useStatesSort';
 
 const StatesList: FC = () => {
   const { t } = useNMStateTranslation();
@@ -56,25 +49,24 @@ const StatesList: FC = () => {
     namespaced: false,
   });
 
+  const { filters, onSetFilters, filteredData, selectedFilters } = useStatesFilters(states);
+  const { sortedStates, nameSortParams } = useStatesSort(filteredData);
+  const { onPerPageSelect, onSetPage, page, perPage } = useDataViewPagination({ perPage: 15 });
+
+  const activeColumns = useStateColumns();
+
   const selectedState = states?.find((state) => state.metadata.name === selectedStateName);
   const selectedInterface = selectedState?.status?.currentState?.interfaces?.find(
     (iface) => iface.name === selectedInterfaceName && iface.type === selectedInterfaceType,
   );
 
-  const { onPaginationChange, pagination } = usePagination();
-  const [columns, activeColumns] = useStateColumns();
-  const filters = useStateFilters();
-  const searchFilters = useStateSearchFilters();
+  const paginatedData = sortedStates.slice((page - 1) * perPage, page * perPage);
 
-  const selectedFilters = useSelectedFilters();
-  const [data, filteredData, onFilterChange] = useListPageFilter(states, [
-    ...filters,
-    ...searchFilters,
-  ]);
+  const onFiltersChange = (newValues: Partial<StatesFilters>) => {
+    onSetFilters(newValues);
+    onSetPage(undefined, 1);
+  };
 
-  const { sortedStates, nameSortParams } = useSortStates(filteredData);
-
-  const paginatedData = sortedStates.slice(pagination?.startIndex, pagination?.endIndex + 1);
   return (
     <>
       <ListPageHeader title={t(NodeNetworkStateModel.label)}>
@@ -93,82 +85,54 @@ const StatesList: FC = () => {
       </ListPageHeader>
       <ListPageBody>
         <StatusBox loaded={statesLoaded} error={statesError}>
-          <div className="nns-list-management-group">
-            <Flex>
-              <ListPageFilter
-                data={data}
-                loaded={statesLoaded}
-                rowFilters={filters}
-                rowSearchFilters={searchFilters}
-                hideLabelFilter
-                onFilterChange={(...args) => {
-                  onFilterChange(...args);
-                  onPaginationChange({
-                    endIndex: pagination?.perPage,
-                    page: 1,
-                    perPage: pagination?.perPage,
-                    startIndex: 0,
-                  });
-                }}
-                columnLayout={{
-                  columns: columns?.map(({ id, title, additional }) => ({
-                    id,
-                    title,
-                    additional,
-                  })),
-                  id: NodeNetworkStateModelRef,
-                  selectedColumns: new Set(activeColumns?.map((col) => col?.id)),
-                  showNamespaceOverride: false,
-                  type: t('NodeNetworkState'),
-                }}
-              />
-              <Button onClick={() => setExpandAll(!expandAll)}>
-                {expandAll ? t('Collapse all') : t('Expand all')}
-              </Button>
-            </Flex>
-            <Pagination
-              onPerPageSelect={(_e, perPage, page, startIndex, endIndex) =>
-                onPaginationChange({ endIndex, page, perPage, startIndex })
+          <DataView>
+            <DataViewToolbar
+              filters={<StatesListFilters filters={filters} onFiltersChange={onFiltersChange} />}
+              actions={
+                <Button onClick={() => setExpandAll(!expandAll)}>
+                  {expandAll ? t('Collapse all') : t('Expand all')}
+                </Button>
               }
-              onSetPage={(_e, page, perPage, startIndex, endIndex) =>
-                onPaginationChange({ endIndex, page, perPage, startIndex })
-              }
-              className="list-managment-group__pagination"
-              itemCount={sortedStates?.length}
-              page={pagination?.page}
-              perPage={pagination?.perPage}
-              perPageOptions={paginationDefaultValues}
-            />
-          </div>
-
-          {sortedStates?.length ? (
-            <Table gridBreakPoint={TableGridBreakpoint.none} role="presentation">
-              <Thead>
-                <Tr>
-                  {activeColumns.map((column) => (
-                    <Th
-                      key={column.id}
-                      {...column?.props}
-                      sort={column.id === COLUMN_NAME_ID ? nameSortParams : null}
-                    >
-                      {column.title}
-                    </Th>
-                  ))}
-                </Tr>
-              </Thead>
-              {paginatedData.map((nnstate, index) => (
-                <StateRow
-                  key={nnstate?.metadata?.name}
-                  obj={nnstate}
-                  activeColumnIDs={new Set(activeColumns.map(({ id }) => id))}
-                  rowData={{ rowIndex: index, selectedFilters, expandAll }}
-                  index={index}
+              pagination={
+                <Pagination
+                  onPerPageSelect={onPerPageSelect}
+                  onSetPage={onSetPage}
+                  itemCount={sortedStates?.length}
+                  page={page}
+                  perPage={perPage}
+                  perPageOptions={paginationDefaultValues}
                 />
-              ))}
-            </Table>
-          ) : (
-            <NNStateEmptyState />
-          )}
+              }
+            />
+            {sortedStates?.length ? (
+              <Table gridBreakPoint={TableGridBreakpoint.none} role="presentation">
+                <Thead>
+                  <Tr>
+                    {activeColumns.map((column) => (
+                      <Th
+                        key={column.id}
+                        {...column?.props}
+                        sort={column.id === COLUMN_NAME_ID ? nameSortParams : null}
+                      >
+                        {column.title}
+                      </Th>
+                    ))}
+                  </Tr>
+                </Thead>
+                {paginatedData.map((nnstate, index) => (
+                  <StateRow
+                    key={getName(nnstate)}
+                    obj={nnstate}
+                    activeColumnIDs={new Set(activeColumns.map(({ id }) => id))}
+                    rowData={{ rowIndex: index, selectedFilters, expandAll }}
+                    index={index}
+                  />
+                ))}
+              </Table>
+            ) : (
+              <NNStateEmptyState />
+            )}
+          </DataView>
         </StatusBox>
       </ListPageBody>
       <InterfaceDrawer onClose={onClose} selectedInterface={selectedInterface} />

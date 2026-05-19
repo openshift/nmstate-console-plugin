@@ -1,18 +1,11 @@
 import { NodeNetworkStateModelRef } from 'src/console-models';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import {
-  K8sResourceCommon,
-  TableColumn,
-  useActiveColumns,
-} from '@openshift-console/dynamic-plugin-sdk';
+import { K8sResourceCommon, TableColumn, useActiveColumns } from '@openshift-console/dynamic-plugin-sdk';
 
 export const COLUMN_NAME_ID = 'name';
 
-const useStateColumns = (): [
-  TableColumn<K8sResourceCommon>[],
-  TableColumn<K8sResourceCommon>[],
-] => {
+const useStateColumns = (): TableColumn<K8sResourceCommon>[] => {
   const { t } = useNMStateTranslation();
 
   const columns: TableColumn<K8sResourceCommon>[] = [
@@ -33,12 +26,12 @@ const useStateColumns = (): [
   ];
 
   const [activeColumns] = useActiveColumns<K8sResourceCommon>({
-    columns: columns,
+    columns,
     showNamespaceOverride: false,
     columnManagementID: NodeNetworkStateModelRef,
   });
 
-  return [columns, activeColumns];
+  return activeColumns;
 };
 
 export default useStateColumns;
