@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 
 import { InterfaceType } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { DataViewCheckboxFilter, DataViewTextFilter } from '@patternfly/react-data-view';
-import { DataViewFilters } from '@patternfly/react-data-view/dist/cjs/DataViewFilters';
+
+import { DataViewFilters } from './patternfly-data-view';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { FILTER_TYPES, LLDP_DISABLED, LLDP_ENABLED } from '../constants';

@@ -108,9 +108,7 @@ describe('NodeNetworkState list', () => {
 
       // open the filter-type dropdown and select "LLDP"
       cy.byTestID(STATES_LIST_FILTERS).find('button:visible').first().click();
-      cy.get('[role="menuitem"] button')
-        .contains(/^LLDP$/)
-        .click();
+      cy.contains('button[role="menuitem"]', /^LLDP$/).click();
 
       // open the LLDP checkbox filter and check "Enabled"
       cy.get(CHECKBOX_FILTER_TOGGLE_SELECTOR).click();
@@ -150,7 +148,7 @@ describe('NodeNetworkState list', () => {
 
       // switch the filter type to "LLDP VLAN name" and type the search value
       cy.byTestID(STATES_LIST_FILTERS).find('button:visible').first().click();
-      cy.contains('[role="menuitem"] button', 'LLDP VLAN name').click();
+      cy.contains('button[role="menuitem"]', 'LLDP VLAN name').click();
       cy.get(LLDP_NAME_FILTER_INPUT).type(VLAN_NAME);
 
       cy.get('table').should('contain', nns.metadata.name);
@@ -187,7 +185,7 @@ describe('NodeNetworkState list', () => {
 
       // switch the filter type to "LLDP system name" and type the search value
       cy.byTestID(STATES_LIST_FILTERS).find('button:visible').first().click();
-      cy.contains('[role="menuitem"] button', 'LLDP system name').click();
+      cy.contains('button[role="menuitem"]', 'LLDP system name').click();
       cy.get(LLDP_SYSTEM_NAME_FILTER_INPUT).type(SYSTEM_NAME);
 
       cy.get('table').should('contain', nns.metadata.name);

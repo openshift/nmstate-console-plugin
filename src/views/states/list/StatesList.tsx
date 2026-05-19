@@ -9,7 +9,7 @@ import {
   ListPageHeader,
   useK8sWatchResource,
 } from '@openshift-console/dynamic-plugin-sdk';
-import { Button, Icon, Pagination, ToolbarItem } from '@patternfly/react-core';
+import { Button, Icon, Pagination } from '@patternfly/react-core';
 import { DataView, DataViewToolbar, useDataViewPagination } from '@patternfly/react-data-view';
 import { TopologyIcon } from '@patternfly/react-icons';
 import { Table, TableGridBreakpoint, Th, Thead, Tr } from '@patternfly/react-table';
@@ -19,15 +19,13 @@ import { paginationDefaultValues } from '@utils/hooks/usePagination/utils/consta
 
 import InterfaceDrawer from './components/InterfaceDrawer/InterfaceDrawer';
 import NNStateEmptyState from './components/NNStateEmptyState';
-import NodeLabelSearchFilter from './components/NodeLabelSearchFilter';
 import StateRow from './components/StateRow';
 import StatesListFilters from './components/StatesListFilters';
 import StatusBox from './components/StatusBox';
 import useDrawerInterface from './hooks/useDrawerInterface';
 import useStateColumns, { COLUMN_NAME_ID } from './hooks/useStateColumns';
-import useStatesFilters, { INITIAL_FILTERS, StatesFilters } from './hooks/useStatesFilters';
+import useStatesFilters, { StatesFilters } from './hooks/useStatesFilters';
 import useStatesSort from './hooks/useStatesSort';
-import { FILTER_TYPES } from './constants';
 
 const StatesList: FC = () => {
   const { t } = useNMStateTranslation();
@@ -105,8 +103,7 @@ const StatesList: FC = () => {
                   perPageOptions={paginationDefaultValues}
                 />
               }
-            >
-            </DataViewToolbar>
+            />
             {sortedStates?.length ? (
               <Table gridBreakPoint={TableGridBreakpoint.none} role="presentation">
                 <Thead>

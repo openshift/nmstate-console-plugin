@@ -60,7 +60,7 @@ type UseStatesFiltersResult = {
 };
 
 const useStatesFilters = (states: V1beta1NodeNetworkState[]): UseStatesFiltersResult => {
-  const [nodes, nodesLoaded] = useK8sWatchResource<IoK8sApiCoreV1Node[]>({
+  const [nodes, nodesLoaded, nodesLoadError] = useK8sWatchResource<IoK8sApiCoreV1Node[]>({
     groupVersionKind: NodeModelGroupVersionKind,
     isList: true,
     namespaced: false,
@@ -93,19 +93,22 @@ const useStatesFilters = (states: V1beta1NodeNetworkState[]): UseStatesFiltersRe
         return !val || ifaces.some((iface) => fn(val, iface));
       });
 
+      const canEvaluateNodeLabels = nodesLoaded && !nodesLoadError;
       const passesNodeLabel =
         isEmpty(filters[FILTER_TYPES.NODE_LABEL]) ||
-        !nodesLoaded ||
+        !canEvaluateNodeLabels ||
         filters[FILTER_TYPES.NODE_LABEL].every((label) => matchNodeLabel(label, nodeLabels));
 
-      const passesCheckboxFilters = Object.entries(CHECKBOX_INTERFACE_FILTERS).every(([key, fn]) => {
-        const vals = filters[key] as string[];
-        return isEmpty(vals) || vals.some((val) => ifaces.some((iface) => fn(val, iface)));
-      });
+      const passesCheckboxFilters = Object.entries(CHECKBOX_INTERFACE_FILTERS).every(
+        ([key, fn]) => {
+          const vals = filters[key] as string[];
+          return isEmpty(vals) || vals.some((val) => ifaces.some((iface) => fn(val, iface)));
+        },
+      );
 
       return passesTextFilters && passesNodeLabel && passesCheckboxFilters;
     });
-  }, [states, filters, nodeLabelsMap, nodesLoaded]);
+  }, [states, filters, nodeLabelsMap, nodesLoaded, nodesLoadError]);
 
   const selectedFilters: SelectedFilters = useMemo(
     () =>
