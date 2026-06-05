@@ -16,19 +16,14 @@ import {
   Title,
 } from '@patternfly/react-core';
 import DetailItem from '@utils/components/DetailItem/DetailItem';
-import {
-  getBridgePortNames,
-  getMTU,
-  getOVNBridgeName,
-  getOVNLocalnet,
-} from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import { getDescription, getName } from '@utils/components/resources/selectors';
 import SidebarEditor from '@utils/components/SidebarEditor/SidebarEditor';
 import { SidebarEditorProvider } from '@utils/components/SidebarEditor/SidebarEditorContext';
 import SidebarEditorSwitch from '@utils/components/SidebarEditor/SidebarEditorSwitch';
 import { NO_DATA_DASH } from '@utils/constants';
-import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import { getMTU, getOVNBridgeName, getOVNLocalnet } from '@utils/resources/policies/selectors';
+import { getUplinkDisplayText } from '@utils/resources/policies/utils';
 
 import NodeNetworkConfigurationPolicyModel from '../../../../../../console-models/NodeNetworkConfigurationPolicyModel';
 
@@ -69,7 +64,6 @@ const ReviewStep: FC<ReviewStepProps> = ({
   };
 
   const errorMessage = error?.message || creationError?.message;
-  const portNames = getBridgePortNames(policy);
 
   return (
     <SidebarEditorProvider>
@@ -120,7 +114,7 @@ const ReviewStep: FC<ReviewStepProps> = ({
               />
               <DetailItem
                 header={t('Uplink connection')}
-                description={isEmpty(portNames) ? NO_DATA_DASH : portNames.join(', ')}
+                description={getUplinkDisplayText(policy, t)}
               />
               <DetailItem
                 header={t('Bridge name')}

@@ -12,9 +12,9 @@ import {
   ValidatedOptions,
 } from '@patternfly/react-core';
 import FormGroupHelperText from '@utils/components/FormGroupHelperText/FormGroupHelperText';
-import { getOVNLocalnet } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
+import { getOVNLocalnet } from '@utils/resources/policies/selectors';
 
 import './NetworkIdentity.scss';
 

@@ -12,9 +12,9 @@ import {
 } from '@patternfly/react-core';
 import FormGroupHelperText from '@utils/components/FormGroupHelperText/FormGroupHelperText';
 import useNodeInterfaces from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useNodeInterfaces/useNodeInterfaces';
-import { getBondPortNames } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import { updateBondInterfaces } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import { getBondPortNames } from '@utils/resources/policies/selectors';
 
 type NetworkInterfacesSelectProps = {
   policy: V1NodeNetworkConfigurationPolicy;

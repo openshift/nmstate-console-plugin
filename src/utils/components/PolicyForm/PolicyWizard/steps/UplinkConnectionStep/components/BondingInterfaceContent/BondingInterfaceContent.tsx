@@ -7,9 +7,9 @@ import FormGroupHelperText from '@utils/components/FormGroupHelperText/FormGroup
 import TextWithHelpIcon from '@utils/components/HelpTextIcon/TextWithHelpIcon';
 import AggregationModeSelect from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/BondingInterfaceContent/components/AggregationModeSelect';
 import useBridgeNameValidation from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useBridgeNameValidation';
-import { getBondName } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import { updateBondName } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import { getBondName } from '@utils/resources/policies/selectors';
 
 import NetworkInterfacesSelect from './components/NetworkInterfacesSelect';
 

@@ -11,10 +11,10 @@ import {
 } from '@patternfly/react-core';
 import ExternalLink from '@utils/components/ExternalLink/ExternalLink';
 import { aggregationModes } from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/BondingInterfaceContent/utils/utils';
-import { getAggregationMode } from '@utils/components/PolicyForm/PolicyWizard/utils/selectors';
 import { updateBondType } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import { getAggregationMode } from '@utils/resources/policies/selectors';
 
 type AggregationModeSelectProps = {
   policy: V1NodeNetworkConfigurationPolicy;
