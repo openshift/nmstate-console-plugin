@@ -110,3 +110,10 @@ cypress/screenshots
 
 tmp/
 .DS_Store
+
+## ui-tests-cy gitignore
+ui-tests-cy/node_modules/
+ui-tests-cy/gui-test-screenshots/
+
+#Jetbrains
+.idea/
