@@ -6,6 +6,7 @@ import {
   ButtonVariant,
   Flex,
   FlexItem,
+  FormGroup,
   PageSection,
   TextInput,
   Title,
@@ -49,24 +50,28 @@ const PolicyFormOVSBridgeMappingExpandable: FC<PolicyFormOVSBridgeMappingExpanda
       <PageSection key={index}>
         <Flex alignItems={{ default: 'alignItemsFlexEnd' }} marginWidth={20}>
           <FlexItem grow={{ default: 'grow' }} spacer={{ default: 'spacer4xl' }}>
-            <Title headingLevel="h6" size="md">
-              {t('OVN localnet name')}
-            </Title>
-            <TextInput
-              value={bridgeMapping?.localnet}
-              onChange={onChange(index, 'localnet')}
-              isRequired
-            />
+            <FormGroup label={t('OVN localnet name')} fieldId="ovs-localnet-name" isRequired>
+              <TextInput
+                type="text"
+                id="ovs-localnet-name"
+                name="ovs-localnet-name"
+                value={bridgeMapping?.localnet}
+                onChange={onChange(index, 'localnet')}
+                isRequired
+              />
+            </FormGroup>
           </FlexItem>
           <FlexItem grow={{ default: 'grow' }}>
-            <Title headingLevel="h6" size="md">
-              {t('OVS bridge name')}
-            </Title>
-            <TextInput
-              value={bridgeMapping?.bridge}
-              onChange={onChange(index, 'bridge')}
-              isRequired
-            />
+            <FormGroup label={t('OVS bridge name')} fieldId="ovs-bridge-name" isRequired>
+              <TextInput
+                type="text"
+                id="ovs-bridge-name"
+                name="ovs-bridge-name"
+                value={bridgeMapping?.bridge}
+                onChange={onChange(index, 'bridge')}
+                isRequired
+              />
+            </FormGroup>
           </FlexItem>
           <FlexItem>
             <Button
