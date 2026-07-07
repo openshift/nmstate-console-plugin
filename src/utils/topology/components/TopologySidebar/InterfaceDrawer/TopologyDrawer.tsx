@@ -1,6 +1,5 @@
 import React, { FC, ReactNode, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router';
-import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
+import { useLocation, useNavigate } from 'react-router';
 
 import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
 import {
@@ -13,11 +12,12 @@ import {
   DrawerPanelBody,
   DrawerPanelContent,
 } from '@patternfly/react-core';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { CREATE_POLICY_QUERY_PARAM } from '../constants';
 import CustomDrawer from '../CustomDrawer';
 
-import '.././TopologySidebar.scss';
+import '../TopologySidebar.scss';
 
 type Props = {
   states: V1beta1NodeNetworkState[];

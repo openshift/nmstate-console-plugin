@@ -1,8 +1,7 @@
-import { Point, Visualization } from '@patternfly/react-topology';
+import { Controller, Point } from '@patternfly/react-topology';
+import { TOPOLOGY_LOCAL_STORAGE_KEY } from '@utils/topology/utils/constants';
 
-import { TOPOLOGY_LOCAL_STORAGE_KEY } from './constants';
-
-export const saveNodePositions = (visualization: Visualization) => {
+export const saveNodePositions = (visualization: Controller) => {
   const graph = visualization.getGraph();
   const nodePositions = {};
 
@@ -19,7 +18,7 @@ export const saveNodePositions = (visualization: Visualization) => {
   localStorage.setItem(TOPOLOGY_LOCAL_STORAGE_KEY, JSON.stringify(nodePositions));
 };
 
-export const restoreNodePositions = (visualization: Visualization) => {
+export const restoreNodePositions = (visualization: Controller) => {
   const savedPositions = localStorage.getItem(TOPOLOGY_LOCAL_STORAGE_KEY);
   if (savedPositions) {
     const nodePositions = JSON.parse(savedPositions);

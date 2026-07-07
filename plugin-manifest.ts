@@ -1,9 +1,13 @@
-import type {
-  EncodedExtension,
-  ConsolePluginBuildMetadata,
-} from '@openshift-console/dynamic-plugin-sdk-webpack';
 import { FeatureFlag } from '@openshift-console/dynamic-plugin-sdk';
+import type {
+  ConsolePluginBuildMetadata,
+  EncodedExtension,
+} from '@openshift-console/dynamic-plugin-sdk-webpack';
 
+import {
+  NodeConfigurationNetworkPanelExtensions,
+  NodeConfigurationNetworkPanelModules,
+} from './src/views/nodeConfigurationNetworkPanel/manifest';
 import {
   NodeNetworkConfigurationExtensions,
   NodeNetworkConfigurationModules,
@@ -25,6 +29,7 @@ export const pluginMetadata: ConsolePluginBuildMetadata = {
     ...PolicyExposedModules,
     ...StateExposedModules,
     ...NodeNetworkConfigurationModules,
+    ...NodeConfigurationNetworkPanelModules,
     ...PhysicalNetworksExposedModules,
     nmstateFlags: './utils/flags',
   },
@@ -43,5 +48,6 @@ export const extensions: EncodedExtension[] = [
   ...PolicyExtensions,
   ...StateExtensions,
   ...NodeNetworkConfigurationExtensions,
+  ...NodeConfigurationNetworkPanelExtensions,
   ...PhysicalNetworksExtensions,
 ];

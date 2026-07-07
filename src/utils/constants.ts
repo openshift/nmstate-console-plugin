@@ -8,3 +8,5 @@ export const NODE_HOSTNAME_LABEL = 'kubernetes.io/hostname';
 export const NO_DATA_DASH = '-';
 
 export const NMSTATE_I18N_NS = 'plugin__nmstate-console-plugin';
+
+export const FORBIDDEN_STATUS = 403;

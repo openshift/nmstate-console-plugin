@@ -8,7 +8,6 @@ import {
   SelectList,
   SelectOption,
 } from '@patternfly/react-core';
-
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import './MultiSelect.scss';

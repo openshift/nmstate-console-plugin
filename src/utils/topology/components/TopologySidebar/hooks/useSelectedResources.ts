@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
 import {
@@ -11,6 +10,8 @@ import { NodeNetworkConfigurationPolicyModelGroupVersionKind } from '@models';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { isEmpty } from '@utils/helpers';
 import { isPolicyAppliedInNode } from '@utils/resources/policies/utils';
+
+import { NodeModelGroupVersionKind } from '../../../../../console-models/NodeModel';
 
 const useSelectedResources = (
   selectedId: string,

@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
-import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { useImmer } from 'use-immer';
 
 import { k8sCreate } from '@openshift-console/dynamic-plugin-sdk';
@@ -16,6 +15,8 @@ import {
   NNCP_CREATION_STARTED,
 } from '@utils/telemetry/constants';
 import { logCreationFailed, logNMStateEvent, logNNCPCreated } from '@utils/telemetry/telemetry';
+
+import NodeNetworkConfigurationPolicyModel from '../../../../console-models/NodeNetworkConfigurationPolicyModel';
 
 type CreatePolicyDrawerProps = {
   onClose?: () => void;

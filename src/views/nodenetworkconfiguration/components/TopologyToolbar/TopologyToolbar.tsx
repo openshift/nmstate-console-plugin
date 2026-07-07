@@ -14,7 +14,7 @@ import {
 import { ListIcon } from '@patternfly/react-icons';
 import { getResourceUrl } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { CREATE_POLICY_QUERY_PARAM } from '../TopologySidebar/constants';
+import { CREATE_POLICY_QUERY_PARAM } from '@utils/topology/components/TopologySidebar/constants';
 import TopologyToolbarFilter from './TopologyToolbarFilter';
 import './TopologyToolbar.scss';
 

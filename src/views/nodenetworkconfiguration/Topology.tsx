@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
-import './components/TopologySidebar/TopologySidebar.scss';
+import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
+
 import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
@@ -18,11 +19,7 @@ import {
 } from '@openshift-console/dynamic-plugin-sdk';
 import { Popover } from '@patternfly/react-core';
 import {
-  action,
-  createTopologyControlButtons,
-  defaultControlButtonsOptions,
   SELECTION_EVENT,
-  TopologyControlBar,
   TopologyView,
   Visualization,
   VisualizationProvider,
@@ -35,16 +32,19 @@ import useQueryParams from '@utils/hooks/useQueryParams';
 import { categorizeEnactments } from '@utils/resources/enactments/utils';
 import { filterPolicyAppliedNodes } from '@utils/resources/policies/utils';
 
-import TopologyLegend from './components/TopologyLegend/TopologyLegend';
-import { SELECTED_ID_QUERY_PARAM } from './components/TopologySidebar/constants';
-import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
-import TopologyDrawer from './components/TopologySidebar/InterfaceDrawer/TopologyDrawer';
-import { creatingPolicySignal } from './components/TopologySidebar/CreatePolicyDrawer';
+import ControlBar from '@utils/topology/components/TopologyControlBar/TopologyControlBar';
+import TopologyLegend from '@utils/topology/components/TopologyLegend/TopologyLegend';
+import { SELECTED_ID_QUERY_PARAM } from '@utils/topology/components/TopologySidebar/constants';
+import { creatingPolicySignal } from '@utils/topology/components/TopologySidebar/CreatePolicyDrawer';
+import TopologyDrawer from '@utils/topology/components/TopologySidebar/InterfaceDrawer/TopologyDrawer';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
-import { GRAPH_POSITIONING_EVENT, NODE_POSITIONING_EVENT } from './utils/constants';
-import { componentFactory, layoutFactory } from './utils/factory';
-import { restoreNodePositions, saveNodePositions } from './utils/position';
-import { transformDataToTopologyModel } from './utils/utils';
+import { GRAPH_POSITIONING_EVENT, NODE_POSITIONING_EVENT } from '@utils/topology/utils/constants';
+import { componentFactory, layoutFactory } from '@utils/topology/utils/factory';
+import { restoreNodePositions, saveNodePositions } from '@utils/topology/utils/position';
+import { transformDataToTopologyModel } from '@utils/topology/utils/utils';
+
+import '@utils/topology/components/TopologySidebar/TopologySidebar.scss';
+import { FORBIDDEN_STATUS } from '@utils/constants';
 
 const Topology: FC = () => {
   useSignals();
@@ -149,7 +149,7 @@ const Topology: FC = () => {
     return () => cancelAnimationFrame(id);
   }, [visualization]);
 
-  if (statesError && statesError?.response?.status === 403)
+  if (statesError && statesError?.response?.status === FORBIDDEN_STATUS)
     return (
       <>
         <ListPageHeader title="Node network configuration" />
@@ -170,28 +170,7 @@ const Topology: FC = () => {
             setSelectedNodeFilters={setSelectedNodeFilters}
           />
         }
-        controlBar={
-          <TopologyControlBar
-            controlButtons={createTopologyControlButtons({
-              ...defaultControlButtonsOptions,
-              zoomInCallback: action(() => {
-                const scale = visualization.getGraph().getScale();
-                visualization.getGraph().setScale(scale * 1.1);
-              }),
-              zoomOutCallback: action(() => {
-                const scale = visualization.getGraph().getScale();
-                visualization.getGraph().setScale(scale * 0.9);
-              }),
-              fitToScreenCallback: action(() => {
-                visualization.getGraph().fit(40);
-              }),
-              resetViewCallback: action(() => {
-                visualization.getGraph().reset();
-                visualization.getGraph().layout();
-              }),
-            })}
-          />
-        }
+        controlBar={<ControlBar controller={visualization} />}
       >
         <TopologyDrawer states={states}>
           <VisualizationSurface state={queryParams} />
