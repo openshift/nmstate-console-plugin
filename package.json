@@ -94,5 +94,8 @@
     "@preact/signals-react": "^3.0.1",
     "mocha": "^10.x",
     "word-wrap": "^1.2.5"
+  },
+  "overrides": {
+    "brace-expansion": "5.0.7"
   }
 }
