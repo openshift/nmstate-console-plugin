@@ -148,7 +148,10 @@ until \
 
 INSTALLER_DIR=${INSTALLER_DIR:=${ARTIFACT_DIR}/installer}
 
+# Suppress xtrace while exporting secrets to avoid leaking them in CI logs.
+set +x
 export CYPRESS_KUBEADMIN_PASSWORD="$(cat "${KUBEADMIN_PASSWORD_FILE:-${INSTALLER_DIR}/auth/kubeadmin-password}")"
+set -x
 export BRIDGE_BASE_ADDRESS="$(oc get consoles.config.openshift.io cluster -o jsonpath='{.status.consoleURL}')"
 
 # Disable color codes in Cypress since they do not render well CI test logs.
