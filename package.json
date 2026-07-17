@@ -13,7 +13,7 @@
     "dev": "npm run webpack serve",
     "webpack": "webpack",
     "start-console": "./start-console.sh",
-    "cypress": "cypress run --browser chrome",
+    "cypress": "cypress run --browser electron",
     "cypress:open": "cypress open",
     "i18n": "./i18n-scripts/build-i18n.sh && node ./i18n-scripts/set-english-defaults.js",
     "lint": "eslint .",
