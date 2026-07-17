@@ -12,7 +12,7 @@
     "serve-build": "yarn build && npx http-server -p 9001 dist",
     "dev": "yarn webpack serve",
     "start-console": "./start-console.sh",
-    "cypress": "cypress run --browser chrome",
+    "cypress": "cypress run --browser electron",
     "cypress:open": "cypress open",
     "i18n": "i18next \"src/**/*.{js,jsx,ts,tsx}\" [-oc] -c i18next-parser.config.mjs",
     "lint": "eslint .",
