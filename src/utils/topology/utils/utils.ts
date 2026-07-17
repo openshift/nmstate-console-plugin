@@ -217,7 +217,7 @@ export const transformDataToTopologyModel = (
   };
 };
 
-const getCorrelatedEnactment = (
+export const getCorrelatedEnactment = (
   availableEnhancments: V1beta1NodeNetworkConfigurationEnactment[],
   nnsName: string,
 ): V1beta1NodeNetworkConfigurationEnactment => {

@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
-import StateDetailsPage from 'src/views/states/details/StateDetailsPage';
 
 import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { getRandomChars, isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
+
+import StateDetailsPage from '../../../../views/states/details/StateDetailsPage';
 
 import useSelectedResources from './hooks/useSelectedResources';
 import InterfaceDrawer from './InterfaceDrawer/InterfaceDrawer';
@@ -13,8 +14,8 @@ import PolicyDrawer from './PolicyDrawer';
 
 type DrawerProps = {
   states: V1beta1NodeNetworkState[];
-  onClose: () => void;
-  onSuccess: (message: string) => void;
+  onClose?: () => void;
+  onSuccess?: (message: string) => void;
 };
 
 const CustomDrawer: FC<DrawerProps> = ({ states, onClose, onSuccess }) => {

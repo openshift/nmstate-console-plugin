@@ -8,7 +8,7 @@ import {
   WithSelectionProps,
 } from '@patternfly/react-topology';
 
-import { ICON_SIZE } from '../../utils/constants';
+import { ICON_SIZE } from '@utils/topology/utils/constants';
 
 import './CustomNode.scss';
 

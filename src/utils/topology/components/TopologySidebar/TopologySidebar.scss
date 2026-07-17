@@ -1,4 +1,15 @@
 .nmstate-topology {
+  &__sidebar {
+    left: 0;
+    right: auto;
+    z-index: 500;
+    background-color: var(--pf-t--global--background--color--floating--default);
+
+    &__content {
+      height: 100%;
+    }
+
+  }
   .pf-v6-c-wizard__nav {
     width: 200px;
   }

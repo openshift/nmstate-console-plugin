@@ -1,8 +1,5 @@
 import React, { FC, useMemo } from 'react';
 import { useLocation } from 'react-router';
-import PolicyDetailsPage from 'src/views/policies/details/PolicyDetailsPage';
-import PolicyPageTitle from 'src/views/policies/details/PolicyPageTitle';
-import PolicyYAMLPage from 'src/views/policies/details/PolicyYamlPage';
 
 import {
   NodeNetworkConfigurationInterface,
@@ -11,6 +8,10 @@ import {
 } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { Tab, Tabs as TabsComponent, TabTitleText } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+
+import PolicyDetailsPage from '../../../../views/policies/details/PolicyDetailsPage';
+import PolicyPageTitle from '../../../../views/policies/details/PolicyPageTitle';
+import PolicyYAMLPage from '../../../../views/policies/details/PolicyYamlPage';
 
 import './policy-drawer.scss';
 

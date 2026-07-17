@@ -1,0 +1,13 @@
+.nmstate-node-topology {
+  .pf-v6-c-toolbar__group.pf-topology-view__view-toolbar {
+    width: 100%;
+
+    .pf-v6-c-toolbar {
+      width: 100%;
+    }
+  }
+
+  div[id^='pf-topology-view-'] {
+    padding-bottom: 0;
+  }
+}
