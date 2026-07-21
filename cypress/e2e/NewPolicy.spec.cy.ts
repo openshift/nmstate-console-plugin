@@ -49,7 +49,8 @@ describe('Create new policy with form', () => {
     cy.byLegacyTestID('review-network-description').should('have.text', testDescription);
     cy.contains('button', 'Create network').click();
 
-    cy.contains('h1', testPolicyName);
+    cy.visit('/k8s/cluster/nmstate.io~v1~NodeNetworkConfigurationPolicy');
+    cy.contains('a', testPolicyName).should('be.visible').click();
 
     deletePolicyFromDetailsPage(testPolicyName);
   });
