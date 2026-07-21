@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["cypress", "node"],
+    "isolatedModules": false,
+    "module": "esnext",
+    "target": "es2016",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": false
+  },
+  "include": ["node_modules/cypress", "./**/*.ts"]
+}

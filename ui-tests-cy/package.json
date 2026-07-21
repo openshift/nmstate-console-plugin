@@ -1,0 +1,25 @@
+{
+  "name": "nmstate-console-plugin-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "cypress": "cypress run --browser chrome --headless --spec 'tests/all.cy.ts'",
+    "cypress:open": "cypress open --browser chrome --e2e",
+    "cypress-merge": "npx mochawesome-merge ./gui-test-screenshots/*.json > ./gui-test-screenshots/merge.json",
+    "cypress-generate": "npx marge ./gui-test-screenshots/merge.json -f report -o ./gui-test-screenshots/",
+    "cypress-postreport": "npm run cypress-merge && npm run cypress-generate"
+  },
+  "devDependencies": {
+    "@cypress/webpack-preprocessor": "^6.0.2",
+    "cypress": "^15.3.0",
+    "cypress-multi-reporters": "^2.0.4",
+    "dotenv": "^16.4.7",
+    "esbuild-loader": "^4.2.2",
+    "mocha-junit-reporter": "^2.2.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "typescript": "^5.9.3",
+    "webpack": "^5.104.1"
+  }
+}
