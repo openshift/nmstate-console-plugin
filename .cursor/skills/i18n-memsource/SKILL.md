@@ -35,19 +35,27 @@ Read and update `.cursor/skills/i18n-memsource/state.json` after each upload.
 
 ### Memsource CLI
 
+`memsource` is often installed but **not** on the default `PATH`. Resolve it first:
+
 ```bash
 MEMSOURCE_BIN=$(python3 -c "import shutil; print(shutil.which('memsource') or '')")
 if [ -z "$MEMSOURCE_BIN" ]; then
   MEMSOURCE_BIN=$(find "$HOME/Library/Python" -name memsource -type f 2>/dev/null | head -1)
 fi
+# Also common: $HOME/git/memsource-cli-client/.memsource/bin/memsource
+if [ -z "$MEMSOURCE_BIN" ] || [ ! -x "$MEMSOURCE_BIN" ]; then
+  echo "ERROR: memsource executable not found" >&2
+  exit 1
+fi
 export PATH="$(dirname "$MEMSOURCE_BIN"):$PATH"
+command -v memsource >/dev/null || { echo "ERROR: memsource not found on PATH"; exit 1; }
 ```
 
 ### Authentication (credentials stay with the user)
 
 **Do not** read `~/.memsourcerc`, Memsource passwords, or long-lived tokens into
 the agent context. Phrase is a paid external service — treat credentials like
-any other secret.
+any other secret. Never paste login tables or tokens into chat.
 
 Preferred flow:
 
@@ -59,6 +67,21 @@ Preferred flow:
    artifacts. Never export `MEMSOURCE_TOKEN` into an agent-controlled shell
    (even short-lived — the agent can read process env).
 
+**User-terminal auth (required for all Memsource API calls):**
+
+```bash
+export PATH="$HOME/Library/Python/3.9/bin:$PATH"   # adjust if needed
+source ~/.memsourcerc
+export MEMSOURCE_TOKEN=$(memsource auth login \
+  --user-name "$MEMSOURCE_USERNAME" \
+  --password "$MEMSOURCE_PASSWORD" \
+  -f json \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)['token'])")
+# Do not echo MEMSOURCE_TOKEN. Login alone is not enough — without this export,
+# later commands fail with 401 "auth: not logged".
+memsource auth whoami
+```
+
 Also ensure `jq` is installed (`brew install jq`) — upload scripts need it.
 
 ---
@@ -69,7 +92,8 @@ Also ensure `jq` is installed (`brew install jq`) — upload scripts need it.
 
 `i18n-scripts/languages.sh` uses `zh-cn`, but locales live under `locales/zh/`.
 Without a symlink, `i18n-to-po` cannot merge existing Chinese translations and
-uploads empty msgstr for Chinese.
+uploads empty msgstr for Chinese. `export-pos.sh` now **fails closed** unless
+`locales/zh-cn` is a symlink to `zh`.
 
 **Before any `export-pos` during upload**, register cleanup first, then create
 the symlink. Keep symlink + trap in the **same shell session** through upload
@@ -184,10 +208,11 @@ Require approval if the locale diff looks wrong.
 
 ### Steps 5–8: One shell — symlink, export, validate, upload
 
-Run the following in **one continuous shell** so the `EXIT` trap stays active
-through upload (`memsource-upload` re-runs `export-pos`). Prefer the user runs
-the authenticated upload line in their terminal; the agent may prepare through
-validation without credentials.
+Run the following in **one continuous authenticated shell** so the `EXIT` trap
+stays active through upload (`memsource-upload` re-runs `export-pos`, which now
+**fails closed** unless `locales/zh-cn` → `zh` is present). Do not split symlink
+creation / export into an agent shell and upload into a different shell without
+recreating the symlink first. Prefer the user runs the full block below.
 
 ```bash
 trap 'rm -f locales/zh-cn; rm -rf po-files locales/tmp' EXIT
@@ -294,13 +319,18 @@ Same as upload Step 3 — user-owned credentials only; no `~/.memsourcerc` in ag
 
 ### Step 3: Status
 
+Omit `-c`, or pass **separate** `-c` flags. Comma-separated `-c uid,status,...`
+is treated as one invalid column name. Column is `target_lang` (not `targetLang`).
+
 ```bash
+# USER terminal (MEMSOURCE_TOKEN already exported)
 for lang in ja zh-cn ko fr es; do
+  echo "=== $lang ==="
   memsource job list \
     --project-id "$PROJECT_ID" \
     --target-lang "$lang" \
-    -f json \
-    -c uid,status,targetLang
+    -f json
+  # optional: -c uid -c status -c target_lang
 done
 ```
 
@@ -322,7 +352,14 @@ branch **before** download (the script auto-commits):
 STATE=.cursor/skills/i18n-memsource/state.json
 SPRINT=$(jq -r '.sprint' "$STATE")   # or ask user / override
 BRANCH="chore/i18n-update-sprint-${SPRINT}"
-git switch -C "$BRANCH"   # create or reset onto current HEAD if it already exists
+git fetch origin "$BRANCH" 2>/dev/null || true
+if git show-ref --verify --quiet "refs/heads/$BRANCH"; then
+  git switch "$BRANCH"   # preserve existing local history; do not -C reset
+elif git show-ref --verify --quiet "refs/remotes/origin/$BRANCH"; then
+  git switch -c "$BRANCH" --track "origin/$BRANCH"
+else
+  git switch -c "$BRANCH"
+fi
 
 # USER terminal (authenticated):
 npm run memsource-download -- -p "$PROJECT_ID"
@@ -374,4 +411,6 @@ EOF
 - Clean root `locales/` before download
 - Update `state.json` after successful upload
 - PO basename is `public__plugin__nmstate-console-plugin.po`; still prefer globbing `po-files/<lang>/*.po`
+- User-terminal auth must `export MEMSOURCE_TOKEN=…` from `auth login -f json` or API calls 401
+- `memsource job list -c` must use separate flags (`-c uid -c status -c target_lang`) or omit `-c`
 - If this repo migrates to `ocp-plugin-i18n-scripts`, remove `clear-english-msgstr.js` from `export-pos.sh` (redundant)
