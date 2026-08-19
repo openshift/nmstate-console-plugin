@@ -17,6 +17,17 @@ const path = require('path');
 
 const PO_ROOT = path.join(process.cwd(), 'po-files');
 
+function assertPoRootIsSafe() {
+  if (!fs.existsSync(PO_ROOT)) {
+    console.error(`Missing ${PO_ROOT}; run export-pos first`);
+    process.exit(1);
+  }
+  const rootStat = fs.lstatSync(PO_ROOT);
+  if (rootStat.isSymbolicLink() || !rootStat.isDirectory()) {
+    throw new Error(`Refusing unsafe PO root: ${PO_ROOT}`);
+  }
+}
+
 function assertUnderPoRoot(candidatePath) {
   const root = fs.realpathSync(PO_ROOT);
   const resolved = fs.realpathSync(candidatePath);
@@ -59,10 +70,6 @@ function processPoFile(filePath) {
 }
 
 function walk(dir) {
-  if (!fs.existsSync(dir)) {
-    console.error(`Missing ${dir}; run export-pos first`);
-    process.exit(1);
-  }
   const safeDir = assertUnderPoRoot(dir);
   for (const entry of fs.readdirSync(safeDir, { withFileTypes: true })) {
     // Skip symlinks so a crafted .po symlink cannot escape PO_ROOT.
@@ -79,4 +86,5 @@ function walk(dir) {
   }
 }
 
+assertPoRootIsSafe();
 walk(PO_ROOT);
