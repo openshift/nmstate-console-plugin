@@ -27,12 +27,13 @@
     "helm:lint": "helm lint deployment/nmstate-console-plugin/",
     "helm:build": "mkdir -p tmp && helm package -d tmp deployment/nmstate-console-plugin/",
     "i18n-to-po": "node ./i18n-scripts/i18n-to-po.js",
-    "po-to-i18n": "node ./i18n-scripts/po-to-i18n.js"
+    "po-to-i18n": "node ./i18n-scripts/po-to-i18n.js",
+    "webpack": "webpack"
   },
   "devDependencies": {
     "@kubevirt-ui/kubevirt-api": "^1.2.2",
-    "@openshift-console/dynamic-plugin-sdk": "4.19.0",
-    "@openshift-console/dynamic-plugin-sdk-webpack": "4.19.0",
+    "@openshift-console/dynamic-plugin-sdk": "1.4.0",
+    "@openshift-console/dynamic-plugin-sdk-webpack": "1.1.1",
     "@openshift/dynamic-plugin-sdk": "~5.0.1",
     "@openshift/dynamic-plugin-sdk-webpack": "~4.1.0",
     "@patternfly/react-core": "5.1.1",
