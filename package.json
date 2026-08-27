@@ -106,6 +106,7 @@
     "js-yaml": "5.2.2",
     "@istanbuljs/load-nyc-config": {
       "js-yaml": "3.15.0"
-    }
+    },
+    "browserslist": "4.28.7"
   }
 }
