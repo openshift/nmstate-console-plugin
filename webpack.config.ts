@@ -33,16 +33,29 @@ const config: WebpackConfiguration & {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'ts-loader',
+            loader: 'esbuild-loader',
             options: {
-              configFile: pathTo('tsconfig.json'),
+              tsconfig: path.resolve(__dirname, 'tsconfig.json'),
             },
           },
         ],
       },
       {
-        test: /\.s?(css)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              api: 'modern',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff2?|ttf|eot|otf)(\?.*$|$)/,
@@ -78,8 +91,10 @@ const config: WebpackConfiguration & {
     ],
   },
   devServer: {
-    static: './dist',
-    port: 9001,
+    static: {
+      directory: pathTo('dist'),
+    },
+    port: process.env.PORT || 9001,
     // Allow bridge running in a container to connect to the plugin dev server.
     allowedHosts: 'all',
     headers: {
@@ -90,6 +105,13 @@ const config: WebpackConfiguration & {
     },
     devMiddleware: {
       writeToDisk: true,
+    },
+    hot: true,
+    client: {
+      progress: true,
+      webSocketURL: {
+        port: process.env.PORT || 9001,
+      },
     },
   },
   plugins: [
@@ -113,6 +135,9 @@ const config: WebpackConfiguration & {
     chunkFilename: '[name]-chunk.js',
     filename: '[name]-bundle.js',
     path: pathTo('dist'),
+  },
+  watchOptions: {
+    ignored: '**/node_modules',
   },
 };
 

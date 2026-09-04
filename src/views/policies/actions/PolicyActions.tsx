@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom-v5-compat';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { asAccessReview, getResourceUrl } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
@@ -22,7 +22,7 @@ type PolicyActionsProps = {
 };
 
 const PolicyActions: FC<PolicyActionsProps> = ({ policy, isKebabToggle }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const formSupported = isPolicySupported(policy);
   const { t } = useNMStateTranslation();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -46,7 +46,7 @@ const PolicyActions: FC<PolicyActionsProps> = ({ policy, isKebabToggle }) => {
       resource: policy,
     });
 
-    history.push(`${policyDetailPage}/yaml`);
+    navigate(`${policyDetailPage}/yaml`);
   };
 
   const onDeleteModalToggle = () => {
