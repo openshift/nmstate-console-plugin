@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom-v5-compat';
 import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkConfigurationPolicyModelGroupVersionKind,
@@ -31,7 +31,7 @@ import usePolicyFilters from './hooks/usePolicyFilters';
 
 const PoliciesList: FC = () => {
   const { t } = useNMStateTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [selectedPolicy, setSelectedPolicy] = useState<V1NodeNetworkConfigurationPolicy>();
   const [selectedState, setSelectedState] = useState<EnactmentStatuses>();
 
@@ -60,7 +60,7 @@ const PoliciesList: FC = () => {
       model: NodeNetworkConfigurationPolicyModel,
     });
 
-    return type === 'form' ? history.push(`${baseURL}~new/form`) : history.push(`${baseURL}~new`);
+    return type === 'form' ? navigate(`${baseURL}~new/form`) : navigate(`${baseURL}~new`);
   };
 
   const [columns, activeColumns] = usePolicyColumns();
