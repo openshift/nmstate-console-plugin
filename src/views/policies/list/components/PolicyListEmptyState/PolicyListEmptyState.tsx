@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Trans } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom-v5-compat';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { getResourceUrl } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
@@ -24,7 +24,7 @@ import './policy-list-empty-state.scss';
 
 const PolicyListEmptyState: FC = () => {
   const { t } = useNMStateTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <EmptyState variant={EmptyStateVariant.lg}>
       <EmptyStateIcon
@@ -42,7 +42,7 @@ const PolicyListEmptyState: FC = () => {
         <Button
           variant={ButtonVariant.primary}
           onClick={() =>
-            history.push(
+            navigate(
               `${getResourceUrl({
                 model: NodeNetworkConfigurationPolicyModel,
               })}~new/form`,
