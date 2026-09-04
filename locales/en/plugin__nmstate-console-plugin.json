@@ -80,6 +80,7 @@
   "Key": "Key",
   "Labels": "Labels",
   "Learn more": "Learn more",
+  "Legend": "Legend",
   "List of network interfaces that should be created, modified, or removed, as a part of this policy.": "List of network interfaces that should be created, modified, or removed, as a part of this policy.",
   "LLDP": "LLDP",
   "LLDP system name": "LLDP system name",
