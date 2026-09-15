@@ -12,3 +12,5 @@ export const NMSTATE_I18N_NS = 'plugin__nmstate-console-plugin';
 export const FORBIDDEN_STATUS = 403;
 export const LINK_AGGREGATION = 'link-aggregation';
 export const BASE_IFACE = 'base-iface';
+
+export const FLAG_KUBEVIRT_DYNAMIC = 'KUBEVIRT_DYNAMIC';

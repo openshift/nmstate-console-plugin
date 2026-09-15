@@ -1,10 +1,10 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import { useFlag } from '@openshift-console/dynamic-plugin-sdk';
 import { Button } from '@patternfly/react-core';
 import { ActionsColumn, ExpandableRowContent, Tbody, Td, Tr } from '@patternfly/react-table';
-
-import { NO_DATA_DASH } from '@utils/constants';
+import { FLAG_KUBEVIRT_DYNAMIC, NO_DATA_DASH } from '@utils/constants';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
@@ -34,6 +34,7 @@ const PhysicalNetworkRow: FC<PhysicalNetworksRowProps> = ({
   const navigate = useNavigate();
   const isNetworkExpanded = (physicalNetwork: PhysicalNetwork) =>
     expandedNetworks.includes(physicalNetwork.name);
+  const kubevirtInstalled = useFlag(FLAG_KUBEVIRT_DYNAMIC);
 
   return (
     <Tbody isExpanded={isNetworkExpanded(network)} key={network.name}>
@@ -59,7 +60,7 @@ const PhysicalNetworkRow: FC<PhysicalNetworksRowProps> = ({
           </Button>
         </Td>
         <Td id="actionColumn" isActionCell key="actionColumn">
-          <ActionsColumn items={getRowActions(t, navigate, network.name)} />
+          <ActionsColumn items={getRowActions(t, navigate, network.name, kubevirtInstalled)} />
         </Td>
       </Tr>
       {!isEmpty(network.nncps) ? (

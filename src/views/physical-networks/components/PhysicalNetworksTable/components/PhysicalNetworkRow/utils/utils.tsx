@@ -10,6 +10,7 @@ export const getRowActions = (
   t: TFunction,
   navigate: (path: string) => void,
   networkName: string,
+  kubevirtInstalled = false,
 ): PhysicalNetworksRowActions => [
   {
     onClick: () =>
@@ -27,22 +28,26 @@ export const getRowActions = (
       </div>
     ),
   },
-  {
-    onClick: () =>
-      navigate(
-        `k8s/cluster/virtualmachine-networks/~new?${PHYSICAL_NETWORK_NAME_PARAM_KEY}=${encodeURIComponent(
-          networkName,
-        )}`,
-      ),
-    title: (
-      <>
-        <div className="pf-v6-c-menu__item-main">
-          {t('Create a virtual machines network using this physical network')}
-        </div>
-        <div className="pf-v6-c-menu__item-description">
-          {t('Creates an OVN Localnet network. Additional configuration required.')}
-        </div>
-      </>
-    ),
-  },
+  ...(kubevirtInstalled
+    ? [
+        {
+          onClick: () =>
+            navigate(
+              `/k8s/cluster/virtualmachine-networks/~new?${PHYSICAL_NETWORK_NAME_PARAM_KEY}=${encodeURIComponent(
+                networkName,
+              )}`,
+            ),
+          title: (
+            <>
+              <div className="pf-v6-c-menu__item-main">
+                {t('Create a virtual machines network using this physical network')}
+              </div>
+              <div className="pf-v6-c-menu__item-description">
+                {t('Creates an OVN Localnet network. Additional configuration required.')}
+              </div>
+            </>
+          ),
+        },
+      ]
+    : []),
 ];
