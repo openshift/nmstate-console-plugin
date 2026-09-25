@@ -57,9 +57,9 @@
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "classnames": "^2.5.1",
-    "copy-webpack-plugin": "^12.0.2",
+    "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^6.7.1",
-    "cypress": "^12.17.4",
+    "cypress": "^16.1.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.1.0",
@@ -90,12 +90,12 @@
     "use-immer": "^0.8.1",
     "webpack": "^5.104.1",
     "webpack-cli": "5.1.4",
-    "webpack-dev-server": "^5.2.3"
+    "webpack-dev-server": "^5.2.6"
   },
   "dependencies": {
     "@preact/signals-react": "^3.7.0",
     "esbuild-loader": "^4.4.2",
-    "mocha": "^10.x",
+    "mocha": "^12.x",
     "word-wrap": "^1.2.5"
   },
   "overrides": {
