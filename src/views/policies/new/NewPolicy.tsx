@@ -23,7 +23,10 @@ import {
 } from '@types';
 import { NETWORK_STATES } from '@utils/components/PolicyForm/constants';
 import PolicyForm from '@utils/components/PolicyForm/PolicyForm';
-import { ensureNoEmptyBridgeMapping } from '@utils/components/PolicyForm/utils';
+import {
+  ensureNoEmptyBridgeMapping,
+  omitEmptyInterfaces,
+} from '@utils/components/PolicyForm/utils';
 
 import './new-policy.scss';
 
@@ -69,7 +72,7 @@ const NewPolicy: FC = () => {
     setLoading(true);
     return k8sCreate({
       model: NodeNetworkConfigurationPolicyModel,
-      data: policy,
+      data: omitEmptyInterfaces(policy),
     })
       .then(() =>
         history.push(
