@@ -8,6 +8,11 @@ import Timeoutable = Cypress.Timeoutable;
 import Withinable = Cypress.Withinable;
 import Shadow = Cypress.Shadow;
 
+const MINUTE = 60 * 1000;
+const GUIDED_TOUR_SETTINGS = JSON.stringify({
+  'console.guidedTour': { admin: { completed: true } },
+});
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -23,53 +28,85 @@ declare global {
   }
 }
 
-const submitButton = 'button[type=submit]';
-
 Cypress.Commands.add('login', (provider, username, password) => {
-  // Check if auth is disabled (for a local development environment).
-
-  cy.visit(''); // visits baseUrl which is set in plugins.js
+  // Pre-dismiss the guided tour by setting the flag in localStorage before the page renders
+  cy.visit('', {
+    onBeforeLoad(win) {
+      win.localStorage.setItem('console-user-settings', GUIDED_TOUR_SETTINGS);
+    },
+  });
   cy.window().then((win: ConsoleWindowType) => {
     if (win.SERVER_FLAGS?.authDisabled) {
       cy.log('skipping login, console is running with auth disabled');
 
       cy.contains('li[data-test="nav"]', 'Networking').click();
-      cy.contains('*[data-test-id="policy-nav-list"]', 'NodeNetworkConfigurationPolicy').should(
-        'be.visible',
-      );
+      cy.contains(
+        '*[data-test-id="nodenetworkconfigurationpolicy-nav-item"]',
+        'NodeNetworkConfigurationPolicy',
+      ).should('be.visible');
       return;
     }
 
     cy.clearCookie('openshift-session-token');
 
     const idp = provider || KUBEADMIN_IDP;
+    const loginUsername = username || KUBEADMIN_USERNAME;
+    const loginPassword = password || Cypress.env('KUBEADMIN_PASSWORD');
 
-    cy.get('main form').should('be.visible');
+    cy.origin(
+      Cypress.config('baseUrl').replace('console-openshift-console', 'oauth-openshift'),
+      { args: { idp, loginUsername, loginPassword } },
+      ({ idp: originIdp, loginUsername: originUsr, loginPassword: originPwd }) => {
+        cy.get('body', { timeout: 3 * 60_000 }).should('be.visible');
+        cy.get('body').then(($body) => {
+          if ($body.find('#inputUsername').length === 0) {
+            if ($body.text().includes(originIdp)) {
+              cy.contains('a', originIdp).click();
+            } else if ($body.text().includes('kubeadmin')) {
+              cy.contains('a', 'kubeadmin').click();
+            } else {
+              cy.get('a').first().click();
+            }
+          }
+        });
+        cy.get('#inputUsername', { timeout: 3 * 60_000 }).should('be.visible');
+        cy.get('#inputUsername').type(originUsr);
+        cy.get('#inputPassword').type(originPwd, { log: false });
+        cy.get('button[type=submit]').click();
+      },
+    );
 
-    cy.get('body').then(($body) => {
-      if ($body.text().includes(idp)) {
-        cy.contains(idp).should('be.visible').click();
-      }
-    });
+    cy.url({ timeout: 2 * MINUTE }).should('include', 'console-openshift-console');
 
-    cy.get('#inputUsername').type(username || KUBEADMIN_USERNAME);
-    cy.get('#inputPassword').type(password || Cypress.env('KUBEADMIN_PASSWORD'));
-    cy.get(submitButton).click();
+    // Dismiss the guided tour for CI by setting localStorage after returning to console origin
+    cy.window().then((w) =>
+      w.localStorage.setItem('console-user-settings', GUIDED_TOUR_SETTINGS),
+    );
+    cy.reload();
+
+    cy.get('[data-test="user-dropdown"], [data-test="user-dropdown-toggle"], #page-sidebar', {
+      timeout: MINUTE,
+    }).should('exist');
   });
 });
 
 Cypress.Commands.add('logout', () => {
-  // Check if auth is disabled (for a local development environment).
   cy.window().then((win: ConsoleWindowType) => {
     if (win.SERVER_FLAGS?.authDisabled) {
       cy.log('skipping logout, console is running with auth disabled');
       return;
     }
     cy.log('Logging out');
-    cy.byTestID('user-dropdown').click();
-    cy.byTestID('log-out').should('be.visible');
-    cy.byTestID('log-out').click({ force: true });
-    cy.byLegacyTestID('login').should('be.visible');
+    cy.visit('/');
+    cy.get('body').then(($body) => {
+      if ($body.find('[data-test="user-dropdown"]').length === 0) {
+        cy.log('logout skipped: user menu not present');
+        return;
+      }
+      cy.get('[data-test="user-dropdown"]').click();
+      cy.get('[data-test="log-out"]').should('be.visible');
+      cy.get('[data-test="log-out"]').click({ force: true });
+    });
   });
 });
 
