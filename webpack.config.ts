@@ -2,7 +2,6 @@
 
 import * as path from 'path';
 
-import CopyPlugin from 'copy-webpack-plugin';
 import svgToMiniDataURI from 'mini-svg-data-uri';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 import { type Configuration as WebpackConfiguration, EnvironmentPlugin } from 'webpack';
@@ -119,9 +118,6 @@ const config: WebpackConfiguration & {
       pluginMetadata,
       extensions,
     }),
-    new CopyPlugin({
-      patterns: [{ from: '../locales', to: '../dist/locales' }],
-    }),
     new EnvironmentPlugin({
       NODE_ENV: isProd ? 'production' : 'development',
     }),
@@ -132,6 +128,7 @@ const config: WebpackConfiguration & {
     minimize: false,
   },
   output: {
+    copy: [{ from: '../locales', to: 'locales' }],
     chunkFilename: '[name]-chunk.js',
     filename: '[name]-bundle.js',
     path: pathTo('dist'),
