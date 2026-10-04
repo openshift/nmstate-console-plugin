@@ -13,6 +13,7 @@ import {
   Tooltip,
 } from '@patternfly/react-core';
 import { MinusCircleIcon } from '@patternfly/react-icons';
+import { ensureArray } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getPolicyInterfaces } from '@utils/resources/policies/utils';
 
@@ -34,12 +35,13 @@ const InterfaceDetailsExpandableSection: FC<InterfaceDetailsExpandableSectionPro
 }) => {
   const { t } = useNMStateTranslation();
 
-  const interfaceNamesInUse: string[] = policy?.spec?.desiredState?.interfaces?.map(
-    (iface) => iface?.name as string,
-  );
+  const interfaceNamesInUse: string[] = ensureArray<NodeNetworkConfigurationInterface>(
+    policy?.spec?.desiredState?.interfaces,
+  ).map((iface) => iface?.name as string);
 
-  const stepInterfaces: NodeNetworkConfigurationInterface[] =
-    getPolicyInterfaces(policy)?.filter((iface) => interfaceTypes.includes(iface.type)) || [];
+  const stepInterfaces: NodeNetworkConfigurationInterface[] = getPolicyInterfaces(policy).filter(
+    (iface) => interfaceTypes.includes(iface.type),
+  );
 
   const removeInterface = (interfaceIndex: number) => {
     setPolicy((draftPolicy) => {

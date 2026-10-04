@@ -12,6 +12,7 @@ import {
 import { GridGroup } from '@patternfly/react-topology/dist/esm/layouts/GridGroup';
 import { GridLink } from '@patternfly/react-topology/dist/esm/layouts/GridLink';
 import { GridNode } from '@patternfly/react-topology/dist/esm/layouts/GridNode';
+import { ensureArray } from '@utils/helpers';
 
 export class LevelsLayout extends BaseLayout implements Layout {
   constructor(graph: Graph, options?: Partial<GridLayoutOptions>) {
@@ -20,7 +21,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
 
   // Method to sort nodes by their level
   private sortNodesByLevel(nodes: LayoutNode[]): LayoutNode[] {
-    return (nodes || []).sort((a, b) => {
+    return ensureArray<LayoutNode>(nodes).sort((a, b) => {
       const aLevel = a?.element?.getData()?.level;
       const bLevel = b?.element?.getData()?.level;
       return aLevel - bLevel;
@@ -30,7 +31,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
   // Method to count nodes per level
   private countNodesPerLevel(nodes: LayoutNode[]): { [level: number]: number } {
     const levelCounts: { [level: number]: number } = {};
-    (nodes || []).forEach((node) => {
+    ensureArray<LayoutNode>(nodes).forEach((node) => {
       const level = node?.element?.getData()?.level;
       if (!levelCounts[level]) {
         levelCounts[level] = 0;
@@ -65,7 +66,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
     let padX = 0;
     let padY = 0;
 
-    (groupNodes || []).forEach((node) => {
+    ensureArray<LayoutNode>(groupNodes).forEach((node) => {
       if (padX < node.width) {
         padX = node.width;
       }
@@ -94,7 +95,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
     let maxX = x;
     let maxY = y;
 
-    (sortedNodes || []).forEach((node) => {
+    ensureArray<LayoutNode>(sortedNodes).forEach((node) => {
       if (node?.element?.getData()?.level !== currentLevel) {
         // Move to the next level when the level changes
         currentLevel = node?.element?.getData()?.level;
@@ -143,7 +144,7 @@ export class LevelsLayout extends BaseLayout implements Layout {
   // Method to group nodes by their parent group
   private groupNodesByParent(): { [groupId: string]: LayoutNode[] } {
     const groups: { [groupId: string]: LayoutNode[] } = {};
-    (this.nodes || []).forEach((node) => {
+    ensureArray<LayoutNode>(this.nodes).forEach((node) => {
       const parentGroupId = node.element.getParent()?.getId();
       if (parentGroupId) {
         if (!groups[parentGroupId]) {

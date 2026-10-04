@@ -20,7 +20,7 @@ import {
 import { SearchIcon, TimesIcon } from '@patternfly/react-icons';
 import { CREATE_NEW, INVALID, NOT_FOUND } from '@utils/components/SelectTypeahead/utils/constants';
 import { createItemId } from '@utils/components/SelectTypeahead/utils/helpers';
-import { isEmpty } from '@utils/helpers';
+import { ensureArray, isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 type SelectTypeaheadProps = {
@@ -62,11 +62,12 @@ const SelectTypeahead: FC<SelectTypeaheadProps> = ({
   const textInputRef = useRef<HTMLInputElement>();
 
   useEffect(() => {
+    const safeInitialOptions = ensureArray<SelectOptionProps>(initialOptions);
     const filteredOptions: SelectOptionProps[] = filterValue
-      ? (initialOptions || [])?.filter((menuItem) =>
+      ? safeInitialOptions.filter((menuItem) =>
           String(menuItem.value).toLowerCase().includes(filterValue.toLowerCase()),
         )
-      : initialOptions || [];
+      : safeInitialOptions;
 
     if (canCreate) {
       const creationNotAllowedMessage = getCreationNotAllowedMessage?.(filterValue);
@@ -138,7 +139,7 @@ const SelectTypeahead: FC<SelectTypeaheadProps> = ({
     if (value === CREATE_NEW) {
       if (!initialOptions?.some((item) => item.value === filterValue)) {
         setInitialOptions?.((prevOptions) => [
-          ...(prevOptions || []),
+          ...ensureArray<SelectOptionProps>(prevOptions),
           createNewOption(filterValue),
         ]);
       }

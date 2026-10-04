@@ -4,7 +4,7 @@ import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
 } from '@kubevirt-ui/kubevirt-api/nmstate';
-import { isEmpty } from '@utils/helpers';
+import { ensureArray, isEmpty } from '@utils/helpers';
 import { getInterfaces } from '@utils/resources/nns/getters';
 import { getEthernetInterfaces } from '@utils/resources/nns/utils';
 
@@ -24,7 +24,7 @@ const getUsedPortNamesForNode = (nns: V1beta1NodeNetworkState) => {
   const interfaces = getInterfaces(nns);
   return interfaces.reduce((acc, iface) => {
     if (bridgeTypes.includes(iface?.type)) {
-      const ports = iface?.bridge?.port?.map((port) => port?.name) || [];
+      const ports = ensureArray(iface?.bridge?.port).map((port) => port?.name);
       acc = [...acc, ...ports];
     }
 
