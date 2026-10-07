@@ -1,18 +1,22 @@
 import {
   InterfaceType,
+  NodeNetworkConfigurationInterface,
   NodeNetworkConfigurationInterfaceBridgePort,
   V1NodeNetworkConfigurationPolicy,
 } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { LINK_AGGREGATION } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { getPortNamesFromPorts } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
+import { ensureArray } from '@utils/helpers';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
 import {
   getPolicyBondingInterfaces,
   getPolicyBridgingInterfaces,
 } from '@utils/resources/policies/utils';
 
-export const getPolicyInterfaces = (policy: V1NodeNetworkConfigurationPolicy) =>
-  policy?.spec?.desiredState?.interfaces;
+export const getPolicyInterfaces = (
+  policy: V1NodeNetworkConfigurationPolicy,
+): NodeNetworkConfigurationInterface[] =>
+  ensureArray<NodeNetworkConfigurationInterface>(policy?.spec?.desiredState?.interfaces);
 
 export const getOVN = (policy: V1NodeNetworkConfigurationPolicy) => policy?.spec?.desiredState?.ovn;
 
@@ -22,8 +26,12 @@ export const getBridgeInterface = (policy: V1NodeNetworkConfigurationPolicy) =>
 export const getBridgeManagementInterface = (policy: V1NodeNetworkConfigurationPolicy) =>
   getPolicyInterfaces(policy)?.filter((iface) => iface?.type === InterfaceType.OVS_INTERFACE)?.[0];
 
-export const getBridgePorts = (policy: V1NodeNetworkConfigurationPolicy) =>
-  getBridgeInterface(policy)?.bridge?.port || [];
+export const getBridgePorts = (
+  policy: V1NodeNetworkConfigurationPolicy,
+): NodeNetworkConfigurationInterfaceBridgePort[] =>
+  ensureArray<NodeNetworkConfigurationInterfaceBridgePort>(
+    getBridgeInterface(policy)?.bridge?.port,
+  );
 
 export const getBondInterface = (policy: V1NodeNetworkConfigurationPolicy) =>
   getPolicyBondingInterfaces(policy)?.[0];
@@ -86,7 +94,7 @@ export const getBridgeName = (policy: V1NodeNetworkConfigurationPolicy) =>
   getBridgeInterface(policy)?.name;
 
 export const getPolicyLocalnetNames = (policy: V1NodeNetworkConfigurationPolicy): string[] => {
-  const bridgeMappings = getOVN(policy)?.[OVN_BRIDGE_MAPPINGS] || [];
+  const bridgeMappings = ensureArray(getOVN(policy)?.[OVN_BRIDGE_MAPPINGS]);
   return bridgeMappings.map((mapping) => mapping?.localnet).filter(Boolean);
 };
 

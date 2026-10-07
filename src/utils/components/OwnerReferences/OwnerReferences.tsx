@@ -6,7 +6,7 @@ import {
   OwnerReference,
   ResourceLink,
 } from '@openshift-console/dynamic-plugin-sdk';
-import { isEmpty } from '@utils/helpers';
+import { ensureArray, isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 type OwnerReferencesProps = {
@@ -15,7 +15,7 @@ type OwnerReferencesProps = {
 
 const OwnerReferences: FC<OwnerReferencesProps> = ({ obj }) => {
   const { t } = useNMStateTranslation();
-  const ownerReferences = (obj?.metadata?.ownerReferences || [])?.map(
+  const ownerReferences = ensureArray<OwnerReference>(obj?.metadata?.ownerReferences)?.map(
     (ownerRef: OwnerReference) => (
       <ResourceLink
         groupVersionKind={getGroupVersionKindForResource(ownerRef)}

@@ -30,7 +30,7 @@ import {
 } from '@patternfly/react-topology';
 import { useSignalEffect, useSignals } from '@preact/signals-react/runtime';
 import AccessDenied from '@utils/components/AccessDenied/AccessDenied';
-import { isEmpty } from '@utils/helpers';
+import { ensureArray, isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
 import { categorizeEnactments } from '@utils/resources/enactments/utils';
 import { filterPolicyAppliedNodes } from '@utils/resources/policies/utils';
@@ -78,7 +78,7 @@ const Topology: FC = () => {
   const { available } = categorizeEnactments(enhancments);
 
   const nodeNames: string[] = useMemo(
-    () => states?.map((state) => state.metadata.name) || [],
+    () => ensureArray(states).map((state) => state.metadata.name),
     [states],
   );
 

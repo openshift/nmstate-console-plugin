@@ -13,6 +13,7 @@ import {
 import FormGroupHelperText from '@utils/components/FormGroupHelperText/FormGroupHelperText';
 import useNodeInterfaces from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useNodeInterfaces/useNodeInterfaces';
 import { updateBondInterfaces } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
+import { ensureArray } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getBondPortNames } from '@utils/resources/policies/selectors';
 
@@ -37,9 +38,10 @@ const NetworkInterfacesSelect: FC<NetworkInterfacesSelectProps> = ({ policy, set
     const checked = (event.target as HTMLInputElement).checked;
     setPolicy((draftPolicy) => {
       const bondPorts = getBondPortNames(draftPolicy);
+      const safeBondPorts = ensureArray<string>(bondPorts);
       const portsToUpdate = checked
-        ? [...(bondPorts || []), selection]
-        : bondPorts?.filter((value) => value !== selection);
+        ? [...safeBondPorts, selection]
+        : safeBondPorts.filter((value) => value !== selection);
 
       updateBondInterfaces(draftPolicy, portsToUpdate);
     });

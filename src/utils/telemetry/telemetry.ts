@@ -5,6 +5,7 @@ import {
   V1NodeNetworkConfigurationPolicy,
 } from '@kubevirt-ui/kubevirt-api/nmstate';
 import { getSegmentAnalytics } from '@openshift-console/dynamic-plugin-sdk-internal';
+import { ensureArray } from '@utils/helpers';
 
 import { NNCP_CREATED, NNCP_IP_CONFIGURATION_USED, NNCP_NODE_SELECTOR_USED } from './constants';
 
@@ -59,7 +60,9 @@ const getIPConfiguration = (iface: NodeNetworkConfigurationInterface): IPConfigu
 };
 
 const getInterfaceTypes = (policy: V1NodeNetworkConfigurationPolicy): string[] => {
-  const interfaces = policy?.spec?.desiredState?.interfaces || [];
+  const interfaces = ensureArray<NodeNetworkConfigurationInterface>(
+    policy?.spec?.desiredState?.interfaces,
+  );
   return interfaces.map((iface) => iface.type).filter(Boolean);
 };
 
@@ -70,7 +73,9 @@ export const logCreationFailed = (eventName: string, error: Error) => {
 };
 
 export const logNNCPCreated = (policy: V1NodeNetworkConfigurationPolicy) => {
-  const interfaces = policy?.spec?.desiredState?.interfaces || [];
+  const interfaces = ensureArray<NodeNetworkConfigurationInterface>(
+    policy?.spec?.desiredState?.interfaces,
+  );
   const nodeSelector = policy?.spec?.nodeSelector;
   const interfaceTypes = getInterfaceTypes(policy);
 

@@ -28,7 +28,7 @@ const EnactmentStateTab: FC<EnactmentStateTabProps> = ({ selectedConfiguration }
   const { nodeToEnactmentStateMap } = selectedConfiguration;
 
   const filteredEnactmentStates: NodeEnactmentStateDetails[] = useMemo(() => {
-    const nodeEnactmentStatePairs = Object.values(nodeToEnactmentStateMap || {}) || [];
+    const nodeEnactmentStatePairs = Object.values(nodeToEnactmentStateMap || {});
     return filterEnactmentStateDetails(nodeEnactmentStatePairs, searchInput, enactmentStateFilters);
   }, [enactmentStateFilters, nodeToEnactmentStateMap, searchInput]);
 
