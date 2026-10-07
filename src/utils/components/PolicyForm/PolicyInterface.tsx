@@ -20,13 +20,12 @@ import {
 } from '@patternfly/react-core';
 import { HelpIcon } from '@patternfly/react-icons';
 import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
-import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
 
 import BondConfiguration from './components/BondConfiguration';
 import IPConfiguration from './components/IPConfiguration';
 import PortConfiguration from './components/PortConfiguration';
 import { INTERFACE_TYPE_LABEL, NETWORK_STATES, onInterfaceChangeType } from './constants';
-import { doesOVSBridgeExist, validateInterfaceName } from './utils';
+import { validateInterfaceName } from './utils';
 
 type HandleSelectChange = FormSelectProps['onChange'];
 
@@ -56,9 +55,8 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
   };
 
   const handleTypechange: HandleSelectChange = (event, newType: string) => {
-    onInterfaceChange((draftInterface, draftPolicy) => {
+    onInterfaceChange((draftInterface) => {
       draftInterface.type = newType as InterfaceType;
-      !doesOVSBridgeExist(draftPolicy) && delete draftPolicy.spec.desiredState.ovn;
 
       if (newType === InterfaceType.LINUX_BRIDGE) {
         delete draftInterface['link-aggregation'];
@@ -68,16 +66,6 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
       if (newType === InterfaceType.OVS_BRIDGE) {
         delete draftInterface['link-aggregation'];
         draftInterface.bridge = { port: [], options: {}, ['allow-extra-patch-ports']: true } as any;
-        if (!draftPolicy?.spec?.desiredState?.ovn) {
-          draftPolicy.spec.desiredState.ovn = {
-            [OVN_BRIDGE_MAPPINGS]: [],
-          };
-        }
-        draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS].push({
-          bridge: '',
-          localnet: '',
-          state: 'present',
-        });
       }
 
       if (newType === InterfaceType.BOND) {
