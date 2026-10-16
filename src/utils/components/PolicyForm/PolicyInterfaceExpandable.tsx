@@ -14,7 +14,7 @@ import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import DeleteInterfaceModal from './components/DeleteInterfaceModal';
 import { onInterfaceChangeType } from './constants';
 import PolicyInterface from './PolicyInterface';
-import { doesOVSBridgeExist, getExpandableTitle } from './utils';
+import { getExpandableTitle } from './utils';
 
 type PolicyInterfacesExpandableProps = {
   policy: V1NodeNetworkConfigurationPolicy;
@@ -38,7 +38,9 @@ const PolicyInterfacesExpandable: FC<PolicyInterfacesExpandableProps> = ({
 
   const removeInterface = (interfaceIndex: number) => {
     if (
-      createdInterfacesNames?.includes(policy?.spec?.desiredState?.interfaces[interfaceIndex]?.name)
+      createdInterfacesNames?.includes(
+        policy?.spec?.desiredState?.interfaces?.[interfaceIndex]?.name,
+      )
     ) {
       return setInterfaceToDelete(policy.spec.desiredState.interfaces[interfaceIndex]);
     }
@@ -48,13 +50,12 @@ const PolicyInterfacesExpandable: FC<PolicyInterfacesExpandableProps> = ({
         interfaceIndex,
         1,
       );
-      !doesOVSBridgeExist(draftPolicy) && delete draftPolicy.spec.desiredState.ovn;
     });
   };
 
   return (
     <>
-      {policy?.spec?.desiredState?.interfaces.map((policyInterface, index) => {
+      {policy?.spec?.desiredState?.interfaces?.map((policyInterface, index) => {
         const interfaceCreated = createdInterfacesNames?.includes(policyInterface?.name);
         return (
           <FormFieldGroupExpandable

@@ -7,6 +7,8 @@ import { V1NodeNetworkConfigurationPolicy } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/ovn/constants';
 
+import { ensureOvnBridgeMappings } from '../utils';
+
 import PolicyFormOVSBridgeMappingExpandable from './PolicyFormOVSBridgeMappingExpandable';
 
 type PolicyFormOVSBridgeMappingProps = {
@@ -36,6 +38,7 @@ const PolicyFormOVSBridgeMapping: FC<PolicyFormOVSBridgeMappingProps> = ({ polic
           className="pf-m-link--align-left pf-v6-u-ml-md"
           onClick={() =>
             setPolicy((draftPolicy) => {
+              ensureOvnBridgeMappings(draftPolicy);
               draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS].unshift({
                 bridge: '',
                 localnet: '',
