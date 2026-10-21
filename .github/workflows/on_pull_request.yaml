@@ -11,23 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
       - name: Lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Check i18n
         shell: bash
         run: |
-          yarn i18n
+          npm run i18n
           GIT_STATUS="$(git status --short --untracked-files locales)"
           if [ -n "$GIT_STATUS" ]; then
             echo "i18n files are not up to date. Commit them to fix."
@@ -36,21 +36,26 @@ jobs:
           fi
 
       - name: Test
-        run: yarn test:coverage
+        run: npm run test:coverage
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
   e2e-tests:
     name: Run e2e tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
       - name: Install kinD
         run: |
-          curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
+          curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64
           chmod +x ./kind
           sudo mv ./kind /usr/local/bin/kind
 
@@ -67,18 +72,18 @@ jobs:
 
       - name: Create Cluster
         run: |
-          yarn create-cluster
-          yarn login-cluster
+          npm run create-cluster
+          npm run login-cluster
       - name: Cypress run
-        uses: cypress-io/github-action@v5.8.1
+        uses: cypress-io/github-action@v6
         with:
-          start: yarn serve-build, yarn start-console
+          start: npm run serve-build, npm run start-console
           wait-on: 'http://localhost:9001'
           wait-on-timeout: 120
           browser: chrome
           headed: false
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-videos
