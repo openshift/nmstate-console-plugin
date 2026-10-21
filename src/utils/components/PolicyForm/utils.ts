@@ -28,6 +28,54 @@ export const doesOVSBridgeExist = (policy: V1NodeNetworkConfigurationPolicy): bo
     (iface: NodeNetworkConfigurationInterface) => iface?.type === InterfaceType.OVS_BRIDGE,
   );
 
+export const ensurePolicyInterfaces = (policy: V1NodeNetworkConfigurationPolicy) => {
+  if (!policy.spec.desiredState) {
+    policy.spec.desiredState = {};
+  }
+
+  if (!policy.spec.desiredState.interfaces) {
+    policy.spec.desiredState.interfaces = [];
+  }
+};
+
+export const ensureOvnBridgeMappings = (policy: V1NodeNetworkConfigurationPolicy) => {
+  if (!policy.spec.desiredState) {
+    policy.spec.desiredState = {};
+  }
+
+  if (!policy.spec.desiredState.ovn) {
+    policy.spec.desiredState.ovn = {
+      [OVN_BRIDGE_MAPPINGS]: [],
+    };
+  }
+
+  if (!policy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS]) {
+    policy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS] = [];
+  }
+};
+
+export const omitEmptyInterfaces = (
+  policy: V1NodeNetworkConfigurationPolicy,
+): V1NodeNetworkConfigurationPolicy => {
+  const desiredState = { ...policy.spec?.desiredState };
+
+  if (!desiredState.interfaces?.length) {
+    delete desiredState.interfaces;
+  }
+
+  if (!desiredState.ovn?.[OVN_BRIDGE_MAPPINGS]?.length) {
+    delete desiredState.ovn;
+  }
+
+  return {
+    ...policy,
+    spec: {
+      ...policy.spec,
+      desiredState,
+    },
+  };
+};
+
 export const validateInterfaceName = (name: string): string => {
   if (!name) return '';
 

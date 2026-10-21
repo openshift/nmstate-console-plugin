@@ -24,7 +24,7 @@ import NodeSelectorModal from '../NodeSelectorModal/NodeSelectorModal';
 import ApplySelectorCheckbox from './components/ApplySelectorCheckbox';
 import PolicyFormOVSBridgeMapping from './components/PolicyFormOVSBridgeMapping';
 import PolicyInterfacesExpandable from './PolicyInterfaceExpandable';
-import { doesOVSBridgeExist } from './utils';
+import { ensurePolicyInterfaces } from './utils';
 
 import './policy-form.scss';
 
@@ -38,7 +38,6 @@ type PolicyFormProps = {
 const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false, formId }) => {
   const { t } = useNMStateTranslation();
   const [modalOpen, setModalOpen] = useState(false);
-  const isOVSBridge = doesOVSBridgeExist(policy);
 
   const onDescriptionChange = (newDescription: string) => {
     setPolicy(({ metadata }) => {
@@ -50,11 +49,7 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
 
   const addNewInterface = () => {
     setPolicy((draftPolicy) => {
-      if (!draftPolicy.spec?.desiredState?.interfaces) {
-        draftPolicy.spec.desiredState = {
-          interfaces: [] as NodeNetworkConfigurationInterface[],
-        };
-      }
+      ensurePolicyInterfaces(draftPolicy);
 
       draftPolicy.spec.desiredState.interfaces.unshift({
         type: InterfaceType.LINUX_BRIDGE,
@@ -157,7 +152,7 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
         </Content>
         <PolicyInterfacesExpandable policy={policy} setPolicy={setPolicy} createForm={createForm} />
       </div>
-      {isOVSBridge && <PolicyFormOVSBridgeMapping policy={policy} setPolicy={setPolicy} />}
+      <PolicyFormOVSBridgeMapping policy={policy} setPolicy={setPolicy} />
     </Form>
   );
 };
