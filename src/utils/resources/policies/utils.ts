@@ -11,7 +11,7 @@ import { DEFAULT_OVS_INTERFACE_NAME } from '@utils/components/PolicyForm/PolicyW
 import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';
 import { getUplinkConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { ENACTMENT_LABEL_POLICY, NO_DATA_DASH } from '@utils/constants';
-import { isEmpty } from '@utils/helpers';
+import { ensureArray, isEmpty } from '@utils/helpers';
 import {
   getAggregationMode,
   getBondName,
@@ -43,11 +43,12 @@ export const isPolicyAppliedInNode = (
 export const filterPolicyAppliedNodes = (
   nodes: IoK8sApiCoreV1Node[],
   policy: V1NodeNetworkConfigurationPolicy,
-) => (nodes || []).filter((node) => isPolicyAppliedInNode(policy, node));
+) => ensureArray<IoK8sApiCoreV1Node>(nodes).filter((node) => isPolicyAppliedInNode(policy, node));
 
 export const getPolicyInterfaces = (
   policy: V1NodeNetworkConfigurationPolicy,
-): NodeNetworkConfigurationInterface[] => policy.spec?.desiredState?.interfaces || [];
+): NodeNetworkConfigurationInterface[] =>
+  ensureArray<NodeNetworkConfigurationInterface>(policy?.spec?.desiredState?.interfaces);
 
 export const getPolicyInterfacesByType = (
   policy: V1NodeNetworkConfigurationPolicy,
@@ -67,21 +68,23 @@ export const getPolicyInterfacesByType = (
 };
 
 export const getPolicyEthernetInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
-  getPolicyInterfaces(policy)?.filter((iface) => iface.type === InterfaceType.ETHERNET) || [];
+  getPolicyInterfaces(policy).filter((iface) => iface.type === InterfaceType.ETHERNET);
 
 export const getPolicyBondingInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
-  getPolicyInterfaces(policy)?.filter((iface) => iface.type === InterfaceType.BOND) || [];
+  getPolicyInterfaces(policy).filter((iface) => iface.type === InterfaceType.BOND);
 
 export const getPolicyBridgingInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
-  getPolicyInterfaces(policy)?.filter((iface) =>
+  getPolicyInterfaces(policy).filter((iface) =>
     [InterfaceType.LINUX_BRIDGE, InterfaceType.OVS_BRIDGE].includes(iface.type),
-  ) || [];
+  );
 
 export const getPolicyOVSInterfaces = (policy): NodeNetworkConfigurationInterface[] =>
-  getPolicyInterfaces(policy)?.filter((iface) => iface.type === InterfaceType.OVS_INTERFACE) || [];
+  getPolicyInterfaces(policy).filter((iface) => iface.type === InterfaceType.OVS_INTERFACE);
 
 export const getBridgePortsWithoutDefaultOVSIface = (policy: V1NodeNetworkConfigurationPolicy) =>
-  getBridgePortNames(policy)?.filter((port) => port !== DEFAULT_OVS_INTERFACE_NAME) || [];
+  ensureArray<string>(getBridgePortNames(policy)).filter(
+    (port) => port !== DEFAULT_OVS_INTERFACE_NAME,
+  );
 
 export const getBondUplinkDisplayText = (policy: V1NodeNetworkConfigurationPolicy) => {
   const bondPorts = getBridgePortsWithoutDefaultOVSIface(policy).join(' + ');

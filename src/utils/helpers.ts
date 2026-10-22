@@ -12,6 +12,9 @@ export const nmStateConsole = console;
 export const isEmpty = (obj) =>
   [Array, Object].includes((obj || {}).constructor) && !Object.entries(obj || {}).length;
 
+export const ensureArray = <T>(value: unknown): T[] =>
+  Array.isArray(value) ? value : [];
+
 export const ensurePath = <T extends object>(data: T, paths: string | string[]) => {
   let current = data;
 

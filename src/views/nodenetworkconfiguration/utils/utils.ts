@@ -14,7 +14,7 @@ import {
   NodeShape,
   NodeStatus,
 } from '@patternfly/react-topology';
-import { isEmpty } from '@utils/helpers';
+import { ensureArray, isEmpty } from '@utils/helpers';
 
 import BridgeIcon from '../components/BridgeIcon';
 
@@ -181,12 +181,19 @@ export const transformDataToTopologyModel = (
     const nnceConfigredInterfaces = getNNCEConfiguredInterfaces(enhancment, nodeState);
 
     const creatingPolicyToAdd = creatingPolicyNodes.includes(nnsName)
-      ? creatingPolicy?.spec?.desiredState?.interfaces || []
+      ? ensureArray<NodeNetworkConfigurationInterface>(
+          creatingPolicy?.spec?.desiredState?.interfaces,
+        )
       : [];
 
     const childNodes = createNodes(
       nnsName,
-      [...nodeState.status.currentState.interfaces, ...creatingPolicyToAdd],
+      [
+        ...ensureArray<NodeNetworkConfigurationInterface>(
+          nodeState.status?.currentState?.interfaces,
+        ),
+        ...creatingPolicyToAdd,
+      ],
       nnceConfigredInterfaces,
     );
 
@@ -221,8 +228,10 @@ const getCorrelatedEnactment = (
   availableEnhancments: V1beta1NodeNetworkConfigurationEnactment[],
   nnsName: string,
 ): V1beta1NodeNetworkConfigurationEnactment => {
-  return availableEnhancments.find((nnce) =>
-    nnce.metadata.ownerReferences.some((ref) => ref.name === nnsName),
+  return availableEnhancments?.find(
+    (nnce) =>
+      Array.isArray(nnce?.metadata?.ownerReferences) &&
+      nnce.metadata.ownerReferences.some((ref) => ref.name === nnsName),
   );
 };
 
@@ -243,8 +252,12 @@ const getNNCEConfiguredInterfaces = (
 
   const configured: NodeNetworkConfigurationInterface[] = [];
 
-  const desiredInterfaces = enhancement?.status?.desiredState?.interfaces || [];
-  const currentInterfaces = state?.status?.currentState?.interfaces || [];
+  const desiredInterfaces = ensureArray<NodeNetworkConfigurationInterface>(
+    enhancement?.status?.desiredState?.interfaces,
+  );
+  const currentInterfaces = ensureArray<NodeNetworkConfigurationInterface>(
+    state?.status?.currentState?.interfaces,
+  );
 
   desiredInterfaces.forEach((desiredIface) => {
     if (findInterfaceByName(currentInterfaces, desiredIface.name)) {

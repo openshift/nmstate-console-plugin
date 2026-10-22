@@ -4,6 +4,7 @@ import {
   NodeNetworkConfigurationInterfaceBridgePort,
   V1NodeNetworkConfigurationPolicy,
 } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { ensureArray } from '@utils/helpers';
 import {
   DEFAULT_OVN_BRIDGE_NAME,
   DEFAULT_OVS_BRIDGE_NAME,
@@ -70,7 +71,7 @@ export const getInitialLinuxBondInterface = (
   state: NETWORK_STATES.Up,
   [LINK_AGGREGATION]: {
     mode: aggregationMode || '',
-    port: ports || [],
+    port: ensureArray<string>(ports),
   },
 });
 
