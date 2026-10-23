@@ -6,7 +6,6 @@ import {
   ButtonVariant,
   Flex,
   FlexItem,
-  FormGroup,
   PageSection,
   TextInput,
   Title,
