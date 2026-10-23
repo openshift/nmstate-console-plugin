@@ -4,7 +4,7 @@ import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { RowFilter, RowSearchFilter } from '@openshift-console/dynamic-plugin-sdk';
 import { isEmpty } from '@utils/helpers';
 import { getInterfaces } from '@utils/resources/nns/getters';

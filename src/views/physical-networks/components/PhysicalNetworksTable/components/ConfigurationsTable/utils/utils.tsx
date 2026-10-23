@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { TFunction } from 'react-i18next';
 
-import { NO_DATA_DASH } from '@utils/constants';
 import { Button } from '@patternfly/react-core';
 import { DataViewTh, DataViewTr } from '@patternfly/react-data-view/dist/esm/DataViewTable';
+import { NO_DATA_DASH } from '@utils/constants';
 
 import { ConfigurationDetails } from '../../../../../utils/types';
 import EnactmentStateWithIcon from '../../../../EnactmentStateWithIcon';

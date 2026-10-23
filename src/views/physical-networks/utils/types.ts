@@ -1,5 +1,5 @@
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 
 export type NodeEnactmentStateDetails = { node: IoK8sApiCoreV1Node; status: string };
 export type NodeToEnactmentStateMap = Record<string, NodeEnactmentStateDetails>;

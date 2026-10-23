@@ -2,7 +2,7 @@ import React, { FC, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom-v5-compat';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkState } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   NodeNetworkStateModel,
   NodeNetworkStateModelGroupVersionKind,
@@ -46,7 +46,7 @@ const StatesList: FC = () => {
 
   const onClose = useCallback(() => {
     setSelectedInterfaceName();
-  }, []);
+  }, [setSelectedInterfaceName]);
 
   const [expandAll, setExpandAll] = useState(false);
 

@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import {
   NodeNetworkConfigurationInterface,
   NodeNetworkConfigurationInterfaceBondMode,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { FormGroup, FormSelect, FormSelectOption, FormSelectProps } from '@patternfly/react-core';
 import { ensurePath } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';

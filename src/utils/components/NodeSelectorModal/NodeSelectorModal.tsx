@@ -6,11 +6,11 @@ import { ENACTMENT_LABEL_NODE } from 'src/utils/constants';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { useImmer } from 'use-immer';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Alert,
@@ -19,11 +19,12 @@ import {
   ButtonType,
   ButtonVariant,
   Form,
+  Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
+  ModalVariant,
 } from '@patternfly/react-core';
-import { Modal, ModalVariant } from '@patternfly/react-core';
 
 import LabelsList from './components/LabelList';
 import LabelRow from './components/LabelRow';

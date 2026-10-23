@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import useNodeInterfaces from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useNodeInterfaces/useNodeInterfaces';
 import { validateInterfaceName } from '@utils/components/PolicyForm/utils/utils';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
@@ -23,7 +23,7 @@ const useBridgeNameValidation: UseBridgeNameValidation = (policy) => {
 
       return basicValidationMessage || duplicateNameErrorMessage || '';
     },
-    [existingInterfaceNames],
+    [existingInterfaceNames, t],
   );
 };
 

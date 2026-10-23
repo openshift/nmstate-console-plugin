@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { DataViewTable } from '@patternfly/react-data-view';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { NodeEnactmentStateDetails } from '../../../../../../utils/types';
 

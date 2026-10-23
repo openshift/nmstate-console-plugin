@@ -2,7 +2,7 @@ import {
   InterfaceType,
   NodeNetworkConfigurationInterfaceBridgePort,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { LINK_AGGREGATION } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { getPortNamesFromPorts } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';

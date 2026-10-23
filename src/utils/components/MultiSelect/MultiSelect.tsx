@@ -8,7 +8,6 @@ import {
   SelectList,
   SelectOption,
 } from '@patternfly/react-core';
-
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import './MultiSelect.scss';
@@ -18,7 +17,7 @@ export type MultiSelectOption = { content: ReactNode; id: string };
 type MultiSelectProps = {
   items: MultiSelectOption[];
   selectedItems: string[];
-  setSelectedItems: (items: any[]) => void;
+  setSelectedItems: (items: string[]) => void;
   toggleText?: string;
 };
 

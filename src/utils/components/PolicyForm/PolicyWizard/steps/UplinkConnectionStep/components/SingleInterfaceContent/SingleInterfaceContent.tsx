@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { FormGroup, Label } from '@patternfly/react-core';
 import TextWithHelpIcon from '@utils/components/HelpTextIcon/TextWithHelpIcon';
 import IPAddressAlert from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/SingleInterfaceContent/components/IPAddressAlert';

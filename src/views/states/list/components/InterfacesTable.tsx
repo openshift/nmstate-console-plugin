@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Table, TableGridBreakpoint, Tbody, Th, Thead, Tr } from '@patternfly/react-table';
 
 import useInterfaceColumns from '../hooks/useInterfaceColumns';

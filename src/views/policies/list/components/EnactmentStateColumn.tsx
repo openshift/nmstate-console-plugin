@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { EnactmentStatuses } from 'src/views/policies/constants';
 
-import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Button, ButtonVariant, Stack, StackItem } from '@patternfly/react-core';
 import { IconsByStatus } from '@utils/resources/enactments/icons';
 import { categorizeEnactments } from '@utils/resources/enactments/utils';

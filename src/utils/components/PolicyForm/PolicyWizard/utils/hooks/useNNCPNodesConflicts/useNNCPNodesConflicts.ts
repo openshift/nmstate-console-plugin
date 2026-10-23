@@ -1,6 +1,6 @@
 import { intersection } from 'lodash';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import useExistingNNCPsNodes from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useExistingNNCPsNodes/useExistingNNCPsNodes';
 import useNNCPNodes from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useNNCPNodes';
 import { NNCPNodeConflict } from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useNNCPNodesConflicts/utils/types';

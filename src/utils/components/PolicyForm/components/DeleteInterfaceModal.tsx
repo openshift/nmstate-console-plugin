@@ -2,9 +2,15 @@ import React, { FC } from 'react';
 import { Trans } from 'react-i18next';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
-import { Button, ButtonVariant } from '@patternfly/react-core';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from '@patternfly/react-core';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
+import {
+  Button,
+  ButtonVariant,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from '@patternfly/react-core';
 
 import { capitalizeFirstLetter } from '../utils/utils';
 

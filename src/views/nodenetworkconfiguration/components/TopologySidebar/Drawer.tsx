@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import StateDetailsPage from 'src/views/states/details/StateDetailsPage';
 
-import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkState } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { getRandomChars, isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
 
