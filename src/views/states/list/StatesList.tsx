@@ -46,7 +46,7 @@ const StatesList: FC = () => {
 
   const onClose = useCallback(() => {
     setSelectedInterfaceName();
-  }, []);
+  }, [setSelectedInterfaceName]);
 
   const [expandAll, setExpandAll] = useState(false);
 
