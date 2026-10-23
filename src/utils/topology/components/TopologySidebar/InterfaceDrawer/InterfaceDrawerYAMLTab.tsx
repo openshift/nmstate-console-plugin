@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { dump } from 'js-yaml';
 
-import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 
 type InterfaceDrawerYAMLTabProps = {
   selectedInterface: NodeNetworkConfigurationInterface;

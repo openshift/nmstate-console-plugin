@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 
 export type InterfaceDrawerTabId = 'drawer-details' | 'drawer-yaml';
 

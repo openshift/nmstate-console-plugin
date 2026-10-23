@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Content, Form, FormGroup, Radio, Stack, StackItem, Title } from '@patternfly/react-core';
 import BondingInterfaceContent from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/BondingInterfaceContent/BondingInterfaceContent';
 import SingleInterfaceContent from '@utils/components/PolicyForm/PolicyWizard/steps/UplinkConnectionStep/components/SingleInterfaceContent/SingleInterfaceContent';

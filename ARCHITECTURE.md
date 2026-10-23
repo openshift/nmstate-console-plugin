@@ -132,7 +132,7 @@ src/nmstate-types/            # NMState CRD schemas and custom types
 Models serve two purposes:
 
 1. **SDK integration** — `K8sModel` objects tell the console how to watch, list, and navigate to resources
-2. **Type safety** — NMState API types from `@kubevirt-ui/kubevirt-api/nmstate` provide TypeScript interfaces for resource objects
+2. **Type safety** — NMState API types from `@kubevirt-ui-ext/kubevirt-api/nmstate` provide TypeScript interfaces for resource objects
 
 ## Data Flow
 
@@ -204,5 +204,5 @@ Each release branch pins its SDK version to match (e.g., `release-4.22` uses `@o
 | `@openshift-console/dynamic-plugin-sdk-webpack` | Webpack plugin for building console remote modules  |
 | `@patternfly/react-core`                        | UI components (tables, forms, modals, alerts)       |
 | `@patternfly/react-topology`                    | Topology graph visualization                        |
-| `@kubevirt-ui/kubevirt-api`                     | TypeScript types for NMState and K8s resources      |
+| `@kubevirt-ui-ext/kubevirt-api`                 | TypeScript types for NMState and K8s resources      |
 | `react-i18next`                                 | Internationalization framework                      |

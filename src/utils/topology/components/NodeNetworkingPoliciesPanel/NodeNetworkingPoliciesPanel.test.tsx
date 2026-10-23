@@ -1,7 +1,10 @@
 import React from 'react';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
-import { InterfaceType, V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
+import {
+  InterfaceType,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { cleanup, render, screen } from '@testing-library/react';
 

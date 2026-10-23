@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { useAccessReview } from '@openshift-console/dynamic-plugin-sdk';
 import { Alert, AlertVariant, Breadcrumb, BreadcrumbItem, Title } from '@patternfly/react-core';
 import DetailsPageTitle from '@utils/components/DetailsPageTitle/DetailsPageTitle';

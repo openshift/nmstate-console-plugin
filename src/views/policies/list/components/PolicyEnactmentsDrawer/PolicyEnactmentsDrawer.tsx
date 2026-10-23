@@ -5,7 +5,7 @@ import { EnactmentStatuses } from 'src/views/policies/constants';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   ExpandableSection,

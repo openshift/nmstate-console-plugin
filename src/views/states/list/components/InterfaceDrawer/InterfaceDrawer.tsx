@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useLocation } from 'react-router';
 
-import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Modal,
   ModalBody,

@@ -1,12 +1,12 @@
 import { TFunction } from 'react-i18next';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkConfigurationEnactment,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { DEFAULT_OVS_INTERFACE_NAME } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';
 import { getUplinkConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';

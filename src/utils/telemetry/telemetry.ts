@@ -3,7 +3,7 @@ import {
   NodeNetworkConfigurationInterfaceIPV4,
   NodeNetworkConfigurationInterfaceIPV6,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { getSegmentAnalytics } from '@openshift-console/dynamic-plugin-sdk-internal';
 
 import { NNCP_CREATED, NNCP_IP_CONFIGURATION_USED, NNCP_NODE_SELECTOR_USED } from './constants';

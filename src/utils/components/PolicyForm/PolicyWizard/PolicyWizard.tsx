@@ -9,7 +9,7 @@ import React, {
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Wizard, WizardStep } from '@patternfly/react-core';
 import NodesConfigurationStep from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/NodesConfigurationStep';
 import SettingsStep from '@utils/components/PolicyForm/PolicyWizard/steps/SettingsStep/SettingsStep';

@@ -1,7 +1,7 @@
 import React, { FC, useMemo, useState } from 'react';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Radio, Split, SplitItem } from '@patternfly/react-core';
 import EditButton from '@utils/components/EditButton/EditButton';
 import ExternalLink from '@utils/components/ExternalLink/ExternalLink';

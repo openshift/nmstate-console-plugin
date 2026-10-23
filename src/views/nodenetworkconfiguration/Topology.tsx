@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkStateModelGroupVersionKind,

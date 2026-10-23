@@ -1,5 +1,6 @@
 import prettierConfig from 'eslint-config-prettier';
 import cypressPlugin from 'eslint-plugin-cypress';
+import importPlugin from 'eslint-plugin-import';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -41,6 +42,7 @@ export default tseslint.config(
       },
     },
     plugins: {
+      import: importPlugin,
       'react-hooks': reactHooksPlugin,
       'simple-import-sort': simpleImportSort,
     },
@@ -49,6 +51,9 @@ export default tseslint.config(
       '@typescript-eslint/no-shadow': 'off',
       '@typescript-eslint/no-unused-expressions': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
+
+      'import/no-cycle': 'off',
+      'import/no-duplicates': 'error',
 
       'no-console': 'error',
       'no-nested-ternary': 'error',

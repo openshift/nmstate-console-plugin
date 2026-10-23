@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkState } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { NodeNetworkStateModel, NodeNetworkStateModelGroupVersionKind } from '@models';
 import {
   ResourceIcon,

@@ -3,7 +3,7 @@ import { intersectionWith } from 'lodash';
 import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { isEmpty } from '@utils/helpers';
 import { getInterfaces } from '@utils/resources/nns/getters';
 import { getEthernetInterfaces } from '@utils/resources/nns/utils';

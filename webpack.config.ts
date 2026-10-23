@@ -27,7 +27,7 @@ const config: WebpackConfiguration & {
     rules: [
       {
         test: /\.(jsx?|tsx?)$/,
-        exclude: /node_modules\/(?!(@kubevirt-ui)\/kubevirt-api).*/,
+        exclude: /node_modules\/.*/,
         use: [
           {
             loader: 'esbuild-loader',

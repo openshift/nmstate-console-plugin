@@ -1,4 +1,4 @@
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';
 import { getUplinkConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/utils';
 import { getNodeSelector } from '@utils/resources/policies/getters';

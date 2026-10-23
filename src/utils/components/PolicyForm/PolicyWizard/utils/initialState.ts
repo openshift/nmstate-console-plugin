@@ -3,7 +3,7 @@ import {
   NodeNetworkConfigurationInterface,
   NodeNetworkConfigurationInterfaceBridgePort,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   DEFAULT_OVN_BRIDGE_NAME,
   DEFAULT_OVS_BRIDGE_NAME,

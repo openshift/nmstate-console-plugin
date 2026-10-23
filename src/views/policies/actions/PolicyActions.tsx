@@ -4,7 +4,7 @@ import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkC
 import { asAccessReview, getResourceUrl } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { useAccessReview } from '@openshift-console/dynamic-plugin-sdk';
 import ActionsDropdown from '@utils/components/ActionsDropdown/ActionsDropdown';
 import Loading from '@utils/components/Loading/Loading';

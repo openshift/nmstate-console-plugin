@@ -6,7 +6,7 @@ import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
   NodeNetworkConfigurationInterfaceBondMode,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Checkbox,
@@ -72,7 +72,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
 
       if (newType === InterfaceType.OVS_BRIDGE) {
         delete draftInterface['link-aggregation'];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- 'allow-extra-patch-ports' is an OVS bridge property not covered by @kubevirt-ui/kubevirt-api types
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- 'allow-extra-patch-ports' is an OVS bridge property not covered by @kubevirt-ui-ext/kubevirt-api types
         draftInterface.bridge = { port: [], options: {}, ['allow-extra-patch-ports']: true } as any;
         if (!draftPolicy?.spec?.desiredState?.ovn) {
           draftPolicy.spec.desiredState.ovn = {

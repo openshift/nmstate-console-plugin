@@ -5,7 +5,7 @@ import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkConfigurationPolicy,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Tab, Tabs as TabsComponent, TabTitleText } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 

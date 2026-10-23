@@ -2,7 +2,7 @@ import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { getInterfaces } from '@utils/resources/nns/getters';
 
 export const getEthernetInterfaces = (

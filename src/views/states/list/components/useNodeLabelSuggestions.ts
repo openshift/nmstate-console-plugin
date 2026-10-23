@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { getLabels } from '@utils/components/resources/selectors';
 

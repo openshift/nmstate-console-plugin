@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Content, FormGroup, Radio } from '@patternfly/react-core';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
@@ -34,7 +34,7 @@ const BridgeType: FC<BridgeTypeProps> = ({ policyInterface, onInterfaceChange, i
 
       if (newType === InterfaceType.OVS_BRIDGE) {
         delete draftInterface['link-aggregation'];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- 'allow-extra-patch-ports' is an OVS bridge property not covered by @kubevirt-ui/kubevirt-api types
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- 'allow-extra-patch-ports' is an OVS bridge property not covered by @kubevirt-ui-ext/kubevirt-api types
         draftInterface.bridge = { port: [], options: {}, ['allow-extra-patch-ports']: true } as any;
 
         if (isEmpty(getOVNConfiguration(draftPolicy))) {

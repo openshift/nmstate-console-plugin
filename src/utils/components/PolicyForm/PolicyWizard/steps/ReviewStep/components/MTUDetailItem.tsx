@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import DetailItem from '@utils/components/DetailItem/DetailItem';
 import useInheritedMTU from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useInheritedMTU/useInheritedMTU';
 import { ConnectionOption } from '@utils/components/PolicyForm/PolicyWizard/utils/types';

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useMemo, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import { Flex, FlexItem } from '@patternfly/react-core';
 import {
   ModelKind,

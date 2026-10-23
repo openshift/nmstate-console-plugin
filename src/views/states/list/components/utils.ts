@@ -1,7 +1,7 @@
 import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { isEmpty } from '@utils/helpers';
 
 import { FILTER_TYPES, LLDP_ENABLED } from '../constants';

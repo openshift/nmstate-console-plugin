@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
 
-import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Button, ButtonVariant, debounce, Split, Tooltip } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { InterfaceType } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { InterfaceType } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { DataViewCheckboxFilter, DataViewTextFilter } from '@patternfly/react-data-view';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
