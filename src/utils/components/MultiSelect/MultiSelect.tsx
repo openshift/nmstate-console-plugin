@@ -17,7 +17,7 @@ export type MultiSelectOption = { content: ReactNode; id: string };
 type MultiSelectProps = {
   items: MultiSelectOption[];
   selectedItems: string[];
-  setSelectedItems: (items: any[]) => void;
+  setSelectedItems: (items: string[]) => void;
   toggleText?: string;
 };
 

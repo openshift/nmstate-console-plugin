@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
-import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkState } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { TopologySideBar } from '@patternfly/react-topology';
 import { isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';

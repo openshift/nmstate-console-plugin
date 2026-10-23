@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router';
 
 import { Button } from '@patternfly/react-core';
 import { ActionsColumn, ExpandableRowContent, Tbody, Td, Tr } from '@patternfly/react-table';
-
 import { NO_DATA_DASH } from '@utils/constants';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';

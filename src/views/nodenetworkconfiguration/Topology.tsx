@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkStateModelGroupVersionKind,
@@ -27,24 +27,24 @@ import {
 } from '@patternfly/react-topology';
 import { useSignalEffect, useSignals } from '@preact/signals-react/runtime';
 import AccessDenied from '@utils/components/AccessDenied/AccessDenied';
+import { FORBIDDEN_STATUS } from '@utils/constants';
 import { isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';
 import { categorizeEnactments } from '@utils/resources/enactments/utils';
 import { filterPolicyAppliedNodes } from '@utils/resources/policies/utils';
-
 import ControlBar from '@utils/topology/components/TopologyControlBar/TopologyControlBar';
 import TopologyLegend from '@utils/topology/components/TopologyLegend/TopologyLegend';
 import { SELECTED_ID_QUERY_PARAM } from '@utils/topology/components/TopologySidebar/constants';
 import { creatingPolicySignal } from '@utils/topology/components/TopologySidebar/CreatePolicyDrawer';
 import TopologyDrawer from '@utils/topology/components/TopologySidebar/InterfaceDrawer/TopologyDrawer';
-import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
 import { GRAPH_POSITIONING_EVENT, NODE_POSITIONING_EVENT } from '@utils/topology/utils/constants';
 import { componentFactory, layoutFactory } from '@utils/topology/utils/factory';
 import { restoreNodePositions, saveNodePositions } from '@utils/topology/utils/position';
 import { transformDataToTopologyModel } from '@utils/topology/utils/utils';
 
+import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
+
 import '@utils/topology/components/TopologySidebar/TopologySidebar.scss';
-import { FORBIDDEN_STATUS } from '@utils/constants';
 
 const Topology: FC = () => {
   useSignals();
@@ -76,7 +76,7 @@ const Topology: FC = () => {
     namespaced: false,
   });
 
-  const { available } = categorizeEnactments(enhancments);
+  const available = useMemo(() => categorizeEnactments(enhancments).available, [enhancments]);
 
   const nodeNames: string[] = useMemo(
     () => states?.map((state) => state.metadata.name) || [],
@@ -130,12 +130,14 @@ const Topology: FC = () => {
     visualization.setFitToScreenOnLayout(!recenterScreenLayout);
     visualization.fromModel(topologyModel);
   }, [
-    states,
-    statesLoaded,
-    statesError,
-    selectedNodeFilters,
-    creatingPolicySignal.value,
+    available,
     creatingPolicyNodesNames,
+    navigate,
+    selectedNodeFilters,
+    states,
+    statesError,
+    statesLoaded,
+    visualization,
   ]);
 
   // Re-run fit after mount to ensure correct scale when container size stabilizes (e.g. navigation from create flow)

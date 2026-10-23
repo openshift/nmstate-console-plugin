@@ -40,6 +40,7 @@ src/
 ### Plugin extension registration
 
 Each view has a `manifest.ts` that exports:
+
 - `{View}ExposedModules` — maps module names to file paths for code splitting
 - `{View}Extensions` — array of `EncodedExtension` objects defining console nav items, pages, and templates
 
@@ -52,6 +53,7 @@ Models live in `src/console-models/` as individual files exporting `K8sModel` ob
 ### Path aliases
 
 Defined in `tsconfig.json`:
+
 - `@images/*` → `images/*`
 - `@utils/*` → `src/utils/*`
 - `@models` → `src/console-models/index.ts`
@@ -61,6 +63,7 @@ Defined in `tsconfig.json`:
 For coding standards (component rules, PatternFly usage, i18n, linting), see [CONTRIBUTING.md](CONTRIBUTING.md#coding-standards).
 
 Key details for code generation:
+
 - Translation keys use the `plugin__nmstate-console-plugin~` prefix
 - In manifest files, use `%plugin__nmstate-console-plugin~Label%` syntax for nav item names
 - Shared hooks (used in 2+ components) live in `src/utils/hooks/`; single-use hooks must be co-located with the component that uses them — do not add to shared utils
@@ -77,12 +80,14 @@ Key details for code generation:
 For full coding standards, linting rules, testing, and PR process, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### File & directory naming
+
 - React components: `PascalCase.tsx`
 - Utilities, hooks, constants: `camelCase.ts`
 - Directories for components use PascalCase, directories for hooks use camelCase, all other directories use kebab-case
 - Each view directory has a `manifest.ts`, `constants.ts`, and optionally `utils.ts`
 
 ### Deployment
+
 - Webpack builds the plugin as a dynamic console remote module
 - Deployed via Helm chart (`deployment/nmstate-console-plugin/`) or OpenShift templates (`oc-manifest.yaml`)
 - Container images published to `quay.io/nmstate/nmstate-console-plugin`

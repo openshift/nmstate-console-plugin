@@ -1,7 +1,7 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { k8sCreate } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Alert,

@@ -1,10 +1,10 @@
 import { TFunction } from 'react-i18next';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { getDescription, getLabels, getName } from '@utils/components/resources/selectors';
 import {
   getEnactmentStateNNCP,

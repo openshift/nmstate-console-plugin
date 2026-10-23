@@ -1,7 +1,11 @@
 import { NodeNetworkStateModelRef } from 'src/console-models';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { K8sResourceCommon, TableColumn, useActiveColumns } from '@openshift-console/dynamic-plugin-sdk';
+import {
+  K8sResourceCommon,
+  TableColumn,
+  useActiveColumns,
+} from '@openshift-console/dynamic-plugin-sdk';
 
 export const COLUMN_NAME_ID = 'name';
 

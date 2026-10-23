@@ -12,7 +12,7 @@ jest.mock('@utils/topology/components/BridgeIcon', () => ({
   default: () => null,
 }));
 
-import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 
 import { getCorrelatedEnactment } from './utils';
 

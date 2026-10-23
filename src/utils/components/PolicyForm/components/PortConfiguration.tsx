@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Content,
   FormGroup,

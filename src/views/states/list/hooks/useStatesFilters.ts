@@ -1,16 +1,16 @@
 import { useMemo } from 'react';
+import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { useDataViewFilters } from '@patternfly/react-data-view';
 import { getLabels, getName } from '@utils/components/resources/selectors';
 import { isEmpty } from '@utils/helpers';
 import { getInterfaces } from '@utils/resources/nns/getters';
-import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 
 import { FILTER_TYPES, LLDP_ENABLED, SelectedFilters } from '../constants';
 import {
@@ -113,10 +113,10 @@ const useStatesFilters = (states: V1beta1NodeNetworkState[]): UseStatesFiltersRe
   const selectedFilters: SelectedFilters = useMemo(
     () =>
       Object.fromEntries(
-        Object.entries(filters).map(([key, val]) => [
-          key,
-          Array.isArray(val) ? val : val ? [val] : [],
-        ]),
+        Object.entries(filters).map(([key, val]) => {
+          if (Array.isArray(val)) return [key, val];
+          return [key, val ? [val] : []];
+        }),
       ),
     [filters],
   );

@@ -1,1 +1,2 @@
-export const createItemId = (value: any) => `select-typeahead-${String(value)?.replace(' ', '-')}`;
+export const createItemId = (value: string | number) =>
+  `select-typeahead-${String(value)?.replace(' ', '-')}`;

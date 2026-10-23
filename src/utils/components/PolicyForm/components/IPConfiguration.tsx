@@ -5,7 +5,7 @@ import {
   AUTO_GATEWAY,
   AUTO_ROUTES,
   NodeNetworkConfigurationInterface,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Checkbox,
   Content,

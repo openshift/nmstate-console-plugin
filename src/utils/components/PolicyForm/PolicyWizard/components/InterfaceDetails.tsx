@@ -5,7 +5,7 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Checkbox,

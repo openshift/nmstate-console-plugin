@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
-import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkState } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Alert,
   AlertActionCloseButton,

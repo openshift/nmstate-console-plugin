@@ -1,7 +1,7 @@
 import {
   NodeNetworkConfigurationInterface,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 
 export const getInterfaceToShow = (
   policy: V1NodeNetworkConfigurationPolicy,

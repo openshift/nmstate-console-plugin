@@ -1,4 +1,7 @@
-import { InterfaceType, V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import {
+  InterfaceType,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { LINK_AGGREGATION } from '@utils/components/PolicyForm/PolicyWizard/utils/constants';
 import { NO_DATA_DASH } from '@utils/constants';
 
@@ -14,7 +17,7 @@ const createPolicy = (
         interfaces,
       },
     },
-  } as V1NodeNetworkConfigurationPolicy);
+  }) as V1NodeNetworkConfigurationPolicy;
 
 describe('formatPolicyAffectsDisplay', () => {
   it('returns NO_DATA_DASH when policy has no interfaces', () => {

@@ -3,7 +3,7 @@ import React, { FC, memo, useState } from 'react';
 import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Button,
   ButtonVariant,

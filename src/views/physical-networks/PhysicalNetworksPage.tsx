@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 
 import { PageSection } from '@patternfly/react-core';
-
 import Loading from '@utils/components/Loading/Loading';
 import { isEmpty } from '@utils/helpers';
 

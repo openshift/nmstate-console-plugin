@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router';
 
-import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import {
   Button,
   EmptyState,
@@ -11,6 +10,7 @@ import {
   EmptyStateVariant,
 } from '@patternfly/react-core';
 import { PlusCircleIcon } from '@patternfly/react-icons';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { NODE_NETWORK_CONFIGURATION_WIZARD_PATH } from '../utils/constants';
 

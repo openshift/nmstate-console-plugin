@@ -3,7 +3,7 @@ import React, { FC, useCallback } from 'react';
 import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Button,
   ButtonVariant,
@@ -45,7 +45,7 @@ const InterfacesPopoverBody: FC<InterfacesPopoverBodyProps> = ({
       setSelectedInterfaceName(nodeNetworkState, iface);
       hide();
     },
-    [hide],
+    [hide, nodeNetworkState, setSelectedInterfaceName],
   );
 
   return (

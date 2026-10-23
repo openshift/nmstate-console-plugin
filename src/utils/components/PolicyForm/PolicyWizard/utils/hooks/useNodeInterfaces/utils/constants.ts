@@ -1,4 +1,4 @@
-import { InterfaceType } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { InterfaceType } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 
 export const GENEV_INTERFACE_PREFIX = 'genev_';
 

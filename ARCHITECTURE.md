@@ -51,6 +51,7 @@ plugin-manifest.ts
 ```
 
 Each manifest exports:
+
 - **ExposedModules** — maps module names to file paths for webpack code splitting
 - **Extensions** — typed `EncodedExtension` objects that register console navigation items, resource list/detail pages, YAML templates, and route pages
 
@@ -73,12 +74,12 @@ src/views/{view}/
 └── hooks/                   # View-specific React hooks
 ```
 
-| View | K8s Resource | Extension Type | Perspectives |
-|------|-------------|---------------|-------------|
-| **policies** | `NodeNetworkConfigurationPolicy` | Resource list + details + YAML template | admin, virtualization |
-| **states** | `NodeNetworkState` | Resource list | admin |
-| **physical-networks** | (aggregated from enactments + states) | Href route page | admin, virtualization |
-| **nodenetworkconfiguration** | (aggregated from nodes + states + enactments) | Href route page | admin, virtualization |
+| View                         | K8s Resource                                  | Extension Type                          | Perspectives          |
+| ---------------------------- | --------------------------------------------- | --------------------------------------- | --------------------- |
+| **policies**                 | `NodeNetworkConfigurationPolicy`              | Resource list + details + YAML template | admin, virtualization |
+| **states**                   | `NodeNetworkState`                            | Resource list                           | admin                 |
+| **physical-networks**        | (aggregated from enactments + states)         | Href route page                         | admin, virtualization |
+| **nodenetworkconfiguration** | (aggregated from nodes + states + enactments) | Href route page                         | admin, virtualization |
 
 **Resource-based views** (policies, states) use `console.page/resource/list` and `console.page/resource/details` extensions, which automatically bind to the K8s model and provide standard console features (filtering, pagination, YAML editor).
 
@@ -104,6 +105,7 @@ src/utils/
 ```
 
 Resource utilities follow a consistent pattern:
+
 - **selectors** (`selectors.ts`) — extract and transform fields from K8s resource objects
 - **getters** (`getters.ts`) — older naming convention for the same purpose; some resource directories still use `getters.ts` (e.g., `nns/`, `interfaces/`) while others have migrated to `selectors.ts` (e.g., `enactments/`). New code should use the `selectors` naming
 - **utils** (`utils.ts`) — transform or compute derived data
@@ -128,8 +130,9 @@ src/nmstate-types/            # NMState CRD schemas and custom types
 ```
 
 Models serve two purposes:
+
 1. **SDK integration** — `K8sModel` objects tell the console how to watch, list, and navigate to resources
-2. **Type safety** — NMState API types from `@kubevirt-ui/kubevirt-api/nmstate` provide TypeScript interfaces for resource objects
+2. **Type safety** — NMState API types from `@kubevirt-ui-ext/kubevirt-api/nmstate` provide TypeScript interfaces for resource objects
 
 ## Data Flow
 
@@ -195,11 +198,11 @@ Each release branch pins its SDK version to match (e.g., `release-4.22` uses `@o
 
 ## Key Dependencies
 
-| Package | Purpose |
-|---------|---------|
-| `@openshift-console/dynamic-plugin-sdk` | Console integration: K8s watches, navigation, pages |
-| `@openshift-console/dynamic-plugin-sdk-webpack` | Webpack plugin for building console remote modules |
-| `@patternfly/react-core` | UI components (tables, forms, modals, alerts) |
-| `@patternfly/react-topology` | Topology graph visualization |
-| `@kubevirt-ui/kubevirt-api` | TypeScript types for NMState and K8s resources |
-| `react-i18next` | Internationalization framework |
+| Package                                         | Purpose                                             |
+| ----------------------------------------------- | --------------------------------------------------- |
+| `@openshift-console/dynamic-plugin-sdk`         | Console integration: K8s watches, navigation, pages |
+| `@openshift-console/dynamic-plugin-sdk-webpack` | Webpack plugin for building console remote modules  |
+| `@patternfly/react-core`                        | UI components (tables, forms, modals, alerts)       |
+| `@patternfly/react-topology`                    | Topology graph visualization                        |
+| `@kubevirt-ui-ext/kubevirt-api`                 | TypeScript types for NMState and K8s resources      |
+| `react-i18next`                                 | Internationalization framework                      |

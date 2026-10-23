@@ -2,7 +2,7 @@ import React, { FC, FormEvent } from 'react';
 import { ensurePath } from 'src/utils/helpers';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Button, FormGroup, Grid, GridItem, TextInput } from '@patternfly/react-core';
 import { MinusCircleIcon, PlusCircleIcon } from '@patternfly/react-icons';
 

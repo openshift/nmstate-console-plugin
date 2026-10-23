@@ -1,6 +1,7 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import { useNavigate } from 'react-router';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
+
 import { NodeNetworkConfigurationPolicyModelRef, NodeNetworkStateModelRef } from '@models';
 import { ListPageCreateDropdown } from '@openshift-console/dynamic-plugin-sdk';
 import {
@@ -15,7 +16,9 @@ import { ListIcon } from '@patternfly/react-icons';
 import { getResourceUrl } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { CREATE_POLICY_QUERY_PARAM } from '@utils/topology/components/TopologySidebar/constants';
+
 import TopologyToolbarFilter from './TopologyToolbarFilter';
+
 import './TopologyToolbar.scss';
 
 type TopologyToolbarProps = {

@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 
 import { FormGroup, Select, SelectOption } from '@patternfly/react-core';
-
 import SelectToggle from '@utils/components/Toggles/SelectToggle';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 

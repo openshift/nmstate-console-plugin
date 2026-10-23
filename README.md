@@ -46,12 +46,12 @@ npm run dev -- --port 9443 \
 
 #### Requirements
 
-| Requirement                                         | Description                                      |
-| --------------------------------------------------- | ------------------------------------------------ |
-| [Node.js](https://nodejs.org/)                      | JavaScript runtime environment                   |
-| [npm](https://www.npmjs.com/)                       | Package manager for Node.js (included with Node.js) |
-| [Kubernetes](https://kubernetes.io/)                | An [OpenShift](https://www.openshift.com/) or Kubernetes cluster |
-| [kubectl](https://kubernetes.io/docs/tasks/tools/)  | The Kubernetes command-line tool                  |
+| Requirement                                        | Description                                                      |
+| -------------------------------------------------- | ---------------------------------------------------------------- |
+| [Node.js](https://nodejs.org/)                     | JavaScript runtime environment                                   |
+| [npm](https://www.npmjs.com/)                      | Package manager for Node.js (included with Node.js)              |
+| [Kubernetes](https://kubernetes.io/)               | An [OpenShift](https://www.openshift.com/) or Kubernetes cluster |
+| [kubectl](https://kubernetes.io/docs/tasks/tools/) | The Kubernetes command-line tool                                 |
 
 #### Setting up a local cluster
 

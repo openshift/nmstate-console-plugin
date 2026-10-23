@@ -2,7 +2,7 @@ import {
   IEE_802_1_VLANS,
   NodeNetworkConfigurationInterface,
   SYSTEM_NAME,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { isEmpty } from '@utils/helpers';
 import { getIPV4Address, getIPV6Address } from '@utils/resources/interfaces/getters';
 

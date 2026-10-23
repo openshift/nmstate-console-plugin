@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router';
 
+import { Button, Title } from '@patternfly/react-core';
 import PaneHeading from '@utils/components/PaneHeading/PaneHeading';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { Button, Title } from '@patternfly/react-core';
 
 import { NODE_NETWORK_CONFIGURATION_WIZARD_PATH } from '../utils/constants';
 

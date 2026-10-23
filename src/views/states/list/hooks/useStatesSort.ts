@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkState } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { useDataViewSort } from '@patternfly/react-data-view';
 import { SortByDirection, ThSortType } from '@patternfly/react-table';
 import { getName } from '@utils/components/resources/selectors';

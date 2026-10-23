@@ -40,6 +40,7 @@ npm run lint:fix      # Auto-fix lint errors
 ```
 
 Key rules:
+
 - **Prettier:** single quotes, trailing commas, 100-char print width
 - **Import sorting:** enforced via `simple-import-sort` — React first, then external packages, then internal paths, then relative imports, then CSS
 - **No unused variables:** `@typescript-eslint/no-unused-vars` is set to `error`

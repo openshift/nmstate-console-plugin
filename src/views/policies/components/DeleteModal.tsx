@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkConfigurationPolicyModel';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { k8sDelete } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Alert,

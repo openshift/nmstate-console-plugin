@@ -4,7 +4,7 @@ import { NodeNetworkStateModelGroupVersionKind } from 'src/console-models';
 import {
   NodeNetworkConfigurationInterface,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { ResourceLink, RowProps, TableData } from '@openshift-console/dynamic-plugin-sdk';
 import { Button, ButtonVariant, Flex, FlexItem, Popover, Title } from '@patternfly/react-core';
 import { ExpandableRowContent, Tbody, Td, Tr } from '@patternfly/react-table';
