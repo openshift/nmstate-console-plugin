@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useState } from 'react';
 
-import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { CatalogItemHeader } from '@patternfly/react-catalog-view-extension';
 import { Modal, ModalBody, ModalHeader, Tab, Tabs, TabTitleText } from '@patternfly/react-core';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { ConfigurationDetails } from '../../utils/types';
 

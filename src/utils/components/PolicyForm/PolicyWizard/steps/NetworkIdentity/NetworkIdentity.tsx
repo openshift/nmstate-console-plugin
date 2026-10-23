@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Trans } from 'react-i18next';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Content,
   Form,

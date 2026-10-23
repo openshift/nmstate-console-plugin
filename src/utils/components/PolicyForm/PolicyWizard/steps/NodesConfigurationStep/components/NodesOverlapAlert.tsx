@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Alert,
   AlertVariant,

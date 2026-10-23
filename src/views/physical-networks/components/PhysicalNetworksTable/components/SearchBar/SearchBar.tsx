@@ -1,7 +1,7 @@
 import React, { Dispatch, FC, SetStateAction, useMemo, useState } from 'react';
 
-import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { SearchInput, Split, SplitItem } from '@patternfly/react-core';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { PhysicalNetwork } from '../../../../utils/types';
 

@@ -1,5 +1,4 @@
-import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui/kubevirt-api/nmstate';
-
+import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { ENACTMENT_LABEL_NODE, ENACTMENT_LABEL_POLICY } from '@utils/constants';
 
 export const getEnactmentStateNNCP = (

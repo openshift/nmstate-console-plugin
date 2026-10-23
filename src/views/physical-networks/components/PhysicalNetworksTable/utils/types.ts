@@ -2,6 +2,6 @@ import { ThSortType } from '@patternfly/react-table/dist/esm/components/Table/ba
 
 export type PhysicalNetworkColumn = {
   id: string;
-  sort: (columnIndex: any) => ThSortType;
+  sort: (columnIndex: number) => ThSortType;
   title: string;
 };

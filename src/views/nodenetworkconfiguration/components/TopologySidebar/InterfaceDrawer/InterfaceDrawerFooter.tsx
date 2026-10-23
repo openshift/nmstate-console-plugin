@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 
-import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Button, ButtonVariant, debounce, Split, Tooltip } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
@@ -15,9 +15,10 @@ const InterfaceDrawerYAMLFooter: FC<InterfaceDrawerFooterProps> = ({ selectedInt
   const [copied, setCopied] = useState(false);
 
   const resetCopied = useCallback(
-    debounce(() => {
-      setCopied(false);
-    }, 3000),
+    () =>
+      debounce(() => {
+        setCopied(false);
+      }, 3000)(),
     [],
   );
 
@@ -26,7 +27,7 @@ const InterfaceDrawerYAMLFooter: FC<InterfaceDrawerFooterProps> = ({ selectedInt
     setCopied(true);
 
     resetCopied();
-  }, []);
+  }, [resetCopied, selectedInterface]);
 
   return (
     <Split hasGutter className="nmstate-plugin-interface-drawer-yaml-footer">

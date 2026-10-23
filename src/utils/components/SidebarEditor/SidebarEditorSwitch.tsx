@@ -5,7 +5,6 @@ import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { useSidebarEditorContext } from './SidebarEditorContext';
 
-// eslint-disable-next-line react/display-name
 const SidebarEditorSwitch: FC = memo(() => {
   const { t } = useNMStateTranslation();
   const { setEditorVisible, showEditor, showSwitch } = useSidebarEditorContext();

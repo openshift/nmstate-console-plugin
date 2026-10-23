@@ -1,7 +1,7 @@
 import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { isEmpty } from '@utils/helpers';
 
 import { FILTER_TYPES, LLDP_ENABLED } from '../constants';
@@ -61,11 +61,14 @@ export const filterInterfaces = (
 };
 
 export const getInterfacesByType = (filteredInterfaces: NodeNetworkConfigurationInterface[]) =>
-  filteredInterfaces?.reduce((acc, iface) => {
-    // Skip loopback interfaces from the list
-    if (iface.type === InterfaceType.LOOPBACK) return acc;
+  filteredInterfaces?.reduce(
+    (acc, iface) => {
+      // Skip loopback interfaces from the list
+      if (iface.type === InterfaceType.LOOPBACK) return acc;
 
-    acc[iface.type] ??= [];
-    acc[iface.type].push(iface);
-    return acc;
-  }, {} as { [key: string]: NodeNetworkConfigurationInterface[] });
+      acc[iface.type] ??= [];
+      acc[iface.type].push(iface);
+      return acc;
+    },
+    {} as { [key: string]: NodeNetworkConfigurationInterface[] },
+  );

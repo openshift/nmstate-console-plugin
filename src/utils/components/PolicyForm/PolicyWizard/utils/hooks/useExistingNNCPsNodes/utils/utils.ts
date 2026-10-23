@@ -1,4 +1,4 @@
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { NodeNetworkConfigurationPolicyModelGroupVersionKind } from '@models';
 import { WatchK8sResource } from '@openshift-console/dynamic-plugin-sdk';
 import { NNCPNodeSelectorMap } from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useExistingNNCPsNodes/utils/types';

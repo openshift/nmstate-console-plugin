@@ -37,7 +37,7 @@ nmstate-console-plugin development require web development tools, and a kubernet
 | -------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [nodejs](https://nodejs.org/)                      | JavaScript runtime environment                                                       |
 | [npm](https://www.npmjs.com/)                      | package manager for nodejs (comes with nodejs)                                       |
-| [kubernetes]()                                     | An [Openshift](<(https://www.openshift.com/)>) or kubernetes cluster for development |
+| [kubernetes](<>)                                   | An [Openshift](<(https://www.openshift.com/)>) or kubernetes cluster for development |
 | [kubectl](https://kubernetes.io/docs/tasks/tools/) | The Kubernetes command-line tool                                                     |
 
 ### Spin your own small kubernetes

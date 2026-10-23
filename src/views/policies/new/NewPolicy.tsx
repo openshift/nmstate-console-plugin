@@ -9,7 +9,7 @@ import {
   InterfaceType,
   NodeNetworkConfigurationInterface,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { k8sCreate } from '@openshift-console/dynamic-plugin-sdk';
 import {
   ActionGroup,
@@ -72,9 +72,7 @@ const NewPolicy: FC = () => {
       data: policy,
     })
       .then(() =>
-        navigate(
-          getResourceUrl({ model: NodeNetworkConfigurationPolicyModel, resource: policy }),
-        ),
+        navigate(getResourceUrl({ model: NodeNetworkConfigurationPolicyModel, resource: policy })),
       )
       .catch(setError)
       .finally(() => setLoading(false));

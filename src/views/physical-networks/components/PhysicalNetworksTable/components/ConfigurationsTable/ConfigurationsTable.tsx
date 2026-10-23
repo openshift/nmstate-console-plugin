@@ -1,7 +1,7 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
 
-import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { DataViewTable } from '@patternfly/react-data-view';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { ConfigurationDetails } from '../../../../utils/types';
 

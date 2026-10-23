@@ -2,10 +2,9 @@ import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 
 import { ActionList, ActionListItem, Pagination } from '@patternfly/react-core';
 import { Table, Th, Thead, Tr } from '@patternfly/react-table';
-
-import { paginationDefaultValues } from '@utils/hooks/usePagination/utils/constants';
-import usePagination from '@utils/hooks/usePagination/usePagination';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
+import usePagination from '@utils/hooks/usePagination/usePagination';
+import { paginationDefaultValues } from '@utils/hooks/usePagination/utils/constants';
 
 import { ConfigurationDetails, PhysicalNetwork, PhysicalNetworks } from '../../utils/types';
 

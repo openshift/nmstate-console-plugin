@@ -1,12 +1,13 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
-import './components/TopologySidebar/TopologySidebar.scss';
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
+
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkStateModelGroupVersionKind,
@@ -37,14 +38,15 @@ import { filterPolicyAppliedNodes } from '@utils/resources/policies/utils';
 
 import TopologyLegend from './components/TopologyLegend/TopologyLegend';
 import { SELECTED_ID_QUERY_PARAM } from './components/TopologySidebar/constants';
-import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
-import TopologyDrawer from './components/TopologySidebar/InterfaceDrawer/TopologyDrawer';
 import { creatingPolicySignal } from './components/TopologySidebar/CreatePolicyDrawer';
+import TopologyDrawer from './components/TopologySidebar/InterfaceDrawer/TopologyDrawer';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
 import { GRAPH_POSITIONING_EVENT, NODE_POSITIONING_EVENT } from './utils/constants';
 import { componentFactory, layoutFactory } from './utils/factory';
 import { restoreNodePositions, saveNodePositions } from './utils/position';
 import { transformDataToTopologyModel } from './utils/utils';
+
+import './components/TopologySidebar/TopologySidebar.scss';
 
 const Topology: FC = () => {
   useSignals();
@@ -131,10 +133,12 @@ const Topology: FC = () => {
     visualization.fromModel(topologyModel);
   }, [
     states,
+    available,
+    navigate,
+    visualization,
     statesLoaded,
     statesError,
     selectedNodeFilters,
-    creatingPolicySignal.value,
     creatingPolicyNodesNames,
   ]);
 
@@ -149,7 +153,6 @@ const Topology: FC = () => {
     return () => cancelAnimationFrame(id);
   }, [visualization]);
 
-
   if (statesError && statesError?.response?.status === 403)
     return (
       <>
@@ -160,7 +163,6 @@ const Topology: FC = () => {
       </>
     );
 
-  
   return (
     <VisualizationProvider controller={visualization}>
       <TopologyView

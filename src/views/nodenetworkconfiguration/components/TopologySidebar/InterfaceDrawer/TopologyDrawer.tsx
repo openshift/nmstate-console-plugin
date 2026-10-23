@@ -1,21 +1,23 @@
 import React, { FC, ReactNode, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
-import { useNavigate } from 'react-router';
+
+import { V1beta1NodeNetworkState } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
+  Alert,
+  AlertActionCloseButton,
+  AlertVariant,
   Drawer,
   DrawerContent,
   DrawerContentBody,
-  DrawerPanelContent,
   DrawerPanelBody,
-  Alert,
-  AlertVariant,
-  AlertActionCloseButton,
+  DrawerPanelContent,
 } from '@patternfly/react-core';
-import '.././TopologySidebar.scss';
-import CustomDrawer from '../CustomDrawer';
-import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
-import { useLocation } from 'react-router';
+
 import { CREATE_POLICY_QUERY_PARAM } from '../constants';
+import CustomDrawer from '../CustomDrawer';
+
+import '.././TopologySidebar.scss';
 
 type Props = {
   states: V1beta1NodeNetworkState[];

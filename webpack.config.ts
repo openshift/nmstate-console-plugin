@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 import * as path from 'path';
 
 import svgToMiniDataURI from 'mini-svg-data-uri';
@@ -29,7 +27,7 @@ const config: WebpackConfiguration & {
     rules: [
       {
         test: /\.(jsx?|tsx?)$/,
-        exclude: /node_modules\/(?!(@kubevirt-ui)\/kubevirt-api).*/,
+        exclude: /node_modules\/.*/,
         use: [
           {
             loader: 'esbuild-loader',

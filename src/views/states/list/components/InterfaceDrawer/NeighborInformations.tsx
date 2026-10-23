@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import {
   CHASSIS_ID,
   NodeNetworkConfigurationInterfaceLLDPNeighbor,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Stack, StackItem, Tooltip } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import {

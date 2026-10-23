@@ -3,7 +3,7 @@ import NodeNetworkConfigurationPolicyModel from 'src/console-models/NodeNetworkC
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { useImmer } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { k8sUpdate } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Alert,

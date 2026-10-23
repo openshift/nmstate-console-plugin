@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router';
 
+import { DescriptionList } from '@patternfly/react-core';
 import DetailItem from '@utils/components/DetailItem/DetailItem';
 import { getName } from '@utils/components/resources/selectors';
 import { NO_DATA_DASH } from '@utils/constants';
@@ -8,8 +9,6 @@ import { getResourceUrl } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import NodeNetworkConfigurationPolicyModel from '../../../../../console-models/NodeNetworkConfigurationPolicyModel';
-import { DescriptionList } from '@patternfly/react-core';
-
 import { ConfigurationDetails } from '../../../utils/types';
 
 type DetailsTabProps = {
@@ -50,10 +49,7 @@ const DetailsTab: FC<DetailsTabProps> = ({ selectedConfiguration }) => {
         description={selectedConfiguration?.aggregationMode ?? NO_DATA_DASH}
         header={t('Aggregation mode')}
       />
-      <DetailItem
-        description={selectedConfiguration?.mtu ?? NO_DATA_DASH}
-        header={t('MTU')}
-      />
+      <DetailItem description={selectedConfiguration?.mtu ?? NO_DATA_DASH} header={t('MTU')} />
     </DescriptionList>
   );
 };

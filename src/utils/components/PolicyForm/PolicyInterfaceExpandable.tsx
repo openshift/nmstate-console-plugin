@@ -4,7 +4,7 @@ import { Updater } from 'use-immer';
 import {
   NodeNetworkConfigurationInterface,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Button,
   FormFieldGroupExpandable,
