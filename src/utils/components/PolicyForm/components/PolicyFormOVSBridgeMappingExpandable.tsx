@@ -1,7 +1,7 @@
 import React, { FC, FormEvent } from 'react';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   Button,
   ButtonVariant,

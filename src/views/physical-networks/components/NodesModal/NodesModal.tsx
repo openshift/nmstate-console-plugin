@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom-v5-compat';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import { ResourceIcon } from '@openshift-console/dynamic-plugin-sdk';
 import { Modal, ModalBody, SearchInput } from '@patternfly/react-core';
 import { getName } from '@utils/components/resources/selectors';

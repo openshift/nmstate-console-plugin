@@ -1,4 +1,4 @@
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 
 export const getOVNConfiguration = (policy: V1NodeNetworkConfigurationPolicy) =>
   policy?.spec?.desiredState?.ovn;

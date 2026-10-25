@@ -1,7 +1,7 @@
 import React, { FC, useMemo, useState } from 'react';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Radio, Split, SplitItem } from '@patternfly/react-core';
 import EditButton from '@utils/components/EditButton/EditButton';
 import ExternalLink from '@utils/components/ExternalLink/ExternalLink';
@@ -9,8 +9,9 @@ import NodeSelectorModal from '@utils/components/NodeSelectorModal/NodeSelectorM
 import { NodeSelectionOptions } from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/utils/types';
 import { isOnlyWorkerLabel } from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/utils/utils';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
-import { WORKER_NODE_LABEL } from '../../../utils/constants';
 import { getNodeSelector } from '@utils/resources/policies/getters';
+
+import { WORKER_NODE_LABEL } from '../../../utils/constants';
 
 type NodeSelectionRadioGroupProps = {
   policy: V1NodeNetworkConfigurationPolicy;

@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { NodeNetworkConfigurationEnactmentModelGroupVersionKind } from '@models';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { Stack, StackItem } from '@patternfly/react-core';

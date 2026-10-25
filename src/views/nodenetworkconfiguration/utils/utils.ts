@@ -4,7 +4,7 @@ import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1beta1NodeNetworkState,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { EthernetIcon, LinkIcon, NetworkIcon } from '@patternfly/react-icons';
 import {
   EdgeModel,

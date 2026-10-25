@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
-import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import useNNCEs from '@utils/hooks/resources/NNCEs/useNNCEs';
 import useNNCPs from '@utils/hooks/resources/NNCPs/useNNCPs';
 import useWorkerNodes from '@utils/hooks/resources/Nodes/useWorkerNodes';
+import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { PhysicalNetworks } from '../../utils/types';
 

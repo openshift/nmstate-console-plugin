@@ -1,4 +1,4 @@
-import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkConfigurationEnactment } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { useK8sWatchResource, WatchK8sResult } from '@openshift-console/dynamic-plugin-sdk';
 
 import { modelToGroupVersionKind } from '../../../../console-models/modelUtils';

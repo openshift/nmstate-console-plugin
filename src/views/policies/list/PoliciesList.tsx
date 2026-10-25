@@ -10,7 +10,7 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   ListPageBody,
   ListPageFilter,
@@ -95,7 +95,7 @@ const PoliciesList: FC = () => {
           loadError={policiesLoadError && enactmentsError}
           Row={PolicyRow}
           rowData={{ selectPolicy: onSelectPolicy, enactments }}
-          NoDataEmptyMsg={() => <PolicyListEmptyState />}
+          NoDataEmptyMsg={PolicyListEmptyState}
         />
 
         <PolicyEnactmentsDrawer

@@ -1,0 +1,16 @@
+# .gitignore:
+node_modules/
+dist/
+cypress/videos
+cypress/screenshots
+.DS_Store
+.env
+
+#legacy
+i18n-scripts/
+#generated
+package-lock.json
+locales/
+# YAML files
+*.yaml
+*.yml

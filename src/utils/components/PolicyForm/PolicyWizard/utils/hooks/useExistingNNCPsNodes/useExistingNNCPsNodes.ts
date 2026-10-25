@@ -1,4 +1,4 @@
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import { useK8sWatchResources } from '@openshift-console/dynamic-plugin-sdk';
 import { NNCPNodesDetails } from '@utils/components/PolicyForm/PolicyWizard/utils/hooks/useExistingNNCPsNodes/utils/types';
 import {

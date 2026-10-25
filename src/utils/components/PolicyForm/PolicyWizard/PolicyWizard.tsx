@@ -9,7 +9,7 @@ import React, {
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Wizard, WizardStep } from '@patternfly/react-core';
 import NodesConfigurationStep from '@utils/components/PolicyForm/PolicyWizard/steps/NodesConfigurationStep/NodesConfigurationStep';
 import SettingsStep from '@utils/components/PolicyForm/PolicyWizard/steps/SettingsStep/SettingsStep';
@@ -52,6 +52,8 @@ const PolicyWizard: FC<PolicyWizardProps> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>(null);
 
+  const invalidUplinkSettings = !uplinkSettingsValid(policy);
+
   const onFormSubmit: MouseEventHandler<HTMLButtonElement> = useCallback(async () => {
     const error = ensureNoEmptyBridgeMapping(policy);
 
@@ -65,7 +67,7 @@ const PolicyWizard: FC<PolicyWizardProps> = ({
     } finally {
       setLoading(false);
     }
-  }, [onSubmit, policy, t]);
+  }, [onSubmit, policy]);
 
   return (
     <Wizard
@@ -93,14 +95,16 @@ const PolicyWizard: FC<PolicyWizardProps> = ({
       <WizardStep
         id="policy-wizard-uplink-connection"
         name={t('Uplink connection')}
-        footer={{ isNextDisabled: !uplinkSettingsValid(policy) }}
+        footer={{ isNextDisabled: invalidUplinkSettings }}
       >
         <UplinkConnectionStep policy={policy} setPolicy={setPolicy} />
       </WizardStep>
       <WizardStep
         name={t('Settings')}
         id="policy-wizard-configuration"
-        isDisabled={getUplinkConnectionOption(policy) === ConnectionOption.BREX}
+        isDisabled={
+          getUplinkConnectionOption(policy) === ConnectionOption.BREX || invalidUplinkSettings
+        }
       >
         <SettingsStep policy={policy} setPolicy={setPolicy} />
       </WizardStep>
@@ -112,6 +116,7 @@ const PolicyWizard: FC<PolicyWizardProps> = ({
         }}
         id="policy-wizard-review"
         name={t('Review and create')}
+        isDisabled={invalidUplinkSettings}
       >
         <ReviewStep
           policy={policy}

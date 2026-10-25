@@ -101,7 +101,9 @@ export const columnSorting = <T>(
   if (!data || !direction || !sortField) return data;
 
   const sorted = [...data].sort((a, b) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const aValue = sortField.split('.').reduce((obj, key) => obj?.[key], a as any);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bValue = sortField.split('.').reduce((obj, key) => obj?.[key], b as any);
 
     if (aValue < bValue) return direction === 'asc' ? -1 : 1;

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom-v5-compat';
 import classNames from 'classnames';
 
-import { V1beta1NodeNetworkState } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1beta1NodeNetworkState } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { TopologySideBar } from '@patternfly/react-topology';
 import { isEmpty } from '@utils/helpers';
 import useQueryParams from '@utils/hooks/useQueryParams';

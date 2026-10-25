@@ -4,7 +4,7 @@ import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1NodeNetworkConfigurationPolicy,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { RowFilter } from '@openshift-console/dynamic-plugin-sdk';
 import { getEnactmentStatus } from '@utils/resources/enactments/utils';
 

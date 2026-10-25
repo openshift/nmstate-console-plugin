@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { NodeNetworkConfigurationInterface } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Content, FormGroup, Radio } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 

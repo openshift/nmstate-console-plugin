@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Updater } from 'use-immer';
 
-import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui/kubevirt-api/nmstate';
+import { V1NodeNetworkConfigurationPolicy } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { FormGroup, Stack, StackItem, TextInput, ValidatedOptions } from '@patternfly/react-core';
 import FormGroupHelperText from '@utils/components/FormGroupHelperText/FormGroupHelperText';
 import TextWithHelpIcon from '@utils/components/HelpTextIcon/TextWithHelpIcon';

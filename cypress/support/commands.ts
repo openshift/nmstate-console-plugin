@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
 import { KUBEADMIN_IDP, KUBEADMIN_USERNAME } from './constants';
 import { ConsoleWindowType } from './types';

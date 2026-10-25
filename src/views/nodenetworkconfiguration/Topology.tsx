@@ -2,11 +2,11 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom-v5-compat';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import {
   V1beta1NodeNetworkConfigurationEnactment,
   V1beta1NodeNetworkState,
-} from '@kubevirt-ui/kubevirt-api/nmstate';
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkStateModelGroupVersionKind,
@@ -131,8 +131,10 @@ const Topology: FC = () => {
     statesLoaded,
     statesError,
     selectedNodeFilters,
-    creatingPolicySignal.value,
     creatingPolicyNodesNames,
+    available,
+    navigate,
+    visualization,
   ]);
 
   if (statesError && statesError?.response?.status === 403)
