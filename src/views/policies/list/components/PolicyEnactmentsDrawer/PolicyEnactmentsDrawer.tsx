@@ -2,6 +2,10 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useNMStateTranslation } from 'src/utils/hooks/useNMStateTranslation';
 import { EnactmentStatuses } from 'src/views/policies/constants';
 
+import {
+  V1beta1NodeNetworkConfigurationEnactment,
+  V1NodeNetworkConfigurationPolicy,
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   ExpandableSection,
@@ -15,7 +19,6 @@ import {
   TabTitleText,
 } from '@patternfly/react-core';
 import { CheckIcon, CloseIcon, HourglassHalfIcon, InProgressIcon } from '@patternfly/react-icons';
-import { V1beta1NodeNetworkConfigurationEnactment, V1NodeNetworkConfigurationPolicy } from '@types';
 import { categorizeEnactments } from '@utils/enactments/utils';
 
 import { findConditionType } from '../utils';
@@ -37,20 +40,12 @@ const PolicyEnactmentsDrawer: FC<PolicyEnactmentsDrawerProps> = ({
 }) => {
   const { t } = useNMStateTranslation();
 
-  const {
-    available: availableEnactments,
-    pending: pendingEnactments,
-    progressing: progressingEnactments,
-    failing: failingEnactments,
-    aborted: abortedEnactments,
-  } = categorizeEnactments(enactments);
-
-  const tabsData = useMemo(
+  // constant part of the tabs data
+  const tabsTitleWithIcon = useMemo(
     () => [
       {
         title: EnactmentStatuses.Failing,
         icon: <RedExclamationCircleIcon />,
-        enactments: failingEnactments,
       },
       {
         title: EnactmentStatuses.Aborted,
@@ -59,7 +54,6 @@ const PolicyEnactmentsDrawer: FC<PolicyEnactmentsDrawerProps> = ({
             <CloseIcon />
           </Icon>
         ),
-        enactments: abortedEnactments,
       },
       {
         title: EnactmentStatuses.Available,
@@ -68,27 +62,46 @@ const PolicyEnactmentsDrawer: FC<PolicyEnactmentsDrawerProps> = ({
             <CheckIcon />
           </Icon>
         ),
-        enactments: availableEnactments,
       },
       {
         title: EnactmentStatuses.Progressing,
         icon: <InProgressIcon />,
-        enactments: progressingEnactments,
       },
       {
         title: EnactmentStatuses.Pending,
         icon: <HourglassHalfIcon />,
-        enactments: pendingEnactments,
       },
     ],
-    [enactments],
+    [],
   );
+
+  // tabs data derive order from constant part
+  const tabsData = useMemo(() => {
+    const {
+      available: availableEnactments,
+      pending: pendingEnactments,
+      progressing: progressingEnactments,
+      failing: failingEnactments,
+      aborted: abortedEnactments,
+    } = categorizeEnactments(enactments);
+    const title2enactment = {
+      [EnactmentStatuses.Failing]: failingEnactments,
+      [EnactmentStatuses.Aborted]: abortedEnactments,
+      [EnactmentStatuses.Available]: availableEnactments,
+      [EnactmentStatuses.Progressing]: progressingEnactments,
+      [EnactmentStatuses.Pending]: pendingEnactments,
+    };
+    return tabsTitleWithIcon.map((tab) => ({
+      ...tab,
+      enactments: title2enactment[tab.title],
+    }));
+  }, [tabsTitleWithIcon, enactments]);
 
   const [selectedTab, setSelectedTab] = useState<string | number>(0);
 
   useEffect(() => {
-    setSelectedTab(tabsData.findIndex((tab) => tab.title === selectedState));
-  }, [selectedPolicy, selectedState]);
+    setSelectedTab(tabsTitleWithIcon.findIndex((tab) => tab.title === selectedState));
+  }, [selectedPolicy, selectedState, tabsTitleWithIcon]);
 
   return (
     <Modal

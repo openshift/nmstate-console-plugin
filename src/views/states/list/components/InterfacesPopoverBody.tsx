@@ -1,6 +1,10 @@
 import React, { FC, useCallback } from 'react';
 
 import {
+  NodeNetworkConfigurationInterface,
+  V1beta1NodeNetworkState,
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
+import {
   Button,
   ButtonVariant,
   Checkbox,
@@ -11,7 +15,6 @@ import {
   Tooltip,
 } from '@patternfly/react-core';
 import { LongArrowAltDownIcon, LongArrowAltUpIcon } from '@patternfly/react-icons';
-import { NodeNetworkConfigurationInterface, V1beta1NodeNetworkState } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getPorts } from '@utils/interfaces/getters';
 
@@ -42,7 +45,7 @@ const InterfacesPopoverBody: FC<InterfacesPopoverBodyProps> = ({
       setSelectedInterfaceName(nodeNetworkState, iface);
       hide();
     },
-    [hide],
+    [hide, nodeNetworkState, setSelectedInterfaceName],
   );
 
   return (

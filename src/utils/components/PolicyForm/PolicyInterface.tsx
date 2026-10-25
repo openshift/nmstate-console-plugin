@@ -67,6 +67,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
 
       if (newType === InterfaceType.OVS_BRIDGE) {
         delete draftInterface['link-aggregation'];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         draftInterface.bridge = { port: [], options: {}, ['allow-extra-patch-ports']: true } as any;
         if (!draftPolicy?.spec?.desiredState?.ovn) {
           draftPolicy.spec.desiredState.ovn = {

@@ -4,7 +4,8 @@ const deletePolicyFromDetailsPage = (policyName: string) => {
 
   cy.contains('button[disabled]', 'Delete');
 
-  cy.get('input#text-confirmation').clear().type(`${policyName}`);
+  cy.get('input#text-confirmation').clear();
+  cy.get('input#text-confirmation').type(`${policyName}`);
 
   cy.contains('button', 'Delete').click();
 
@@ -25,9 +26,11 @@ describe('Create new policy with form', () => {
 
     cy.contains('h1', 'Create NodeNetworkConfigurationPolicy', { matchCase: false });
 
-    cy.get('input[name="policy-name"]').clear().type(`${testPolicyName}`);
+    cy.get('input[name="policy-name"]').clear();
+    cy.get('input[name="policy-name"]').type(`${testPolicyName}`);
 
-    cy.get('input[name="policy-description"]').clear().type('test-policy-description');
+    cy.get('input[name="policy-description"]').clear();
+    cy.get('input[name="policy-description"]').type('test-policy-description');
 
     cy.get('input#policy-interface-port-0').type('eth0');
     cy.get('input#policy-interface-ip-0').check();
@@ -48,9 +51,11 @@ describe('Create new policy with form', () => {
 
     cy.contains('h1', 'Create NodeNetworkConfigurationPolicy', { matchCase: false });
 
-    cy.get('input[name="policy-name"]').clear().type(`${testPolicyName}`);
+    cy.get('input[name="policy-name"]').clear();
+    cy.get('input[name="policy-name"]').type(`${testPolicyName}`);
 
-    cy.get('input[name="policy-description"]').clear().type('test-policy-description');
+    cy.get('input[name="policy-description"]').clear();
+    cy.get('input[name="policy-description"]').type('test-policy-description');
 
     cy.get('input#policy-interface-port-0').type('eth0');
     cy.get('input#policy-interface-ip-0').check();
