@@ -15,9 +15,10 @@ const InterfaceDrawerYAMLFooter: FC<InterfaceDrawerFooterProps> = ({ selectedInt
   const [copied, setCopied] = useState(false);
 
   const resetCopied = useCallback(
-    debounce(() => {
-      setCopied(false);
-    }, 3000),
+    () =>
+      debounce(() => {
+        setCopied(false);
+      }, 3000)(),
     [],
   );
 
@@ -26,7 +27,7 @@ const InterfaceDrawerYAMLFooter: FC<InterfaceDrawerFooterProps> = ({ selectedInt
     setCopied(true);
 
     resetCopied();
-  }, []);
+  }, [resetCopied, selectedInterface]);
 
   return (
     <Split hasGutter className="nmstate-plugin-interface-drawer-yaml-footer">

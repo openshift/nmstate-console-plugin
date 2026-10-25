@@ -2,7 +2,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { NodeModelGroupVersionKind } from 'src/console-models/NodeModel';
 
-import { IoK8sApiCoreV1Node } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApiCoreV1Node } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import {
   NodeNetworkConfigurationEnactmentModelGroupVersionKind,
   NodeNetworkStateModelGroupVersionKind,
@@ -124,8 +124,10 @@ const Topology: FC = () => {
     statesLoaded,
     statesError,
     selectedNodeFilters,
-    creatingPolicySignal.value,
     creatingPolicyNodesNames,
+    available,
+    visualization,
+    history,
   ]);
 
   if (statesError && statesError?.response?.status === 403)

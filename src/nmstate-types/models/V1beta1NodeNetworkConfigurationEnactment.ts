@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from '@kubevirt-ui/kubevirt-api/kubernetes/models';
+import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from '@kubevirt-ui-ext/kubevirt-api/kubernetes';
 import { exists, mapValues } from '../runtime';
 import type { V1alpha1NodeNetworkConfigurationEnactmentStatus } from './V1alpha1NodeNetworkConfigurationEnactmentStatus';
 import {

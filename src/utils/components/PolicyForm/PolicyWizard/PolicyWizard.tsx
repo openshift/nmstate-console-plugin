@@ -40,7 +40,7 @@ const PolicyWizard: FC<PolicyWizardProps> = ({ policy, setPolicy, onSubmit, onCl
     } finally {
       setLoading(false);
     }
-  }, [onSubmit, policy, t]);
+  }, [onSubmit, policy]);
 
   return (
     <Wizard

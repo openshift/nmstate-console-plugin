@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 
+import {
+  InterfaceType,
+  NodeNetworkConfigurationInterface,
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Content, FormGroup, Radio } from '@patternfly/react-core';
-import { InterfaceType, NodeNetworkConfigurationInterface } from '@types';
 import { isEmpty } from '@utils/helpers';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { OVN_BRIDGE_MAPPINGS } from '@utils/resources/ovn/constants';
@@ -31,6 +34,7 @@ const BridgeType: FC<BridgeTypeProps> = ({ policyInterface, onInterfaceChange, i
 
       if (newType === InterfaceType.OVS_BRIDGE) {
         delete draftInterface['link-aggregation'];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- 'allow-extra-patch-ports' is an OVS bridge property not covered by @kubevirt-ui-ext/kubevirt-api types
         draftInterface.bridge = { port: [], options: {}, ['allow-extra-patch-ports']: true } as any;
 
         if (isEmpty(getOVNConfiguration(draftPolicy))) {

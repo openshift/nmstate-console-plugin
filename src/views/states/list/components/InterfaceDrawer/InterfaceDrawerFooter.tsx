@@ -1,7 +1,7 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 
+import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
 import { Button, ButtonVariant, debounce, Split, Tooltip } from '@patternfly/react-core';
-import { NodeNetworkConfigurationInterface } from '@types';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 
 import { copyToClipboard, downloadYAML } from './utils';
@@ -14,19 +14,19 @@ const InterfaceDrawerYAMLFooter: FC<InterfaceDrawerFooterProps> = ({ selectedInt
   const { t } = useNMStateTranslation();
   const [copied, setCopied] = useState(false);
 
-  const resetCopied = useCallback(
-    debounce(() => {
-      setCopied(false);
-    }, 3000),
+  const resetCopied = useMemo(
+    () =>
+      debounce(() => {
+        setCopied(false);
+      }, 3000),
     [],
   );
 
   const onCopy = useCallback(() => {
     copyToClipboard(selectedInterface);
     setCopied(true);
-
     resetCopied();
-  }, []);
+  }, [selectedInterface, resetCopied]);
 
   return (
     <Split hasGutter>

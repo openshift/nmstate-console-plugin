@@ -1,9 +1,10 @@
 import { pathsToModuleNameMapper } from 'ts-jest';
+import { readConfigFile, sys } from 'typescript';
 
 import type { Config } from '@jest/types';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { compilerOptions } = require('./tsconfig');
+const { config: tsconfig } = readConfigFile('./tsconfig.json', sys.readFile);
+const { compilerOptions } = tsconfig;
 
 // Sync object
 const config: Config.InitialOptions = {
@@ -22,13 +23,11 @@ const config: Config.InitialOptions = {
   modulePaths: ['<rootDir>'],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
   transform: {
-    '^.+\\.[t|j]sx?$': 'ts-jest',
+    '^.+\\.[t|j]sx?$': [
+      'ts-jest',
+      { tsconfig: { ...compilerOptions, module: 'commonjs', moduleResolution: 'node' } },
+    ],
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!(@patternfly|@openshift-console\\S*?)/.*)'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true,
-    },
-  },
 };
 export default config;
