@@ -3,13 +3,15 @@
 
 approvers:
   - avivtur
-  - cybertron
   - lkladnit
-  - metalice
+  - parthivk100
   - pcbailey
   - rszwajko
   - ronlavi2412
   - sjd78
+emeritus_approvers:
+  - cybertron
+  - metalice
   - upalatucci
   - vojtechszocs
 reviewers:
@@ -30,3 +32,4 @@ reviewers:
 # Bugzilla info;
 component: Networking
 subcomponent: kubernetes-nmstate-operator,kubernetes-nmstate
+
