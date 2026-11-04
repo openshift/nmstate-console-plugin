@@ -40,3 +40,11 @@ rules:
 settings:
   react:
     version: detect
+overrides:
+  - files:
+      - "i18n-scripts/**/*.js"
+    env:
+      node: true
+      es2021: true
+    rules:
+      "@typescript-eslint/no-var-requires": "off"
