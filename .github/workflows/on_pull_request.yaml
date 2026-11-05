@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
@@ -24,21 +26,13 @@ jobs:
           cache: yarn
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --ignore-scripts
 
       - name: Lint
         run: yarn lint
 
       - name: Check i18n
-        shell: bash
-        run: |
-          yarn i18n
-          GIT_STATUS="$(git status --short --untracked-files locales)"
-          if [ -n "$GIT_STATUS" ]; then
-            echo "i18n files are not up to date. Commit them to fix."
-            git diff
-            exit 1
-          fi
+        run: yarn i18n:check
 
       - name: Test
         run: yarn test:coverage
