@@ -17,6 +17,7 @@
     "cypress": "cypress run --browser electron",
     "cypress:open": "cypress open",
     "i18n": "./i18n-scripts/build-i18n.sh && node ./i18n-scripts/set-english-defaults.js",
+    "i18n:check": "./scripts/check-i18n.sh",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "jest",
@@ -91,7 +92,7 @@
   "dependencies": {
     "@preact/signals-react": "^3.7.0",
     "esbuild-loader": "^4.4.2",
-    "js-yaml": "5.2.2",
+    "js-yaml": "5.5.0",
     "mocha": "^10.x",
     "pluralize": "^8.0.0",
     "word-wrap": "^1.2.5"
@@ -103,9 +104,9 @@
     "immutable@5": "5.1.8",
     "qs": "6.14.2",
     "@remix-run/router": "1.23.2",
-    "js-yaml": "5.2.2",
+    "js-yaml": "$js-yaml",
     "i18next-parser": {
-      "js-yaml": "4.1.0"
+      "js-yaml": "4.3.2"
     },
     "@istanbuljs/load-nyc-config": {
       "js-yaml": "3.15.2"
