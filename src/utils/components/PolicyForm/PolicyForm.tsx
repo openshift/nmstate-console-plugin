@@ -115,7 +115,7 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
           type="text"
           id="policy-name"
           name="policy-name"
-          value={getName(policy)}
+          value={getName(policy) ?? ''}
           isDisabled={!createForm}
           onChange={(_, newName) =>
             setPolicy((draftPolicy) => {
@@ -129,7 +129,7 @@ const PolicyForm: FC<PolicyFormProps> = ({ policy, setPolicy, createForm = false
           type="text"
           id="policy-description"
           name="policy-description"
-          value={policy?.metadata?.annotations?.description}
+          value={policy?.metadata?.annotations?.description ?? ''}
           onChange={(_, newValue) => onDescriptionChange(newValue)}
         />
       </FormGroup>

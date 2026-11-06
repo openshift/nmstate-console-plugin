@@ -53,7 +53,7 @@ const NetworkIdentity: FC<NetworkIdentityProps> = ({ setPolicy, policy }) => {
           id="physical-network-name"
           name="physical-network-name"
           validated={nameValidation}
-          value={getOVNLocalnet(policy)}
+          value={getOVNLocalnet(policy) ?? ''}
           onChange={(_, newName) => {
             setPolicy((draftPolicy) => {
               draftPolicy.spec.desiredState.ovn[OVN_BRIDGE_MAPPINGS][0].localnet = newName;

@@ -1,6 +1,10 @@
 import { dump } from 'js-yaml';
 
-import { NodeNetworkConfigurationInterface } from '@kubevirt-ui-ext/kubevirt-api/nmstate';
+import {
+  NodeNetworkConfigurationInterface,
+  NodeNetworkConfigurationInterfaceLLDPNeighbor,
+} from '@kubevirt-ui-ext/kubevirt-api/nmstate';
+import { getChassisId, getPortId } from '@utils/resources/neighbors/getters';
 
 export const copyToClipboard = (selectedInterface: NodeNetworkConfigurationInterface) => {
   const el = document.createElement('textarea');
@@ -22,4 +26,13 @@ export const downloadYAML = (selectedInterface: NodeNetworkConfigurationInterfac
   document.body.appendChild(el);
   el.click();
   document.body.removeChild(el);
+};
+
+export const getNeighborKey = (
+  neighbor: NodeNetworkConfigurationInterfaceLLDPNeighbor,
+  index: number,
+): string => {
+  // LLDP identity is the chassis-id/port-id pair; identical advertisements can repeat,
+  // so the position disambiguates them without relying on a non-unique property.
+  return `${getChassisId(neighbor)}-${getPortId(neighbor)}-${index}`;
 };
