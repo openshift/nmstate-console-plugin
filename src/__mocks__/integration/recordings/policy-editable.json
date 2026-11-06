@@ -1,0 +1,30 @@
+{
+  "apiVersion": "nmstate.io/v1",
+  "kind": "NodeNetworkConfigurationPolicy",
+  "metadata": {
+    "annotations": {
+      "nmstate.io/webhook-mutating-timestamp": "1793974396849626355"
+    },
+    "creationTimestamp": "2026-11-06T14:13:16Z",
+    "generation": 1,
+    "name": "pw-int-editable",
+    "uid": "915eae69-8996-4d2a-b849-0ff0718486c1"
+  },
+  "spec": {
+    "desiredState": {
+      "interfaces": [
+        {
+          "bridge": {
+            "port": []
+          },
+          "name": "br0",
+          "state": "up",
+          "type": "linux-bridge"
+        }
+      ]
+    },
+    "nodeSelector": {
+      "nmstate.io/int-fixture": "absent"
+    }
+  }
+}

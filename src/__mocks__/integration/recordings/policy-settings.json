@@ -1,0 +1,46 @@
+{
+  "apiVersion": "nmstate.io/v1",
+  "kind": "NodeNetworkConfigurationPolicy",
+  "metadata": {
+    "annotations": {
+      "nmstate.io/webhook-mutating-timestamp": "1793974396158667535"
+    },
+    "creationTimestamp": "2026-11-06T14:13:16Z",
+    "generation": 1,
+    "name": "pw-int-settings",
+    "uid": "6a8b49fb-6823-4a7b-a318-894a7faafa43"
+  },
+  "spec": {
+    "desiredState": {
+      "interfaces": [
+        {
+          "bridge": {
+            "port": [
+              {
+                "name": "eth0"
+              }
+            ]
+          },
+          "name": "br0",
+          "type": "ovs-bridge"
+        },
+        {
+          "mtu": 1500,
+          "name": "br0",
+          "type": "ovs-interface"
+        }
+      ],
+      "ovn": {
+        "bridge-mappings": [
+          {
+            "bridge": "br0",
+            "localnet": "physnet-lab"
+          }
+        ]
+      }
+    },
+    "nodeSelector": {
+      "nmstate.io/int-fixture": "absent"
+    }
+  }
+}

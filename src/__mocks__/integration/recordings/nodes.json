@@ -1,0 +1,357 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T08:16:31Z",
+        "labels": {
+          "kubernetes.io/arch": "amd64",
+          "kubernetes.io/hostname": "master-0",
+          "kubernetes.io/os": "linux",
+          "node-role.kubernetes.io/control-plane": "",
+          "node-role.kubernetes.io/master": "",
+          "node.openshift.io/os_id": "rhel",
+          "topology.kubernetes.io/zone": "nova"
+        },
+        "name": "master-0",
+        "uid": "55973a31-e2dc-48b1-ace6-f095f3b705f2"
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:24Z",
+            "lastTransitionTime": "2026-11-01T08:16:32Z",
+            "message": "kubelet has sufficient memory available",
+            "reason": "KubeletHasSufficientMemory",
+            "status": "False",
+            "type": "MemoryPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:24Z",
+            "lastTransitionTime": "2026-11-05T20:57:40Z",
+            "message": "kubelet has no disk pressure",
+            "reason": "KubeletHasNoDiskPressure",
+            "status": "False",
+            "type": "DiskPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:24Z",
+            "lastTransitionTime": "2026-11-01T08:16:32Z",
+            "message": "kubelet has sufficient PID available",
+            "reason": "KubeletHasSufficientPID",
+            "status": "False",
+            "type": "PIDPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:24Z",
+            "lastTransitionTime": "2026-11-01T08:18:58Z",
+            "message": "kubelet is posting ready status",
+            "reason": "KubeletReady",
+            "status": "True",
+            "type": "Ready"
+          }
+        ],
+        "nodeInfo": {
+          "architecture": "amd64",
+          "kubeletVersion": "v1.36.5",
+          "operatingSystem": "linux"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T08:16:35Z",
+        "labels": {
+          "kubernetes.io/arch": "amd64",
+          "kubernetes.io/hostname": "master-1",
+          "kubernetes.io/os": "linux",
+          "node-role.kubernetes.io/control-plane": "",
+          "node-role.kubernetes.io/master": "",
+          "node.openshift.io/os_id": "rhel",
+          "topology.kubernetes.io/zone": "nova"
+        },
+        "name": "master-1",
+        "uid": "33783c71-e6dc-4c5b-ace3-ef8c0cd0e3a3"
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:21Z",
+            "lastTransitionTime": "2026-11-01T08:16:36Z",
+            "message": "kubelet has sufficient memory available",
+            "reason": "KubeletHasSufficientMemory",
+            "status": "False",
+            "type": "MemoryPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:21Z",
+            "lastTransitionTime": "2026-11-01T08:16:36Z",
+            "message": "kubelet has no disk pressure",
+            "reason": "KubeletHasNoDiskPressure",
+            "status": "False",
+            "type": "DiskPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:21Z",
+            "lastTransitionTime": "2026-11-01T08:16:36Z",
+            "message": "kubelet has sufficient PID available",
+            "reason": "KubeletHasSufficientPID",
+            "status": "False",
+            "type": "PIDPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:21Z",
+            "lastTransitionTime": "2026-11-01T08:19:00Z",
+            "message": "kubelet is posting ready status",
+            "reason": "KubeletReady",
+            "status": "True",
+            "type": "Ready"
+          }
+        ],
+        "nodeInfo": {
+          "architecture": "amd64",
+          "kubeletVersion": "v1.36.5",
+          "operatingSystem": "linux"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T08:16:30Z",
+        "labels": {
+          "kubernetes.io/arch": "amd64",
+          "kubernetes.io/hostname": "master-2",
+          "kubernetes.io/os": "linux",
+          "node-role.kubernetes.io/control-plane": "",
+          "node-role.kubernetes.io/master": "",
+          "node.openshift.io/os_id": "rhel",
+          "topology.kubernetes.io/zone": "nova"
+        },
+        "name": "master-2",
+        "uid": "9675c00b-1549-45f0-a801-728161143fa4"
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T14:06:12Z",
+            "lastTransitionTime": "2026-11-01T08:16:31Z",
+            "message": "kubelet has sufficient memory available",
+            "reason": "KubeletHasSufficientMemory",
+            "status": "False",
+            "type": "MemoryPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:06:12Z",
+            "lastTransitionTime": "2026-11-01T08:16:31Z",
+            "message": "kubelet has no disk pressure",
+            "reason": "KubeletHasNoDiskPressure",
+            "status": "False",
+            "type": "DiskPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:06:12Z",
+            "lastTransitionTime": "2026-11-01T08:16:31Z",
+            "message": "kubelet has sufficient PID available",
+            "reason": "KubeletHasSufficientPID",
+            "status": "False",
+            "type": "PIDPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:06:12Z",
+            "lastTransitionTime": "2026-11-01T08:19:03Z",
+            "message": "kubelet is posting ready status",
+            "reason": "KubeletReady",
+            "status": "True",
+            "type": "Ready"
+          }
+        ],
+        "nodeInfo": {
+          "architecture": "amd64",
+          "kubeletVersion": "v1.36.5",
+          "operatingSystem": "linux"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T08:32:48Z",
+        "labels": {
+          "kubernetes.io/arch": "amd64",
+          "kubernetes.io/hostname": "worker-0",
+          "kubernetes.io/os": "linux",
+          "node-role.kubernetes.io/worker": "",
+          "node.openshift.io/os_id": "rhel",
+          "topology.kubernetes.io/zone": "nova"
+        },
+        "name": "worker-0",
+        "uid": "76953800-4673-4704-ac91-2b6c4d3c794b"
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:54Z",
+            "lastTransitionTime": "2026-11-01T09:29:30Z",
+            "message": "kubelet has sufficient memory available",
+            "reason": "KubeletHasSufficientMemory",
+            "status": "False",
+            "type": "MemoryPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:54Z",
+            "lastTransitionTime": "2026-11-01T09:29:30Z",
+            "message": "kubelet has no disk pressure",
+            "reason": "KubeletHasNoDiskPressure",
+            "status": "False",
+            "type": "DiskPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:54Z",
+            "lastTransitionTime": "2026-11-01T09:29:30Z",
+            "message": "kubelet has sufficient PID available",
+            "reason": "KubeletHasSufficientPID",
+            "status": "False",
+            "type": "PIDPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:03:54Z",
+            "lastTransitionTime": "2026-11-01T09:29:45Z",
+            "message": "kubelet is posting ready status",
+            "reason": "KubeletReady",
+            "status": "True",
+            "type": "Ready"
+          }
+        ],
+        "nodeInfo": {
+          "architecture": "amd64",
+          "kubeletVersion": "v1.36.5",
+          "operatingSystem": "linux"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T08:32:46Z",
+        "labels": {
+          "kubernetes.io/arch": "amd64",
+          "kubernetes.io/hostname": "worker-1",
+          "kubernetes.io/os": "linux",
+          "node-role.kubernetes.io/worker": "",
+          "node.openshift.io/os_id": "rhel",
+          "topology.kubernetes.io/zone": "nova"
+        },
+        "name": "worker-1",
+        "uid": "98bfe83e-d950-482d-8da5-a54a0acffad9"
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T14:07:09Z",
+            "lastTransitionTime": "2026-11-01T09:24:50Z",
+            "message": "kubelet has sufficient memory available",
+            "reason": "KubeletHasSufficientMemory",
+            "status": "False",
+            "type": "MemoryPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:07:09Z",
+            "lastTransitionTime": "2026-11-01T09:24:50Z",
+            "message": "kubelet has no disk pressure",
+            "reason": "KubeletHasNoDiskPressure",
+            "status": "False",
+            "type": "DiskPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:07:09Z",
+            "lastTransitionTime": "2026-11-01T09:24:50Z",
+            "message": "kubelet has sufficient PID available",
+            "reason": "KubeletHasSufficientPID",
+            "status": "False",
+            "type": "PIDPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:07:09Z",
+            "lastTransitionTime": "2026-11-01T09:25:06Z",
+            "message": "kubelet is posting ready status",
+            "reason": "KubeletReady",
+            "status": "True",
+            "type": "Ready"
+          }
+        ],
+        "nodeInfo": {
+          "architecture": "amd64",
+          "kubeletVersion": "v1.36.5",
+          "operatingSystem": "linux"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T08:32:52Z",
+        "labels": {
+          "kubernetes.io/arch": "amd64",
+          "kubernetes.io/hostname": "worker-2",
+          "kubernetes.io/os": "linux",
+          "node-role.kubernetes.io/worker": "",
+          "node.openshift.io/os_id": "rhel",
+          "topology.kubernetes.io/zone": "nova"
+        },
+        "name": "worker-2",
+        "uid": "47ebca86-4d56-4abb-8d4d-981692d6ab91"
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T14:05:01Z",
+            "lastTransitionTime": "2026-11-01T09:36:58Z",
+            "message": "kubelet has sufficient memory available",
+            "reason": "KubeletHasSufficientMemory",
+            "status": "False",
+            "type": "MemoryPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:05:01Z",
+            "lastTransitionTime": "2026-11-01T09:36:58Z",
+            "message": "kubelet has no disk pressure",
+            "reason": "KubeletHasNoDiskPressure",
+            "status": "False",
+            "type": "DiskPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:05:01Z",
+            "lastTransitionTime": "2026-11-01T09:36:58Z",
+            "message": "kubelet has sufficient PID available",
+            "reason": "KubeletHasSufficientPID",
+            "status": "False",
+            "type": "PIDPressure"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T14:05:01Z",
+            "lastTransitionTime": "2026-11-01T09:37:25Z",
+            "message": "kubelet is posting ready status",
+            "reason": "KubeletReady",
+            "status": "True",
+            "type": "Ready"
+          }
+        ],
+        "nodeInfo": {
+          "architecture": "amd64",
+          "kubeletVersion": "v1.36.5",
+          "operatingSystem": "linux"
+        }
+      }
+    }
+  ],
+  "kind": "List"
+}

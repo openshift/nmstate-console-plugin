@@ -70,12 +70,12 @@
             "time": "2023-07-11T17:40:25Z"
           }
         ],
-        "name": "zeus11.lab.eng.tlv2.redhat.com",
+        "name": "node-0",
         "ownerReferences": [
           {
             "apiVersion": "v1",
             "kind": "Node",
-            "name": "zeus11.lab.eng.tlv2.redhat.com",
+            "name": "node-0",
             "uid": "6fb94aad-fc21-420b-aee1-7f9f89eb764a"
           }
         ],
@@ -90,8 +90,8 @@
               "server": null
             },
             "running": {
-              "search": ["lab.eng.tlv2.redhat.com"],
-              "server": ["10.47.242.10", "10.45.248.15"]
+              "search": ["example.com"],
+              "server": ["192.0.2.16", "192.0.2.17"]
             }
           },
           "interfaces": [
@@ -144,7 +144,7 @@
                 }
               },
               "accept-all-mac-addresses": false,
-              "mac-address": "F8:F2:1E:B7:A6:51",
+              "mac-address": "52:54:00:00:00:01",
               "type": "vlan",
               "controller": "br-vlan204",
               "description": "VLAN using ens2f1"
@@ -198,7 +198,7 @@
                 }
               },
               "accept-all-mac-addresses": false,
-              "mac-address": "F8:F2:1E:B7:A6:51",
+              "mac-address": "52:54:00:00:00:01",
               "type": "vlan",
               "controller": "br-vlan572",
               "description": "VLAN using ens2f1"
@@ -240,7 +240,7 @@
                     "name": "eno1"
                   },
                   {
-                    "name": "patch-br-ex_zeus11.lab.eng.tlv2.redhat.com-to-br-int"
+                    "name": "patch-br-ex_node-0-to-br-int"
                   }
                 ]
               },
@@ -254,7 +254,7 @@
               "ovs-db": {
                 "external_ids": {},
                 "other_config": {
-                  "hwaddr": "20:04:0F:FB:A0:98"
+                  "hwaddr": "52:54:00:00:00:02"
                 }
               }
             },
@@ -268,13 +268,13 @@
                 "auto-route-metric": 48,
                 "address": [
                   {
-                    "ip": "10.46.41.6",
+                    "ip": "192.0.2.18",
                     "preferred-left": "40218sec",
                     "prefix-length": 24,
                     "valid-left": "40218sec"
                   },
                   {
-                    "ip": "169.254.169.2",
+                    "ip": "192.0.2.19",
                     "prefix-length": 29
                   }
                 ],
@@ -292,13 +292,13 @@
                 "autoconf": true,
                 "address": [
                   {
-                    "ip": "2620:52:0:2e29:4494:85fc:15f:408d",
+                    "ip": "2001:db8::31",
                     "preferred-left": "604763sec",
                     "prefix-length": 64,
                     "valid-left": "2591963sec"
                   },
                   {
-                    "ip": "fe80::bf73:24bd:b47d:6f26",
+                    "ip": "2001:db8::32",
                     "prefix-length": 64
                   }
                 ],
@@ -342,7 +342,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "20:04:0F:FB:A0:98",
+              "mac-address": "52:54:00:00:00:02",
               "type": "ovs-interface",
               "controller": "br-ex",
               "mptcp": {
@@ -390,7 +390,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "DA:6D:D4:BE:AE:D9",
+              "mac-address": "52:54:00:00:00:03",
               "type": "ovs-interface",
               "controller": "br-int"
             },
@@ -432,7 +432,7 @@
                   "mac-ageing-time": 300,
                   "multicast-router": "auto",
                   "multicast-last-member-count": 2,
-                  "group-addr": "01:80:C2:00:00:00",
+                  "group-addr": "52:54:00:00:00:04",
                   "multicast-query-interval": 12500
                 },
                 "port": [
@@ -496,7 +496,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "F8:F2:1E:B7:A6:51",
+              "mac-address": "52:54:00:00:00:01",
               "type": "linux-bridge",
               "description": "Linux bridge with VLAN204@ens2f1 as a port",
               "wait-ip": "any"
@@ -539,7 +539,7 @@
                   "mac-ageing-time": 300,
                   "multicast-router": "auto",
                   "multicast-last-member-count": 2,
-                  "group-addr": "01:80:C2:00:00:00",
+                  "group-addr": "52:54:00:00:00:04",
                   "multicast-query-interval": 12500
                 },
                 "port": [
@@ -603,7 +603,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "F8:F2:1E:B7:A6:51",
+              "mac-address": "52:54:00:00:00:01",
               "type": "linux-bridge",
               "description": "Linux bridge with VLAN572@ens2f1 as a port",
               "wait-ip": "any"
@@ -652,7 +652,7 @@
                   "mac-ageing-time": 300,
                   "multicast-router": "auto",
                   "multicast-last-member-count": 2,
-                  "group-addr": "01:80:C2:00:00:00",
+                  "group-addr": "52:54:00:00:00:04",
                   "multicast-query-interval": 12500
                 },
                 "port": []
@@ -697,7 +697,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "76:3D:61:A1:F6:57",
+              "mac-address": "52:54:00:00:00:05",
               "type": "linux-bridge",
               "wait-ip": "any"
             },
@@ -756,7 +756,7 @@
               },
               "min-mtu": 60,
               "accept-all-mac-addresses": false,
-              "mac-address": "20:04:0F:FB:A0:98",
+              "mac-address": "52:54:00:00:00:02",
               "ethernet": {
                 "auto-negotiation": true,
                 "duplex": "full",
@@ -816,7 +816,7 @@
               },
               "min-mtu": 60,
               "accept-all-mac-addresses": false,
-              "mac-address": "20:04:0F:FB:A0:99",
+              "mac-address": "52:54:00:00:00:06",
               "ethernet": {
                 "auto-negotiation": true
               },
@@ -873,7 +873,7 @@
               },
               "min-mtu": 60,
               "accept-all-mac-addresses": false,
-              "mac-address": "20:04:0F:FB:A0:9A",
+              "mac-address": "52:54:00:00:00:07",
               "ethernet": {
                 "auto-negotiation": true
               },
@@ -930,7 +930,7 @@
               },
               "min-mtu": 60,
               "accept-all-mac-addresses": false,
-              "mac-address": "20:04:0F:FB:A0:9B",
+              "mac-address": "52:54:00:00:00:08",
               "ethernet": {
                 "auto-negotiation": true
               },
@@ -953,11 +953,11 @@
                 "neighbors": [
                   [
                     {
-                      "system-name": "sw01-access-f1.tlv2.redhat.com",
+                      "system-name": "redacted-system-name",
                       "type": 5
                     },
                     {
-                      "system-description": "Juniper Networks, Inc. qfx5100-48s-6q Ethernet Switch, kernel JUNOS 19.4R3-S6.1, Build date: 2021-09-25 07:20:51 UTC Copyright (c) 1996-2021 Juniper Networks, Inc.",
+                      "system-description": "redacted-system-description",
                       "type": 6
                     },
                     {
@@ -966,13 +966,13 @@
                     },
                     {
                       "_description": "MAC address",
-                      "chassis-id": "08:05:E2:7D:0A:20",
+                      "chassis-id": "52:54:00:00:00:09",
                       "chassis-id-type": 4,
                       "type": 1
                     },
                     {
                       "_description": "Interface name",
-                      "port-id": "xe-0/0/19",
+                      "port-id": "redacted-port-id",
                       "port-id-type": 5,
                       "type": 2
                     },
@@ -1016,7 +1016,7 @@
                     {
                       "management-addresses": [
                         {
-                          "address": "10.47.246.241",
+                          "address": "192.0.2.20",
                           "address-subtype": "IPv4",
                           "interface-number": 0,
                           "interface-number-subtype": 1
@@ -1033,11 +1033,11 @@
                   ],
                   [
                     {
-                      "system-name": "sw01-access-f1.tlv2.redhat.com",
+                      "system-name": "redacted-system-name",
                       "type": 5
                     },
                     {
-                      "system-description": "Juniper Networks, Inc. qfx5100-48s-6q Ethernet Switch, kernel JUNOS 19.4R3-S6.1, Build date: 2021-09-25 07:20:51 UTC Copyright (c) 1996-2021 Juniper Networks, Inc.",
+                      "system-description": "redacted-system-description",
                       "type": 6
                     },
                     {
@@ -1046,13 +1046,13 @@
                     },
                     {
                       "_description": "MAC address",
-                      "chassis-id": "08:05:E2:7D:0A:20",
+                      "chassis-id": "52:54:00:00:00:09",
                       "chassis-id-type": 4,
                       "type": 1
                     },
                     {
                       "_description": "Interface name",
-                      "port-id": "xe-0/0/19",
+                      "port-id": "redacted-port-id",
                       "port-id-type": 5,
                       "type": 2
                     },
@@ -1096,7 +1096,7 @@
                     {
                       "management-addresses": [
                         {
-                          "address": "10.47.246.241",
+                          "address": "192.0.2.20",
                           "address-subtype": "IPv4",
                           "interface-number": 0,
                           "interface-number-subtype": 1
@@ -1167,7 +1167,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "B8:59:9F:C3:88:4A",
+              "mac-address": "52:54:00:00:00:0a",
               "ethernet": {
                 "auto-negotiation": true,
                 "duplex": "full",
@@ -1243,7 +1243,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "B8:59:9F:C3:88:4B",
+              "mac-address": "52:54:00:00:00:0b",
               "ethernet": {
                 "auto-negotiation": true,
                 "duplex": "full",
@@ -1320,7 +1320,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "F8:F2:1E:B7:A6:50",
+              "mac-address": "52:54:00:00:00:0c",
               "ethernet": {
                 "auto-negotiation": false,
                 "duplex": "full",
@@ -1397,7 +1397,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "F8:F2:1E:B7:A6:51",
+              "mac-address": "52:54:00:00:00:01",
               "ethernet": {
                 "auto-negotiation": false,
                 "duplex": "full",
@@ -1417,7 +1417,7 @@
               "ipv6": {
                 "address": [
                   {
-                    "ip": "fe80::2471:9fff:fe8f:865d",
+                    "ip": "2001:db8::33",
                     "prefix-length": 64
                   }
                 ],
@@ -1447,7 +1447,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "26:71:9F:8F:86:5D",
+              "mac-address": "52:54:00:00:00:0d",
               "ethernet": {},
               "type": "ethernet",
               "controller": "ovs-system"
@@ -1456,7 +1456,7 @@
               "ipv4": {
                 "address": [
                   {
-                    "ip": "127.0.0.1",
+                    "ip": "192.0.2.21",
                     "prefix-length": 8
                   }
                 ],
@@ -1490,14 +1490,14 @@
                 }
               },
               "accept-all-mac-addresses": false,
-              "mac-address": "00:00:00:00:00:00",
+              "mac-address": "52:54:00:00:00:0e",
               "type": "loopback"
             },
             {
               "ipv4": {
                 "address": [
                   {
-                    "ip": "10.130.4.2",
+                    "ip": "192.0.2.22",
                     "prefix-length": 23
                   }
                 ],
@@ -1507,7 +1507,7 @@
               "ipv6": {
                 "address": [
                   {
-                    "ip": "fe80::3c83:2ff:feb1:a168",
+                    "ip": "2001:db8::34",
                     "prefix-length": 64
                   }
                 ],
@@ -1545,7 +1545,7 @@
               },
               "min-mtu": 68,
               "accept-all-mac-addresses": false,
-              "mac-address": "3E:83:02:B1:A1:68",
+              "mac-address": "52:54:00:00:00:0f",
               "type": "ovs-interface",
               "controller": "br-int",
               "mptcp": {
@@ -1553,7 +1553,7 @@
               },
               "ovs-db": {
                 "external_ids": {
-                  "iface-id": "k8s-zeus11.lab.eng.tlv2.redhat.com",
+                  "iface-id": "k8s-node-0",
                   "ovn-installed": "true",
                   "ovn-installed-ts": "1670966706118"
                 },
@@ -1562,18 +1562,18 @@
             },
             {
               "controller": "br-ex",
-              "name": "patch-br-ex_zeus11.lab.eng.tlv2.redhat.com-to-br-int",
+              "name": "patch-br-ex_node-0-to-br-int",
               "patch": {
-                "peer": "patch-br-int-to-br-ex_zeus11.lab.eng.tlv2.redhat.com"
+                "peer": "patch-br-int-to-br-ex_node-0"
               },
               "state": "ignore",
               "type": "ovs-interface"
             },
             {
               "controller": "br-int",
-              "name": "patch-br-int-to-br-ex_zeus11.lab.eng.tlv2.redhat.com",
+              "name": "patch-br-int-to-br-ex_node-0",
               "patch": {
-                "peer": "patch-br-ex_zeus11.lab.eng.tlv2.redhat.com-to-br-int"
+                "peer": "patch-br-ex_node-0-to-br-int"
               },
               "state": "ignore",
               "type": "ovs-interface"
@@ -1582,99 +1582,99 @@
           "routes": {
             "config": [
               {
-                "destination": "172.30.0.0/16",
-                "next-hop-address": "10.130.4.1",
+                "destination": "192.0.2.23/16",
+                "next-hop-address": "192.0.2.24",
                 "next-hop-interface": "ovn-k8s-mp0",
                 "table-id": 7
               },
               {
-                "destination": "10.128.0.0/14",
-                "next-hop-address": "10.130.4.1",
+                "destination": "192.0.2.25/14",
+                "next-hop-address": "192.0.2.24",
                 "next-hop-interface": "ovn-k8s-mp0",
                 "table-id": 254
               },
               {
-                "destination": "169.254.169.1/32",
-                "next-hop-address": "0.0.0.0",
+                "destination": "192.0.2.26/32",
+                "next-hop-address": "192.0.2.27",
                 "next-hop-interface": "br-ex",
                 "table-id": 254
               },
               {
-                "destination": "169.254.169.3/32",
-                "next-hop-address": "10.130.4.1",
+                "destination": "192.0.2.28/32",
+                "next-hop-address": "192.0.2.24",
                 "next-hop-interface": "ovn-k8s-mp0",
                 "table-id": 254
               },
               {
-                "destination": "172.30.0.0/16",
-                "next-hop-address": "169.254.169.4",
+                "destination": "192.0.2.23/16",
+                "next-hop-address": "192.0.2.29",
                 "next-hop-interface": "br-ex",
                 "table-id": 254
               }
             ],
             "running": [
               {
-                "destination": "172.30.0.0/16",
-                "next-hop-address": "10.130.4.1",
+                "destination": "192.0.2.23/16",
+                "next-hop-address": "192.0.2.24",
                 "next-hop-interface": "ovn-k8s-mp0",
                 "table-id": 7
               },
               {
-                "destination": "10.128.0.0/14",
-                "next-hop-address": "10.130.4.1",
+                "destination": "192.0.2.25/14",
+                "next-hop-address": "192.0.2.24",
                 "next-hop-interface": "ovn-k8s-mp0",
                 "table-id": 254
               },
               {
-                "destination": "169.254.169.1/32",
-                "next-hop-address": "0.0.0.0",
+                "destination": "192.0.2.26/32",
+                "next-hop-address": "192.0.2.27",
                 "next-hop-interface": "br-ex",
                 "table-id": 254
               },
               {
-                "destination": "169.254.169.3/32",
-                "next-hop-address": "10.130.4.1",
+                "destination": "192.0.2.28/32",
+                "next-hop-address": "192.0.2.24",
                 "next-hop-interface": "ovn-k8s-mp0",
                 "table-id": 254
               },
               {
-                "destination": "172.30.0.0/16",
-                "next-hop-address": "169.254.169.4",
+                "destination": "192.0.2.23/16",
+                "next-hop-address": "192.0.2.29",
                 "next-hop-interface": "br-ex",
                 "table-id": 254
               },
               {
-                "destination": "2620:52:0:2e29::/64",
+                "destination": "2001:db8::35/64",
                 "metric": 48,
-                "next-hop-address": "::",
+                "next-hop-address": "2001:db8::36",
                 "next-hop-interface": "br-ex",
                 "table-id": 254
               },
               {
-                "destination": "::/0",
+                "destination": "2001:db8::36/0",
                 "metric": 48,
-                "next-hop-address": "fe80::200:5eff:fe00:201",
+                "next-hop-address": "2001:db8::37",
                 "next-hop-interface": "br-ex",
                 "table-id": 254
               },
               {
-                "destination": "::/0",
+                "destination": "2001:db8::36/0",
                 "metric": 48,
-                "next-hop-address": "fe80::a05:e200:cc7d:2820",
+                "next-hop-address": "2001:db8::38",
                 "next-hop-interface": "br-ex",
                 "table-id": 254
               },
               {
-                "destination": "::/0",
+                "destination": "2001:db8::36/0",
                 "metric": 48,
-                "next-hop-address": "fe80::a05:e200:cc7d:be20",
+                "next-hop-address": "2001:db8::39",
                 "next-hop-interface": "br-ex",
                 "table-id": 254
               },
               {
-                "destination": "0.0.0.0/0",
+                "destination": "192.0.2.27/0",
                 "metric": 48,
-                "next-hop-address": "10.46.41.254",
+                "next-hop-address": "192.0.2.30",
                 "next-hop-interface": "br-ex",
                 "table-id": 254
               }

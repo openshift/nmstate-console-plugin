@@ -1,0 +1,189 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "nmstate.io/v1beta1",
+      "kind": "NodeNetworkConfigurationEnactment",
+      "metadata": {
+        "creationTimestamp": "2026-11-06T02:28:08Z",
+        "labels": {
+          "nmstate.io/node": "worker-0",
+          "nmstate.io/policy": "pw-int-fixture"
+        },
+        "name": "worker-0.pw-int-fixture",
+        "ownerReferences": [
+          {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "name": "worker-0",
+            "uid": "76953800-4673-4704-ac91-2b6c4d3c794b"
+          }
+        ],
+        "uid": "78558244-b1fc-41c5-8711-aeff9286bcd7"
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:15Z",
+            "lastTransitionTime": "2026-11-06T02:28:15Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Progressing"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:15Z",
+            "lastTransitionTime": "2026-11-06T02:28:15Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Failing"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:15Z",
+            "lastTransitionTime": "2026-11-06T02:28:15Z",
+            "message": "successfully reconciled",
+            "reason": "SuccessfullyConfigured",
+            "status": "True",
+            "type": "Available"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:15Z",
+            "lastTransitionTime": "2026-11-06T02:28:09Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Pending"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:15Z",
+            "lastTransitionTime": "2026-11-06T02:28:09Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Aborted"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "nmstate.io/v1beta1",
+      "kind": "NodeNetworkConfigurationEnactment",
+      "metadata": {
+        "creationTimestamp": "2026-11-06T02:28:08Z",
+        "labels": {
+          "nmstate.io/node": "worker-1",
+          "nmstate.io/policy": "pw-int-fixture"
+        },
+        "name": "worker-1.pw-int-fixture",
+        "ownerReferences": [
+          {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "name": "worker-1",
+            "uid": "98bfe83e-d950-482d-8da5-a54a0acffad9"
+          }
+        ],
+        "uid": "baced7b0-c1a1-47b2-86e0-6263c637c132"
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:23Z",
+            "lastTransitionTime": "2026-11-06T02:28:15Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Pending"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:23Z",
+            "lastTransitionTime": "2026-11-06T02:28:10Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Aborted"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:23Z",
+            "lastTransitionTime": "2026-11-06T02:28:23Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Progressing"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:23Z",
+            "lastTransitionTime": "2026-11-06T02:28:23Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Failing"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:23Z",
+            "lastTransitionTime": "2026-11-06T02:28:23Z",
+            "message": "successfully reconciled",
+            "reason": "SuccessfullyConfigured",
+            "status": "True",
+            "type": "Available"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "nmstate.io/v1beta1",
+      "kind": "NodeNetworkConfigurationEnactment",
+      "metadata": {
+        "creationTimestamp": "2026-11-06T02:28:08Z",
+        "labels": {
+          "nmstate.io/node": "worker-2",
+          "nmstate.io/policy": "pw-int-fixture"
+        },
+        "name": "worker-2.pw-int-fixture",
+        "ownerReferences": [
+          {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "name": "worker-2",
+            "uid": "47ebca86-4d56-4abb-8d4d-981692d6ab91"
+          }
+        ],
+        "uid": "61589545-77dd-4431-9857-0e147d38c464"
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:13Z",
+            "lastTransitionTime": "2026-11-06T02:28:13Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Progressing"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:13Z",
+            "lastTransitionTime": "2026-11-06T02:28:13Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Failing"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:13Z",
+            "lastTransitionTime": "2026-11-06T02:28:13Z",
+            "message": "successfully reconciled",
+            "reason": "SuccessfullyConfigured",
+            "status": "True",
+            "type": "Available"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:13Z",
+            "lastTransitionTime": "2026-11-06T02:28:09Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Pending"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:13Z",
+            "lastTransitionTime": "2026-11-06T02:28:09Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Aborted"
+          }
+        ]
+      }
+    }
+  ],
+  "kind": "List"
+}
