@@ -61,8 +61,9 @@ const IPConfiguration: FC<IPConfigurationProps> = ({ policyInterface, onInterfac
   };
 
   const onPrefixChange = (value: number) => {
+    if (!Number.isFinite(value)) return;
     onInterfaceChange((draftInterface) => {
-      if (draftInterface.ipv4.address.length > 0)
+      if (draftInterface.ipv4.address?.length > 0)
         draftInterface.ipv4.address[0]['prefix-length'] = value;
     });
   };
@@ -117,7 +118,7 @@ const IPConfiguration: FC<IPConfigurationProps> = ({ policyInterface, onInterfac
               className="pf-v6-u-mb-md"
             >
               <TextInput
-                value={policyInterface?.ipv4?.address?.[0]?.ip}
+                value={policyInterface?.ipv4?.address?.[0]?.ip ?? ''}
                 type="text"
                 id={`ipv4-address-${id}`}
                 onChange={(_, newValue) => onAddressChange(newValue)}
@@ -125,11 +126,17 @@ const IPConfiguration: FC<IPConfigurationProps> = ({ policyInterface, onInterfac
             </FormGroup>
             <FormGroup label={t('Prefix length')} isRequired fieldId={`prefix-length-${id}`}>
               <NumberInput
-                value={policyInterface?.ipv4?.address?.[0]?.['prefix-length']}
+                value={policyInterface?.ipv4?.address?.[0]?.['prefix-length'] ?? ''}
                 id={`prefix-length-${id}`}
                 onChange={(event) => onPrefixChange(event.currentTarget.valueAsNumber)}
-                onMinus={() => onPrefixChange(policyInterface.ipv4.address[0]['prefix-length'] - 1)}
-                onPlus={() => onPrefixChange(policyInterface.ipv4.address[0]['prefix-length'] + 1)}
+                onMinus={() => {
+                  const prefixLength = policyInterface?.ipv4?.address?.[0]?.['prefix-length'];
+                  if (Number.isFinite(prefixLength)) onPrefixChange(prefixLength - 1);
+                }}
+                onPlus={() => {
+                  const prefixLength = policyInterface?.ipv4?.address?.[0]?.['prefix-length'];
+                  if (Number.isFinite(prefixLength)) onPrefixChange(prefixLength + 1);
+                }}
                 min={0}
                 max={32}
               />

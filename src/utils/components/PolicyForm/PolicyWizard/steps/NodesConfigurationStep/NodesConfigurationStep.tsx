@@ -65,7 +65,7 @@ const NodesConfigurationStep: FC<NodesConfigurationStepProps> = ({ setPolicy, po
           id="policy-name"
           name="policy-name"
           validated={nameValidation}
-          value={getName(policy)}
+          value={getName(policy) ?? ''}
           onChange={(_, newName) => {
             setPolicy((draftPolicy) => {
               draftPolicy.metadata.name = newName;
@@ -82,7 +82,7 @@ const NodesConfigurationStep: FC<NodesConfigurationStepProps> = ({ setPolicy, po
           type="text"
           id="policy-description"
           name="policy-description"
-          value={getDescription(policy)}
+          value={getDescription(policy) ?? ''}
           onChange={(_, newValue) => onDescriptionChange(newValue)}
         />
       </FormGroup>

@@ -13,7 +13,6 @@ import {
 } from '@patternfly/react-core';
 import { useNMStateTranslation } from '@utils/hooks/useNMStateTranslation';
 import { getPorts } from '@utils/resources/interfaces/getters';
-import { getSystemName } from '@utils/resources/neighbors/getters';
 
 import NeighborInformations from './NeighborInformations';
 
@@ -55,8 +54,8 @@ const InterfaceDrawerDetailsTab: FC<InterfaceDrawerDetailsTabProps> = ({ selecte
           <>
             <Title headingLevel="h4">{t('Neighbors')}</Title>
             <List isPlain isBordered>
-              {selectedInterface.lldp?.neighbors?.map((neighbor) => (
-                <ListItem key={getSystemName(neighbor)}>
+              {selectedInterface.lldp?.neighbors?.map((neighbor, index) => (
+                <ListItem key={index}>
                   <NeighborInformations neighbor={neighbor} />
                 </ListItem>
               ))}

@@ -3,6 +3,8 @@ import { load } from 'js-yaml';
 import { nmStateConsole } from '@utils/helpers';
 
 export const safeLoad = <Resource>(value: string): Resource | undefined => {
+  // An empty editor is "nothing to load", not a parse error; logging it would be noise.
+  if (!value?.trim()) return undefined;
   try {
     return load(value) as Resource;
   } catch (error) {
