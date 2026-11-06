@@ -68,9 +68,7 @@ const NewPolicy: FC = () => {
       data: policy,
     })
       .then(() =>
-        navigate(
-          getResourceUrl({ model: NodeNetworkConfigurationPolicyModel, resource: policy }),
-        ),
+        navigate(getResourceUrl({ model: NodeNetworkConfigurationPolicyModel, resource: policy })),
       )
       .catch(setError)
       .finally(() => setLoading(false));
