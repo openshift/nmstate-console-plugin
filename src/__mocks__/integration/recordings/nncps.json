@@ -1,0 +1,62 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "nmstate.io/v1",
+      "kind": "NodeNetworkConfigurationPolicy",
+      "metadata": {
+        "creationTimestamp": "2026-11-06T02:28:08Z",
+        "name": "pw-int-fixture",
+        "uid": "d2123b7d-b8bf-4ac5-9cd1-27568812a5dc"
+      },
+      "spec": {
+        "desiredState": {
+          "interfaces": [
+            {
+              "name": "dummy0",
+              "state": "up",
+              "type": "dummy"
+            }
+          ]
+        },
+        "nodeSelector": {
+          "node-role.kubernetes.io/worker": ""
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:23Z",
+            "lastTransitionTime": "2026-11-06T02:28:23Z",
+            "message": "3/3 nodes successfully configured",
+            "reason": "SuccessfullyConfigured",
+            "status": "True",
+            "type": "Available"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:23Z",
+            "lastTransitionTime": "2026-11-06T02:28:23Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Degraded"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:23Z",
+            "lastTransitionTime": "2026-11-06T02:28:23Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Progressing"
+          },
+          {
+            "lastHeartbeatTime": "2026-11-06T02:28:23Z",
+            "lastTransitionTime": "2026-11-06T02:28:08Z",
+            "reason": "SuccessfullyConfigured",
+            "status": "False",
+            "type": "Ignored"
+          }
+        ]
+      }
+    }
+  ],
+  "kind": "List"
+}

@@ -1,0 +1,1646 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "nmstate.io/v1beta1",
+      "kind": "NodeNetworkState",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T09:05:56Z",
+        "labels": {},
+        "name": "master-0",
+        "uid": "b30a21df-6956-48dd-ae4e-6bbc7bbb0492"
+      },
+      "status": {
+        "currentState": {
+          "interfaces": [
+            {
+              "name": "br-ex",
+              "type": "ovs-bridge",
+              "state": "up",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "bridge": {
+                "options": {
+                  "datapath": "",
+                  "fail-mode": "",
+                  "mcast-snooping-enable": false,
+                  "rstp": false,
+                  "stp": {
+                    "enabled": false
+                  }
+                },
+                "port": [
+                  {
+                    "name": "br-ex"
+                  },
+                  {
+                    "name": "enp3s0"
+                  },
+                  {
+                    "name": "patch-br-ex_master-0-to-br-int"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "br-ex",
+              "type": "ovs-interface",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:01",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.32",
+                    "prefix-length": 18
+                  },
+                  {
+                    "ip": "192.0.2.33",
+                    "prefix-length": 17
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": true,
+                "prefix-route-metric": 48
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "address": [
+                  {
+                    "ip": "2001:db8::48",
+                    "prefix-length": 64
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:02",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "enp3s0",
+              "type": "ethernet",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:01",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "genev_sys_6081",
+              "type": "unknown",
+              "state": "ignore",
+              "mac-address": "52:54:00:00:00:03"
+            },
+            {
+              "name": "lo",
+              "type": "loopback",
+              "state": "up",
+              "mtu": 65536,
+              "mac-address": "52:54:00:00:00:04",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.34",
+                    "prefix-length": 8
+                  }
+                ],
+                "enabled": true,
+                "forwarding": false
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "::1",
+                    "prefix-length": 128
+                  }
+                ],
+                "enabled": true
+              }
+            },
+            {
+              "name": "ovn-k8s-mp0",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:05",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.35",
+                    "prefix-length": 23
+                  }
+                ],
+                "enabled": true,
+                "forwarding": true
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "2001:db8::49",
+                    "prefix-length": 64,
+                    "protocol": "kernel_ll"
+                  }
+                ],
+                "enabled": true
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "patch-br-ex_master-0-to-br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-ex"
+            },
+            {
+              "name": "patch-br-int-to-br-ex_master-0",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-int"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "apiVersion": "nmstate.io/v1beta1",
+      "kind": "NodeNetworkState",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T09:05:59Z",
+        "labels": {},
+        "name": "master-1",
+        "uid": "6b3ad97f-a85e-49c1-a952-513e0f08658c"
+      },
+      "status": {
+        "currentState": {
+          "interfaces": [
+            {
+              "name": "br-ex",
+              "type": "ovs-bridge",
+              "state": "up",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "bridge": {
+                "options": {
+                  "datapath": "",
+                  "fail-mode": "",
+                  "mcast-snooping-enable": false,
+                  "rstp": false,
+                  "stp": {
+                    "enabled": false
+                  }
+                },
+                "port": [
+                  {
+                    "name": "br-ex"
+                  },
+                  {
+                    "name": "enp3s0"
+                  },
+                  {
+                    "name": "patch-br-ex_master-1-to-br-int"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "br-ex",
+              "type": "ovs-interface",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:06",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.36",
+                    "prefix-length": 18
+                  },
+                  {
+                    "ip": "192.0.2.33",
+                    "prefix-length": 17
+                  },
+                  {
+                    "ip": "192.0.2.37",
+                    "prefix-length": 32
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": true,
+                "prefix-route-metric": 48
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "address": [
+                  {
+                    "ip": "2001:db8::50",
+                    "prefix-length": 64
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:07",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "enp3s0",
+              "type": "ethernet",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:06",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "genev_sys_6081",
+              "type": "unknown",
+              "state": "ignore",
+              "mac-address": "52:54:00:00:00:08"
+            },
+            {
+              "name": "lo",
+              "type": "loopback",
+              "state": "up",
+              "mtu": 65536,
+              "mac-address": "52:54:00:00:00:04",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.34",
+                    "prefix-length": 8
+                  }
+                ],
+                "enabled": true,
+                "forwarding": false
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "::1",
+                    "prefix-length": 128
+                  }
+                ],
+                "enabled": true
+              }
+            },
+            {
+              "name": "ovn-k8s-mp0",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:09",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.38",
+                    "prefix-length": 23
+                  }
+                ],
+                "enabled": true,
+                "forwarding": true
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "2001:db8::51",
+                    "prefix-length": 64,
+                    "protocol": "kernel_ll"
+                  }
+                ],
+                "enabled": true
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "patch-br-ex_master-1-to-br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-ex"
+            },
+            {
+              "name": "patch-br-int-to-br-ex_master-1",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-int"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "apiVersion": "nmstate.io/v1beta1",
+      "kind": "NodeNetworkState",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T09:06:00Z",
+        "labels": {},
+        "name": "master-2",
+        "uid": "3efdec42-3a7e-426f-8690-dd976e06d072"
+      },
+      "status": {
+        "currentState": {
+          "interfaces": [
+            {
+              "name": "br-ex",
+              "type": "ovs-bridge",
+              "state": "up",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "bridge": {
+                "options": {
+                  "datapath": "",
+                  "fail-mode": "",
+                  "mcast-snooping-enable": false,
+                  "rstp": false,
+                  "stp": {
+                    "enabled": false
+                  }
+                },
+                "port": [
+                  {
+                    "name": "br-ex"
+                  },
+                  {
+                    "name": "enp3s0"
+                  },
+                  {
+                    "name": "patch-br-ex_master-2-to-br-int"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "br-ex",
+              "type": "ovs-interface",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:0a",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.39",
+                    "prefix-length": 18
+                  },
+                  {
+                    "ip": "192.0.2.33",
+                    "prefix-length": 17
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": true,
+                "prefix-route-metric": 48
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "address": [
+                  {
+                    "ip": "2001:db8::52",
+                    "prefix-length": 64
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:0b",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "enp3s0",
+              "type": "ethernet",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:0a",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "genev_sys_6081",
+              "type": "unknown",
+              "state": "ignore",
+              "mac-address": "52:54:00:00:00:0c"
+            },
+            {
+              "name": "lo",
+              "type": "loopback",
+              "state": "up",
+              "mtu": 65536,
+              "mac-address": "52:54:00:00:00:04",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.34",
+                    "prefix-length": 8
+                  }
+                ],
+                "enabled": true,
+                "forwarding": false
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "::1",
+                    "prefix-length": 128
+                  }
+                ],
+                "enabled": true
+              }
+            },
+            {
+              "name": "ovn-k8s-mp0",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:0d",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.40",
+                    "prefix-length": 23
+                  }
+                ],
+                "enabled": true,
+                "forwarding": true
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "2001:db8::53",
+                    "prefix-length": 64,
+                    "protocol": "kernel_ll"
+                  }
+                ],
+                "enabled": true
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "patch-br-ex_master-2-to-br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-ex"
+            },
+            {
+              "name": "patch-br-int-to-br-ex_master-2",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-int"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "apiVersion": "nmstate.io/v1beta1",
+      "kind": "NodeNetworkState",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T09:06:00Z",
+        "labels": {
+          "nmstate.io/force-nns-refresh": "1793932225957902274"
+        },
+        "name": "worker-0",
+        "uid": "0a8abc32-1678-436d-8ac4-3c4e2333076c"
+      },
+      "status": {
+        "currentState": {
+          "interfaces": [
+            {
+              "name": "br-ex",
+              "type": "ovs-bridge",
+              "state": "up",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "bridge": {
+                "options": {
+                  "datapath": "",
+                  "fail-mode": "",
+                  "mcast-snooping-enable": false,
+                  "rstp": false,
+                  "stp": {
+                    "enabled": false
+                  }
+                },
+                "port": [
+                  {
+                    "name": "br-ex"
+                  },
+                  {
+                    "name": "enp3s0"
+                  },
+                  {
+                    "name": "patch-br-ex_worker-0-to-br-int"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "br-ex",
+              "type": "ovs-interface",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:0e",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.41",
+                    "prefix-length": 18
+                  },
+                  {
+                    "ip": "192.0.2.33",
+                    "prefix-length": 17
+                  },
+                  {
+                    "ip": "192.0.2.42",
+                    "prefix-length": 32
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": true,
+                "prefix-route-metric": 48
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "address": [
+                  {
+                    "ip": "2001:db8::54",
+                    "prefix-length": 64
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:0f",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "enp10s0",
+              "type": "ethernet",
+              "state": "down",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:10",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": false,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              }
+            },
+            {
+              "name": "enp3s0",
+              "type": "ethernet",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:0e",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "enp9s0",
+              "type": "ethernet",
+              "state": "down",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:11",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": false,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              }
+            },
+            {
+              "name": "genev_sys_6081",
+              "type": "unknown",
+              "state": "ignore",
+              "mac-address": "52:54:00:00:00:12"
+            },
+            {
+              "name": "lo",
+              "type": "loopback",
+              "state": "up",
+              "mtu": 65536,
+              "mac-address": "52:54:00:00:00:04",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.34",
+                    "prefix-length": 8
+                  }
+                ],
+                "enabled": true,
+                "forwarding": false
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "::1",
+                    "prefix-length": 128
+                  }
+                ],
+                "enabled": true
+              }
+            },
+            {
+              "name": "ovn-k8s-mp0",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:13",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.43",
+                    "prefix-length": 23
+                  }
+                ],
+                "enabled": true,
+                "forwarding": true
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "2001:db8::55",
+                    "prefix-length": 64,
+                    "protocol": "kernel_ll"
+                  }
+                ],
+                "enabled": true
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "patch-br-ex_worker-0-to-br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-ex"
+            },
+            {
+              "name": "patch-br-int-to-br-ex_worker-0",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-int"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "apiVersion": "nmstate.io/v1beta1",
+      "kind": "NodeNetworkState",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T09:06:00Z",
+        "labels": {
+          "nmstate.io/force-nns-refresh": "1793932232819564011"
+        },
+        "name": "worker-1",
+        "uid": "21e0d7d7-68b0-4d61-9422-7856932dab6c"
+      },
+      "status": {
+        "currentState": {
+          "interfaces": [
+            {
+              "name": "br-ex",
+              "type": "ovs-bridge",
+              "state": "up",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "bridge": {
+                "options": {
+                  "datapath": "",
+                  "fail-mode": "",
+                  "mcast-snooping-enable": false,
+                  "rstp": false,
+                  "stp": {
+                    "enabled": false
+                  }
+                },
+                "port": [
+                  {
+                    "name": "br-ex"
+                  },
+                  {
+                    "name": "enp3s0"
+                  },
+                  {
+                    "name": "patch-br-ex_worker-1-to-br-int"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "br-ex",
+              "type": "ovs-interface",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:14",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.44",
+                    "prefix-length": 18
+                  },
+                  {
+                    "ip": "192.0.2.33",
+                    "prefix-length": 17
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": true,
+                "prefix-route-metric": 48
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "address": [
+                  {
+                    "ip": "2001:db8::56",
+                    "prefix-length": 64
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:15",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "enp10s0",
+              "type": "ethernet",
+              "state": "down",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:16",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": false,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              }
+            },
+            {
+              "name": "enp3s0",
+              "type": "ethernet",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:14",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "enp9s0",
+              "type": "ethernet",
+              "state": "down",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:17",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": false,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              }
+            },
+            {
+              "name": "genev_sys_6081",
+              "type": "unknown",
+              "state": "ignore",
+              "mac-address": "52:54:00:00:00:18"
+            },
+            {
+              "name": "lo",
+              "type": "loopback",
+              "state": "up",
+              "mtu": 65536,
+              "mac-address": "52:54:00:00:00:04",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.34",
+                    "prefix-length": 8
+                  }
+                ],
+                "enabled": true,
+                "forwarding": false
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "::1",
+                    "prefix-length": 128
+                  }
+                ],
+                "enabled": true
+              }
+            },
+            {
+              "name": "ovn-k8s-mp0",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:19",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.45",
+                    "prefix-length": 23
+                  }
+                ],
+                "enabled": true,
+                "forwarding": true
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "2001:db8::57",
+                    "prefix-length": 64,
+                    "protocol": "kernel_ll"
+                  }
+                ],
+                "enabled": true
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "patch-br-ex_worker-1-to-br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-ex"
+            },
+            {
+              "name": "patch-br-int-to-br-ex_worker-1",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-int"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "apiVersion": "nmstate.io/v1beta1",
+      "kind": "NodeNetworkState",
+      "metadata": {
+        "creationTimestamp": "2026-11-01T09:06:00Z",
+        "labels": {
+          "nmstate.io/force-nns-refresh": "1793932222993977738"
+        },
+        "name": "worker-2",
+        "uid": "b60dd430-a768-42b4-847e-c2a3c2b0c0a6"
+      },
+      "status": {
+        "currentState": {
+          "interfaces": [
+            {
+              "name": "br-ex",
+              "type": "ovs-bridge",
+              "state": "up",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "bridge": {
+                "options": {
+                  "datapath": "",
+                  "fail-mode": "",
+                  "mcast-snooping-enable": false,
+                  "rstp": false,
+                  "stp": {
+                    "enabled": false
+                  }
+                },
+                "port": [
+                  {
+                    "name": "br-ex"
+                  },
+                  {
+                    "name": "enp3s0"
+                  },
+                  {
+                    "name": "patch-br-ex_worker-2-to-br-int"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "br-ex",
+              "type": "ovs-interface",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:1a",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.46",
+                    "prefix-length": 18
+                  },
+                  {
+                    "ip": "192.0.2.33",
+                    "prefix-length": 17
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": true,
+                "prefix-route-metric": 48
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "address": [
+                  {
+                    "ip": "2001:db8::58",
+                    "prefix-length": 64
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": 48,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:1b",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "enp10s0",
+              "type": "ethernet",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:1c",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": false,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "address": [
+                  {
+                    "ip": "2001:db8::59",
+                    "prefix-length": 64
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              }
+            },
+            {
+              "name": "enp3s0",
+              "type": "ethernet",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:1a",
+              "ipv4": {
+                "enabled": false,
+                "forwarding": false
+              },
+              "ipv6": {
+                "enabled": false
+              },
+              "lldp": {
+                "enabled": false
+              },
+              "controller": "br-ex"
+            },
+            {
+              "name": "enp9s0",
+              "type": "ethernet",
+              "state": "up",
+              "mtu": 7950,
+              "min-mtu": 68,
+              "max-mtu": 7950,
+              "mac-address": "52:54:00:00:00:1d",
+              "ipv4": {
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true,
+                "forwarding": false,
+                "prefix-route-metric": -1
+              },
+              "ipv6": {
+                "addr-gen-mode": "stable-privacy",
+                "address": [
+                  {
+                    "ip": "2001:db8::60",
+                    "prefix-length": 64
+                  }
+                ],
+                "auto-dns": true,
+                "auto-gateway": true,
+                "auto-route-metric": -1,
+                "auto-route-table-id": 0,
+                "auto-routes": true,
+                "autoconf": true,
+                "dhcp": true,
+                "dhcp-send-hostname": true,
+                "enabled": true
+              },
+              "lldp": {
+                "enabled": false
+              }
+            },
+            {
+              "name": "genev_sys_6081",
+              "type": "unknown",
+              "state": "ignore",
+              "mac-address": "52:54:00:00:00:1e"
+            },
+            {
+              "name": "lo",
+              "type": "loopback",
+              "state": "up",
+              "mtu": 65536,
+              "mac-address": "52:54:00:00:00:04",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.34",
+                    "prefix-length": 8
+                  }
+                ],
+                "enabled": true,
+                "forwarding": false
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "::1",
+                    "prefix-length": 128
+                  }
+                ],
+                "enabled": true
+              }
+            },
+            {
+              "name": "ovn-k8s-mp0",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "mtu": 7850,
+              "min-mtu": 68,
+              "max-mtu": 65535,
+              "mac-address": "52:54:00:00:00:1f",
+              "ipv4": {
+                "address": [
+                  {
+                    "ip": "192.0.2.47",
+                    "prefix-length": 23
+                  }
+                ],
+                "enabled": true,
+                "forwarding": true
+              },
+              "ipv6": {
+                "address": [
+                  {
+                    "ip": "2001:db8::61",
+                    "prefix-length": 64,
+                    "protocol": "kernel_ll"
+                  }
+                ],
+                "enabled": true
+              },
+              "controller": "br-int"
+            },
+            {
+              "name": "patch-br-ex_worker-2-to-br-int",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-ex"
+            },
+            {
+              "name": "patch-br-int-to-br-ex_worker-2",
+              "type": "ovs-interface",
+              "state": "ignore",
+              "controller": "br-int"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "kind": "List"
+}

@@ -175,7 +175,7 @@ describe('NodeNetworkState list', () => {
         (iface) => !iface.lldp?.enabled,
       );
 
-      const SYSTEM_NAME = 'sw01-access-f1.tlv2.redhat.com';
+      const SYSTEM_NAME = 'redacted-system-name';
 
       cy.visit('/k8s/cluster/nmstate.io~v1beta1~NodeNetworkState');
 

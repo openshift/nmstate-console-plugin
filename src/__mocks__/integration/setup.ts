@@ -1,0 +1,12 @@
+import { afterAll, afterEach, beforeAll } from '@jest/globals';
+
+import { server } from './server';
+
+// An unexpected request means a component hit an endpoint the test did not declare:
+// fail loudly instead of rendering an undefined state.
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+afterEach(() => {
+  server.resetHandlers();
+  server.events.removeAllListeners();
+});
+afterAll(() => server.close());
