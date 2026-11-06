@@ -64,10 +64,7 @@ function processFile(fileName, language, i18nextToPo) {
       })
         .then(
           save(
-            path.join(
-              __dirname,
-              `./../po-files/${language}/${path.basename(fileName)}.po`,
-            ),
+            path.join(__dirname, `./../po-files/${language}/${path.basename(fileName)}.po`),
             language,
           ),
         )
