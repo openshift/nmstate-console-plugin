@@ -3,7 +3,6 @@ import React, { FC, ReactNode } from 'react';
 import {
   Breadcrumb,
   BreadcrumbItem,
-  DescriptionListTerm,
   DescriptionListTermHelpTextButton,
   Popover,
 } from '@patternfly/react-core';
@@ -67,8 +66,8 @@ export const DetailItemHeader: FC<DetailItemHeaderProps> = ({
   }
 
   return (
-    <DescriptionListTerm className="DescriptionItemHeader--list-term">
+    <span className="DescriptionItemHeader--list-term">
       {descriptionHeader} {label}
-    </DescriptionListTerm>
+    </span>
   );
 };
