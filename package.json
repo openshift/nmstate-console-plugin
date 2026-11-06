@@ -16,6 +16,7 @@
     "cypress": "cypress run --browser electron",
     "cypress:open": "cypress open",
     "i18n": "./i18n-scripts/build-i18n.sh && node ./i18n-scripts/set-english-defaults.js",
+    "i18n:check": "./scripts/check-i18n.sh",
     "lint": "eslint --max-warnings=0 . && prettier --ignore-unknown --check .",
     "lint:fix": "eslint --max-warnings=0 --fix . && prettier --ignore-unknown --write .",
     "test": "jest",
