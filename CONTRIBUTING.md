@@ -76,15 +76,37 @@ Export it from `src/console-models/index.ts` and use `@models` to import.
 
 ## Testing
 
+Three layers, cheapest first — put each test in the lowest layer that can express the
+failure. [docs/testing.md](docs/testing.md) describes the integration harness, the fixture
+re-record procedure and the coverage invocation in full.
+
 ### Unit tests (Jest)
 
 ```bash
-npm test                    # Run all tests
+npm test                    # Both Jest projects plus the sanitizer tests
 npm run test:coverage       # Run with coverage report
 npm run test:updateSnapshot # Update snapshots
 ```
 
-Tests live alongside source files as `*.test.ts(x)` or `*.spec.ts(x)`. The SDK and i18n are mocked via `src/__mocks__/`.
+Unit tests are `*.test.ts(x)` / `*.spec.ts(x)`; integration tests are
+`*.integration.test.tsx`. `jest.config.ts` declares both as projects, so `npm test` runs
+them in one invocation with different module maps. The SDK is mocked via `src/__mocks__/`, and
+i18next is initialized from the English catalog in `src/__mocks__/i18n.ts`.
+
+### Integration tests (Jest + React Testing Library + MSW)
+
+Integration tests render the real component tree with test doubles for the dynamic-plugin SDK
+and `react-router`; the network is the only boundary stubbed at the transport level, and MSW
+answers the console-proxy requests the SDK double issues, using payloads recorded from a live
+cluster in `src/__mocks__/integration/recordings/`.
+
+```bash
+npx jest --selectProjects unit          # Unit project only
+npx jest --selectProjects integration   # Integration project only
+```
+
+A healthy run prints no console output. React, PatternFly, MSW or YAML warnings are defects
+in the test or the markup — fix them rather than accepting the warning.
 
 ### E2E tests (Cypress)
 
@@ -99,7 +121,12 @@ E2E specs live in `cypress/e2e/`. Tests run against http://localhost:9000 by def
 
 - New components: at minimum, test that they render without errors
 - Utility functions: test edge cases and expected transformations
+- Integration: when an API payload's shape decides what the user sees — list filtering,
+  drawers, wizard steps, create/update request bodies
 - E2E: cover user-facing workflows for new views or significant UI changes
+
+Behaviour that needs a real cluster — apply/converge semantics, RBAC, the console shell —
+belongs in the `kubevirt-ui` Playwright suite, not here.
 
 ## Pull Request Process
 

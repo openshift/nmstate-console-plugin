@@ -153,11 +153,17 @@ oc patch consoles.operator.openshift.io cluster \
 ## Testing
 
 ```bash
-npm test                 # Jest unit tests
+npm test                 # Jest unit + integration tests
 npm run test:coverage    # Jest with coverage report
 npm run cypress          # Cypress e2e (headless Chrome)
 npm run cypress:open     # Cypress interactive mode
 ```
+
+Unit tests (`src/**/*.{test,spec}.{ts,tsx}`, excluding `*.integration.test.*`) run without
+network access. Integration tests (`src/**/*.integration.test.{ts,tsx}`) render the real
+component tree and let MSW answer the console-proxy requests with Kubernetes fixtures. The
+three test layers, the integration harness and the fixture re-record procedure are described
+in [docs/testing.md](docs/testing.md).
 
 ## Contributing
 
