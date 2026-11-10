@@ -53,7 +53,7 @@ const PolicyFormOVSBridgeMappingExpandable: FC<PolicyFormOVSBridgeMappingExpanda
               {t('OVN localnet name')}
             </Title>
             <TextInput
-              value={bridgeMapping?.localnet}
+              value={bridgeMapping?.localnet ?? ''}
               onChange={onChange(index, 'localnet')}
               isRequired
             />
@@ -63,7 +63,7 @@ const PolicyFormOVSBridgeMappingExpandable: FC<PolicyFormOVSBridgeMappingExpanda
               {t('OVS bridge name')}
             </Title>
             <TextInput
-              value={bridgeMapping?.bridge}
+              value={bridgeMapping?.bridge ?? ''}
               onChange={onChange(index, 'bridge')}
               isRequired
             />

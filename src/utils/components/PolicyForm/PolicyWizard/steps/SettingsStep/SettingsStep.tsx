@@ -73,7 +73,7 @@ const SettingsStep: FC<ConfigurationStepProps> = ({ policy, setPolicy }) => {
               type="text"
               id="bridge-name"
               name="bridge-name"
-              value={getInterfaceName(policy)}
+              value={getInterfaceName(policy) ?? ''}
               onChange={(_, newBridgeName) => handleBridgeNameChange(newBridgeName)}
             />
             <FormGroupHelperText showOnError validated={nameValidation}>
@@ -100,7 +100,7 @@ const SettingsStep: FC<ConfigurationStepProps> = ({ policy, setPolicy }) => {
               name="mtu"
               placeholder={mtuPlaceholder}
               validated={mtuValidation}
-              value={currentMTU}
+              value={currentMTU ?? ''}
               onChange={(_, newMTU) => handleMTUChange(newMTU)}
             />
             <FormGroupHelperText showOnError validated={mtuValidation}>

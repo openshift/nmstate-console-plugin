@@ -16,7 +16,7 @@ const useStateColumns = (): TableColumn<K8sResourceCommon>[] => {
     {
       title: '',
       id: '',
-      props: { className: 'pf-m-width-10' },
+      props: { className: 'pf-m-width-10', screenReaderText: t('Row expansion') },
     },
     {
       title: t('Name'),

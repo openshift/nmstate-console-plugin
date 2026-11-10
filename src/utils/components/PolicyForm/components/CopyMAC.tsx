@@ -36,7 +36,7 @@ const CopyMAC: FC<CopyMACProps> = ({ id, policyInterface, onInterfaceChange }) =
 
         <FormGroup label={t('Port name')} fieldId={`copy-mac-port-${id}`}>
           <TextInput
-            value={policyInterface?.['copy-mac-from']}
+            value={policyInterface?.['copy-mac-from'] ?? ''}
             type="text"
             id={`policy-interface-copy-mac-from-${id}`}
             onChange={onPortChange}

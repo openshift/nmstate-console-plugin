@@ -62,7 +62,8 @@ const PortConfiguration: FC<PortConfigurationProps> = ({
       <TextInput
         value={
           policyInterface?.bridge?.port?.[0]?.name ||
-          policyInterface?.['link-aggregation']?.port?.join(',')
+          policyInterface?.['link-aggregation']?.port?.join(',') ||
+          ''
         }
         type="text"
         id={`policy-interface-port-${id}`}

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
 import {
   CHASSIS_ID,
@@ -54,12 +54,12 @@ const NeighborInformations: FC<{ neighbor: NodeNetworkConfigurationInterfaceLLDP
         <StackItem>
           <strong>{t('VLANS')}</strong>:{' '}
           {iee8021Vlans?.map((vlan, index) => (
-            <>
-              <Tooltip content={vlan.name} key={vlan.vid}>
+            <Fragment key={vlan.vid}>
+              <Tooltip content={vlan.name}>
                 <span>{vlan.vid}</span>
               </Tooltip>
               {index !== iee8021Vlans.length - 1 ? ', ' : ''}
-            </>
+            </Fragment>
           ))}
         </StackItem>
       )}

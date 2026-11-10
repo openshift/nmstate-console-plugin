@@ -10,7 +10,6 @@ import {
 import { RedExclamationCircleIcon } from '@openshift-console/dynamic-plugin-sdk';
 import {
   Checkbox,
-  Content,
   Dropdown,
   DropdownItem,
   DropdownList,
@@ -125,7 +124,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
           isRequired
           id={`policy-interface-name-${id}`}
           name={`policy-interface-name-${id}`}
-          value={policyInterface?.name}
+          value={policyInterface?.name ?? ''}
           onChange={(_, newValue) => handleNameChange(newValue)}
           isDisabled={isInterfaceCreated}
         />
@@ -215,7 +214,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
         <FormGroup fieldId={`policy-interface-stp-${id}`}>
           <Checkbox
             label={
-              <Content component="p">
+              <span>
                 {t('Enable STP')}{' '}
                 {isInterfaceCreated && (
                   <Popover
@@ -225,7 +224,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
                     <HelpIcon />
                   </Popover>
                 )}
-              </Content>
+              </span>
             }
             id={`policy-interface-stp-${id}`}
             isChecked={policyInterface?.bridge?.options?.stp?.enabled !== false}

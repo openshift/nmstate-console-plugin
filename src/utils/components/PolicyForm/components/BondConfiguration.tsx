@@ -47,7 +47,7 @@ const BondConfiguration: FC<BondConfigurationProps> = ({
         <FormSelect
           id={`policy-interface-aggregation-${id}`}
           onChange={handleAggregationChange}
-          value={policyInterface?.['link-aggregation']?.mode}
+          value={policyInterface?.['link-aggregation']?.mode ?? ''}
         >
           {Object.entries(NodeNetworkConfigurationInterfaceBondMode).map(([key, value]) => (
             <FormSelectOption key={key} value={value} label={value} />
