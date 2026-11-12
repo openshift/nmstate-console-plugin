@@ -17,3 +17,8 @@ export class Dummy extends Error {
 export function useResolvedExtensions(): unknown[] {
   return [undefined, undefined, undefined];
 }
+
+/** Console-internal telemetry entry point used by `@utils/telemetry/telemetry`. */
+export function getSegmentAnalytics(): { track: () => void } {
+  return { track: () => undefined };
+}
