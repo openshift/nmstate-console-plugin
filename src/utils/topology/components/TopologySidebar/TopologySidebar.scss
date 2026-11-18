@@ -15,11 +15,76 @@
 
   .pf-v6-c-drawer__panel-main {
     padding-block-end: 0;
-    > .pf-v6-c-drawer__body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    // The wrapper div inside DrawerPanelContent
+    > div {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pf-v6-c-drawer__head {
+      flex-shrink: 0;
+    }
+
+    .pf-v6-c-drawer__body {
       padding-block-start: 0;
       padding-block-end: 0;
       padding-inline-start: 0;
       padding-inline-end: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+  }
+
+  &__create-policy-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  &__sidebar__success-alert {
+    flex-shrink: 0;
+  }
+
+  // Make the NNCP wizard take full height when in drawer
+  .nmstate-policy-wizard {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+
+    .pf-v6-c-wizard {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+
+      .pf-v6-c-wizard__outer-wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      .pf-v6-c-wizard__main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      .pf-v6-c-wizard__main-body {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+      }
     }
   }
 }

@@ -21,6 +21,7 @@ import { Popover } from '@patternfly/react-core';
 import {
   SELECTION_EVENT,
   TopologyView,
+  useVisualizationController,
   Visualization,
   VisualizationProvider,
   VisualizationSurface,
@@ -45,6 +46,11 @@ import { transformDataToTopologyModel } from '@utils/topology/utils/utils';
 import TopologyToolbar from './components/TopologyToolbar/TopologyToolbar';
 
 import '@utils/topology/components/TopologySidebar/TopologySidebar.scss';
+
+const TopologyControlBarWrapper: FC = () => {
+  const controller = useVisualizationController();
+  return <ControlBar controller={controller} />;
+};
 
 const Topology: FC = () => {
   useSignals();
@@ -172,7 +178,7 @@ const Topology: FC = () => {
             setSelectedNodeFilters={setSelectedNodeFilters}
           />
         }
-        controlBar={<ControlBar controller={visualization} />}
+        controlBar={<TopologyControlBarWrapper />}
       >
         <TopologyDrawer states={states}>
           <VisualizationSurface state={queryParams} />

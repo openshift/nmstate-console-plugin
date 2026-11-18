@@ -94,16 +94,18 @@ const CreatePolicyDrawer: FC<CreatePolicyDrawerProps> = ({
   };
 
   return (
-    <PolicyWizard
-      policy={policy}
-      setPolicy={setPolicy}
-      createAnotherPolicyState={createAnotherPolicyState}
-      onSubmit={onSubmit}
-      onClose={closeDrawer}
-      onStepChange={(stepId) => {
-        currentStepId.current = stepId;
-      }}
-    />
+    <div className="nmstate-topology__create-policy-wrapper">
+      <PolicyWizard
+        policy={policy}
+        setPolicy={setPolicy}
+        createAnotherPolicyState={createAnotherPolicyState}
+        onSubmit={onSubmit}
+        onClose={closeDrawer}
+        onStepChange={(stepId) => {
+          currentStepId.current = stepId;
+        }}
+      />
+    </div>
   );
 };
 
