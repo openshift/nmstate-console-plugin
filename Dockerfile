@@ -7,6 +7,7 @@ WORKDIR /opt/app-root/src/app
 
 # Run install as supper tux
 USER 0
+ENV NODE_ENV=production
 RUN npm ci && \
     npm install --no-save @esbuild/linux-x64 && \
     npm run build
