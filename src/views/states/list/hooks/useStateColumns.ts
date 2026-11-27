@@ -19,7 +19,7 @@ const useStateColumns = (): [
     {
       title: '',
       id: '',
-      props: { className: 'pf-m-width-10' },
+      props: { className: 'pf-m-width-10', screenReaderText: t('Row expansion') },
     },
     {
       title: t('Name'),

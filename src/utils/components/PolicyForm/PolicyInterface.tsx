@@ -197,7 +197,7 @@ const PolicyInterface: FC<PolicyInterfaceProps> = ({
           isRequired
           id={`policy-interface-name-${id}`}
           name={`policy-interface-name-${id}`}
-          value={policyInterface?.name}
+          value={policyInterface?.name ?? ''}
           onChange={(_, newValue) => handleNameChange(newValue)}
           isDisabled={isInterfaceCreated}
         />
