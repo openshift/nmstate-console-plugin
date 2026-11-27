@@ -1,0 +1,29 @@
+{
+  "apiVersion": "nmstate.io/v1",
+  "kind": "NodeNetworkConfigurationPolicy",
+  "metadata": {
+    "annotations": {
+      "nmstate.io/webhook-mutating-timestamp": "1793974395182730163"
+    },
+    "creationTimestamp": "2026-11-06T14:13:15Z",
+    "generation": 1,
+    "name": "pw-int-uplink",
+    "uid": "06bdbce8-cf20-4f31-b1a8-1897f9082e6f"
+  },
+  "spec": {
+    "desiredState": {
+      "interfaces": [],
+      "ovn": {
+        "bridge-mappings": [
+          {
+            "bridge": "br-ex",
+            "localnet": ""
+          }
+        ]
+      }
+    },
+    "nodeSelector": {
+      "nmstate.io/int-fixture": "absent"
+    }
+  }
+}

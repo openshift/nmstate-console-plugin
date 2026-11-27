@@ -1,2 +1,6 @@
 node_modules
 dist
+# Prettier 2 / the TS ESLint parser on this branch cannot parse import attributes
+# (`with { type: 'json' }`) required by the Jest ESM integration project.
+**/*.integration.test.tsx
+src/__mocks__/integration/i18n.ts

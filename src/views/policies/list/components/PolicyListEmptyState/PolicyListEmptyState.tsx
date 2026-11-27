@@ -16,7 +16,7 @@ import {
   EmptyStateVariant,
   Title,
 } from '@patternfly/react-core';
-import ExternalLinkSquareAltIcon from '@patternfly/react-icons/dist/esm/icons/external-link-square-alt-icon';
+import { ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
 
 import { NODE_NETWORK_POLICY_DOCUMENTATION_URL } from './constants';
 

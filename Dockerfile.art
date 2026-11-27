@@ -7,6 +7,7 @@ COPY $REMOTE_SOURCES $REMOTE_SOURCES_DIR
 WORKDIR /opt/app-root/src/app
 
 USER 0
+ENV NODE_ENV=production
 RUN npm ci && npm run build
 
 # Web server container
